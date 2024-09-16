@@ -93,49 +93,49 @@ if(empty($id)){
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=3">Духовенство</a>
+        <a class="" href="clergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
+        <a class="" href="#">История</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
+        <a class="" href="#">Святыни</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
+        <a class="" href="#">Роспись</a>
     </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'">
     <li class="inline-block mr1">
-        <a href="/site/article?id=6">Воскресная школа</a>
+        <a href="#">Воскресная школа</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=7">Молодежный центр</a>
+        <a href="#">Молодежный центр</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=8">Библиотека</a>
+        <a href="#">Библиотека</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=9">Социальная деятельность</a>
+        <a href="#">Социальная деятельность</a>
     </li>
 </ul>
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
     <li class="inline-block mr1">
-        <a href="/site/article?id=10">Крещение</a>
+        <a href="christening.php">Крещение</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=11">Венчание</a>
+        <a href="wedding.php">Венчание</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=12">Исповедь</a>
+        <a href="confession.php">Исповедь</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=13">Причастие</a>
+        <a href="eucharist.php">Причастие</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=184">Соборование</a>
+        <a href="unction.php">Соборование</a>
     </li>
 </ul>
 
