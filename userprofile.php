@@ -78,8 +78,8 @@ body{
   <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
     <div class="clearfix p1">
         <div class="desk-logo-wrap mx-auto block">
-            <amp-img class="" src="/files/logo-color.png" width="1024" height="540" layout="responsive">
-            <h1 style="font-family: Calibri; font-weight: bold; text-align: center; margin-bottom: 25%; margin-top:0;">Логотип</h1>
+            <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive">
+            <!--<h1 style="font-family: Calibri; font-weight: bold; text-align: center; margin-bottom: 25%; margin-top:0;">Логотип</h1>-->
         </div>
     </div>
     <div class="clearfix">
