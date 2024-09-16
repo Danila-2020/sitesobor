@@ -175,7 +175,7 @@ $mysqli->set_charset("utf8");
         </li>
     </ul>
 <?php
-        $result = $mysqli->query("SELECT scedule.id_scedule, scedule.titlescedule, scedule.imagescedule, scedule.sstatus, scedule.id_uprofile, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic FROM `scedule` INNER JOIN `uprofile` ON scedule.id_uprofile = uprofile.id_uprofile WHERE 1=1");
+        $result = $mysqli->query("SELECT scedule.id_scedule, scedule.titlescedule, scedule.imagescedule, scedule.sstatus, scedule.id_uprofile, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic FROM `scedule` INNER JOIN `uprofile` ON scedule.id_uprofile = uprofile.id_uprofile WHERE 1=1 AND `scedule`.`sstatus` = 'active'");
         while($row = $result->fetch_array()){
                 ?>
         <ul class="list-reset breadcrumbs">
