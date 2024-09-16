@@ -179,7 +179,7 @@ if(empty($id)){
     <div class="clearfix">
 
             <div class="md-col md-col-12 lg-col-12 p2">
-                <h2>Публикации</h2>
+                <h2>Публикации тест</h2>
                         <?php
                         $query = ("SELECT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, 
                         `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`,
@@ -225,7 +225,6 @@ if(empty($id)){
                             ?>
                         </form>
             </div>
-            <p>Абзац</p>
 
     </div>
   </div>
