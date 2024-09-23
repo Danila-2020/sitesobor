@@ -35,40 +35,7 @@ body{
     </amp-analytics>
 
     
-<div class="relative page-wrap"><!-- page-wrap -->
-<!--    <div class="fixed bg-video-wrap">
-        <div class="video-wrap xs-hide sm-hide">
-            <amp-video width="1280"
-                height="720"
-            src="https://blago-kavkaz.ru/from_sky.m4v"
-            poster="/img/static-bg.jpg"
-            layout="responsive"
-            loop
-            noaudio
-            autoplay>
-                <div fallback>
-                    <p>Your browser doesn not support HTML5 video.</p>
-                </div>
-            </amp-video>
-        </div>
-    </div>-->
-<!--    <div class="fixed bg-video-wrap-mob">
-        <div class="video-wrap-mob md-hide lg-hide">
-            <amp-video width="406"
-                height="720"
-            src="https://blago-kavkaz.ru/from_sky_phone_na.m4v"
-            poster="/img/mob-poster.jpg"
-            layout="responsive"
-            loop
-            noaudio
-            autoplay>
-                <div fallback>
-                    <p>Your browser doesn not support HTML5 video.</p>
-                </div>
-            </amp-video>
-        </div>
-    </div>-->
-
+<div class="relative page-wrap">
 <div class="content-wrap relative"><!-- content-wrap -->
     <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
       <div class="land-see-hero-main mx-auto"></div>
@@ -83,9 +50,8 @@ body{
         </div>
     </div>
     <div class="clearfix">
-            <!--<h1 class="hide h2 center">Спасский Кафедральный собор Пятигорска</h1>-->
+            <!--Тут заголовок-->
 
-            
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
         <a href="sceduleuploader.php">Расписание богослужений</a>
@@ -123,9 +89,6 @@ body{
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=1">История</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=5">Роспись</a>
     </li>
@@ -166,65 +129,6 @@ body{
 </ul>
 
 <hr>
-
-<!--<ul class="mx-auto center list-reset social-icons-wrap">
-    <!--<li class="inline-block mr1">
-        <a href="https://instagram.com/soborvpyatigorske" target="_blank">
-            <i class="fab fa-instagram fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block mr1">
-        <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="https://www.flickr.com/people/157787163@N07/" target="_blank">
-            <i class="fab fa-flickr fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">
-            <i class="fab fa-soundcloud fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block">
-        <a href="https://www.facebook.com/soborvpyatigorske/" target="_blank">
-            <i class="fab fa-facebook-f fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block">
-        <a href="https://t.me/soborvpyatigorske" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>-->
-
-
-
-        <!--<amp-video width="1280"
-            height="720"
-            src="https://blago-kavkaz.ru/from_sky.m4v"
-            poster="/img/static-bg.jpg"
-            layout="responsive"
-            loop
-            noaudio
-            autoplay>
-                <div fallback>
-                    <p>Your browser doesn not support HTML5 video.</p>
-                </div>
-        </amp-video>-->
-            <!--<amp-iframe
-            layout="responsive"
-            sandbox="allow-scripts allow-same-origin allow-popups"
-            height="500"
-            width="600"
-            allowfullscreen
-            mozallowfullscreen
-            webkitallowfullscreen
-            src="https://pano.parsuna.ru/embed/spasptg?startscene=scene_inside-6441&startactions=lookat(-118.93,-37.83,122.59,0,0);">
-                <amp-img layout="fill" src="/img/3d-view-placeholder.png" width="1920" height="1080" placeholder></amp-img>
-            </amp-iframe>-->
     </div>
     
     <div class="container" style="margin-top:30px">
@@ -265,23 +169,9 @@ body{
             <hr class="d-sm-none">
           </div>
           <div class="col-sm-4">
-            <!--<h2>TITLE HEADING</h2>
-            <h5>Title description, Dec 7, 2017</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-            <br>
-            <h2>TITLE HEADING</h2>
-            <h5>Title description, Sep 2, 2017</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>-->
           </div>
         </div>
       </div>
-
-
-
 
 <?php
 include('template/footer.php');

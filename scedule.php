@@ -5,7 +5,6 @@ $mysqli->set_charset("utf8");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--<link rel="canonical" href="http://spasskiy-sobor.ru/site/article?id=10">-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -149,31 +148,16 @@ $mysqli->set_charset("utf8");
     <hr>
     
     <ul class="mx-auto center list-reset social-icons-wrap">
-        <!--<li class="inline-block mr1">
-            <a href="https://instagram.com/soborvpyatigorske" target="_blank">
-                <i class="fab fa-instagram fa-lg"></i>
-            </a>
-        </li>-->
         <li class="inline-block mr1">
-            <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank"><!--https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg-->
+            <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
                 <i class="fab fa-youtube fa-lg"></i>
             </a>
         </li>
-        <!--<li class="inline-block mr1">
-            <a href="https://www.flickr.com/people/157787163@N07/" target="_blank">
-                <i class="fab fa-flickr fa-lg"></i>
-            </a>
-        </li>-->
         <li class="inline-block mr1">
             <a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">
                 <i class="fab fa-soundcloud fa-lg"></i>
             </a>
         </li>
-        <!--<li class="inline-block">
-            <a href="https://www.facebook.com/soborvpyatigorske/" target="_blank">
-                <i class="fab fa-facebook-f fa-lg"></i>
-            </a>
-        </li>-->
         <li class="inline-block">
             <a href="https://t.me/soborvpyatigorske" target="_blank">
                 <i class="fab fa-telegram fa-lg"></i>
@@ -233,7 +217,7 @@ $mysqli->set_charset("utf8");
             </div><!-- full-width-wrap-end -->
         </div><!-- content-wrap-end -->
     </div>
-    
+    <!--Тут подключаем Футер-->
     <?php
     include('template\footer2.php');
     ?>

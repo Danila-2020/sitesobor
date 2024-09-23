@@ -19,12 +19,6 @@ session_start();
                     $result = $mysqli->query($query);
                     $result->free();
                     $mysqli->close();
-                    //INSERT INTO `scedule`
-                   //(`titlescedule`, `imagescedule`, `id_uprofile`)
-                    // VALUES 
-                    // ('Неделя 12 - по Пятидесятнице','ELfLI423qIJDjL9RnsKcbyBiPfUl+MopB6ovBH9iWMUeJs7VPEgU4QrI7lnetddKaXGBTKZLapeBUn2K5kyJjA==',1)
-                /*    $mysqli->query($query);*/
-                    //var_dump($query);
                 };
             };
             echo("<script>alert('Расписание загружено!!!')</script>");

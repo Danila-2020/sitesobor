@@ -885,7 +885,6 @@ ul.breadcrumbs li:last-child:after { background: none; }
     </li>
 </ul>
 
-<!--<hr>-->
 <div class="site-article">
     <div class="content-wrap"><!-- content-wrap -->
         <div class="max-width-4 mx-auto p2"><!-- full-width-wrap -->
@@ -895,27 +894,21 @@ ul.breadcrumbs li:last-child:after { background: none; }
 
 <ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
-        <a href="#" target="_blank"><!--https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg-->
+        <a href="#" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
         </a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a href="https://www.flickr.com/people/157787163@N07/" target="_blank">
-            <i class="fab fa-flickr fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block mr1">
-        <a href="#" target="_blank"><!--https://soundcloud.com/rdyxfnx53xwp-->
+        <a href="#" target="_blank">
             <i class="fab fa-soundcloud fa-lg"></i>
         </a>
     </li>
     <li class="inline-block">
-        <a href="#" target="_blank"><!--https://t.me/soborvpyatigorske-->
+        <a href="#" target="_blank">
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
 </ul>
-
 
             <ul class="list-reset breadcrumbs">
                     <li class="inline-block mr1">
@@ -936,13 +929,6 @@ ul.breadcrumbs li:last-child:after { background: none; }
 
                 <div class="form-wrap">
                     <form method="post" action="" target="_top" class="amp-form i-amphtml-form" novalidate="">
-                        <!--<div class="alert alert-dark" submit-success>
-                            <template type="amp-mustache">{{message}}</template>
-                        </div>
-                        <div class="alert alert-danger" submit-error>
-                            <template type="amp-mustache">Ошибка!</template>
-                        </div>-->
-
                         <div class="clearfix">
                             <div class="md-col md-col-2 mb2">
                                 <label>Поминовение:</label>
@@ -990,10 +976,8 @@ ul.breadcrumbs li:last-child:after { background: none; }
                             </div>
                         </div>
 
-
                         <div class="clearfix">
                             <div class="col-12 text-center mb2">
-                                <!--<button class="btn rounded px1 border bg-sky" name="submit" type="submit">Заказать поминование</button>-->
                                 <button type="submit" name="submit" class="btn btn-primary"><b>Заказать поминование</b></button>
                             </div>
 
@@ -1027,8 +1011,6 @@ ul.breadcrumbs li:last-child:after { background: none; }
                         ?>
                   <?php echo('</form>')?>
                   <?php echo('</div>')?>
-                
-
     <?php
     include('template/footer2.php');
     ?>

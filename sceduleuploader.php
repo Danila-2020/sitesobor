@@ -77,7 +77,6 @@ if(empty($id)){
             <td>Действие</td>
         </tr>
         <?php
-        //$querys = $query;//Встъебеню куда незнаю
         if(isset($_POST['submit'])){
             $sstatus = $_POST['sstatus'];
             if($sstatus == "active"){

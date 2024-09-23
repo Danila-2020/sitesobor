@@ -871,7 +871,7 @@ ul.breadcrumbs li:last-child:after { background: none; }
         <a href="wedding.php">Венчание</a>
     </li>
     <li class="inline-block mr1">
-        <a href="сonfession.php">Исповедь</a>
+        <a href="#">Исповедь</a>
     </li>
     <li class="inline-block mr1">
         <a href="eucharist.php">Причастие</a>
@@ -884,11 +884,6 @@ ul.breadcrumbs li:last-child:after { background: none; }
 <hr>
 
 <ul class="mx-auto center list-reset social-icons-wrap">
-    <!--<li class="inline-block mr1">
-        <a href="https://instagram.com/soborvpyatigorske" target="_blank">
-            <i class="fab fa-instagram fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block mr1">
         <a href="" target="_blank">
             <!--https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg-->
@@ -940,31 +935,11 @@ ul.breadcrumbs li:last-child:after { background: none; }
 <div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
     
 <ul class="mx-auto center list-reset social-icons-wrap">
-    <!--<li class="inline-block mr1">
-        <a href="https://instagram.com/soborvpyatigorske" target="_blank">
-            <i class="fab fa-instagram fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block mr1">
         <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
         </a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a href="https://www.flickr.com/people/157787163@N07/" target="_blank">
-            <i class="fab fa-flickr fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block mr1">
-        <a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">
-            <i class="fab fa-soundcloud fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block">
-        <a href="https://www.facebook.com/soborvpyatigorske/" target="_blank">
-            <i class="fab fa-facebook-f fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block">
         <a href="https://t.me/soborvpyatigorske" target="_blank">
             <i class="fab fa-telegram fa-lg"></i>

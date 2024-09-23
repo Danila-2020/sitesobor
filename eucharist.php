@@ -793,9 +793,6 @@ ul.breadcrumbs li:last-child:after { background: none; }
 .block-center { margin-left: auto; margin-right: auto; }    
     </style>
     <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <!--<meta name="csrf-param" content="_csrf-frontend">
-    <meta name="csrf-token" content="d1hbQfdU7Io0AZ-BqiENSvmVtbizA1Odfcmb6j4w7g0_aWowvx2W-FxX8sbkYjh5sNLs9N8uGK82r-mnCFrcOA==">-->
-
 <script src="https://cdn.ampproject.org/v0.js" async="async"></script>
 <script src="https://cdn.ampproject.org/v0/amp-bind-0.1.js" async="async" custom-element="amp-bind"></script>
 <script src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" async="async" custom-element="amp-analytics"></script></head>
@@ -884,20 +881,13 @@ ul.breadcrumbs li:last-child:after { background: none; }
 <hr>
 
 <ul class="mx-auto center list-reset social-icons-wrap">
-    <!--<li class="inline-block mr1">
-        <a href="https://instagram.com/soborvpyatigorske" target="_blank">
-            <i class="fab fa-instagram fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block mr1">
         <a href="" target="_blank">
-            <!--https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg-->
             <i class="fab fa-youtube fa-lg"></i>
         </a>
     </li>
     <li class="inline-block">
         <a href="" target="_blank">
-            <!--https://t.me/soborvpyatigorske-->
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
@@ -940,31 +930,11 @@ ul.breadcrumbs li:last-child:after { background: none; }
 <div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
     
 <ul class="mx-auto center list-reset social-icons-wrap">
-    <!--<li class="inline-block mr1">
-        <a href="https://instagram.com/soborvpyatigorske" target="_blank">
-            <i class="fab fa-instagram fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block mr1">
         <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
         </a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a href="https://www.flickr.com/people/157787163@N07/" target="_blank">
-            <i class="fab fa-flickr fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block mr1">
-        <a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">
-            <i class="fab fa-soundcloud fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block">
-        <a href="https://www.facebook.com/soborvpyatigorske/" target="_blank">
-            <i class="fab fa-facebook-f fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block">
         <a href="https://t.me/soborvpyatigorske" target="_blank">
             <i class="fab fa-telegram fa-lg"></i>

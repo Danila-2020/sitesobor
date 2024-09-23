@@ -885,7 +885,6 @@ ul.breadcrumbs li:last-child:after { background: none; }
     </li>
 </ul>
 
-<!--<hr>-->
 <div class="site-article">
     <div class="content-wrap"><!-- content-wrap -->
         <div class="max-width-4 mx-auto p2"><!-- full-width-wrap -->
@@ -895,22 +894,17 @@ ul.breadcrumbs li:last-child:after { background: none; }
 
 <ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
-        <a href="#" target="_blank"><!--https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg-->
+        <a href="#" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
         </a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a href="https://www.flickr.com/people/157787163@N07/" target="_blank">
-            <i class="fab fa-flickr fa-lg"></i>
-        </a>
-    </li>-->
     <li class="inline-block mr1">
-        <a href="#" target="_blank"><!--https://soundcloud.com/rdyxfnx53xwp-->
+        <a href="#" target="_blank">
             <i class="fab fa-soundcloud fa-lg"></i>
         </a>
     </li>
     <li class="inline-block">
-        <a href="#" target="_blank"><!--https://t.me/soborvpyatigorske-->
+        <a href="#" target="_blank">
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
@@ -933,13 +927,6 @@ ul.breadcrumbs li:last-child:after { background: none; }
 
                 <div class="form-wrap">
                     <form method="post" action=""  class="amp-form"><!--target="_blank"-->
-                        <!--<div class="alert alert-dark" submit-success>
-                            <template type="amp-mustache">{{message}}</template>
-                        </div>
-                        <div class="alert alert-danger" submit-error>
-                            <template type="amp-mustache">Ошибка!</template>
-                        </div>-->
-
                         <div class="clearfix">
                             <div class="md-col md-col-2 mb2">
                                 <label>Ваше имя:</label>
@@ -964,16 +951,11 @@ ul.breadcrumbs li:last-child:after { background: none; }
                                 <textarea class="rounded col-12 fit input" name="umessage" rows="6"></textarea>
                             </div>
                         </div>
-                            <!--<div class="clearfix">
-                                <amp-recaptcha-input layout="nodisplay" name="reCaptchaBodyKey" data-sitekey="6Lf16qIUAAAAANl7obBnykV26uCR1Z-ievgoJRNy" data-action="contactForm"></amp-recaptcha-input>
-                            </div>-->
                             <div class="clearfix">
                             <div class="col-12 text-center">
-                                <!--<button class="btn rounded px1 border bg-sky" type="submit" name="submit">Отправить</button>-->
                                 <button type="submit" name="submit" class="btn btn-outline-primary">Отправить</button>
                             </div>
                         </div>
-                        <!--<input type="hidden" name="_csrf-frontend" value="33by4UQpZATpUpfjziaVEdCo6rHp5g6s5EAI0gxz8EKTW7O4Kk40dYYA7a6JC9somcOQ5bvQdvbJeV6bewWpLg=="> -->
                         <?php
                             if(isset($_POST['submit'])){
                                 $uname = $_POST['uname'];

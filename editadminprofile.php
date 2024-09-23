@@ -25,7 +25,6 @@ if(isset($_POST['submit'])){
     `uphone`='$uphone',
     `uvisible`=1 WHERE `id_uprofile` = $id");
     $result = $mysqli->query($query);
-    //var_dump($query);
     header('Location: adminprofile.php');
 };
 ?>
