@@ -1,6 +1,5 @@
 <?php 
-$mysqli = new mysqli('localhost','root','','sobor');
-$mysqli->set_charset("utf8");
+require_once('bd.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +101,7 @@ $mysqli->set_charset("utf8");
     
     <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
         <li class="inline-block mr1">
-            <a class="" href="#">Духовенство</a>
+            <a class="" href="clergy.php">Духовенство</a>
         </li>
         <li class="inline-block mr1">
             <a class="" href="#">История</a>
@@ -135,7 +134,7 @@ $mysqli->set_charset("utf8");
         <a href="wedding.php">Венчание</a>
     </li>
     <li class="inline-block mr1">
-        <a href="сonfession.php">Исповедь</a>
+        <a href="confession.php">Исповедь</a>
     </li>
     <li class="inline-block mr1">
         <a href="eucharist.php">Причастие</a>
