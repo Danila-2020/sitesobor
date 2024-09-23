@@ -1,5 +1,6 @@
 <?php 
 require_once('bd.php');
+session_start();//Тут идёт session_start, он наверное не нужен
 ?>
 <!DOCTYPE html>
 <html lang="en">
