@@ -14,6 +14,12 @@ $mysqli->set_charset("utf8");
     <link rel="apple-touch-icon" href="/57x57/files/sobor-small-rounded.png"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css" integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css" integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/style.css">
     
         <title>Расписание богослужений</title>
 
@@ -175,7 +181,11 @@ $mysqli->set_charset("utf8");
         </li>
     </ul>
 <?php
-        $result = $mysqli->query("SELECT scedule.id_scedule, scedule.titlescedule, scedule.imagescedule, scedule.sstatus, scedule.id_uprofile, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic FROM `scedule` INNER JOIN `uprofile` ON scedule.id_uprofile = uprofile.id_uprofile WHERE 1=1 AND `scedule`.`sstatus` = 'active'");
+        $result = $mysqli->query("SELECT scedule.id_scedule, scedule.titlescedule, scedule.imagescedule, scedule.sstatus, scedule.id_uprofile, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic 
+        FROM `scedule` 
+        INNER JOIN `uprofile` ON scedule.id_uprofile = uprofile.id_uprofile WHERE 1=1 AND scedule.sstatus = 'active'");
+        $count = $result->num_rows;
+        if($count > 0){
         while($row = $result->fetch_array()){
                 ?>
         <ul class="list-reset breadcrumbs">
@@ -196,7 +206,8 @@ $mysqli->set_charset("utf8");
                     <?php echo($row['titlescedule'])?>
                                 </li>
                 </ul>
-                
+                    <?php 
+                    //if($count > 0){?>
                     <h1><?php echo($row['titlescedule'])?></h1>
                     <p>Расписание показано для примера!!!</p>
     
@@ -206,7 +217,17 @@ $mysqli->set_charset("utf8");
                         ?>
                         <p><amp-img src="data:image/jpeg; base64, <?=$img?>" height="2436" width="1125" layout="responsive" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="responsive" style="--loader-delay-offset: 1ms !important;"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 216.533%;"></i-amphtml-sizer></amp-img></p><!--<img decoding="async" src="/files/new/june2023/rast.png" class="i-amphtml-fill-content i-amphtml-replaced-content">-->
                     </div>
-                    <?php }; ?><!--Конец цикла-->
+                    <?php }?><!--Конец цикла-->
+                    <?php }else{//Если активного расписания нет, показываем сообщение пользователю?>
+                        <h2 class="text-center">Актуальное расписание будет чуть позже, мы уже работаем над этим.</h2>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <button class="btn btn-primary" OnClick='location.href="index.php"'>Вернуться на главную</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                        </div>
+                    <?php }?><!--Конец if-->
 
                 </div><!-- clearfix-end -->
             </div><!-- full-width-wrap-end -->

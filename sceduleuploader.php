@@ -2,7 +2,7 @@
 session_start();
 
 //include('template/head.php');
-//include('template/head2.php');
+include('template/head2.php');
 //include('template/uploadnav.php');
 require_once('bd.php');
 $id = $_SESSION['id'];
@@ -17,105 +17,10 @@ if(empty($id)){
     <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
       <div class="land-see-hero-main mx-auto"></div>
     </section>
- <div class="max-width-4 mx-auto p2">
-    
-  <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
-    <div class="clearfix p1">
-        <!--<div class="desk-logo-wrap mx-auto block">
-            <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive">
-            <h1 style="font-family: Calibri; font-weight: bold; text-align: center; margin-bottom: 25%; margin-top:0;">Логотип</h1>
-        </div>-->
-    </div>
-    <div class="clearfix">
-            <!--<h1 class="hide h2 center">Спасский Кафедральный собор Пятигорска</h1>-->
 
-            
-
-
-<!--<hr>-->
-
-<!--<ul class="mx-auto center list-reset social-icons-wrap">
-    <!--<li class="inline-block mr1">
-        <a href="https://instagram.com/soborvpyatigorske" target="_blank">
-            <i class="fab fa-instagram fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block mr1">
-        <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="https://www.flickr.com/people/157787163@N07/" target="_blank">
-            <i class="fab fa-flickr fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">
-            <i class="fab fa-soundcloud fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block">
-        <a href="https://www.facebook.com/soborvpyatigorske/" target="_blank">
-            <i class="fab fa-facebook-f fa-lg"></i>
-        </a>
-    </li>-->
-    <!--<li class="inline-block">
-        <a href="https://t.me/soborvpyatigorske" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>-->
-
-
-
-        <!--<amp-video width="1280"
-            height="720"
-            src="https://blago-kavkaz.ru/from_sky.m4v"
-            poster="/img/static-bg.jpg"
-            layout="responsive"
-            loop
-            noaudio
-            autoplay>
-                <div fallback>
-                    <p>Your browser doesn not support HTML5 video.</p>
-                </div>
-        </amp-video>-->
-            <!--<amp-iframe
-            layout="responsive"
-            sandbox="allow-scripts allow-same-origin allow-popups"
-            height="500"
-            width="600"
-            allowfullscreen
-            mozallowfullscreen
-            webkitallowfullscreen
-            src="https://pano.parsuna.ru/embed/spasptg?startscene=scene_inside-6441&startactions=lookat(-118.93,-37.83,122.59,0,0);">
-                <amp-img layout="fill" src="/img/3d-view-placeholder.png" width="1920" height="1080" placeholder></amp-img>
-            </amp-iframe>-->
-    </div>
-    <!--<form action="" method="post">
-    <div class="frame">
-        <div class="center">
-            <div class="title">
-                <h1>Загрузить новое расписание</h1>
-            </div>
-    
-            <div class="dropzone">
-                <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
-                <input type="file" class="upload-input" />
-            </div>
-    
-            <button type="button" class="btn" name="uploadbutton">Загрузить файл</button>
-    
-        </div>
-    </div>
-    </form>-->
-    <?php
-    
-?>
 <form action="scedulesubmit.php" method="POST" enctype="multipart/form-data">
 
-        <div class="frame">
+    <div class="frame">
         <div class="center">
             <div class="title">
                 <h1>Загрузить новое расписание</h1>
@@ -131,7 +36,95 @@ if(empty($id)){
         <!--Копированный код-->
         <!--<input type="file" name="imagescedule" required /><br>-->
         </form>
-
+</div><!--content-wrap relative-->
+<div class="container">
+    <h2 class="text-center">Расписания</h2>
+    <form action="sceduleuploader.php" method="post">
+    <label htmlFor="">Сортировка</label>
+    <select id="" name="sstatus" value="active">
+        <option value="active">Активные</option>
+        <option value="deleted">Удалённые</option>
+    </select>
+    <button type="submit" name="submit" class="btn btn-primary">Найти</button>
+    <?
+    $query = "SELECT * FROM `scedule` INNER JOIN `uprofile` ON `scedule`.`id_uprofile` = `uprofile`.`id_uprofile` WHERE 1=1";//Черновой запрос для проверки
+    $active = ' AND `scedule`.`sstatus` ="active"'; //Для активных записей
+    $deleted = ' AND `scedule`.`sstatus` ="deleted"'; //Для удалённых записей
+    if(isset($_POST['submit'])){
+        $sstatus = $_POST['sstatus'];
+        $query = $query;//Возвращаем исходный запрос
+        if($sstatus == "active"){
+            $query = $query.$active;
+            //$query .= $active;
+            //var_dump($query);
+        }
+        if($sstatus == "deleted"){
+            $query = $query.$deleted;
+            //$query .= $deleted;
+            //var_dump($query);
+        }
+        var_dump($query);
+        //var_dump($sstatus);
+    }
+    ?>
+    </form>
+    <table class="table table-striped">
+        <tr style="font-weight:bold;">
+            <td>ID</td>
+            <td>Название</td>
+            <td>Статус</td>
+            <td>Добавил</td>
+            <td>Действие</td>
+        </tr>
+        <?php
+        //$querys = $query;//Встъебеню куда незнаю
+        if(isset($_POST['submit'])){
+            $sstatus = $_POST['sstatus'];
+            if($sstatus == "active"){
+                $query = $query.$active; //$query = $query.$active;
+                var_dump($querys);
+            }
+            if($sstatus == "deleted"){
+                $query .= $query.$deleted; //$query = $query.$deleted;
+                var_dump($querys);
+            }
+            var_dump($query);
+            //var_dump($sstatus);
+        }
+        //Проверка скопирована сверху
+        $active .= ' AND `scedule`.`sstatus` ="active"'; //Для активных записей
+        $deleted .= ' AND `scedule`.`sstatus` ="deleted"'; //Для удалённых записей
+        $result = $mysqli->query($query);
+        var_dump("query: ".$query);
+        while($row = $result->fetch_array()){
+            echo('<tr>
+            <td>'.$row['id_scedule'].'</td>
+            <td>'.$row['titlescedule'].'</td>
+            <td>');?><?php if($row['sstatus']=="active"){
+                echo("Активный");
+            }; if($row['sstatus']=="deleted"){
+                echo("Удалённый");
+            }; ?><?php echo('</td>
+            <td>'.$row['ulastname']." ".$row['ufirstname'].'</td>
+            <td><form method="POST" action=""><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
+            '); if($row['sstatus']=="active"){
+                echo('<button type="submit" name="submit" class="btn btn-primary">Редактировать</button>');
+            };
+            if($row['sstatus']=="deleted"){
+                echo('<button type="submit" name="submit" class="btn btn-primary">Восстановить</button>');
+            }; 
+            echo('</form>');?>
+            <?php
+            if($row['sstatus']=="active"){
+                echo('<form method="POST" action=""><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
+            <button type="submit" name="submit" class="btn btn-danger">Удалить</button>
+            </form>');
+            };?>
+            <?php echo('</td>');
+        }
+        ?>
+    </table>
+</div>
 <?php
 include('template/footerupload.php');
 ?>
