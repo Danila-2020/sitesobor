@@ -126,17 +126,22 @@ if(empty($id)){
 
 <ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
-        <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
+        <a href="" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
         </a>
     </li>
     <li class="inline-block mr1">
-        <a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">
+        <a href="" target="_blank">
+            <i class="fab fa-flickr fa-lg"></i>
+        </a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="" target="_blank">
             <i class="fab fa-soundcloud fa-lg"></i>
         </a>
     </li>
     <li class="inline-block">
-        <a href="https://t.me/soborvpyatigorske" target="_blank">
+        <a href="" target="_blank">
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
