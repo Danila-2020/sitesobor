@@ -12,5 +12,5 @@ include('template/errorhead.php');
            </div>
        </div>
    </body>
-   de
+   
 <?php echo('</html>');?>
