@@ -10,11 +10,12 @@ if(empty($id)){
 }
 ?>
 
-    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=MkkiRtcWTOtfSadjcWBHVCnzTQO3IPaQra16Lve-jzMQaV_I0mQxvZT7lMR41pxwSfC8v2KkvseraR9wF1qBgA" charset="UTF-8"></script><style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <!--Стилизация-->
     
         <style>
-            body{background-image: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1612767162_15-p-fon-goluboe-nebo-s-oblakami-19.jpg');}
+            body{background-image: url('../img/background2.jpg');}
         </style>
          <meta name="csrf-param" content="_csrf-frontend">
          <meta name="csrf-token" content="rufNjNmfaRuKJ-ssgba1NeE69mEJj3aI0QWIBDjgdkDc0YLLjMY6Tv4fmX_jwfJlh0O3J37HEOqjYtdDbLM5cg==">
@@ -27,6 +28,10 @@ if(empty($id)){
          <script src="https://cdn.ampproject.org/v0/amp-bind-0.1.js" async="async" custom-element="amp-bind"></script>
          <script src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js" async="async" custom-element="amp-carousel"></script>
          <script src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" async="async" custom-element="amp-analytics"></script>
+
+         <link rel="stylesheet" href="../css/custom-style1.css">
+    <link rel="stylesheet" href="../css/favicon-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <amp-analytics type="metrika">
@@ -124,28 +129,15 @@ if(empty($id)){
 
 <hr>
 
-<ul class="mx-auto center list-reset social-icons-wrap">
-    <li class="inline-block mr1">
-        <a href="" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="" target="_blank">
-            <i class="fab fa-flickr fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="" target="_blank">
-            <i class="fab fa-soundcloud fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block">
-        <a href="" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>
+          <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
 
     </div>
 
@@ -216,6 +208,16 @@ if(empty($id)){
         </div>
     </div>
  </div>
+
+            <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
 
 </div><!-- content-wrap -->
 

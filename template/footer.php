@@ -1,6 +1,6 @@
 <div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
     
-<ul class="mx-auto center list-reset social-icons-wrap">
+<!--<ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
         <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
@@ -18,10 +18,10 @@
     </li>
     <li class="inline-block">
         <a href="#" target="_blank"><!--https://t.me/soborvpyatigorske-->
-            <i class="fab fa-telegram fa-lg"></i>
+            <!--<i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
-</ul>
+</ul>-->
 
 <ul class="mx-auto center h2 list-reset">
     <li class="inline-block mr1">
