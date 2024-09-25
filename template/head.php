@@ -33,10 +33,6 @@
          <meta name="csrf-param" content="_csrf-frontend">
          <meta name="csrf-token" content="rufNjNmfaRuKJ-ssgba1NeE69mEJj3aI0QWIBDjgdkDc0YLLjMY6Tv4fmX_jwfJlh0O3J37HEOqjYtdDbLM5cg==">
          
-<<<<<<< HEAD
-=======
-
->>>>>>> 65c5a0e1161ea267bd6a97d14c199e01ec810839
          <script src="../js/cdn_js/v0.js" async="async"></script>
          <script src="../js/cdn_js/jquery.min.js" async="async" custom-element="amp-iframe"></script>
          <script src="../js/cdn_js/jquery.maskedinput.min.js" async="async" custom-element="amp-lightbox"></script>
