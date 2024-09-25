@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-grid.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="../css/custom-style1.css">
+    <link rel="stylesheet" href="../css/favicon-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  
     <style amp-boilerplate="">
     body
@@ -892,23 +895,15 @@ ul.breadcrumbs li:last-child:after { background: none; }
                 
 <hr>
 
-<ul class="mx-auto center list-reset social-icons-wrap">
-    <li class="inline-block mr1">
-        <a href="#" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#" target="_blank">
-            <i class="fab fa-soundcloud fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block">
-        <a href="#" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>
+<div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
 
             <ul class="list-reset breadcrumbs">
                     <li class="inline-block mr1">

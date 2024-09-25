@@ -19,6 +19,9 @@ session_start();
     <link rel="apple-touch-icon" href="/57x57/files/sobor-small-rounded.png"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css" integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/custom-style1.css">
+    <link rel="stylesheet" href="../css/favicon-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <title>Исповедь</title>
 
@@ -883,20 +886,15 @@ ul.breadcrumbs li:last-child:after { background: none; }
 
 <hr>
 
-<ul class="mx-auto center list-reset social-icons-wrap">
-    <li class="inline-block mr1">
-        <a href="" target="_blank">
-            <!--https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg-->
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block">
-        <a href="" target="_blank">
-            <!--https://t.me/soborvpyatigorske-->
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>
+        <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
 
 
             <ul class="list-reset breadcrumbs">
@@ -934,7 +932,7 @@ ul.breadcrumbs li:last-child:after { background: none; }
 
 <div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
     
-<ul class="mx-auto center list-reset social-icons-wrap">
+<!--<ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
         <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
@@ -945,7 +943,17 @@ ul.breadcrumbs li:last-child:after { background: none; }
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
-</ul>
+</ul>-->
+
+<div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
 
 <ul class="mx-auto center h2 list-reset">
     <li class="inline-block mr1">

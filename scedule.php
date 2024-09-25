@@ -89,7 +89,7 @@ include('template/scedulehead.php');
     
     <hr>
     
-    <ul class="mx-auto center list-reset social-icons-wrap">
+    <!--<ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
         <a href="" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
@@ -110,7 +110,18 @@ include('template/scedulehead.php');
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
-</ul>
+</ul>-->
+    
+    
+          <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
 <?php
         $result = $mysqli->query("SELECT scedule.id_scedule, scedule.titlescedule, scedule.imagescedule, scedule.sstatus, scedule.id_uprofile, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic 
         FROM `scedule` 

@@ -139,41 +139,33 @@ if(empty($id)){
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
     <li class="inline-block mr1">
-        <a href="/site/article?id=10">Крещение</a>
+        <a href="christening.php">Крещение</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=11">Венчание</a>
+        <a href="wedding.php">Венчание</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=12">Исповедь</a>
+        <a href="сonfession.php">Исповедь</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=13">Причастие</a>
+        <a href="eucharist.php">Причастие</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=184">Соборование</a>
+        <a href="unction.php">Соборование</a>
     </li>
 </ul>
 
 <hr>
 
-<ul class="mx-auto center list-reset social-icons-wrap">
-        <li class="inline-block mr1">
-            <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
-                <i class="fab fa-youtube fa-lg"></i>
-            </a>
-        </li>
-        <li class="inline-block mr1">
-            <a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">
-                <i class="fab fa-soundcloud fa-lg"></i>
-            </a>
-        </li>
-        <li class="inline-block">
-            <a href="https://t.me/soborvpyatigorske" target="_blank">
-                <i class="fab fa-telegram fa-lg"></i>
-            </a>
-        </li>
-    </ul>
+    <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
 
     </div>
 

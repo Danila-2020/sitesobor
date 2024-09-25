@@ -228,7 +228,7 @@ require_once('bd.php');
         <a href="note.php">Подать записку</a>
     <li>
     <li class="inline-block mr1">
-        <a href="#">Контакты</a>
+        <a href="contacts.php">Контакты</a>
     </li>
     <li class="inline-block mr1">
         <a href="#">Новости собора</a>
