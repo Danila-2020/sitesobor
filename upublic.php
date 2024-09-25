@@ -109,7 +109,17 @@ if(empty($id)){
 
 <hr>
 
-<ul class="mx-auto center list-reset social-icons-wrap">
+          <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
+
+<!--<ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
         <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
@@ -120,7 +130,7 @@ if(empty($id)){
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
-</ul>
+</ul>-->
 
     </div>
 
@@ -206,7 +216,17 @@ if(empty($id)){
 
 <div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
     
-<ul class="mx-auto center list-reset social-icons-wrap">
+          <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
+
+<!--<ul class="mx-auto center list-reset social-icons-wrap">
     <li class="inline-block mr1">
         <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
             <i class="fab fa-youtube fa-lg"></i>
@@ -227,7 +247,7 @@ if(empty($id)){
             <i class="fab fa-telegram fa-lg"></i>
         </a>
     </li>
-</ul>
+</ul>-->
 
 <ul class="mx-auto center h2 list-reset">
     <li class="inline-block mr1">
