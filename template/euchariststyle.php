@@ -1,3 +1,4 @@
+<style amp-boilerplate="">
 html {
 	font-family: sans-serif;
 	line-height: 1.15;
@@ -3501,3 +3502,4 @@ ul.breadcrumbs li:last-child:after {
 	margin-left: auto;
 	margin-right: auto;
 }
+</style>

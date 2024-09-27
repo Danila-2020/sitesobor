@@ -2,6 +2,7 @@
 session_start();
 require_once('bd.php');
 include('template/head.php');
+include('template/barber.php');
 
 $id = $_SESSION['id'];
 if(empty($id)){
