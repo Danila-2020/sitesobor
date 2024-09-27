@@ -3,6 +3,7 @@ require_once('bd.php');
 session_start();//Тут идёт session_start, он наверное не нужен
 
 include('template/scedulehead.php');
+include('template/barber.php');
 ?>
 
 <body class="land-see amp-mode-mouse" style="opacity: 1; visibility: visible; animation: auto ease 0s 1 normal none running none;">

@@ -1,6 +1,7 @@
 <?php
 require_once('bd.php');
 include('template/head.php');
+include('template/barber.php');
 
 //session_start();
 $_SESSION['id'] = $_POST['id'];

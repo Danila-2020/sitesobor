@@ -2,6 +2,7 @@
 session_start();
 
 include('template/head.php');
+include('template/barber.php');
 require_once('bd.php');
 
 ?>
