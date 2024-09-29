@@ -58,7 +58,7 @@ body{
         <a href="sceduleuploader.php">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
+        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
@@ -85,18 +85,21 @@ body{
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="clergy.php">Духовенство</a>
+        <a class="" href="#">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
+        <a class="" href="#">Мероприятие</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
+        <a class="" href="#">Публикацию</a>
     </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
 <p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
+    <li class="inline-block mr1">    
+    <a class="" href="clergy.php">Духовенство</a>
+    </li>
     <li class="inline-block mr1">
         <a href="#">Воскресная школа</a>
     </li>

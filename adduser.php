@@ -50,16 +50,16 @@ body{background-image:url('img/background3.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="/site/article?id=4">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
         <a href="adduser.php">Добавить пользователя</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
+        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
+        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
@@ -83,28 +83,32 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="addunewsadmin.php">Новость</a>
+        <a class="" href="clergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">Мероприятие</a>
+        <a class="" href="/site/article?id=1">История</a>
     </li>
     <!--<li class="inline-block mr1">
         <a class="" href="/site/article?id=2">Святыни</a>
     </li>-->
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Публикацию</a>
+        <a class="" href="/site/article?id=5">Роспись</a>
     </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
+<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
     <li class="inline-block mr1">
-        <a href="viewunewsadmin.php">Новости</a>
+        <a href="/site/article?id=6">Воскресная школа</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="/site/article?id=7">Молодежный центр</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Публикации</a>
+        <a href="/site/article?id=8">Библиотека</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=9">Социальная деятельность</a>
     </li>
 </ul>
 
@@ -134,8 +138,8 @@ body{background-image:url('img/background3.jpg');};
         <div class="row">
           <div class="col-sm-4"></div>
           <div class="col-sm-4">
-          <h2>Профиль администратора</h2>
-            <form action="editadminprofile.php" method="post">
+          <h2>Добавить нового пользователя</h2>
+            <form action="addusersubmit.php" method="post">
             <?php
             $result = $mysqli->query("SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE `id_uprofile`=$id");
             while($row = $result->fetch_array()){
@@ -145,21 +149,25 @@ body{background-image:url('img/background3.jpg');};
                 <img src="img/no_img — копия.jpeg" alt="" class="img-fluid">
             </div>
             <label for="ulastname">Фамилия</label>
-            <input type="text" name="ulastname" placeholder="Фамилия" value="<?php echo($row['ulastname']);?>" class="form-control" required />
+            <input type="text" name="ulastname" placeholder="Фамилия" class="form-control" required />
             <label for="ufirstname">Имя</label>
-            <input type="text" name="ufirstname" placeholder="Имя" value="<?php echo($row['ufirstname']);?>" class="form-control" required />
+            <input type="text" name="ufirstname" placeholder="Имя" class="form-control" required />
             <label for="ulastname">Отчество</label>
-            <input type="text" name="upatronymic" placeholder="Отчество" value="<?php echo($row['upatronymic'])?>" class="form-control" />
+            <input type="text" name="upatronymic" placeholder="Отчество" class="form-control" />
             <label for="uemail">E-Mail - Адрес</label>
-            <input type="text" name="uemail" placeholder="E-Mail Адрес" value="<?php echo($row['uemail'])?>" class="form-control" required />
+            <input type="text" name="uemail" placeholder="E-Mail Адрес" class="form-control" required />
+            <label for="urole">Роль пользователя</label>
+            <select name="urole" id="" class="form-control" value="user" required>
+                <option value="user">Пользователь</option>
+                <option value="admin">Администратор</option>
+            </select>
             <label for="uphone">Номер телефона</label>
-            <input type="text" name="uphone" placeholder="+7(999)999-99-99" id="phone" value="<?php echo($row['uphone'])?>" class="form-control" required />
+            <input type="text" name="uphone" placeholder="+7(999)999-99-99" id="phone" class="form-control" required />
             <label for="ulogin">Логин</label>
-            <input type="text" name="ulogin" placeholder="Логин" value="<?php echo($row['ulogin'])?>" class="form-control" required />
+            <input type="text" name="ulogin" placeholder="Логин" class="form-control" required />
             <label for="upassword">Пароль</label>
-
-            <input type="text" name="upassword" placeholder="Пароль" value="<?php echo($row['upassword'])?>" class="form-control" required /><br>
-            <button type="submit" name="submit" class="btn btn-primary">Сохранить</button><br>
+            <input type="text" name="upassword" placeholder="Пароль" class="form-control" required /><br>
+            <button type="submit" name="submit" class="btn btn-primary">Добавить пользователя</button><br>
             <?php
             };
             ?>

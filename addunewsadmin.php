@@ -59,7 +59,7 @@ body{background-image:url('img/background3.jpg');};
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
+        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
@@ -83,7 +83,7 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="addunewsadmin.php">Новость</a>
+        <a class="" href="addunews.php">Новость</a>
     </li>
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=1">Мероприятие</a>
@@ -97,14 +97,18 @@ body{background-image:url('img/background3.jpg');};
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
+<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
     <li class="inline-block mr1">
-        <a href="viewunewsadmin.php">Новости</a>
+        <a href="/site/article?id=6">Воскресная школа</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="/site/article?id=7">Молодежный центр</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Публикации</a>
+        <a href="/site/article?id=8">Библиотека</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=9">Социальная деятельность</a>
     </li>
 </ul>
 
@@ -131,41 +135,21 @@ body{background-image:url('img/background3.jpg');};
     </div>
     
     <div class="container" style="margin-top:30px">
-        <div class="row">
+        <div class="row" style="margin-bottom:5%;">
           <div class="col-sm-4"></div>
           <div class="col-sm-4">
-          <h2>Профиль администратора</h2>
-            <form action="editadminprofile.php" method="post">
-            <?php
-            $result = $mysqli->query("SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE `id_uprofile`=$id");
-            while($row = $result->fetch_array()){
-                $img = base64_encode($row['uphoto']);
-                ?>
-            <div class="fakeimg">
-                <img src="img/no_img — копия.jpeg" alt="" class="img-fluid">
-            </div>
-            <label for="ulastname">Фамилия</label>
-            <input type="text" name="ulastname" placeholder="Фамилия" value="<?php echo($row['ulastname']);?>" class="form-control" required />
-            <label for="ufirstname">Имя</label>
-            <input type="text" name="ufirstname" placeholder="Имя" value="<?php echo($row['ufirstname']);?>" class="form-control" required />
-            <label for="ulastname">Отчество</label>
-            <input type="text" name="upatronymic" placeholder="Отчество" value="<?php echo($row['upatronymic'])?>" class="form-control" />
-            <label for="uemail">E-Mail - Адрес</label>
-            <input type="text" name="uemail" placeholder="E-Mail Адрес" value="<?php echo($row['uemail'])?>" class="form-control" required />
-            <label for="uphone">Номер телефона</label>
-            <input type="text" name="uphone" placeholder="+7(999)999-99-99" id="phone" value="<?php echo($row['uphone'])?>" class="form-control" required />
-            <label for="ulogin">Логин</label>
-            <input type="text" name="ulogin" placeholder="Логин" value="<?php echo($row['ulogin'])?>" class="form-control" required />
-            <label for="upassword">Пароль</label>
-
-            <input type="text" name="upassword" placeholder="Пароль" value="<?php echo($row['upassword'])?>" class="form-control" required /><br>
-            <button type="submit" name="submit" class="btn btn-primary">Сохранить</button><br>
-            <?php
-            };
-            ?>
+            <form action="submitaddunews.php" method="post" class=""><!-- style="border:1px solid #000000; border-radius:15px;"
+                Бордер обрамление наверное жопное, хотя незнаю-->
+            <h3>Добавление новости</h3>
+            <input type="text" name="utitle" placeholder="Введите название" class="form-control" required /><br>
+            <textarea rows="5" cols="1" name="udescription" placeholder="Введите описание" class="form-control"></textarea><br>
+            <textarea rows="5" cols="1" name="textunews" placeholder="Введите текст после изображений" class="form-control"></textarea><br>
+            <label for="ucover">Обложка</label>
+            <input type="file" name="ucover" id="" class="form-control" />
+            <label for="dateunews">Дата</label>
+            <input type="date" name="dateunews" class="form-control"><br>
+            <button type="submit" name="submit" class="btn btn-primary">Добавить</button>
             </form>
-            <br>
-            
             <hr class="d-sm-none">
           </div>
           <div class="col-sm-4">
@@ -173,34 +157,7 @@ body{background-image:url('img/background3.jpg');};
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <table class="table table-striped">
-                <tr style="font-style:italic; font-weight:bold;">
-                    <td>Фамилия</td>
-                    <td>Имя</td>
-                    <td>Отчество</td>
-                    <td>E-Mail - адрес</td>
-                    <td>Номер телефона</td>
-                    <td>Логин</td>
-                    <td>Пароль</td>
-                    <td>Роль</td>
-                </tr>
-            <?php
-            $selquery = "SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE 1=1";
-            $result = $mysqli->query($selquery);//Тут это ломалось
-            while($row=$result->fetch_array()){
-                echo('<tr>
-                <td>'.$row['ulastname'].'</td>
-                <td>'.$row['ufirstname'].'</td>
-                <td>'.$row['upatronymic'].'</td>
-                <td>'.$row['uemail'].'</td>
-                <td>'.$row['uphone'].'</td>
-                <td>'.$row['ulogin'].'</td>
-                <td>'.$row['upassword'].'</td>
-                <td>'.$row['urole'].'</td>
-                </tr>');
-            }
-            ?>
-            </table>
+        <!--Тут будут новости-->
             </div>
         </div>
       </div>
