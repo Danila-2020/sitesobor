@@ -8,6 +8,26 @@ $id = $_SESSION['id'];
 if(empty($id)){
     echo('<script>window.location.href="index.php"</script>');
 }
+
+//Вагинация на печке
+if (isset($_GET['page_no']) && $_GET['page_no']!="") {
+    $page_no = $_GET['page_no'];
+    } else {
+        $page_no = 1;
+        }
+	
+$total_records_per_page = 5;//4
+
+$offset = ($page_no-1) * $total_records_per_page;
+$previous_page = $page_no - 1;
+$next_page = $page_no + 1;
+$adjacents = "2";
+$result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unews");
+	//$total_records = mysqli_fetch_array($result_count);
+    $total_records = $result_count->fetch_array();
+	$total_records = $total_records['total_records'];
+    $total_no_of_pages = ceil($total_records / $total_records_per_page);
+	$second_last = $total_no_of_pages - 1; // total page minus 1
 ?>
 <style>
 body{background-image:url('img/background3.jpg');};
@@ -148,10 +168,10 @@ body{background-image:url('img/background3.jpg');};
 $result = $mysqli->query("SELECT `unews`.`id_unews`, `unews`.`utitle`,`unews`.`udescription`,`unews`.`textunews`,`unews`.`statusunews`,`unews`.`dateunews`,`uprofile`.`ulastname`,`uprofile`.`ufirstname` 
 FROM `unews` 
 INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile`
-WHERE 1=1");
+WHERE 1=1
+LIMIT $offset, $total_records_per_page");
 
 while($row = $result->fetch_array()){			
-	//echo '<tr><td>'.$row['dolgn'].'</td><td>'.$row['oklad'].'&nbsp; руб.</td><td>'.$row['tip_zan'].'</td></tr>';
     if($row['statusunews'] == "active"){
     echo('<tr>
     <td>'.$row['id_unews'].'</td>
