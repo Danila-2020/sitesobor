@@ -135,7 +135,7 @@ require_once('bd.php');
                     echo("<script>alert('$id')</script>");
                     header('Location: unews.php');
                 };
-                echo('<a href="#" class="h3">Все новости</a>');
+                echo('<a href="allunews.php" class="h3">Все новости</a>');
                 ?>
             </div>
             <div class="md-col md-col-6 lg-col-4 p2">

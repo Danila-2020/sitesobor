@@ -6,7 +6,7 @@ include('template/barber.php');
 
 $id = $_SESSION['id'];
 if(empty($id)){
-    echo('<script>window.location.href="index.php"</script>');
+    echo('<script>window.location.href="signin.php"</script>');
 }
 ?>
 <style>

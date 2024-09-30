@@ -1,129 +1,84 @@
 <?php
 session_start();
-
-//include('template/head.php');
-include('template/head2.php');
-//include('template/uploadnav.php');
+include('template/sceduleuploaderhead.php');
 require_once('bd.php');
-$id = $_SESSION['id'];
-if(empty($id)){
-    echo('<script>window.location.href="signin.php"</script>');
-}
-
 ?>
-<link rel="stylesheet" href="css/style2.css">
-<body>
-<div class="content-wrap relative"><!-- content-wrap -->
-    <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
-      <div class="land-see-hero-main mx-auto"></div>
-    </section>
-
-<form action="scedulesubmit.php" method="POST" enctype="multipart/form-data">
-
-    <div class="frame">
-        <div class="center">
-            <div class="title">
-                <h1>Загрузить новое расписание</h1>
-            </div>
-            <input type="text" name="titlescedule" placeholder="Заголовок" class="form-control" required /><br>
-            <div class="dropzone">
-                <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
-                <input type="file" name="imagescedule" class="upload-input" required />
-            </div>
-            <button type="submit" class="btn" name="uploadbutton">Загрузить файл</button>
-        </div>
+<div class="container py-5">
+  <div class="row py-4">
+    <div class="col-lg-6 mx-auto">
+		<form action="#" method="post">
+		<h2>Загрузить новое расписание</h2>
+		<input type="text" name="" placeholder="Заголовок" class="form-control" required /><br>
+      <!-- Upload image input-->
+	  <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+		<input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+		<label id="upload-label" for="upload" class="font-weight-light text-muted">Выберите файл</label>
+		<div class="input-group-append">
+		 <label for="upload" class="btn btn-warning m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Выбрать</small></label>
+		</div>
+	  </div>
+	  <!-- Uploaded image area-->
+	  <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
+	  <div class="image-area mt-4" style="margin-bottom: 1%;"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+	  <button type="submit" class="btn btn-warning" style="float: right;">Загрузить</button>
+	  </form>
+	  <!--Конец формы-->
     </div>
-        <!--Копированный код-->
-        <!--<input type="file" name="imagescedule" required /><br>-->
-        </form>
-</div><!--content-wrap relative-->
-<div class="container">
-    <h2 class="text-center">Расписания</h2>
-    <form action="sceduleuploader.php" method="post">
-    <label htmlFor="">Сортировка</label>
-    <select id="" name="sstatus" value="active">
-        <option value="active">Активные</option>
-        <option value="deleted">Удалённые</option>
-    </select>
-    <button type="submit" name="submit" class="btn btn-primary">Найти</button>
-    <?
-    $query = "SELECT * FROM `scedule` INNER JOIN `uprofile` ON `scedule`.`id_uprofile` = `uprofile`.`id_uprofile` WHERE 1=1";//Черновой запрос для проверки
-    $active = ' AND `scedule`.`sstatus` ="active"'; //Для активных записей
-    $deleted = ' AND `scedule`.`sstatus` ="deleted"'; //Для удалённых записей
-    if(isset($_POST['submit'])){
-        $sstatus = $_POST['sstatus'];
-        $query = $query;//Возвращаем исходный запрос
-        if($sstatus == "active"){
-            $query = $query.$active;
-            //$query .= $active;
-            //var_dump($query);
-        }
-        if($sstatus == "deleted"){
-            $query = $query.$deleted;
-            //$query .= $deleted;
-            //var_dump($query);
-        }
-        var_dump($query);
-        //var_dump($sstatus);
-    }
-    ?>
-    </form>
-    <table class="table table-striped">
-        <tr style="font-weight:bold;">
-            <td>ID</td>
-            <td>Название</td>
-            <td>Статус</td>
-            <td>Добавил</td>
-            <td>Действие</td>
-        </tr>
+  </div>
+</div>
+<div class="container" style="margin-top: 1%; margin-bottom: 1%;">
+	<h1 class="text-center">Расписания</h1>
+	<table class="table table-striped">
+		<tr style="font-weight: bold; font-style: italic;">
+			<td>ID</td>
+			<td>Заголовок</td>
+			<td>Статус</td>
+			<td>Загрузил</td>
+			<td>Действие</td>
+		</tr>
         <?php
-        if(isset($_POST['submit'])){
-            $sstatus = $_POST['sstatus'];
-            if($sstatus == "active"){
-                $query = $query.$active; //$query = $query.$active;
-                var_dump($querys);
-            }
-            if($sstatus == "deleted"){
-                $query .= $query.$deleted; //$query = $query.$deleted;
-                var_dump($querys);
-            }
-            var_dump($query);
-            //var_dump($sstatus);
-        }
-        //Проверка скопирована сверху
-        $active .= ' AND `scedule`.`sstatus` ="active"'; //Для активных записей
-        $deleted .= ' AND `scedule`.`sstatus` ="deleted"'; //Для удалённых записей
+        $query="SELECT `scedule`.`id_scedule`, `scedule`.`titlescedule`, `scedule`.`imagescedule`, `scedule`.`sstatus`, `uprofile`.`ulastname`,`uprofile`.`ufirstname` 
+                FROM `scedule` 
+                INNER JOIN `uprofile` ON `scedule`.`id_uprofile` = `uprofile`.`id_uprofile` 
+                WHERE 1=1";
         $result = $mysqli->query($query);
-        var_dump("query: ".$query);
-        while($row = $result->fetch_array()){
+        while($row=$result->fetch_array()){
+            $uname = ($row['ulastname']." ".$row['ufirstname']);
             echo('<tr>
             <td>'.$row['id_scedule'].'</td>
             <td>'.$row['titlescedule'].'</td>
-            <td>');?><?php if($row['sstatus']=="active"){
-                echo("Активный");
-            }; if($row['sstatus']=="deleted"){
-                echo("Удалённый");
-            }; ?><?php echo('</td>
-            <td>'.$row['ulastname']." ".$row['ufirstname'].'</td>
-            <td><form method="POST" action=""><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
+            <td>'.$row['sstatus'].'</td>
+            <td>'.$uname.'</td>
+            <td><form method="POST" action="sceduleupdatesubmit.php"><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
             '); if($row['sstatus']=="active"){
-                echo('<button type="submit" name="submit" class="btn btn-primary">Редактировать</button>');
+                echo('<button type="submit" name="submit" class="btn btn-primary" style="margin-bottom:5%;">Редактировать</button>');
             };
             if($row['sstatus']=="deleted"){
-                echo('<button type="submit" name="submit" class="btn btn-primary">Восстановить</button>');
+                echo('<button type="submit" name="submit" class="btn btn-success" style="margin-bottom:5%;">Восстановить</button>');
             }; 
             echo('</form>');?>
             <?php
             if($row['sstatus']=="active"){
-                echo('<form method="POST" action=""><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
+                echo('<form method="POST" action="sceduledeletesubmit.php"><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
             <button type="submit" name="submit" class="btn btn-danger">Удалить</button>
             </form>');
             };?>
             <?php echo('</td>');
+        //}
+            echo('</tr>');
         }
         ?>
-    </table>
+		<!--<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+		</tr>-->
+	</table>
+	<button type="submit" class="btn btn-warning"><a href="userprofile.php" style="text-decoration: none; color: #000000;">На главную</a></button>
 </div>
+
 <?php
-include('template/footerupload.php');
+include('template/sceduleuploaderfooter.php');
 ?>
