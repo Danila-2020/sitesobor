@@ -54,7 +54,9 @@ require_once('bd.php');
                 echo('<button type="submit" name="submit" class="btn btn-primary" style="margin-bottom:5%;">Редактировать</button>');
             };
             if($row['sstatus']=="deleted"){
-                echo('<button type="submit" name="submit" class="btn btn-success" style="margin-bottom:5%;">Восстановить</button>');
+                echo('<form method="POST" action="scedulerecoverysubmit.php">
+                <input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
+                <button type="submit" name="submit" class="btn btn-success" style="margin-bottom:5%;">Восстановить</button>');
             }; 
             echo('</form>');?>
             <?php
