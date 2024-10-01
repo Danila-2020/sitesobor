@@ -159,7 +159,7 @@ require_once('bd.php');
                      <button type="submit" class="btn btn-primary" style="width: 100%;">Подробнее</button>
                      <?php echo('</form>');
                  }
-                 echo('<a href="#" class="h3">Все мероприятия</a>');
+                 echo('<a href="alluevents.php" class="h3">Все мероприятия</a>');
                 ?>
             </div>
             <div class="md-col md-col-6 lg-col-4 p2">
@@ -241,7 +241,7 @@ require_once('bd.php');
         <a href="http://www.patriarchia.ru/db/news/" target="_blank">Общецерковные новости</a>
     </li>
     <li class="inline-block mr1">
-        <button type="submit" class="btn btn-primary">Вход</button>
+        <button type="submit" class="btn btn-primary" OnClick='location.href="signin.php"'>Вход</button>
     </li>
 </ul>
 

@@ -53,7 +53,7 @@
         <a href="http://www.patriarchia.ru/db/news/" target="_blank">Общецерковные новости</a>
     </li>
     <li class="inline-block mr1">
-        <button type="submit" class="btn btn-primary">Вход</button>
+        <button type="submit" class="btn btn-primary" OnClick='location.href="signin.php"'>Вход</button>
     </li>
 </ul>
         <div class="jumbotron text-center">

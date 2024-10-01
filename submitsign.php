@@ -15,6 +15,8 @@ if(!empty($_POST)){
                 header('Location: userprofile.php');
             }else if($row['urole'] == "admin"){
                 header('Location: adminprofile.php');
+            }else if($row['urole'] == "general"){
+                header('Location: generaluprofile.php');
             }
         }
     }else{

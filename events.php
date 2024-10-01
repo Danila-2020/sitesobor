@@ -5,8 +5,8 @@ include('template/head.php');
 include('template/barber.php');
 require_once('bd.php');
 
-$_SESSION['id'] = $_POST['id'];
-$id = $_SESSION['id'];
+$id = $_POST['id'];
+$_SESSION['id'] = $id;
 if(empty($id)){
     echo('<script>window.location.href="index.php"</script>');
 }
@@ -193,16 +193,15 @@ if(empty($id)){
                         <p>
                             '.$row['description'].'
                         </p>
-                        <!--__-__-->
                         <p>
                             <i>Дата проведения: '.$row['datep'].'</i>
                         </p>');
                     }
                 ?>
                         <form action="" method="post">
-                            <button type="submit" name="submit" class="btn btn-primary">Вернуться назад</button>
+                            <button type="submit" name="submitback" class="btn btn-primary">Вернуться назад</button>
                             <?php
-                            if(isset($_POST['submit'])){
+                            if(isset($_POST['submitsubmitback'])){//submit
                                 $_SESSION['id'] = "";
                             }
                             ?>

@@ -42,7 +42,9 @@ require_once('bd.php');
                 INNER JOIN `uprofile` ON `scedule`.`id_uprofile` = `uprofile`.`id_uprofile` 
                 WHERE 1=1";
         $result = $mysqli->query($query);
+        //$_SESSION['idscedule'] 
         while($row=$result->fetch_array()){
+
             $uname = ($row['ulastname']." ".$row['ufirstname']);
             echo('<tr>
             <td>'.$row['id_scedule'].'</td>
@@ -58,7 +60,9 @@ require_once('bd.php');
                 <input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
                 <button type="submit" name="submit" class="btn btn-success" style="margin-bottom:5%;">Восстановить</button>');
             }; 
-            echo('</form>');?>
+            echo('</form>');
+            
+            ?>
             <?php
             if($row['sstatus']=="active"){
                 echo('<form method="POST" action="sceduledeletesubmit.php"><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
