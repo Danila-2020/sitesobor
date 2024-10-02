@@ -23,7 +23,8 @@ if(isset($_POST['submit'])){
     `upassword`='$upassword',
     `ucode`='$ucode',
     `uphone`='$uphone',
-    `uvisible`=1 WHERE `id_uprofile` = $id");
+    `uvisible`=1,
+    `statusuprofile` = 'active' WHERE `id_uprofile` = $id");
     $result = $mysqli->query($query);
     //var_dump($query);
     header('Location: userprofile.php');

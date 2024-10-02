@@ -135,7 +135,7 @@ body{background-image:url('img/background3.jpg');};
           <div class="col-sm-4"></div>
           <div class="col-sm-4">
           <h2>Профиль general администратора</h2>
-            <form action="editadminprofile.php" method="post">
+            <form action="editgeneralprofile.php" method="post">
             <?php
             $result = $mysqli->query("SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE `id_uprofile`=$id");
             while($row = $result->fetch_array()){
@@ -157,7 +157,6 @@ body{background-image:url('img/background3.jpg');};
             <label for="ulogin">Логин</label>
             <input type="text" name="ulogin" placeholder="Логин" value="<?php echo($row['ulogin'])?>" class="form-control" required />
             <label for="upassword">Пароль</label>
-
             <input type="text" name="upassword" placeholder="Пароль" value="<?php echo($row['upassword'])?>" class="form-control" required /><br>
             <button type="submit" name="submit" class="btn btn-primary">Сохранить</button><br>
             <?php

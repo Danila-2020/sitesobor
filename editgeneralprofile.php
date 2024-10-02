@@ -1,6 +1,6 @@
 <?php
 require_once('bd.php');
-session_start();
+sesssion_start();
 $id = $_SESSION['id'];
 if(empty($id)){
     echo('<script>window.location.href="signin.php"</script>');
@@ -14,7 +14,7 @@ if(isset($_POST['submit'])){
     $uphone = $_POST['uphone'];
     $ulogin = $_POST['ulogin'];
     $upassword = $_POST['upassword'];
-    $ucode = ($ulogin."_".$upassword);
+    $ucode = ($ulogin." ".$upassword);
     $query = ("UPDATE `uprofile` SET `ulastname`='$ulastname',
     `ufirstname`='$ufirstname',`upatronymic`='$upatronymic',
     `uemail`='$uemail',
@@ -23,10 +23,9 @@ if(isset($_POST['submit'])){
     `upassword`='$upassword',
     `ucode`='$ucode',
     `uphone`='$uphone',
-    `uvisible`=1, 
+    `uvisible`=1,
     `statusuprofile` = 'active' WHERE `id_uprofile` = $id");
     $result = $mysqli->query($query);
-    //var_dump($query);
-    header('Location: adminprofile.php');
-};
+    header('Location: generalprofile.php');
+}
 ?>

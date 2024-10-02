@@ -156,10 +156,10 @@ require_once('bd.php');
                              '.$row['caption'].'
                          </div>
                      </a>');?>
-                     <button type="submit" class="btn btn-primary" style="width: 100%;">Подробнее</button>
+                     <button type="submit" name="submit" class="btn btn-primary" style="width: 100%;">Подробнее</button>
                      <?php echo('</form>');
                  }
-                 echo('<a href="alluevents.php" class="h3">Все мероприятия</a>');
+                 echo('<a href="allevents.php" class="h3">Все мероприятия</a>');
                 ?>
             </div>
             <div class="md-col md-col-6 lg-col-4 p2">
@@ -183,7 +183,7 @@ require_once('bd.php');
                     <button type="submit" class="btn btn-primary" style="width:100%;">Подробнее</button>
                     <?php echo('</form>');
                 }
-                echo('<a href="#" class="h3">Все публикации</a>');
+                echo('<a href="allupublic.php" class="h3">Все публикации</a>');
                 ?>
             </div>
 

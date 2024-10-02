@@ -23,7 +23,7 @@ $offset = ($page_no-1) * $total_records_per_page;
 $previous_page = $page_no - 1;
 $next_page = $page_no + 1;
 $adjacents = "2";
-$result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unews");
+$result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM events");
 	//$total_records = mysqli_fetch_array($result_count);
     $total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
@@ -77,7 +77,7 @@ $result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unew
   <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
     <div class="clearfix p1">
         <div class="desk-logo-wrap mx-auto block">
-        <a href="index.php">
+            <a href="index.php">
                 <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"></amp-img>
             </a>
         </div>
@@ -163,65 +163,45 @@ $result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unew
           </div>
 
     </div>
-    <script>
-        function linkClick(e) {
-        var e = window.event || e;
-        var target = e.target || e.srcElement;
-        var parentForm = getParentForm(target);
-        parentForm.submit();
- 
-        if (window.event) { e.returnValue = false; } else { e.preventDefault(); }
-}
-    </script>
+
     <div class="container" style="margin-top:30px">
-    <h1>Все новости</h1>
+    <h1>Все публикации</h1>
     <table class="table table-striped">
 			<tr style="font-weight:bold; font-style:itallic;">
 			<td>ID</td>
             <td>Название</td>
             <td>Описание</td>
-            <td>Текст</td>
-            <td>Дата</td>
+            <td>Статус</td>
             <td>Разместил</td>
-            <td>Просмотр</td>
+            <td>Действие</td>
 			</tr>
 <?php 
 
-$query=("SELECT `unews`.`id_unews`, `unews`.`utitle`,`unews`.`udescription`,`unews`.`textunews`,`unews`.`statusunews`,`unews`.`dateunews`,`uprofile`.`ulastname`,`uprofile`.`ufirstname` 
-FROM `unews` 
-INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile`
-WHERE 1=1 AND `statusunews` = 'active'
+$query = ("SELECT `upublic`.`id_upublic`, `upublic`.`naim`, `upublic`.`uptext`, 
+`upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`
+FROM `upublic` 
+INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
+WHERE 1=1 
 LIMIT $offset, $total_records_per_page");
-//var_dump($query);
 $result = $mysqli->query($query);
 
 while($row = $result->fetch_array()){			
-    if($row['statusunews'] == "active"){
+    if($row['statusupublic'] == "active"){
     echo('<tr>
-    <td>'.$row['id_unews'].'</td>
-    <td>'.$row['utitle'].'</td>
-    <td>'.$row['udescription'].'</td>
-    <td>'.$row['textunews'].'</td>
-    <td>'.$row['dateunews'].'</td>
+    <td>'.$row['id_upublic'].'</td>
+    <td>'.$row['naim'].'</td>
+    <td>'.$row['uptext'].'</td>
+    <td>'.$row['statusupublic'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-    <td><form method="POST" action="unews.php">
-    <input type="hidden" name="id" value="'.$row['id_unews'].'">');?>
+    <td><form method="POST" action="events.php">
+    <input type="hidden" name="id" value="'.$row['id_events'].'">
     <button type="submit" name="submit" class="btn btn-primary">Просмотр</button>
-    <?php echo('
     </form></td>
     </tr>');
-    }
+    };
     }
     $result->free();
     $mysqli->close();
-
-    if(isset($_POST['submit'])){
-        $idunews = $_POST['id'];
-        $_SESSION['id'] = $idunews;
-        //header('Location: unews.php');
-        echo('<script>window.location.href="unews.php"</script>');
-    }//Тут почему-то редиректится на signin.php
-
 	//mysqli_close($mysqli);
   ?>	
 </table>

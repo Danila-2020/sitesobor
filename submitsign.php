@@ -16,7 +16,7 @@ if(!empty($_POST)){
             }else if($row['urole'] == "admin"){
                 header('Location: adminprofile.php');
             }else if($row['urole'] == "general"){
-                header('Location: generaluprofile.php');
+                header('Location: generalprofile.php');
             }
         }
     }else{
