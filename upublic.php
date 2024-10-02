@@ -5,8 +5,8 @@ include('template/head.php');
 include('template/barber.php');
 require_once('bd.php');
 
-$_SESSION['id'] = $_POST['id'];
-$id = $_SESSION['id'];
+$id = $_POST['id'];
+$_SESSION['id'] = $id;
 if(empty($id)){
     echo('<script>window.location.href="index.php"</script>');
 }
@@ -140,13 +140,21 @@ if(empty($id)){
             <div class="md-col md-col-12 lg-col-12 p2">
                 <h2>Публикации</h2>
                         <?php
+                        // $query = ("SELECT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, 
+                        // `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`,
+                        // `uphoto`.`id_uphoto`, `uphoto`.`uphoto`,`uphoto`.`id_upublic`
+                        // FROM `upublic` 
+                        // INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
+                        // INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
+                        // WHERE 1=1 AND `upublic`.`statusupublic` = 'active' AND `upublic`.`id_upublic` = $id");
+
                         $query = ("SELECT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, 
-                        `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`,
-                        `uphoto`.`id_uphoto`, `uphoto`.`uphoto`,`uphoto`.`id_upublic`
+                        `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, 
+                        `uphoto`.`id_uphoto`, `uphoto`.`uphoto`,`uphoto`.`id_upublic` 
                         FROM `upublic` 
-                        INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
-                        INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
-                        WHERE `upublic`.`statusupublic` = 'active' AND `upublic`.`id_upublic` = $id");
+                        LEFT JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
+                        LEFT JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
+                        WHERE 1=1 AND `upublic`.`statusupublic` = 'active' AND `upublic`.`id_upublic` = $id");
                         $result = $mysqli->query($query);
                         while($row = $result->fetch_array()){
                         ?>
