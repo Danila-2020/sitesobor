@@ -160,7 +160,11 @@ if(empty($id)){
                         ?>
                         <div class="col col-12">
                             <?php echo('<h1>'.$row['naim'].'</h1>');
+                            if(!empty($row['uphoto'])){
                             $img = base64_encode($row['uphoto']);
+                            }else{
+                            echo('<img src="../img/no_img.jpeg" alt="Нет изображения" class="img-fluid"></img>');
+                            }
                             ?>
                             <img src="data:image/jpeg; base64,<?=$img?>" class="img-fluid" layout="responsive">
                         </div>

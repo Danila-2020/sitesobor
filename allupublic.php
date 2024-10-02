@@ -8,9 +8,9 @@ require_once('bd.php');
 //$_SESSION['id'] = $_POST['id'];
 $_SESSION['id'] = $id;
 // var_dump($_SESSION);
-if(empty($id)){
+/*if(empty($id)){
     echo('<script>window.location.href="index.php"</script>');
-}
+}*/
 
 //Вагинация на печке
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
