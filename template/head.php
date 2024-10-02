@@ -9,11 +9,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">-->
     <link rel="stylesheet" href="../css/cdn_css/brands.css">
     <link rel="stylesheet" href="../css/cdn_css/fontawesome.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-grid.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="../css/custom-style1.css">
     <link rel="stylesheet" href="../css/favicon-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,9 +34,8 @@
         </style>
          <meta name="csrf-param" content="_csrf-frontend">
          <meta name="csrf-token" content="rufNjNmfaRuKJ-ssgba1NeE69mEJj3aI0QWIBDjgdkDc0YLLjMY6Tv4fmX_jwfJlh0O3J37HEOqjYtdDbLM5cg==">
-         
          <script src="../js/cdn_js/v0.js" async="async"></script>
-         <script src="../js/jquery.min.js" async="async" custom-element="amp-iframe"></script>
+         <script src="../js/cdn_js/jquery.min.js" async="async" custom-element="amp-iframe"></script>
          <script src="../js/jquery.maskedinput.min.js" async="async" custom-element="amp-lightbox"></script>
          <script src="../js/cdn_js/amp-mustache-0.2.js" async="async" custom-element="amp-list"></script>
          <script src="../js/cdn_js/amp-list-0.1.js" async="async" custom-template="amp-mustache"></script>

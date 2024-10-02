@@ -40,8 +40,7 @@ body{background-image:url('img/background3.jpg');};
   <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
     <div class="clearfix p1">
         <div class="desk-logo-wrap mx-auto block">
-            <amp-img class="" src="/files/logo-color.png" width="1024" height="540" layout="responsive">
-            <h1 style="font-family: Calibri; font-weight: bold; text-align: center; margin-bottom: 25%; margin-top:0;">Логотип</h1>
+            <amp-img class="" src="../img/mestologo.png" width="1024" height="540" layout="responsive">
         </div>
     </div>
     <div class="clearfix">
@@ -171,6 +170,7 @@ body{background-image:url('img/background3.jpg');};
           </div>
         </div>
         <div class="row">
+            <div class="container">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <table class="table table-striped">
                 <tr style="font-style:italic; font-weight:bold;">
@@ -201,6 +201,7 @@ body{background-image:url('img/background3.jpg');};
             ?>
             </table>
             </div>
+        </div>
         </div>
       </div>
 
