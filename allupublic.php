@@ -1,12 +1,14 @@
 <?php
-require_once('bd.php');
+session_start();
+$id = $_POST['id'];
 include('template/head.php');
 include('template/barber.php');
+require_once('bd.php');
 
-//session_start();
 //$_SESSION['id'] = $_POST['id'];
-/*$id = $_SESSION['id'];
-if(empty($id)){
+$_SESSION['id'] = $id;
+// var_dump($_SESSION);
+/*if(empty($id)){
     echo('<script>window.location.href="index.php"</script>');
 }*/
 
@@ -185,7 +187,8 @@ WHERE 1=1
 LIMIT $offset, $total_records_per_page");
 $result = $mysqli->query($query);
 
-while($row = $result->fetch_array()){			
+while($row = $result->fetch_array()){
+    $idupublic = $row['id_upublic'];			
     if($row['statusupublic'] == "active"){
     echo('<tr>
     <td>'.$row['id_upublic'].'</td>
@@ -193,9 +196,9 @@ while($row = $result->fetch_array()){
     <td>'.$row['uptext'].'</td>
     <td>'.$row['statusupublic'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-    <td><form method="POST" action="events.php">
-    <input type="hidden" name="hidden" value="'.$row['id_events'].'">
-    <button type="submit" name="submit" class="btn btn-outline-success">Просмотреть</button>
+    <td><form method="POST" action="upublic.php">
+    <input type="hidden" name="id" value="'.$idupublic.'">
+    <button type="submit" name="submit" class="btn btn-outline-primary">Просмотреть</button>
     </form></td>
     </tr>');
     };
