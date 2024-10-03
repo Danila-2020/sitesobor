@@ -109,7 +109,7 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
     <li class="inline-block mr1">
-        <a href="controluprofile.php">Управление</a>
+        <a href="#">Управление</a>
     </li>
 </ul>
 
@@ -119,47 +119,12 @@ body{background-image:url('img/background3.jpg');};
     
     <div class="container" style="margin-top:30px">
         <div class="row">
-          <div class="col-sm-4"></div>
-          <div class="col-sm-4">
-          <h2>Профиль general администратора</h2>
-            <form action="editgeneralprofile.php" method="post">
-            <?php
-            $result = $mysqli->query("SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE `id_uprofile`=$id");
-            while($row = $result->fetch_array()){
-                $img = base64_encode($row['uphoto']);
-                ?>
-            <div class="fakeimg">
-                <img src="img/no_img — копия.jpeg" alt="" class="img-fluid">
-            </div>
-            <label for="ulastname">Фамилия</label>
-            <input type="text" name="ulastname" placeholder="Фамилия" value="<?php echo($row['ulastname']);?>" class="form-control" required />
-            <label for="ufirstname">Имя</label>
-            <input type="text" name="ufirstname" placeholder="Имя" value="<?php echo($row['ufirstname']);?>" class="form-control" required />
-            <label for="ulastname">Отчество</label>
-            <input type="text" name="upatronymic" placeholder="Отчество" value="<?php echo($row['upatronymic'])?>" class="form-control" />
-            <label for="uemail">E-Mail - Адрес</label>
-            <input type="text" name="uemail" placeholder="E-Mail Адрес" value="<?php echo($row['uemail'])?>" class="form-control" required />
-            <label for="uphone">Номер телефона</label>
-            <input type="text" name="uphone" placeholder="+7(999)999-99-99" id="phone" value="<?php echo($row['uphone'])?>" class="form-control" required />
-            <label for="ulogin">Логин</label>
-            <input type="text" name="ulogin" placeholder="Логин" value="<?php echo($row['ulogin'])?>" class="form-control" required />
-            <label for="upassword">Пароль</label>
-            <input type="text" name="upassword" placeholder="Пароль" value="<?php echo($row['upassword'])?>" class="form-control" required /><br>
-            <button type="submit" name="submit" class="btn btn-primary">Сохранить</button><br>
-            <?php
-            };
-            ?>
-            </form>
-            <br>
-            
-            <hr class="d-sm-none">
-          </div>
-          <div class="col-sm-4">
-          </div>
+          
         </div>
         <div class="row">
             <div class="container">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
             <table class="table table-striped">
                 <tr style="font-style:italic; font-weight:bold;">
                     <td>Фамилия</td>
@@ -170,11 +135,15 @@ body{background-image:url('img/background3.jpg');};
                     <td>Логин</td>
                     <td>Пароль</td>
                     <td>Роль</td>
+                    <td>Управление</td>
                 </tr>
             <?php
-            $selquery = "SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE 1=1";
-            $result = $mysqli->query($selquery);//Тут это ломалось
+            $selquery = "SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` 
+            FROM `uprofile` 
+            WHERE 1=1";
+            $result = $mysqli->query($selquery);//Уже как бабка отшептала, ошибка ушла
             while($row=$result->fetch_array()){
+                if($row['urole']<>'general'){ //Показываем профили без роли general-Админа
                 echo('<tr>
                 <td>'.$row['ulastname'].'</td>
                 <td>'.$row['ufirstname'].'</td>
@@ -184,10 +153,19 @@ body{background-image:url('img/background3.jpg');};
                 <td>'.$row['ulogin'].'</td>
                 <td>'.$row['upassword'].'</td>
                 <td>'.$row['urole'].'</td>
+                <td>
+                <form method="POST" action="#">
+                <input type="hidden" name="hidden" value="'.$row['id_uprofile'].'"></input>
+                <button type="submit" name="submit" class="btn btn-primary">Открыть</button>
+                </form>
+                </td>
                 </tr>');
+                }//Конец if
+                //Разработать логику как на user, так и на admin, чтобы при нажатии кнопки открыть открывался нужный профиль
             }
             ?>
             </table>
+            </div>
             </div>
         </div>
         </div>
