@@ -153,13 +153,31 @@ body{background-image:url('img/background3.jpg');};
                 <td>'.$row['ulogin'].'</td>
                 <td>'.$row['upassword'].'</td>
                 <td>'.$row['urole'].'</td>
-                <td>
-                <form method="POST" action="#">
+                <td><form method="POST" action="submitcontrol.php">
                 <input type="hidden" name="hidden" value="'.$row['id_uprofile'].'"></input>
-                <button type="submit" name="submit" class="btn btn-primary">Открыть</button>
-                </form>
-                </td>
-                </tr>');
+                <button type="submit" name="submit" class="btn btn-danger">Удалить</button>
+                </form></td>');
+                /*if($row['urole']="user"){
+                echo('<form method="POST" action="controluprofile.php">');//userprofile.php
+                }else if($row["urole"]="admin"){
+                echo('<form method="POST" action="controluprofile.php">');//adminprofile.php
+                };
+                echo('<input type="hidden" name="hidden" value="'.$row['id_uprofile'].'"></input>
+                <button type="submit" name="submit" class="btn btn-primary">Открыть</button>');*/
+                if(isset($_POST['submit'])){
+                    //$id = $_POST['hidden'];
+                    //$_SESSION['iduser'] = $id;
+                    if($row['urole']="user"){
+                        //echo('<script>window.location.href="userprofile.php"</script>');
+                        var_dump($id);
+                    }else if($row['urole']="admin"){
+                        //echo('<script>window.location.href="adminprofile.php"</script>');
+                        var_dump($id);
+                        };
+                }
+                echo('</form>');
+                echo('</td>');
+                echo('</tr>');
                 }//Конец if
                 //Разработать логику как на user, так и на admin, чтобы при нажатии кнопки открыть открывался нужный профиль
             }
