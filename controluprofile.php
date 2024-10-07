@@ -138,12 +138,13 @@ body{background-image:url('img/background3.jpg');};
                     <td>Управление</td>
                 </tr>
             <?php
-            $selquery = "SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` 
+            $selquery = "SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto`, `statusuprofile`
             FROM `uprofile` 
             WHERE 1=1";
             $result = $mysqli->query($selquery);//Уже как бабка отшептала, ошибка ушла
             while($row=$result->fetch_array()){
-                if($row['urole']<>'general'){ //Показываем профили без роли general-Админа
+                if($row['urole']<>'general'){
+                    if($row['statusuprofile'] == "active"){ //Показываем профили без роли general-Админа
                 echo('<tr>
                 <td>'.$row['ulastname'].'</td>
                 <td>'.$row['ufirstname'].'</td>
@@ -157,13 +158,21 @@ body{background-image:url('img/background3.jpg');};
                 <input type="hidden" name="hidden" value="'.$row['id_uprofile'].'"></input>
                 <button type="submit" name="submit" class="btn btn-danger">Удалить</button>
                 </form></td>');
-                /*if($row['urole']="user"){
-                echo('<form method="POST" action="controluprofile.php">');//userprofile.php
-                }else if($row["urole"]="admin"){
-                echo('<form method="POST" action="controluprofile.php">');//adminprofile.php
-                };
-                echo('<input type="hidden" name="hidden" value="'.$row['id_uprofile'].'"></input>
-                <button type="submit" name="submit" class="btn btn-primary">Открыть</button>');*/
+                } else if($row['statusuprofile'] == "deleted"){
+                    echo('<tr>
+                <td>'.$row['ulastname'].'</td>
+                <td>'.$row['ufirstname'].'</td>
+                <td>'.$row['upatronymic'].'</td>
+                <td>'.$row['uemail'].'</td>
+                <td>'.$row['uphone'].'</td>
+                <td>'.$row['ulogin'].'</td>
+                <td>'.$row['upassword'].'</td>
+                <td>'.$row['urole'].'</td>
+                <td><form method="POST" action="submitrecovery.php">
+                <input type="hidden" name="hidden" value="'.$row['id_uprofile'].'"></input>
+                <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
+                </form></td>');
+                }
                 if(isset($_POST['submit'])){
                     //$id = $_POST['hidden'];
                     //$_SESSION['iduser'] = $id;
