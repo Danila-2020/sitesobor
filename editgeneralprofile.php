@@ -1,6 +1,6 @@
 <?php
+sesssion_start();//Тут идёт session_start(), он наверное не нужен
 require_once('bd.php');
-sesssion_start();
 $id = $_SESSION['id'];
 if(empty($id)){
     echo('<script>window.location.href="signin.php"</script>');
@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
     $query = ("UPDATE `uprofile` SET `ulastname`='$ulastname',
     `ufirstname`='$ufirstname',`upatronymic`='$upatronymic',
     `uemail`='$uemail',
-    `urole`='admin',
+    `urole`='general',
     `ulogin`='$ulogin',
     `upassword`='$upassword',
     `ucode`='$ucode',

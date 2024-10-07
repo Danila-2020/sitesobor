@@ -173,6 +173,7 @@ body{background-image:url('img/background3.jpg');};
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
             <table class="table table-striped">
                 <tr style="font-style:italic; font-weight:bold;">
                     <td>Фамилия</td>
@@ -201,6 +202,7 @@ body{background-image:url('img/background3.jpg');};
             }
             ?>
             </table>
+            </div>
             </div>
         </div>
       </div>
