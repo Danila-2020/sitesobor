@@ -82,7 +82,7 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="#">Новость</a>
+        <a class="" href="addunewsgeneral.php">Новость</a>
     </li>
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=1">Мероприятие</a>
