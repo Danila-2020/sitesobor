@@ -291,7 +291,7 @@ while($row = $result->fetch_array()){
     </div>
 
 
-
+<?php echo('test')?>
 
 <?php
 include('template/footer.php');
