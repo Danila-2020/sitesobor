@@ -190,6 +190,10 @@ while($row = $result->fetch_array()){
     <input type="hidden" name="id" value="'.$row['id_unews'].'">
     <button type="submit" name="submit" class="btn btn-success">Удалить</button>
     </form>
+    <form method="POST" action="delnews.php">
+    <input type="hidden" name="id" value="'.$row['id_unews'].'">
+    <button type="submit" name="submit" class="btn btn-danger">Полное удаление</button>
+    </form>
     </td>
     </tr>');
     };

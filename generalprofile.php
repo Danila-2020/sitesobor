@@ -97,7 +97,7 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="viewunewsadmin.php">Новости</a>
+        <a href="viewunewsgeneral.php">Новости</a>
     </li>
     <li class="inline-block mr1">
         <a href="#">Мероприятия</a>
