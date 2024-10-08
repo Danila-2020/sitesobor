@@ -154,9 +154,13 @@ body{background-image:url('img/background3.jpg');};
                 <td>'.$row['ulogin'].'</td>
                 <td>'.$row['upassword'].'</td>
                 <td>'.$row['urole'].'</td>
-                <td><form method="POST" action="submitcontrol.php">
+                <td><form method="POST" action="submitcontrol.php" style="margin-bottom:5%;">
                 <input type="hidden" name="hidden" value="'.$row['id_uprofile'].'"></input>
-                <button type="submit" name="submit" class="btn btn-danger">Удалить</button>
+                <button type="submit" name="submit" class="btn btn-primary">Удалить</button>
+                </form>
+                <form method="POST" action="fulldeleteuprofile.php">
+                <input type="hidden" name="hdelete" value="'.$row['id_uprofile'].'"></input>
+                <button type="submit" name="submit" class="btn btn-danger">Полное удаление</button>
                 </form></td>');
                 } else if($row['statusuprofile'] == "deleted"){
                     echo('<tr>
