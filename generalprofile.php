@@ -92,7 +92,7 @@ body{background-image:url('img/background3.jpg');};
         <a class="" href="/site/article?id=2">Святыни</a>
     </li>-->
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Публикацию</a>
+        <a class="" href="addupublicgen.php">Публикацию</a>
     </li>
 </ul>
 
@@ -104,7 +104,7 @@ body{background-image:url('img/background3.jpg');};
         <a href="#">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Публикации</a>
+        <a href="viewupublicgeneral.php">Публикации</a>
     </li>
 </ul>
 
