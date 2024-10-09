@@ -30,7 +30,7 @@
         <style>
             /*body{background-image: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1612767162_15-p-fon-goluboe-nebo-s-oblakami-19.jpg');}*/
             body{
-                background-image: url('../img/background2.jpg');
+                background-image: url('img/background2.jpg');
                 background-repeat: no-repeat;
             }
         </style>
@@ -207,7 +207,7 @@
                     </amp-iframe>-->
             </div>
         
-            <div class="clearfix">
+            <!-- <div class="clearfix">
         
                     <div class="md-col md-col-6 lg-col-4 p2">
                         <h2>Новости</h2>
@@ -294,6 +294,28 @@
                         <a href="/site/articles?catids%5B0%5D=6" class="h3">Все публикации</a>
                     </div>
         
+            </div> -->
+            <div class="container" style="margin-bottom: 5%;">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <form action="" method="post">
+                            <h1 class="text-center" style="font-weight: bold; margin: 0%;">Редактирование публикации</h1>
+                            <label for="naim">Название</label>
+                            <input type="text" name="naim" placeholder="Название" class="form-control" required /><br>
+                            <label for="uptext">Описание</label>
+                            <textarea name="uptext" placeholder="Описание" cols="1" rows="10" class="form-control"></textarea><br>
+                            <button type="submit" class="btn btn-primary">Сохранить</button> <br>
+                        </form>
+                        <br>
+                        <form action="" method="post">
+                            <button type="submit" class="btn btn-danger">Удалить публикацию</button>
+                        </form>
+                        <br>
+                        <button type="submit" class="btn btn-success" onclick="location.href='#'">Вернуться назад</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                </div>
             </div>
           </div>
          </div>
