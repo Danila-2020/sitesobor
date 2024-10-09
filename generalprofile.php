@@ -1,5 +1,5 @@
 <?php
-    /* Данный модуль делает что-то, но это я напишу потом */
+    /* Данный модуль является профилем general-администратора */
 session_start();
 require_once('bd.php');
 include('template/head.php');

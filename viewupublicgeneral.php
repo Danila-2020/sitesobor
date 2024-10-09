@@ -178,7 +178,7 @@ while($row = $result->fetch_array()){
     <td>'.$row['statusupublic'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
-    <form method="POST" action="">
+    <form method="POST" action="updupublicgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
     </form>
