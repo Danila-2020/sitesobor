@@ -115,18 +115,27 @@ require_once('bd.php');
                                 INNER JOIN uprofile ON upublic.id_uprofile = uprofile.id_uprofile
                                 WHERE upublic.id_upublic = $id";
                         $result = $mysqli->query($query);
-                        while($row = $result->fetch_array()) {
-                        //var_dump($query);//Выводим на страницу результат запроса
-                        ?>
-                        <form action="" method="post">
+                        while($row = $result->fetch_assoc()) {
+                            echo('<form action="" method="post">
                             <h1 class="text-center" style="font-weight: bold; margin: 0%;">Редактирование публикации</h1>
                             <label for="naim">Название</label>
-                            <input type="text" name="naim" placeholder="Название" value="<?php echo($row['naim']);?>" class="form-control" required /><br>
+                            <input type="text" name="naim" placeholder="Название" value="'.$row['naim'].'" class="form-control" required /><br>
                             <label for="uptext">Описание</label>
                             <textarea name="uptext" placeholder="Описание" cols="1" rows="10" class="form-control"></textarea><br>
                             <button type="submit" name="submit" class="btn btn-primary">Сохранить</button> <br>
-                        </form>
-                        <?php} //Конец цикла ?>
+                            </form>');
+                        }
+                        //var_dump($query);//Выводим на страницу результат запроса
+
+                        /*echo('<form action="" method="post">
+                            <h1 class="text-center" style="font-weight: bold; margin: 0%;">Редактирование публикации</h1>
+                            <label for="naim">Название</label>
+                            <input type="text" name="naim" placeholder="Название" value="'.$row['naim'].'" class="form-control" required /><br>
+                            <label for="uptext">Описание</label>
+                            <textarea name="uptext" placeholder="Описание" cols="1" rows="10" class="form-control"></textarea><br>
+                            <button type="submit" name="submit" class="btn btn-primary">Сохранить</button> <br>
+                        </form>');*/
+                        ?>
                         <br>
                         <form action="" method="post">
                             <button type="submit" class="btn btn-danger">Удалить публикацию</button>
