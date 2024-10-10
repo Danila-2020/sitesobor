@@ -24,7 +24,7 @@ if(empty($id)){
     $result = $mysqli->query($query);
     while($row=$result->fetch_array()){
     ?>
-    <form action="updateunewsadminsubmit.php" method="post" class="form-group">
+    <form action="updateunewsgeneralsubmit.php" method="post" class="form-group">
         <h2 class="text-center">Редактирование новости</h2>
         <label for="utitle">Название</label>
         <input type="text" name="utitle" class="form-control" value="<?php echo($row['utitle']);?>" required />
@@ -41,7 +41,7 @@ if(empty($id)){
         <?php
             if(isset($_POST['exit'])){
                 $_SESSION['idunews'] = "";
-                echo('<script>window.location.href="viewunewsadmin.php"</script>');
+                echo('<script>window.location.href="viewunewsgeneral.php"</script>');
             }
         ?>
     </form>

@@ -182,11 +182,11 @@ while($row = $result->fetch_array()){
     <td>'.$row['dateunews'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
-    <form method="POST" action="updateunewsadmin.php">
+    <form method="POST" action="updateunewsgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_unews'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
     </form>
-    <form method="POST" action="deleteunews.php">
+    <form method="POST" action="deleteunewsgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_unews'].'">
     <button type="submit" name="submit" class="btn btn-success">Удалить</button>
     </form>
@@ -207,7 +207,7 @@ while($row = $result->fetch_array()){
         <td>'.$row['dateunews'].'</td>
         <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
         <td>
-        <form method="POST" action="recoveryunews.php">
+        <form method="POST" action="recoveryunewsgeneral.php">
         <input type="hidden" name="id" value="'.$row['id_unews'].'">
         <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
         </form>
