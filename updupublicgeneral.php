@@ -3,6 +3,11 @@ session_start();//Тут идёт session_start(), он наверное не н
 include('template/head.php');
 include('template/barber.php');//Не забываем подключить бороду
 require_once('bd.php');
+
+$id = $_POST['id'];//Получаем id публикации
+if(empty($id)){
+    echo('<script>window.location.href="viewupublicgeneral.php"</script>');
+}
 ?>
 <body>
     <div class="relative page-wrap"><!-- page-wrap -->
@@ -107,26 +112,36 @@ require_once('bd.php');
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <form action="" method="post">
                         <?php
-                        $id = $_POST['id'];//Получаем id публикации
+                        //$id = $_POST['id'];//Получаем id публикации
                         $query = "SELECT upublic.id_upublic,upublic.id_uphoto,upublic.naim,upublic.uptext,
                                 upublic.statusupublic,upublic.id_uprofile, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic 
                                 FROM upublic
                                 INNER JOIN uprofile ON upublic.id_uprofile = uprofile.id_uprofile
                                 WHERE upublic.id_upublic = $id";
                         $result = $mysqli->query($query);
-                        while($row = $result->fetch_array()) {
                         //var_dump($query);//Выводим на страницу результат запроса
+                        while($row = $result->fetch_array()){
                         ?>
-                        <form action="" method="post">
-                            <h1 class="text-center" style="font-weight: bold; margin: 0%;">Редактирование публикации</h1>
+                        <h1 class="text-center" style="font-weight: bold; margin: 0%;">Редактирование публикации</h1>
                             <label for="naim">Название</label>
                             <input type="text" name="naim" placeholder="Название" value="<?php echo($row['naim']);?>" class="form-control" required /><br>
                             <label for="uptext">Описание</label>
+                            <textarea name="uptext" placeholder="Описание" cols="1" rows="10" class="form-control"><?php echo($row['uptext']);?></textarea><br>
+                            <button type="submit" name="submit" class="btn btn-primary">Сохранить</button><br>
+                        <?php
+                        }
+                        ?>
+                        </form>
+                        <!-- <form action="" method="post">
+                            <h1 class="text-center" style="font-weight: bold; margin: 0%;">Редактирование публикации</h1>
+                            <label for="naim">Название</label>
+                            <input type="text" name="naim" placeholder="Название" value="<?php// echo($row['naim']);?>" class="form-control" required /><br>
+                            <label for="uptext">Описание</label>
                             <textarea name="uptext" placeholder="Описание" cols="1" rows="10" class="form-control"></textarea><br>
                             <button type="submit" name="submit" class="btn btn-primary">Сохранить</button> <br>
-                        </form>
-                        <?php} //Конец цикла ?>
+                        </form> -->
                         <br>
                         <form action="" method="post">
                             <button type="submit" class="btn btn-danger">Удалить публикацию</button>
