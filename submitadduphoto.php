@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
         $query = ("INSERT INTO `uphoto`(`uphoto`, `id_upublic`) VALUES ('$uphoto','$upublic')");
         $result = $mysqli->query($query);
         if($result){
-            echo("<script>alert('Встъебенено успешно!!!');</script>");
+            echo("<script>alert('Фото успешно добавлено!!!');</script>");//Встъебенено успешно!!!
             echo('<script>window.location.href="adduphoto.php";</script>');
         }
     }
