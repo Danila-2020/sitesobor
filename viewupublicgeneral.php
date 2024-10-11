@@ -182,7 +182,7 @@ while($row = $result->fetch_array()){
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
     </form>
-    <form method="POST" action="">
+    <form method="POST" action="deleteupublicgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-success">Удалить</button>
     </form>
@@ -193,18 +193,16 @@ while($row = $result->fetch_array()){
     </td>
     </tr>');
     };
-    if($row['statusunews'] == "deleted"){
+    if($row['statusupublic'] == "deleted"){
         echo('<tr>
-        <td>'.$row['id_unews'].'</td>
-        <td>'.$row['utitle'].'</td>
-        <td>'.$row['udescription'].'</td>
-        <td>'.$row['textunews'].'</td>
-        <td>'.$row['statusunews'].'</td>
-        <td>'.$row['dateunews'].'</td>
+        <td>'.$row['id_upublic'].'</td>
+        <td>'.$row['naim'].'</td>
+        <td>'.$row['uptext'].'</td>
+        <td>'.$row['statusupublic'].'</td>
         <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
         <td>
-        <form method="POST" action="recoveryunews.php">
-        <input type="hidden" name="id" value="'.$row['id_unews'].'">
+        <form method="POST" action="recoveryupublicgeneral.php">
+        <input type="hidden" name="id" value="'.$row['id_upublic'].'">
         <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
         </form>
         </td>
