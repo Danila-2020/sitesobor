@@ -2,6 +2,7 @@
 session_start();
 include('template/uphotohead.php');
 require_once('bd.php');
+$id = $_SESSION['id'];
 ?>
 <body>
     <div class="container">
@@ -13,9 +14,11 @@ require_once('bd.php');
             
                 <form action="adduphotosubmit.php" method="post">
                     <?php
-                    $query = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`id_upublic`, `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` FROM `uphoto`
-                    LEFT JOIN `upublic` ON `uphoto`.`id_upublic` = `upublic`.`id_upublic`
-                    LEFT JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`";
+                    $query = "SELECT upublic.id_upublic, `upublic`.`naim`, `upublic`.`id_uprofile`, `uprofile`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic`
+                            FROM `upublic`
+                            INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
+                            WHERE `uprofile`.`id_uprofile` = $id
+                            ORDER BY `upublic`.`id_upublic` ASC";
                     $result = $mysqli->query($query);
                     ?>
                     <h4>Выбрать публикацию</h4>
