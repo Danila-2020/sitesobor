@@ -19,7 +19,7 @@ require_once('bd.php');
 	  </div>
 	  <!-- Uploaded image area-->
 	  <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
-	  <div class="image-area mt-4" style="margin-bottom: 1%;"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+	  <!--<div class="image-area mt-4" style="margin-bottom: 1%;"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>-->
 	  <button type="submit" class="btn btn-warning" style="float: right;">Загрузить</button>
 	  </form>
 	  <!--Конец формы-->

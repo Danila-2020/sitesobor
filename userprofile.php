@@ -116,11 +116,18 @@ body{
             <?php
             $result = $mysqli->query("SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE `id_uprofile`=$id");
             while($row = $result->fetch_array()){
-                $img = base64_encode($row['uphoto']);
                 ?>
             <div class="fakeimg">
-                <img src="img/no_img — копия.jpeg" alt="" class="img-fluid">
-            </div>
+                <?php
+                if(!empty($row['uphoto'])){
+                    $img = base64_encode($row['uphoto']);
+                    ?>
+                    <img src="data:image/jpeg;base64,<?=$img?>" alt="" class="img-fluid">
+                    <?php
+                }else{
+                ?>
+                    <img src="img/no_img — копия.jpeg" alt="" class="img-fluid">
+                <?php }?>
             <label for="ulastname">Фамилия</label>
             <input type="text" name="ulastname" placeholder="Фамилия" value="<?php echo($row['ulastname']);?>" class="form-control" required />
             <label for="ufirstname">Имя</label>
@@ -139,6 +146,15 @@ body{
             <?php
             };
             ?>
+            </form>
+            <form action="updateuphotousersubmit.php" method="post" enctype="multipart/form-data">
+            <label for="uphoto">Загрузить новое фото</label>
+            <input type="file" name="uphoto" class="form-control" required /><br>
+            <button type="submit" name="submitupdate" class="btn btn-success">Сохранить фото</button>
+            </form>
+            <br>
+            <form action="deleteuphotousersubmit.php" method="post" enctype="multipart/form-data">
+                <button type="submit" name="submit" class="btn btn-danger">Удалить фото</button>
             </form>
             <br>
             
