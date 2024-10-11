@@ -65,9 +65,6 @@ body{background-image:url('img/background3.jpg');};
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
     </li>
     <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-    <li class="inline-block mr1">
         <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
             <?php
@@ -145,7 +142,7 @@ body{background-image:url('img/background3.jpg');};
             <label for="ufirstname">Имя</label>
             <input type="text" name="ufirstname" placeholder="Имя" value="<?php echo($row['ufirstname']);?>" class="form-control" required />
             <label for="ulastname">Отчество</label>
-            <input type="text" name="upatronymic" placeholder="Отчество" value="<?php echo($row['upatronymic'])?>" class="form-control" />
+            <input type="text" name="upatronymic" placeholder="Отчество" value="<?php echo($row['upatronymic']);?>" class="form-control" />
             <label for="uemail">E-Mail - Адрес</label>
             <input type="text" name="uemail" placeholder="E-Mail Адрес" value="<?php echo($row['uemail'])?>" class="form-control" required />
             <label for="uphone">Номер телефона</label>

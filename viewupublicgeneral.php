@@ -103,16 +103,16 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="addunewsadmin.php">Новость</a>
+        <a class="" href="addunewsgeneral.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">Мероприятие</a>
+        <a class="" href="addeventsgen.php">Мероприятие</a>
     </li>
     <!--<li class="inline-block mr1">
         <a class="" href="/site/article?id=2">Святыни</a>
     </li>-->
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Публикацию</a>
+        <a class="" href="addupublicgen.php">Публикацию</a>
     </li>
 </ul>
 
@@ -186,7 +186,7 @@ while($row = $result->fetch_array()){
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-success">Удалить</button>
     </form>
-    <form method="POST" action="">
+    <form method="POST" action="fulldeleteupublicgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-danger">Полное удаление</button>
     </form>
