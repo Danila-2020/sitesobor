@@ -198,7 +198,7 @@ while($row = $result->fetch_array()){
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td><form method="POST" action="upublic.php">
     <input type="hidden" name="id" value="'.$idupublic.'">
-    <button type="submit" name="submit" class="btn btn-outline-primary">Просмотреть</button>
+    <button type="submit" name="submit" class="btn btn-primary">Просмотр</button>
     </form></td>
     </tr>');
     };

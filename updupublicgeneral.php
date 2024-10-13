@@ -141,9 +141,12 @@ if(empty($id)){
                         </form>
                         <br>
                         <button type="submit" class="btn btn-success" OnClick='location.href="viewupublicgeneral.php"'>Вернуться назад</button>
-                        
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                </div>
+                <hr>
+                <div class="row">
+
                 </div>
             </div>
           </div>

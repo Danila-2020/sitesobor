@@ -169,11 +169,14 @@ body{background-image:url('img/background4.jpg');
 			  </tr>
 <?php 
 
-$result = $mysqli->query("SELECT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, `upublic`.`uptext`, upublic.statusupublic, upublic.id_uprofile, uprofile.ulastname, uprofile.ufirstname FROM `upublic` 
-INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
-LEFT JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic`
-WHERE 1=1
-LIMIT $offset, $total_records_per_page");
+    $result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, 
+    `upublic`.`uptext`, upublic.statusupublic, upublic.id_uprofile, uprofile.ulastname, uprofile.ufirstname 
+    FROM `upublic` 
+    INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
+    LEFT JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
+    WHERE 1=1 
+    ORDER BY `upublic`.`id_upublic` ASC
+    LIMIT $offset, $total_records_per_page");
 
 while($row = $result->fetch_array()){			
     if($row['statusupublic'] == "active"){
@@ -184,6 +187,10 @@ while($row = $result->fetch_array()){
     <td>'.$row['statusupublic'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
+    <form method="POST" action="upublic.php">
+    <input type="hidden" name="id" value="'.$row['id_upublic'].'">
+    <button type="submit" name="submit" class="btn btn-primary">Просмотреть</button>
+    </form>
     <form method="POST" action="">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
