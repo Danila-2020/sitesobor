@@ -86,7 +86,7 @@ body{background-image:url('img/background3.jpg');};
         <a class="" href="addunewsadmin.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">Мероприятие</a>
+        <a class="" href="addeventsadmin.php">Мероприятие</a>
     </li>
     <!--<li class="inline-block mr1">
         <a class="" href="/site/article?id=2">Святыни</a>

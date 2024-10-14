@@ -33,7 +33,7 @@ if(empty($id)){
         <label for="textunews">Текст после изображений</label>
         <textarea name="textunews" rows="5" class="form-control" value="<?php echo($row['textunews']);?>"><?php echo($row['textunews']);?></textarea>
         <label for="dateunews">Дата</label>
-        <input type="date" name="dateunews" value="<?php echo($row['dateunews']);?>" class="form-control" required /><br>
+        <input type="date" name="dateunews" value="<?php echo($row['dateunews']);?>" class="form-control" /><br>
         <button type="submit" name="submit" class="btn btn-primary">Сохранить изменения</button>
     </form>
     <form action="" method="post">
