@@ -85,7 +85,7 @@ body{
         <a class="" href="addunewsuser.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="#">Мероприятие</a>
+        <a class="" href="addeventsuser.php">Мероприятие</a>
     </li>
     <li class="inline-block mr1">
         <a class="" href="#">Публикацию</a>
