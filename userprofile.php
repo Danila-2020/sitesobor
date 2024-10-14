@@ -128,6 +128,7 @@ body{
                 ?>
                     <img src="img/no_img — копия.jpeg" alt="" class="img-fluid">
                 <?php }?>
+            </div>
             <label for="ulastname">Фамилия</label>
             <input type="text" name="ulastname" placeholder="Фамилия" value="<?php echo($row['ulastname']);?>" class="form-control" required />
             <label for="ufirstname">Имя</label>
