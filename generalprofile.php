@@ -59,6 +59,9 @@ body{background-image:url('img/background3.jpg');};
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
     </li>
     <li class="inline-block mr1">
+        <a href="adduphotogen.php">Добавить фото</a>
+    </li>
+    <li class="inline-block mr1">
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
     <li class="inline-block mr1">

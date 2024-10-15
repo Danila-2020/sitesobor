@@ -51,7 +51,7 @@ require_once('bd.php');
             <td>'.$row['titlescedule'].'</td>
             <td>'.$row['sstatus'].'</td>
             <td>'.$uname.'</td>
-            <td><form method="POST" action="sceduleupdatesubmit.php"><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
+            <td><form method="POST" action="sceduleupdate.php"><input type="hidden" name="id" value="'.$row['id_scedule'].'"></input>
             '); if($row['sstatus']=="active"){
                 echo('<button type="submit" name="submit" class="btn btn-primary" style="margin-bottom:5%;">Редактировать</button>');
             };
