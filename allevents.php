@@ -178,10 +178,11 @@ $result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM even
 			</tr>
 <?php 
 
-$query = ("SELECT `events`.`id_events`, `events`.`caption`, `events`.`description`, `events`.`datep`, `events`.`statusevents`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`
+$query = ("SELECT `events`.`id_events`, `events`.`caption`, `events`.`description`, `events`.`datep`, `events`.`statusevents`, `uprofile`.`ulastname`, `uprofile`.`ufirstname` 
 FROM `events` 
-INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile`
-WHERE 1=1
+INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile` 
+WHERE 1=1 
+ORDER BY `events`.`id_events` ASC
 LIMIT $offset, $total_records_per_page");
 $result = $mysqli->query($query);
 
