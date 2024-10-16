@@ -192,7 +192,7 @@ while($row = $result->fetch_array()){
     </form>
     </td>
     </tr>');
-    };
+    }
     if($row['statusupublic'] == "deleted"){
         echo('<tr>
         <td>'.$row['id_upublic'].'</td>
@@ -207,7 +207,7 @@ while($row = $result->fetch_array()){
         </form>
         </td>
         </tr>');
-        };
+        }
     }
     $result->free();
     $mysqli->close();

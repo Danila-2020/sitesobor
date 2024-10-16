@@ -18,7 +18,8 @@ $id = $_SESSION['id'];
                         <?php
                         $query = "SELECT `upublic`.`id_upublic`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` FROM `upublic`
                         INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
-                        WHERE `uprofile`.`id_uprofile` = $id";
+                        WHERE `uprofile`.`id_uprofile` = $id 
+                        ORDER BY `upublic`.`id_upublic` ASC";
                         $result = $mysqli->query($query);
                         while($row = $result->fetch_array()){
                           echo('<option value="'.$row['id_upublic'].'">'.$row['naim'].'</option>');

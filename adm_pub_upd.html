@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/home.png"/><!--/16x16/files/sobor-small-rounded.png-->
+    <link rel="apple-touch-icon" href="img/home.png"/><!--/57x57/files/sobor-small-rounded.png-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css" integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css" integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/custom-style1.css">
+    <link rel="stylesheet" href="css/favicon-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/barber.css">
+    <title>Сайт</title>
+</head>
+<body>
+    <amp-analytics type="metrika">
+        <script type="application/json">
+            {
+                "vars": {
+                    "counterId": "53592163"
+                }
+            }
+        </script>
+    </amp-analytics>
+
+    
+<div class="site-article">
+    <div class="content-wrap"><!-- content-wrap -->
+        <a href="/" class="block relative sm-hide md-hide lg-hide logo-wrap logo-wrap-mob"></a>
+
+        <div class="max-width-4 mx-auto p2"><!-- full-width-wrap -->
+            <div class="border border-grey bg-white-a70 rounded clearfix p2"><!-- clearfix -->
+                
+<ul class="center h2 list-reset mt0 head-menu">
+    <li class="inline-block mr1">
+        <a href="/site/article?id=4">Расписание богослужений</a>
+    </li>
+    <li class="inline-block mr1">
+        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
+    </li>
+    <li class="inline-block mr1">
+        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+    </li>
+    <li class="inline-block mr1">
+        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/order">Подать записку</a>
+    </li>
+</ul>
+
+<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
+    <li class="inline-block mr1">
+        <a class="" href="/site/article?id=3">Духовенство</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="/site/article?id=1">История</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="/site/article?id=2">Святыни</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="/site/article?id=5">Роспись</a>
+    </li>
+</ul>
+
+<ul class="hide" [class]="activitiesMenu||'hide'">
+    <li class="inline-block mr1">
+        <a href="/site/article?id=6">Воскресная школа</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=7">Молодежный центр</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=8">Библиотека</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=9">Социальная деятельность</a>
+    </li>
+</ul>
+
+<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
+    <li class="inline-block mr1">
+        <a href="/site/article?id=10">Крещение</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=11">Венчание</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=12">Исповедь</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=13">Причастие</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=184">Соборование</a>
+    </li>
+</ul>
+
+<hr>
+
+    <div class="social">
+        <ul class="social-share">
+            <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+            <li><a href="#"><i class="fa fa-vk"></i></a></li>
+            <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+            <li><a href="#"><i class="fa fa-skype"></i></a></li>
+        </ul>
+    </div>
+
+
+        <ul class="list-reset breadcrumbs">
+                    <li class="inline-block mr1">
+                        <a href="/">Профиль администратора</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="/site/articles?catids%5B0%5D=6">Публикации</a>
+                    </li>
+                    <li class="inline-block mr1">Просмотр и редактирование публикации</li>
+        </ul>
+
+                <h1>Заголовок публикации</h1>
+
+                <div class="article-wrap">
+                    <div class="article-wrap">
+                    <p>Текст публикации</p>
+                    <p> </p>
+                    <p><strong>СОДЕРЖАНИЕ ПРАЗДНИКА</strong></p>
+                    <p><amp-img src="/files/new/aprel/9aa339b9723921e54c85e12d14ae22b6.jpg" height="500" width="700" layout="responsive"></amp-img></p>
+
+<p>В ветхозаветной Церкви каждый праздник, совершавшийся в течение года, в зависимости от важности и торжественности, имел свое, так называемое, попразднство, обычно длящееся семь дней. Столько дней имели Пасха (Исх.12:16) и праздник Кущей (Лев. 23:36). Последний день праздника назывался великим (Ин. 7:37), он был особенно торжественным и как бы заменял собой сам праздник. Подобно этому происходит обновление праздников и в новозаветной Церкви, например праздники Рождества Христова и Богоявления. Праздник Воскресения Христова, является праздником праздников и поэтому он обновляется не ежегодно, а еженедельно. Отсюда и в первое воскресение после Пасхи, которое к тому же начинает богослужебный цикл всего года, в первый раз здесь обновляется память Воскресения Христова. Это обновление с апостольских времен принято воспоминать через каждые семь дней, то есть в каждый первый день недели. Так этот день получил название – неделя новая, то есть первая, – «день обновления», или просто «обновление» . В творениях святителя Григория Богослова день антипасхи уподобляется обновлению всего творения Божия. Воскресение Христово, которое произошло в первый день недели дает начало новому миру, обновленному, подобно тому, как Господь начал творить его в первый день недели. Днем обновления является именно Антипасха, потому что сам день Христова Воскресения является по слову святителя «пограничным между погребением и Воскресением», в оригинале – «μεθόριον τῆς ταφῆς καὶ τῆς ἀναστάσεως», этот день есть день «воспоминания спасения» «τὸ τῆς σωτηρίας γενέθλιον», день «чисто нового рождения» «καθαρῶς τῆς δευτέρας γενέσεως». Слово святителя Григория в византийских Типиконах стало одним из уставных чтений праздника. Внутреннее обновление, по слову святителя, должно стать приношением Богу от каждого человека . Но помимо того, что этот день является днем обновления, он же является и окончанием торжеств Светлой седмицы (с этого дня верующим уже разрешалось заниматься обыкновенными жизненными заботами, при том, что празднование пасхи продолжалось вплоть до отдания). Святые отцы с самого раннего периода составили особое богослужения для этого события и назвали его Антипасхою, с греческого ἀντίπασχα буквально – то, что вместо Пасхи . В Западной Церкви до сих используется еще одно древнее название этой недели. Оно происходит из благочестивого обычая, когда крещенных в великую субботу одевали в белую одежду, как образ младенческой чистоты во Христе, которую они носили на протяжении всей Светлой Седмицы. В день Антипасхи с них тожественно снимали эту одежду в церкви и полагали на особое место в притворе храма. От этого обычая сама неделя Антипасхи на Западе в IV веке называлась Dominica in Albis – «Воскресеньем в белых», а на Востоке «Новым Воскресеньем» или «Новою неделею», в знак того, что этим днем завершался праздник новокрещенных и начиналась их новая жизнь .</p>
+
+<p><b>БОГОСЛОВИЕ ПРАЗДНИКА</b></p>
+
+<p><b><amp-img src="/files/new/aprel/12899275-e1539861948307-700x403.jpg" height="403" width="700" layout="responsive"></amp-img></b></p>
+
+<p>Этот день также посвящен евангельскому событию, которое произошло как раз на восьмой день, когда Христос явился своим ученикам во второй раз, как описывает евангелист Иоанн Богослов – Он утвердил веру Апостола Фомы, который не присутствовал при первом явлении Христа и не поверил свидетельствам очевидцев Воскресшего учителя. От этого события и произошло другое, более распространенное в Православной Церкви название этой недели – неделя святого апостола Фомы, в простонародье - Фомина. Помимо того, что Спаситель во второй раз явился с целью уверить Своего ученика апостола Фому в действительности воскресения, это явление имеет еще и другое, более обширное значение. Своим явлением и позволением осязать свои пречистые язвы Господь окончательно убедил как своих последователей, так и неверующих язычников и иудеев не только в истинности своего воскресения, но и в том, что Он воскрес со своею Пречистою плотью, и что Он после своего воскресения из гроба имел не призрачную плоть, а ту самую, которую он воспринял от утробы Пресвятой Богородицы и с которой был пригвожден к кресту и на которой, и по воскресении даже, для уверения неверных, остались язвы от гвоздей . Эта истина очень важна для нашего искупления, так как с ее отвержением отвергается и наше спасение в лице Иисуса Христа. Так что можно даже сказать, что в неделю святого апостола Фомы, дерзновение которого уверило нас в воскресении нашего собственного естества, мы торжествует и свое воскресение из мертвых . Богослужебные песнопения недели Антипасхи составлены таким образом, что главной темой является воскресение, но в то же время внимание молящегося устремлено на частный предмет праздника – на уверение св. апостола Фомы и на те важные и спасительные истины, которые сообщены нам в его лице, и которые со своей стороны служат непрерывными свидетельствами славного воскресения. В церковном Уставе сказано: «в сей святой второй неделе Антипасхи не поются воскресная, но вся праздника» . В этот день опускаются практически все пасхальные песнопения: стихиры на стиховне, канон, светилен и т.д. Они не поются потому, что Церковь хочет сосредоточить внимание верующих на евангельском событии, которое и является подтверждением воскресения Христова, которое вероющие вспоминали в течении всей Светлой седмицы. Событие, которое воспоминается в этот день, совершилось уже после пасхальной недели, поэтому и ему нужно было посвятить особые песнопения, как очень важному и спасительному событию для всех, и оставить на некоторое время песнопения Пасхи, которые воспевают в основном события первого дня воскресения .</p>
+
+<p> </p>
+
+<p><strong>СВЯТЫЕ ОТЦЫ ОБ УВЕРЕНИИ ФОМЫ</strong></p>
+
+<p> </p>
+
+<p>В Евангелии от Иоанна 20:19-21, читаемом на Литургии, как раз вспоминается явление воскресшего Господа ученикам и неверие Фомы, а также поучительно нам внушается, что «блаженны не видевшие и уверовавшие», и именно это евангельское повествование стало основой этого дня и всей последующей недели.</p>
+
+<p>Святитель Иоанн Златоуст говорит, что Христос явился ученикам через промежуток времени для того, чтобы за это время Фома сначала был наставлен своими братьями-Апостолами, чтобы он возгорелся желанием, или даже жаждой, увидеть своего Учителя. И когда душа горела от желания созерцать Спасителя, тогда, наконец, благовременно пришел Же­лаемый к желающему. Также в другом месте святитель говорит о том, что апостол Фома не верил, потому что не смог бы потом проповедовать это воскресение. Он должен был удостовериться, чтОбы потом через него удостоверились миллионы людей.</p>
+
+<p>Архим. Киприан (Керн) замечает, что апостолу Фоме «неверующему» Церковь в своих песнопениях уделяет немалое молитвенное внимание, окрашивая его духовный облик оттенком особой любви и почитания, и как бы заботливо защищает и ограждает его память от возможных необоснованных упреков в скептицизме и маловерии, ведь эти упреки не верны. В евангельском повествовании апостол изображается как пытливый ученик с желанием разумной, обоснованной веры (Ин. 19, 5), как пылкое и горячее сердце (Ин. 11, 16 – поступок очень роднящий и приближающий апокалиптическую его веру с пылкой и горячей Петровой).</p>
+
+<p>Григорий Двоеслов замечает, что неверие, а затем уверение Фомы произошло по Божественному повелению: «Ибо верховное милосердие дивным образом соделало то, чтобы этот сомневающийся ученик, осязая раны плоти в Своем Учителе, целил в нас раны неверия».</p>
+
+<p>Поступок апостола Фомы после воскресения Христа не содержит скептицизма, а только подтверждает жажду разумного обоснования веры в нем, и поэтому Христос не отвергает его, а дает ему возможность исповедовать свою веру. Это кажущееся на первый взгляд, в сравнении с пылкой верой сингвинического Петра, сомнение и маловерие не является таким, а наоборот есть лишь тяготение к разумной и зрелой вере. Церковь не воспрещает, а наоборот поощряет такую разумнообоснованную веру, так как именно такая сознательная вера и есть основа богословствования. Церковь, наоборот, отмечает это особое гносеологическое значение Фоминой веры, ибо Фомино «неверие веру известную роди...».</p>
+
+
+
+                </div>
+            </div>
+
+                
+                
+
+                
+
+            </div><!-- clearfix-end -->
+        </div><!-- full-width-wrap-end -->
+    </div><!-- content-wrap-end -->
+</div>
+
+
+
+<div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
+    
+    <div class="social">
+        <ul class="social-share">
+            <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+            <li><a href="#"><i class="fa fa-vk"></i></a></li>
+            <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+            <li><a href="#"><i class="fa fa-skype"></i></a></li>
+        </ul>
+    </div>
+
+<ul class="mx-auto center h2 list-reset">
+    <li class="inline-block mr1">
+        <a href="contacts.html">Задать вопрос</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="note.html">Подать записку</a>
+    <li>
+    <li class="inline-block mr1">
+        <a href="#">Контакты</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="unews.html">Новости собора</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="http://blago-kavkaz.ru/article/blog?catids%5B0%5D=1" target="_blank">Новости епархии</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="http://www.patriarchia.ru/db/news/" target="_blank">Общецерковные новости</a>
+    </li>
+</ul>
+
+
+       <div class="relative">
+            <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img>
+        </div>
+</div>
+
+</body>
+</html>

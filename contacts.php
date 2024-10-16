@@ -16,7 +16,7 @@ include('template/barber.php');
   <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
     <div class="clearfix p1">
         <div class="desk-logo-wrap mx-auto block">
-            <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"><!--/files/logo-color.png-->
+        <a href="index.php"><amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"><!--/files/logo-color.png--></a>
         </div>
     </div>
     <div class="clearfix">
