@@ -163,10 +163,11 @@ body{background-image:url('img/background3.jpg');};
 			  </tr>
 <?php 
 
-$result = $mysqli->query("SELECT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, `upublic`.`uptext`, upublic.statusupublic, upublic.id_uprofile, uprofile.ulastname, uprofile.ufirstname FROM `upublic` 
+$result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, `upublic`.`uptext`, upublic.statusupublic, upublic.id_uprofile, uprofile.ulastname, uprofile.ufirstname FROM `upublic` 
 INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
 LEFT JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic`
-WHERE 1=1
+WHERE 1=1 
+ORDER BY `upublic`.`id_upublic`  ASC
 LIMIT $offset, $total_records_per_page");
 
 while($row = $result->fetch_array()){			
