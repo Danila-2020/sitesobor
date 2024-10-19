@@ -16,6 +16,8 @@ if ($mysqli->connect_error) {
 $sql = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`uphotostatus`, `uphoto`.`id_upublic`, `upublic`.`naim` FROM `uphoto` 
 INNER JOIN `upublic` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic`
 WHERE 1=1";
+//var_dump($sql);//Смотрим запрос
+
 $result = $mysqli->query($sql);
 
 $images = [];
@@ -38,19 +40,44 @@ $mysqli->close();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<!-- <div class="container mt-5" style="margin-bottom: 5%;">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4">
+            <form action="" method="post" class="form-group">
+            <h1>Поиск публикации</h1>
+            <input type="text" name="nupublic" id="" class="form-control" required /><br>
+            <button type="submit" name="submit" class="btn btn-outline-primary">Поиск</button>
+            <?php
+            // if(isset($_POST['submit'])){
+            //     $nupublic = $_POST['nupublic'];
+            //     $and = " AND `upublic`.`naim` LIKE '%".$nupublic."%'";
+            //     $sql .= $and;
+            //     var_dump($sql);//Смотрим запрос
+            // }
+            ?>
+            </form>
+        </div>
+    </div>
+
+</div> -->
 <div class="container mt-5">
     <h1 class="text-center mb-4">Фотогалерея</h1>
     <div id="photoCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <?php foreach ($images as $index => $image): ?>
+
+            <?php 
+            foreach ($images as $index => $image): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                     <img src="data:image/jpeg;base64,<?= $image ?>" class="d-block w-100" alt="Изображение <?= $index + 1 ?>">
-                    <!-- <div class="carousel-caption">
-                        <h1>Фото</h1>
-                        <!-- <p>This is a demo for the Bootstrap Carousel Guide.</p> -->
-                    <!-- </div> --> -->
+                    <form action="" method="post" style="margin-top: 1%;">
+                        <button type="submit" class="btn btn-primary" style="float: right;">Удалить</button>
+                    </form>
+                    <div class="carousel-caption">
+                        <h1>Image</h1>
+                        <p>This is a demo for the Bootstrap Carousel Guide.</p>
+                    </div>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach;?>
         </div>
         <a class="carousel-control-prev" href="#photoCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -16,10 +16,10 @@ $id = $_SESSION['id'];
                     <h4>Выбрать публикацию</h4>
                     <select name="upublic" id="" class="form-control" style="margin-bottom: 2%;">
                         <?php
-                        $query = "SELECT `upublic`.`id_upublic`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` FROM `upublic`
+                        $query = ("SELECT `upublic`.`id_upublic`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` FROM `upublic`
                         INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
                         WHERE 1=1
-                        ORDER BY `upublic`.`id_upublic` ASC";
+                        ORDER BY `upublic`.`id_upublic` ASC");
                         $result = $mysqli->query($query);
                         while($row = $result->fetch_array()){
                           echo('<option value="'.$row['id_upublic'].'">'.$row['naim'].'</option>');
