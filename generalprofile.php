@@ -106,6 +106,9 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a href="viewupublicgeneral.php">Публикации</a>
     </li>
+    <li class="inline-block mr1">
+        <a href="gallery.php">ФотогалереЯ</a>
+    </li>
 </ul>
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->

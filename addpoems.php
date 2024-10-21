@@ -1,4 +1,5 @@
 <?php
+/*Добавление стиха*/
 session_start();
 include('template/uphotohead.php');
 require_once('bd.php');
@@ -9,24 +10,11 @@ $id = $_SESSION['id'];
         <div class="container py-5">
             <div class="row py-4">
               <div class="col-lg-6 mx-auto">
-                <h1>Добавить фото</h1>
+                <h1>Добавить стих</h1>
                 <!-- Upload image input-->
             
-                <form action="submitadduphoto.php" method="post" enctype="multipart/form-data">
-                    <h4>Выбрать публикацию</h4>
-                    <select name="upublic" id="" class="form-control" style="margin-bottom: 2%;">
-                        <?php
-                        $query = "SELECT `upublic`.`id_upublic`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` FROM `upublic`
-                        INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
-                        WHERE `uprofile`.`id_uprofile` = $id
-                        AND `uphototitle` IS NULL 
-                        ORDER BY `upublic`.`id_upublic` ASC";
-                        $result = $mysqli->query($query);
-                        while($row = $result->fetch_array()){
-                          echo('<option value="'.$row['id_upublic'].'">'.$row['naim'].'</option>');
-                        }
-                        ?>
-                    </select>
+                <form action="submitaddpoems.php" method="post" enctype="multipart/form-data">
+                    <h4>Добавление</h4>
                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
                     
                   <input id="upload" type="file" name="uphoto" onchange="readURL(this);" class="form-control border-0" required />

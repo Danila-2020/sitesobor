@@ -1,69 +1,144 @@
-<?php
-session_start();//Тут идёт session_start(), он наверное не нужен
-require_once('bd.php');
-include('template/head.php');
-include('template/barber.php');
-?>
-
-    <body>
-        <form action="" method="POST" enctype="multipart/form-data">
-        <p>Загрузить картинку</p>
-        <input type="file" name="img_upload" required /><br>
-        <input type="text" name="title_img" placeholder="Название изображения" required /><br>
-        <textarea name="desc_img" placeholder="Описание изображения" cols="1" rows="10"></textarea><br>
-        <input type="submit" name="upload" value="Загрузить" />
-        <?php
-            if(isset($_POST['upload'])){
-                // $title_img = $_POST['title_img'];
-                // $desc_img = $_POST['desc_img'];
-                $img_type = substr($_FILES['img_upload']['type'],0,5);
-                $img_size = 2*1024*1024;
-                if(!empty($_FILES['img_upload']['tmp_name']) and (!empty($title_img)) and (!empty($desc_img)) and ($img_type === 'image' and $_FILES['img_upload']['size'] <=$img_size)){
-                    $img = addslashes(file_get_contents($_FILES['img_upload']['tmp_name']));
-                    $mysqli->query("INSERT INTO `images`(`img`, `title_img`, `desc_img`) VALUES ('$img','$title_img','$desc_img')");
-                }
+ <?php
+ //session_start();
+ require_once('bd.php');
+ include('template/galleryhead.php');
+ include('template/barber.php');
+ ?>
+   <body>
+   <ul class="center h2 list-reset mt0 head-menu">
+    <li class="inline-block mr1">
+        <a href="adminprofile.php">Расписание богослужений</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="adduser.php">Добавить пользователя</a>
+    </li>
+    <li class="inline-block mr1">
+        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="adduphotogen.php">Добавить фото</a>
+    </li>
+    <li class="inline-block mr1">
+        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
+    </li>
+    <li class="inline-block mr1">
+        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
+    </li>
+    <li class="inline-block mr1">
+        <form action="" method="post">
+            <button type="submit" name="submit" class="btn btn-danger">Выход</button>
+            <?php
+            if(isset($_POST['submit'])){
+                $_SESSION['id'] = "";
+                session_unset();
+                echo'<script>window.location.href="signin.php"</script>';
             }
-        ?>
+            ?>
         </form>
-        <?php
-        $result = $mysqli->query('SELECT `id_uphoto`, `uphoto`, `uphotostatus`, `id_upublic` FROM `uphoto` WHERE 1=1');
-        $count = $query->num_rows;//Считаем количество записей
-        echo('Найдено '.$count.' изображений');
-        $active = ('active');//Добавляем класс активной карточке
-        echo '<div class="bd-example">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">';
-            while($data = $result->fetch_assoc()) {
-                $img = base64_encode($data['uphoto']);
-            echo (' <img src="data:image/jpeg;base64,'. $data['uphoto']. '" class="rounded shadow img-fluid" alt="" srcset="">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-            </div>'); //end while
-            }
-        for($i = 0; $i < $count; $i++){
-            if($i == 0){
-            echo('
-            <div class="carousel-item '.$active.'">
-                    <img src="data:image/jpeg;base64, <?=$img?>" class="img-fluid" alt="">
-                    <div class="carousel-caption">
-                        <h1>Carousel in a container</h1>
-                        <p>This is a demo for the Bootstrap Carousel Guide.</p>
-                    </div>
-                </div>
-            ');
-            }else{
-                echo('
-                <div class="carousel-item">
-                        <img src="data:image/jpeg;base64, <?=$img?>" class="img-fluid" alt="">
-                        <div class="carousel-caption">
-                            <h1>Carousel in a container</h1>
-                            <p>This is a demo for the Bootstrap Carousel Guide.</p>
-                        </div>
-                    </div>
-                ');
-            }//end if
-        }
- 
-        //} //end for
-        ?>
-    </body>
-</html>
+    </li>
+</ul>
+
+<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
+    <li class="inline-block mr1">
+        <a class="" href="addunewsgeneral.php">Новость</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="addeventsgen.php">Мероприятие</a>
+    </li>
+    <!--<li class="inline-block mr1">
+        <a class="" href="/site/article?id=2">Святыни</a>
+    </li>-->
+    <li class="inline-block mr1">
+        <a class="" href="addupublicgen.php">Публикацию</a>
+    </li>
+</ul>
+
+<ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
+    <li class="inline-block mr1">
+        <a href="viewunewsgeneral.php">Новости</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="#">Мероприятия</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="viewupublicgeneral.php">Публикации</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="#">ФотогалереЯ</a>
+    </li>
+</ul>
+
+<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
+    <li class="inline-block mr1">
+        <a href="controluprofile.php">Управление</a>
+    </li>
+</ul>
+        <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+        </div>
+       <div class="container mt-5">
+           <h1 class="text-center">Фотогалерея</h1>
+           <div class="row">
+               <?php
+               $sql = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`uphotostatus`, `uphoto`.`id_upublic`, `upublic`.`naim` FROM `uphoto` 
+                    INNER JOIN `upublic` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic`
+                    WHERE 1=1";
+               //SELECT image FROM images
+               $result = $mysqli->query($sql);
+
+               // Проверяем, есть ли результаты
+               if ($result->num_rows > 0) {
+                   while($row = $result->fetch_assoc()) {
+                        $img = base64_encode($row['uphoto']);
+                       // Выводим каждое изображение
+                       echo '<div class="col-md-4 mb-4">';
+                       echo '<div class="card">';
+                       echo '<form action="" method="post" enctype="multipart/form-data">';
+                       echo '<img src="data:image/jpeg;base64,'.$img.'" class="card-img-top" alt="Изображение">';
+                       echo '<div class="card-body">Content
+                       <button type="submit" class="btn btn-primary" style="float: right;">Подробнее</button></div>';
+                       echo '</form>';
+                       echo '</div>';
+                       echo '</div>';
+                   }
+               } else {
+                   echo "Нет изображений";
+               }
+
+               // Закрываем соединение
+               $mysqli->close();
+               ?>
+           </div>
+       </div>
+
+       <div class="social">
+            <ul class="social-share">
+              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+        </div>
+
+
+        <div class="jumbotron text-center">
+            <b><i>&copy; Колодочкин Алексей<br>
+            Дробилко Данила</i></b>
+        </div>
+        <div class="relative">
+            <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img><!--/files/mountains-no-sky-sharpened.png-->
+        </div>
+</div>
+
+       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   </body>
+   </html>

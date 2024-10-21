@@ -94,6 +94,9 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=5">Публикацию</a>
     </li>
+    <li class="inline-block mr1">
+        <a class="" href="addpoems.php">Новый стих</a>
+    </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->

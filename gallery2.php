@@ -13,9 +13,10 @@ if ($mysqli->connect_error) {
 }
 
 // Запрос к базе данных
-$sql = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`uphotostatus`, `uphoto`.`id_upublic`, `upublic`.`naim` FROM `uphoto` 
+$sql = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`uphotostatus`, `uphoto`.`id_upublic`, `upublic`.`naim`, `uphoto`.`uphototitle` FROM `uphoto` 
 INNER JOIN `upublic` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic`
-WHERE 1=1";
+WHERE 1=1
+AND `uphoto`.`uphototitle` IS NOT NULL AND `uphoto`.`id_upublic` = 0";
 //var_dump($sql);//Смотрим запрос
 
 $result = $mysqli->query($sql);
