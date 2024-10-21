@@ -186,6 +186,7 @@ FROM `upublic`
 INNER JOIN `uprofile` 
 ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
 WHERE 1=1 
+AND `upublic`.`id_upublic` > 0
 ORDER BY `upublic`.`id_upublic` ASC 
 LIMIT $offset, $total_records_per_page");
 $result = $mysqli->query($query);
