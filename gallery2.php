@@ -70,13 +70,11 @@ $mysqli->close();
             foreach ($images as $index => $image): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                     <img src="data:image/jpeg;base64,<?= $image ?>" class="d-block w-100" alt="Изображение <?= $index + 1 ?>">
-                    <form action="" method="post" style="margin-top: 1%;">
-                        <button type="submit" class="btn btn-primary" style="float: right;">Удалить</button>
-                    </form>
+                    <!-- <a href="index.php" class="btn btn-primary btn-lg">Подробнее</a> -->
                     <div class="carousel-caption">
-                        <h1>Image</h1>
-                        <p>This is a demo for the Bootstrap Carousel Guide.</p>
-                    </div>
+                        <!-- <a href="index.php" class="btn btn-primary">Вернуться на главную</a> -->
+                        <!-- <button OnClick='location.href="index.php"' class="btn btn-primary" style="margin-bottom:0%;">Ты молодец, возьми с полки огурец</button> -->
+                    </div> 
                 </div>
             <?php endforeach;?>
         </div>
@@ -88,6 +86,7 @@ $mysqli->close();
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Следующее</span>
         </a>
+        <button OnClick='location.href="index.php"' class="btn btn-primary" style="margin-left:45%; margin-right:45%; margin-top:15px;">Открыть</button>
         <ol class="carousel-indicators">
             <?php foreach ($images as $index => $image): ?>
                 <li data-target="#photoCarousel" data-slide-to="<?= $index ?>" class="<?= $index === 0 ? 'active' : '' ?>"></li>

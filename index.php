@@ -165,7 +165,34 @@ require_once('bd.php');
             <div class="md-col md-col-6 lg-col-4 p2">
             <?php
                 echo('<h2>Публикации</h2>');
-                $result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`id_uprofile`,`uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic`,`uphoto`.`uphoto` FROM `upublic` INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` LIMIT 3");
+                $result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, 
+                `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`id_uprofile`,`uprofile`.`ulastname`, 
+                `uprofile`.`ufirstname`, `uprofile`.`upatronymic`,`uphoto`.`uphoto` 
+                FROM `upublic` 
+                INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
+                INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
+                WHERE `uphoto`.`uphototitle` IS NULL
+                GROUP BY `upublic`.`id_upublic`
+                LIMIT 3");
+                //Ротерблиль запрос мана
+                /*$result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, 
+                `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`id_uprofile`,`uprofile`.`ulastname`, 
+                `uprofile`.`ufirstname`, `uprofile`.`upatronymic`,`uphoto`.`uphoto` 
+                FROM `upublic` 
+                INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
+                INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
+                WHERE `uphoto`.`uphototitle` IS NULL
+                LIMIT 3");*/
+                
+                /*$result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, 
+                `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`id_uprofile`,`uprofile`.`ulastname`, 
+                `uprofile`.`ufirstname`, `uprofile`.`upatronymic` 
+                FROM `upublic` 
+                INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
+                INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
+                WHERE uphoto.uphototitle IS null 
+                LIMIT 3"); */
+                
                 $count = $result->num_rows;
                 while($row = $result->fetch_array()){
                     $img = base64_encode($row['uphoto']);
