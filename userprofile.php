@@ -73,7 +73,9 @@ body{
             if(isset($_POST['submit'])){
                 $_SESSION['id'] = "";
                 session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
+                session_destroy();
+                echo('<script>window.location.href="signin.php"</script>');
+                exit(); //Выход из страницы
             }
             ?>
         </form>

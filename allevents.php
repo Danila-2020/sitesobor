@@ -1,14 +1,17 @@
 <?php
+// session_start();
+// ob_start();
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
 
-//session_start();
-//$_SESSION['id'] = $_POST['id'];
-/*$id = $_SESSION['id'];
-if(empty($id)){
-    echo('<script>window.location.href="index.php"</script>');
-}*/
+
+// $_SESSION['id'] = $_POST['id'];
+// $id = $_SESSION['id'];
+// if(empty($id)){
+//     // echo('<script>window.location.href="index.php"</script>');
+//     header('Location: index.php');
+// }
 
 //Вагинация на печке
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
@@ -186,6 +189,8 @@ ORDER BY `events`.`id_events` ASC
 LIMIT $offset, $total_records_per_page");
 $result = $mysqli->query($query);
 
+var_dump($_POST);
+
 while($row = $result->fetch_array()){			
     if($row['statusevents'] == "active"){
     echo('<tr>
@@ -195,13 +200,14 @@ while($row = $result->fetch_array()){
     <td>'.$row['datep'].'</td>
     <td>'.$row['statusevents'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-    <td><form method="POST" action="events.php">
+    <td>
+    <form method="POST" action="events.php">
     <input type="hidden" name="id" value="'.$row['id_events'].'">
     <button type="submit" name="submit" class="btn btn-primary">Просмотр</button>
     </form></td>
     </tr>');
-    };
-    /*if($row['statusunews'] == "deleted"){
+    }
+    if($row['statusunews'] == "deleted"){
         echo('<tr>
         <td>'.$row['id_unews'].'</td>
         <td>'.$row['utitle'].'</td>
@@ -211,7 +217,7 @@ while($row = $result->fetch_array()){
         <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
         <td>
         </tr>');
-        };*/
+        }
     }
     $result->free();
     $mysqli->close();

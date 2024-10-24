@@ -2,7 +2,7 @@
 session_start();
 require_once('bd.php');
 
-if(!empty($_POST)){
+if(!empty($_POST)){//$_POST
     $ulogin = $_POST['ulogin'];
     $upassword = $_POST['upassword'];
     $query = ("SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE `ulogin` = '$ulogin' AND `upassword` = '$upassword'");

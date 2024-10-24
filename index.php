@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 include('template/head.php');
 include('template/barber.php');

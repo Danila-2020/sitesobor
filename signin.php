@@ -1,5 +1,7 @@
 <?php
 session_start();
+ob_start();
+
 require_once('bd.php');
 include('template/signinhead.php');
 ?>
@@ -19,7 +21,7 @@ include('template/signinhead.php');
       
               <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
       
-                <form method="post" action="submitsign.php" style="width: 23rem;">
+                <form method="POST" action="submitsign.php" style="width: 23rem;">
       
                   <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Вход в систему</h3>
       
