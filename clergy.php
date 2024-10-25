@@ -131,50 +131,51 @@ include('template/barber.php');
 <div>&nbsp;</div>
 <div class="row">
 <?php
-    $query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`, `awardsclergy`, `id_uprofile` FROM `clergy` WHERE 1=1 LIMIT 5";
+    $query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`, `awardsclergy` FROM `clergy` WHERE 1=1 LIMIT 5";
     $result = $mysqli->query($query);
-    $count = $result->num_rows;
-    //echo("Кол-во совпалений: ".$count);
+    
     while($row = $result->fetch_array()){
         $img = base64_encode($row['imagesclergy']);
         echo('<h1 style="margin-left:2%;">'.$row['titleclergy'].'</h1>')?>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                <img src="data:image/jpeg; base64, <?=$img?>" alt="" style="margin:0;" class="img-fluid"></img>
+                <img src="data:image/jpeg;base64,<?=$img?>" alt="" style="margin:0;" class="img-fluid">
             </div>
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-                <!--ID: '.$row['id_clergy'].'-->
                 <?php
-                $id = $row['id_clergy'];//Получить ID
-                echo('<input type="hidden" name="id_clergy" value="'.$id.'"></input>');
+                $id = $row['id_clergy'];
+                echo('<input type="hidden" name="id_clergy" value="'.$id.'">');
                 echo('<h2>ИД: '.$id.'</h2>
                 <p>'.$row['datesclergy'].'</p>
                 <h2>Образование</h2>
                 <p>'.$row['educlergy'].'</p>');
                 if(!empty($row['awardsclergy'])){
                     echo('<h2>Награды</h2>
-                    <p>'.$row['awardsclergy'].'<p>');
-                };
+                    <p>'.$row['awardsclergy'].'</p>');
+                }
                 ?>
-                <button class="btn btn-primary show" id="<?php echo("show".$id);?>" name="otherbutton" style="float:right; margin-right: 1%;">Подробнее</button>
-                <button class="btn btn-primary hideshow" id="<?php echo("hide".$id);?>" name="hidebutton" style="float:right; margin-right: 1%;">Подробнее</button>
-                <!--<p>'.$row['textclergy'].'</p>'-->
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
-                <?php
-                echo('
-                <div class="container" id="'.$id.'">
-                <p class="textclergy" id="'.$id.'">'.$row['textclergy'].'</p>
-                </div>');//id="textclergy'.$id.'"
-                //style="visibility: hidden;"
-                ?>
+                <button class="btn btn-primary show" id="show<?=$id;?>" style="float:right; margin-right: 1%;" onclick="toggleBio(<?=$id;?>)">Подробнее</button>
+                <div class="bio" id="bio<?=$id;?>" style="display:none;">
+                    <p><?=$row['textclergy'];?></p>
+                    <button class="btn btn-secondary" style="float:right; margin-right: 1%;" onclick="toggleBio(<?=$id;?>)">Скрыть</button>
                 </div>
             </div>
             <?php
-            $i++;
-    };
+    }
     ?>
-        </div>
+</div>
+
+<script>
+function toggleBio(id) {
+    var bio = document.getElementById('bio' + id);
+    if (bio.style.display === "none") {
+        bio.style.display = "block";
+    } else {
+        bio.style.display = "none";
+    }
+}
+</script>
+
+<!-- Найти еще -->
             </div>
                 </div>
                     <p style="border: 1px solid;" class="text-center">Данный раздел находится в разработке, содержимое будет добавляться.</p>

@@ -189,7 +189,7 @@ ORDER BY `events`.`id_events` ASC
 LIMIT $offset, $total_records_per_page");
 $result = $mysqli->query($query);
 
-var_dump($_POST);
+//var_dump($_POST);
 
 while($row = $result->fetch_array()){			
     if($row['statusevents'] == "active"){
