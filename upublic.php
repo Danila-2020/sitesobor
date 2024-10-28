@@ -184,13 +184,8 @@ if(empty($id)){
                         };
                         ?>
                 
-                        <form action="" method="post">
+                        <form action="allupublic.php" method="post">
                             <button type="submit" name="submit" class="btn btn-primary">Вернуться назад</button>
-                            <?php
-                            if(isset($_POST['submit'])){
-                                $_SESSION['id'] = "";
-                            }
-                            ?>
                         </form>
             </div>
 

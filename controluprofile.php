@@ -49,7 +49,10 @@ body{background-image:url('img/background3.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="sceduleuploader.php">Расписание богослужений</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="addactivity.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a href="adduser.php">Добавить пользователя</a>
@@ -82,22 +85,19 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="#">Новость</a>
+        <a class="" href="addunewsgeneral.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">Мероприятие</a>
+        <a class="" href="addeventsgen.php">Мероприятие</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Публикацию</a>
+        <a class="" href="addupublicgen.php">Публикацию</a>
     </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="viewunewsadmin.php">Новости</a>
+        <a href="#">Новости</a>
     </li>
     <li class="inline-block mr1">
         <a href="#">Мероприятия</a>

@@ -88,11 +88,11 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a class="" href="addeventsgen.php">Мероприятие</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
         <a class="" href="addupublicgen.php">Публикацию</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="addactivity.php">Деятельность</a>
     </li>
 </ul>
 
@@ -105,6 +105,9 @@ body{background-image:url('img/background3.jpg');};
     </li>
     <li class="inline-block mr1">
         <a href="viewupublicgeneral.php">Публикации</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="viewactivitygen.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a href="gallery.php">ФотогалереЯ</a>

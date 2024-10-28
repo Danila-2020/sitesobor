@@ -1,9 +1,10 @@
 <?php
+session_start();
+ob_start();
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
 
-session_start();
 $_SESSION['id'] = $_POST['id'];
 $id = $_SESSION['id'];
 if(empty($id)){
@@ -154,6 +155,7 @@ if(empty($id)){
                             <?php
                             $queryimg = ("SELECT unews.id_unews, uphotonews.uphotonews FROM `unews` INNER JOIN `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews` INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile` WHERE unews.id_unews = $id");
                             $resultimg = $mysqli->query($queryimg);//Запрос выборки изображений
+                            $count =  $resultimg->num_rows;
                             while($row = $result->fetch_assoc()){
 
                             echo("<h1>".$row['utitle']."</h1>");
@@ -165,6 +167,13 @@ if(empty($id)){
                         ?>
 
                         <div class="col col-12">
+                            <?php
+                            if($count = 0){
+                                ?>
+                                <img src="img/noimg.jpg" class="img-fluid" layout="responsive">
+                                <?php
+                            }
+                            ?>
                             <img src="data:image/jpeg; base64,<?=$img?>" class="img-fluid" layout="responsive">
                         </div>
 
@@ -173,13 +182,8 @@ if(empty($id)){
                         };
                         ?>
                         
-                        <form action="" method="post">
+                        <form action="allunews.php" method="post">
                             <button type="submit" name="submit" class="btn btn-primary">Вернуться назад</button>
-                            <?php
-                            if(isset($_POST['submit'])){
-                                $_SESSION['id'] = "";
-                            }
-                            ?>
                         </form>
             </div>
             
