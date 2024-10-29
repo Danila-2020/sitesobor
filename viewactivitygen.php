@@ -145,9 +145,13 @@ body{background-image:url('img/background3.jpg');};
             <td>'.$row['descactivity'].'</td>
             <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
             <td>
-            <form method="POST" action="editactivitygen.php">
+            <form method="POST" action="editactivitygen.php" style="margin-bottom:8%;">
             <input type="hidden" name="hidden" value="'.$row['id_activity'].'"></input>
             <button type="submit" name="submit" class="btn btn-primary">Редактировать</button>
+            </form>
+            <form method="POST" action="deleteactivitygen.php">
+            <input type="hidden" name="hidden" value="'.$row['id_activity'].'"></input>
+            <button type="submit" name="submit" class="btn btn-danger">Удалить</button>
             </form></td>
             </tr>';
         }

@@ -146,6 +146,7 @@ body{background-image:url('img/background3.jpg');};
                 ?>
                 <button type="submit" name="submit" class="btn btn-primary">Сохранить</button>
             </form>
+            <button type="submit" class="btn btn-success" style="margin-top: 5%;" OnClick='location.href="viewactivitygen.php"'>Вернуться назад</button>
         </div>
         <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4"></div>
     </div>
