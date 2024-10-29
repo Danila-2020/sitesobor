@@ -5,10 +5,10 @@ require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
 
-$id = $_SESSION['id'];
+/*$id = $_SESSION['id'];
 if(empty($id)){
     echo('<script>window.location.href="signin.php"</script>');
-}
+}*/
 ?>
 <style>
 body{background-image:url('img/background3.jpg');};
@@ -145,7 +145,7 @@ body{background-image:url('img/background3.jpg');};
             <td>'.$row['descactivity'].'</td>
             <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
             <td>
-            <form method="POST" action="">
+            <form method="POST" action="editactivitygen.php">
             <input type="hidden" name="hidden" value="'.$row['id_activity'].'"></input>
             <button type="submit" name="submit" class="btn btn-primary">Редактировать</button>
             </form></td>

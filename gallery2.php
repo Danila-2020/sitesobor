@@ -9,7 +9,7 @@ $mysqli = new mysqli($servername, $username, $password, $dbname);
 
 // Проверка подключения
 if ($mysqli->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $mysqli->connect_error);
 }
 
 // Запрос к базе данных
