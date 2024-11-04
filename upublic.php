@@ -167,19 +167,12 @@ if(empty($id)){
                             }
                             ?>
                             <img src="data:image/jpeg; base64,<?=$img?>" class="img-fluid" layout="responsive">
+                            <p>
+                            <?php
+                            echo($row['uptext']);
+                            ?>
+                            </p>
                         </div>
-                        <p>
-                        <?php
-                        echo($row['uptext']);
-                        ?>
-                        </p>
-                        <div class="col col-12">
-                            <!--Тут изображение-->
-                        </div>
-                        <!--Заголовок
-                        <p>
-                            Текст
-                        </p>-->
                         <?php
                         };
                         ?>

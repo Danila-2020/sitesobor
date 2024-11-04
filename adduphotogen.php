@@ -43,7 +43,7 @@ $id = $_SESSION['id'];
               </div>
             </div>
           </div>
-          <button type="submit" onclick="location.href='userprofile.php'" class="btn btn-outline-dark">Вернуться назад</button>
+          <button type="submit" onclick="location.href='generalprofile.php'" class="btn btn-outline-dark">Вернуться назад</button>
     </div>
 <?php
 include('template/uphotofooter.php');

@@ -44,7 +44,7 @@ include('template/signinhead.php');
       
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block">
-              <img src="img/sobor-001 (1).jpg"
+              <img src="img/sobor-001.jpg"
                 alt="Login image" class="img-fluid" style="height: 150%;width:auto;object-fit: cover; object-position: left;"><!--w-100 vh-100-->
             </div>
           </div>

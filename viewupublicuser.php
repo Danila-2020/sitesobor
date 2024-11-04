@@ -97,11 +97,11 @@ body{background-image:url('img/background4.jpg');
         <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
             <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
+            // if(isset($_POST['submit'])){
+            //     $_SESSION['id'] = "";
+            //     session_unset();
+            //     echo'<script>window.location.href="signin.php"</script>';
+            // }
             ?>
         </form>
     </li>
@@ -201,23 +201,23 @@ while($row = $result->fetch_array()){
     </form>
     </td>
     </tr>');
-    };
-    if($row['statusupublic'] == "deleted"){
-        echo('<tr>
-        <td>'.$row['id_upublic'].'</td>
-        <td>'.$row['naim'].'</td>
-        <td>'.$row['uptext'].'</td>
-        <td>'.$row['statusupublic'].'</td>
-        <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-        <td>
-        <form method="POST" action="recoveryupublicgeneral.php">
-        <input type="hidden" name="id" value="'.$row['id_upublic'].'">
-        <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
-        </form>
-        </td>
-        </tr>');
-        };
     }
+    // if($row['statusupublic'] == "deleted"){
+    //     echo('<tr>
+    //     <td>'.$row['id_upublic'].'</td>
+    //     <td>'.$row['naim'].'</td>
+    //     <td>'.$row['uptext'].'</td>
+    //     <td>'.$row['statusupublic'].'</td>
+    //     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
+    //     <td>
+    //     <form method="POST" action="recoveryupublicgeneral.php">
+    //     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
+    //     <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
+    //     </form>
+    //     </td>
+    //     </tr>');
+    //     };
+    // }
     $result->free();
     $mysqli->close();
 	//mysqli_close($mysqli);

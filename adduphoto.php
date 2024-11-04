@@ -12,15 +12,14 @@ $id = $_SESSION['id'];
                 <h1>Добавить фото</h1>
                 <!-- Upload image input-->
             
-                <form action="submitadduphoto.php" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
                     <h4>Выбрать публикацию</h4>
                     <select name="upublic" id="" class="form-control" style="margin-bottom: 2%;">
                         <?php
-                        $query = "SELECT `upublic`.`id_upublic`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` FROM `upublic`
+                        $query = ("SELECT `upublic`.`id_upublic`, `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`statusupublic`, `upublic`.`id_uprofile`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` FROM `upublic`
                         INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile`
-                        WHERE `uprofile`.`id_uprofile` = $id
-                        AND `uphototitle` IS NULL 
-                        ORDER BY `upublic`.`id_upublic` ASC";
+                        WHERE 1=1 AND `upublic`.`id_uprofile` = '$id'
+                        ORDER BY `upublic`.`id_upublic` ASC");
                         $result = $mysqli->query($query);
                         while($row = $result->fetch_array()){
                           echo('<option value="'.$row['id_upublic'].'">'.$row['naim'].'</option>');
