@@ -233,7 +233,7 @@ while($row = $result->fetch_array()){
 				}
         }
 	}
-	elseif($total_no_of_pages > 10){
+	else if($total_no_of_pages > 10){
 		
 	if($page_no <= 4) {			
 	 for ($counter = 1; $counter < 8; $counter++){		 

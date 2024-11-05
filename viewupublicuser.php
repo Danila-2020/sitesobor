@@ -178,7 +178,8 @@ body{background-image:url('img/background4.jpg');
     ORDER BY `upublic`.`id_upublic` ASC
     LIMIT $offset, $total_records_per_page");
 
-while($row = $result->fetch_array()){			
+while($row = $result->fetch_array()){
+    if($row['id_upublic'] <> 0){
     if($row['statusupublic'] == "active"){
     echo('<tr>
     <td>'.$row['id_upublic'].'</td>
@@ -202,22 +203,23 @@ while($row = $result->fetch_array()){
     </td>
     </tr>');
     }
-    // if($row['statusupublic'] == "deleted"){
-    //     echo('<tr>
-    //     <td>'.$row['id_upublic'].'</td>
-    //     <td>'.$row['naim'].'</td>
-    //     <td>'.$row['uptext'].'</td>
-    //     <td>'.$row['statusupublic'].'</td>
-    //     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-    //     <td>
-    //     <form method="POST" action="recoveryupublicgeneral.php">
-    //     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
-    //     <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
-    //     </form>
-    //     </td>
-    //     </tr>');
-    //     };
-    // }
+    if($row['statusupublic'] == "deleted"){
+        echo('<tr>
+        <td>'.$row['id_upublic'].'</td>
+        <td>'.$row['naim'].'</td>
+        <td>'.$row['uptext'].'</td>
+        <td>'.$row['statusupublic'].'</td>
+        <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
+        <td>
+        <form method="POST" action="recoveryupublicgeneral.php">
+        <input type="hidden" name="id" value="'.$row['id_upublic'].'">
+        <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
+        </form>
+        </td>
+        </tr>');
+    };
+    }
+}
     $result->free();
     $mysqli->close();
 	//mysqli_close($mysqli);
