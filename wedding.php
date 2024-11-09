@@ -1,187 +1,101 @@
 <?php
-require_once('bd.php');
 include('template/weddinghead.php');
-
-//session_start();
 ?>
-<body class="land-see ">
-    <amp-analytics type="metrika">
-        <script type="application/json">
-            {
-                "vars": {
-                    "counterId": "53592163"
-                }
-            }
-        </script>
-    </amp-analytics>
-
-    
-<div class="site-article">
-    <div class="content-wrap"><!-- content-wrap -->
-        <a href="/" class="block relative sm-hide md-hide lg-hide logo-wrap logo-wrap-mob"></a>
-
-        <div class="max-width-4 mx-auto p2"><!-- full-width-wrap -->
-            <div class="border border-grey bg-white-a70 rounded clearfix p2"><!-- clearfix -->
-                
-<ul class="center h2 list-reset mt0 head-menu">
-    <li class="inline-block mr1">
-        <a href="scedule.php">Расписание богослужений</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
-    <li class="inline-block mr1">
-        <a class="" href="clergy.php">Духовенство</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'">
-    <p style="font-weight:bold; font-style:itallic; border: 1px solid;">
-        Данные разделы примерные, содержимое будет изменено в процессе разработки!!!
-    <p>
-    <li class="inline-block mr1">
-        <a href="#">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Социальная деятельность</a>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
-    <li class="inline-block mr1">
-        <a href="christening.php">Крещение</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="wedding.php">Венчание</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="confession.php">Исповедь</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="eucharist.php">Причастие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="unction.php">Соборование</a>
-    </li>
-</ul>
-
-<hr>
-
-<!--<ul class="mx-auto center list-reset social-icons-wrap">
-    <li class="inline-block mr1">
-        <a href="" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block">
-        <a href="" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>-->
-
-          <div class="social">
-            <ul class="social-share">
-              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
-              <li><a href="#"><i class="fa fa-vk"></i></a></li>
-              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a href="#"><i class="fa fa-skype"></i></a></li>
-            </ul>
-          </div>
-
-            <ul class="list-reset breadcrumbs">
-                    <li class="inline-block mr1">
-                                    <a href="index.php">Главная</a>
-                            </li>
-                    <li class="inline-block mr1">
-                                    <a href="#">Таинства</a>
-                            </li>
-                    <li class="inline-block mr1">Венчание</li>
-            </ul>
-                <!--Тут вставка цикла выборки из БД-->
-                <?php
-                $result = $mysqli->query("SELECT DISTINCT `id_sacraments`, `nsacraments`, `textsacraments`, `id_uprofile`, `images` 
-                FROM `sacraments` 
-                INNER JOIN `imgsacraments` 
-                ON `imgsacraments`.`id_sacramets` = `sacraments`.`id_sacraments` WHERE `nsacraments`='Венчание'");
-                while($row = $result->fetch_array()){
-                    $img = base64_encode($row['images']);
-                    echo('<h1>'.$row['nsacraments'].'</h1>');
-                    ?>
-                    <img src="data:image/jpeg;base64, <?=$img?>" class="img-fluid" alt="image">
-                    <?php
-                    echo($row['textsacraments']);
-                };
-                ?>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="index.php">Главная</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="scedule.php">Расписание богослужений</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    О соборе
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="clergy.php">Духовенство</a>
+                    <a class="dropdown-item" href="#">История</a>
+                    <a class="dropdown-item" href="#">Роспись</a>
                 </div>
-                <!--Конец цикла вывода-->
-            </div><!-- clearfix-end -->
-        </div><!-- full-width-wrap-end -->
-    </div><!-- content-wrap-end -->
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Таинства
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="christening.php">Крещение</a>
+                    <a class="dropdown-item" href="wedding.php">Венчание</a>
+                    <a class="dropdown-item" href="confession.php">Исповедь</a>
+                    <a class="dropdown-item" href="eucharist.php">Причастие</a>
+                    <a class="dropdown-item" href="unction.php">Соборование</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Контакты</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1 class="article-title">Таинство Венчания</h1>
+    
+    <div class="article-content">
+        <p>Венчание — это одно из важнейших таинств в христианской традиции, которое символизирует союз между мужчиной и женщиной перед Богом. Это священное действие не только объединяет пару, но и освящает их любовь и отношения.</p>
+        
+        <img src="img/wedding-001.jpg" alt="Свадебная церемония" class="img-fluid">
+        
+        <h2 class="section-title">История Венчания</h2>
+        <p>Исторически, венчание имеет глубокие корни, уходящие в древние времена. Оно связано с библейскими традициями и обычаями, которые подчеркивают важность брака как священного союза.</p>
+        
+        <img src="img/wedding-002.jpg" alt="Исторические обряды" class="img-fluid">
+        
+        <h2 class="section-title">Символика Венчания</h2>
+        <p>Во время венчания используются различные символы, такие как:</p>
+        <ul>
+            <li><strong>Обручальные кольца</strong> — символ вечной любви и верности.</li>
+            <li><strong>Венцы</strong> — символы славы и достоинства, которые одеваются на головы жениха и невесты.</li>
+            <li><strong>Свечи</strong> — символ света, который освещает путь новой семьи.</li>
+        </ul>
+        
+        <img src="img/wedding-003.jpg" alt="Обручальные кольца" class="img-fluid">
+        
+        <h2 class="section-title">Подготовка к Венчанию</h2>
+        <p>Подготовка к венчанию включает в себя:</p>
+        <ol>
+            <li>Выбор даты и места проведения церемонии.</li>
+            <li>Согласование с духовным лицом.</li>
+            <li>Подготовка необходимых документов.</li>
+            <li>Духовная подготовка и исповедь.</li>
+        </ol>
+        
+        <img src="img/wedding-004.jpg" alt="Подготовка к венчанию" class="img-fluid">
+        
+        <h2 class="section-title">Процесс Венчания</h2>
+        <p>Церемония венчания обычно включает в себя следующие этапы:</p>
+        <ul>
+            <li>Молитва и благословение священника.</li>
+            <li>Обмен обручальными кольцами.</li>
+            <li>Надевание венцов.</li>
+            <li>Совершение молитвы и освящение семьи.</li>
+        </ul>
+        
+        <img src="img/wedding-005.jpg" alt="Процесс венчания" class="img-fluid">
+        
+        <h2 class="section-title">Заключение</h2>
+        <p>Венчание — это не только формальность, но и глубокий духовный процесс, который требует осознания и уважения. Это начало новой жизни для супругов, основанной на любви, верности и взаимопонимании.</p>
+    </div>
 </div>
-
-
-
-<div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
-
-          <div class="social">
-            <ul class="social-share">
-              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
-              <li><a href="#"><i class="fa fa-vk"></i></a></li>
-              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a href="#"><i class="fa fa-skype"></i></a></li>
-            </ul>
-          </div>
-
-<ul class="mx-auto center h2 list-reset">
-    <li class="inline-block mr1">
-        <a href="contacts.php">Задать вопрос</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="addnote.php">Подать записку</a>
-    <li>
-    <li class="inline-block mr1">
-        <a href="#">Контакты</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Новости собора</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="http://blago-kavkaz.ru/article/blog?catids%5B0%5D=1" target="_blank">Новости епархии</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="http://www.patriarchia.ru/db/news/" target="_blank">Общецерковные новости</a>
-    </li>
-</ul>
-       <div class="relative">
-            <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img>
-        </div>
-</div>
+<footer>
+    <p><b><i>&copy; Колодочкин Алексей<br>
+    Дробилко Данила</i></b></p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
