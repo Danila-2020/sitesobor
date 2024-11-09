@@ -1,51 +1,58 @@
 <!DOCTYPE html>
-<html amp lang="ru-RU">
+<html lang="ru">
 <head>
-    <link rel="canonical" href="http://spasskiy-sobor.ru/site/article?id=10">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <meta name="amp-google-client-id-api" content="googleanalytics">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.css">
-    <link rel="stylesheet" href="css/bootstrap-reboot.css">
-    <link rel="icon" type="image/png" href="/16x16/files/sobor-small-rounded.png" />
-    <link rel="apple-touch-icon" href="/57x57/files/sobor-small-rounded.png"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css" integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/custom-style1.css">
-    <link rel="stylesheet" href="../css/favicon-style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <title>Причастие</title>
-
-    <style amp-boilerplate="">
-    body{
-        -webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
-        -moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
-        -ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
-        animation:-amp-start 8s steps(1,end) 0s 1 normal both
-    }
-    @-webkit-keyframes -amp-start{
-        from{visibility:hidden}to{visibility:visible}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Таинство Евхаристии</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
         }
-    @-moz-keyframes -amp-start{
-        from{visibility:hidden}to{visibility:visible}
+        .navbar {
+            background-color: #343a40;
         }
-    @-ms-keyframes -amp-start{
-        from{visibility:hidden}to{visibility:visible}
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
         }
-    @-o-keyframes -amp-start{
-        from{visibility:hidden}to{visibility:visible}
+        .navbar-brand:hover, .nav-link:hover {
+            color: #f8f9fa !important;
+            text-decoration: underline;
         }
-    @keyframes -amp-start{
-        from{visibility:hidden}to{visibility:visible}
+        .article-title {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #343a40;
+        }
+        .article-content {
+            margin-bottom: 40px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        ul, ol {
+            margin-left: 20px;
+        }
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .img-fluid {
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
     </style>
-    
-    <!--Тут кончается борода-->
-    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-<script src="https://cdn.ampproject.org/v0.js" async="async"></script>
-<script src="https://cdn.ampproject.org/v0/amp-bind-0.1.js" async="async" custom-element="amp-bind"></script>
-<script src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" async="async" custom-element="amp-analytics"></script></head>
+</head>
