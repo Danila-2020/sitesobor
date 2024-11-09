@@ -87,9 +87,10 @@ body{background-image:url('img/background4.jpg');
     <li class="inline-block mr1">
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
-    <li class="inline-block mr1">
+    <!-- Таинства здесь нужны? -->
+    <!-- <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
+    </li> -->
     <li class="inline-block mr1">
         <a href="note.php">Подать записку</a>
     </li>
@@ -136,19 +137,19 @@ body{background-image:url('img/background4.jpg');
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
     <li class="inline-block mr1">
-        <a href="/site/article?id=10">Крещение</a>
+        <a href="christening.php">Крещение</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=11">Венчание</a>
+        <a href="wedding.php">Венчание</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=12">Исповедь</a>
+        <a href="confession.php">Исповедь</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=13">Причастие</a>
+        <a href="eucharist.php">Причастие</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=184">Соборование</a>
+        <a href="unction.php">Соборование</a>
     </li>
 </ul>
 

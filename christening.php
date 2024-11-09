@@ -1,206 +1,74 @@
 <?php
-session_start();
-
-require_once('bd.php');
-require_once('template/christeninghead.php');
-require_once('template/barber.php');
+include('template/christeningheadnew.php');
 ?>
-      
-    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-
-<script src="https://cdn.ampproject.org/v0.js" async="async"></script>
-<script src="https://cdn.ampproject.org/v0/amp-bind-0.1.js" async="async" custom-element="amp-bind"></script>
-<script src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" async="async" custom-element="amp-analytics"></script>
-</head>
-<body class="land-see ">
-    <amp-analytics type="metrika">
-        <script type="application/json">
-            {
-                "vars": {
-                    "counterId": "53592163"
-                }
-            }
-        </script>
-    </amp-analytics>
-
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="index.php">Главная</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <!-- <li class="nav-item active">
+                <a class="nav-link" href="#">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Статьи</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Контакты</a>
+            </li> -->
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1 class="article-title">Крещение</h1>
     
-<div class="site-article">
-    <div class="content-wrap"><!-- content-wrap -->
-        <a href="/" class="block relative sm-hide md-hide lg-hide logo-wrap logo-wrap-mob"></a>
-
-        <div class="max-width-4 mx-auto p2"><!-- full-width-wrap -->
-            <div class="border border-grey bg-white-a70 rounded clearfix p2"><!-- clearfix -->
-                
-<ul class="center h2 list-reset mt0 head-menu">
-    <li class="inline-block mr1">
-        <a href="scedule.php">Расписание богослужений</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
-    <li class="inline-block mr1">
-        <a class="" href="clergy.php">Духовенство</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'">
-    <li class="inline-block mr1">
-        <a href="#">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Социальная деятельность</a>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
-    <li class="inline-block mr1">
-        <a href="christening.php">Крещение</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="wedding.php">Венчание</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="сonfession.php">Исповедь</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="eucharist.php">Причастие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="unction.php">Соборование</a>
-    </li>
-</ul>
-
-<hr>
-
-<!--<ul class="mx-auto center list-reset social-icons-wrap">
-    <li class="inline-block mr1">
-        <a href="" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block">
-        <a href="" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>-->
-
-<div class="social">
-            <ul class="social-share">
-              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
-              <li><a href="#"><i class="fa fa-vk"></i></a></li>
-              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a href="#"><i class="fa fa-skype"></i></a></li>
-            </ul>
-          </div>
-
-
-    <ul class="list-reset breadcrumbs">
-                    <li class="inline-block mr1">
-                                    <a href="index.php">Главная</a>
-                            </li>
-                    <li class="inline-block mr1">
-                                    <a href="#">Таинства</a>
-                            </li>
-                    <li class="inline-block mr1">Крещение</li>
-            </ul>
-                <!--Тут вставка цикла выборки из БД-->
-                <?php
-                $result = $mysqli->query("SELECT DISTINCT `id_sacraments`, `nsacraments`, `textsacraments`, `id_uprofile`, `images` 
-                FROM `sacraments` 
-                INNER JOIN `imgsacraments` 
-                ON `imgsacraments`.`id_sacramets` = `sacraments`.`id_sacraments` WHERE `nsacraments`='Крещение'");
-                while($row = $result->fetch_array()){
-                    $img = base64_encode($row['images']);
-                    echo('<h1>'.$row['nsacraments'].'</h1>');
-                    ?>
-                    <img src="data:image/jpeg;base64, <?=$img?>" class="img-fluid" alt="image">
-                    <?php
-                    echo($row['textsacraments']);
-                };
-                ?>
-                </div>
-                <!--Конец цикла вывода-->
-            </div><!-- clearfix-end -->
-        </div><!-- full-width-wrap-end -->
-    </div><!-- content-wrap-end -->
+    <div class="article-content">
+        <img src="img/christening.png" alt="Крещение" class="img-fluid">
+        <p>Крещение — это одно из важнейших таинств в христианской традиции, символизирующее очищение от грехов и вступление в христианскую общину. Это священное действие имеет глубокое духовное значение и является первым шагом на пути к вере.</p>
+        
+        <h2 class="section-title">История Крещения</h2>
+        <p>Крещение имеет свои корни в Библии, где Иисус Христос сам был крещен Иоанном Крестителем. Это событие стало основой для последующего установления таинства в христианской церкви.</p>
+        
+        <img src="img/christening-001.jpg" alt="Исторические обряды" class="img-fluid">
+        
+        <h2 class="section-title">Символика Крещения</h2>
+        <p>Во время крещения используются различные символы, такие как:</p>
+        <ul>
+            <li><strong>Вода</strong> — символ очищения и новой жизни.</li>
+            <li><strong>Масло</strong> — символ Святого Духа, который приходит к новокрещенному.</li>
+            <li><strong>Свечи</strong> — символ света Христова, который освещает путь верующего.</li>
+        </ul>
+        
+        <img src="img/image-001.png" alt="Крещенская свеча" class="img-fluid">
+        
+        <h2 class="section-title">Подготовка к Крещению</h2>
+        <p>Подготовка к крещению включает в себя:</p>
+        <ol>
+            <li>Выбор даты и места проведения церемонии.</li>
+            <li>Согласование с духовным лицом.</li>
+            <li>Подготовка необходимых документов.</li>
+            <li>Духовная подготовка и исповедь.</li>
+        </ol>
+        
+        <img src="img/image-002.jpg" alt="Подготовка к крещению" class="img-fluid">
+        
+        <h2 class="section-title">Процесс Крещения</h2>
+        <p>Церемония крещения обычно включает в себя следующие этапы:</p>
+        <ul>
+            <li>Молитва и благословение священника.</li>
+            <li>Погружение в воду или обливание водой.</li>
+            <li>Помазание святым маслом.</li>
+            <li>Объявление новокрещенного членом христианской общины.</li>
+        </ul>
+        
+        <img src="img/christening-002.jpg" alt="Процесс крещения" class="img-fluid">
+        
+        <h2 class="section-title">Заключение</h2>
+        <p>Крещение — это не только обряд, но и важный духовный процесс, который открывает новые горизонты веры и общения с Богом. Это начало нового духовного пути для каждого верующего.</p>
+    </div>
 </div>
-
-
-
-<div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
-    
-<!--<ul class="mx-auto center list-reset social-icons-wrap">
-    <li class="inline-block mr1">
-        <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block">
-        <a href="https://t.me/soborvpyatigorske" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>-->
-
-          <div class="social">
-            <ul class="social-share">
-              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
-              <li><a href="#"><i class="fa fa-vk"></i></a></li>
-              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a href="#"><i class="fa fa-skype"></i></a></li>
-            </ul>
-          </div>
-
-<ul class="mx-auto center h2 list-reset">
-    <li class="inline-block mr1">
-        <a href="contacts.php">Задать вопрос</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="addnote.php">Подать записку</a>
-    <li>
-    <li class="inline-block mr1">
-        <a href="#">Контакты</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Новости собора</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="http://blago-kavkaz.ru/article/blog?catids%5B0%5D=1" target="_blank">Новости епархии</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="http://www.patriarchia.ru/db/news/" target="_blank">Общецерковные новости</a>
-    </li>
-</ul>
-       <div class="relative">
-            <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img>
-        </div>
-</div>
-</body>
-</html>
+<?php
+include('template/christeningfooter.php');
+?>
