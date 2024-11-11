@@ -65,7 +65,7 @@ require_once('bd.php');
         <a class="" href="/site/article?id=1">История</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
+        <a class="" href="#">Роспись</a><!--Тут отображаем, но не загружаем😀-->
     </li>
 </ul>
 
