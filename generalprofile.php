@@ -101,7 +101,7 @@ body{background-image:url('img/background3.jpg');};
         <a href="viewunewsgeneral.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="viewueventsgeneral.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
         <a href="viewupublicgeneral.php">Публикации</a>
