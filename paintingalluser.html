@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт</title>
+
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/brands.css" integrity="sha384-i2PyM6FMpVnxjRPi0KW/xIS7hkeSznkllv+Hx/MtYDaHA5VcF0yL3KVlvzp8bWjQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css" integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">-->
+    <!-- <link rel="stylesheet" href="css/cdn_css/brands.css"> -->
+    <link rel="stylesheet" href="css/cdn_css/brands.css">
+    <link rel="stylesheet" href="css/cdn_css/fontawesome.css">
+    <link rel="stylesheet" href="css/bootstrap.css"><!--На уровень выше-->
+    <link rel="stylesheet" href="css/bootstrap-grid.css"><!--На уровень выше-->
+    <link rel="stylesheet" href="css/bootstrap-reboot.css"><!--На уровень выше-->
+    <link rel="stylesheet" href="css/custom-style1.css">
+    <link rel="stylesheet" href="css/favicon-style.css">
+    <link rel="stylesheet" href="css/barber.css">
+    <link rel="stylesheet" href="css/stylesceduleuploader.css"><!-- Стили скопиздили у расписания -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!--<link rel="stylesheet" href="../css/font-awesome.min.css">-->
+    
+    <noscript>
+    <style amp-boilerplate="">
+    body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}
+    </style>
+    </noscript>
+    <!--Стилизация-->
+    
+        <style>
+            /*body{background-image: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1612767162_15-p-fon-goluboe-nebo-s-oblakami-19.jpg');}*/
+            body{
+                background-image: url('../img/background2.jpg');
+                background-repeat: no-repeat;
+            }
+        </style>
+         <meta name="csrf-param" content="_csrf-frontend">
+         <meta name="csrf-token" content="rufNjNmfaRuKJ-ssgba1NeE69mEJj3aI0QWIBDjgdkDc0YLLjMY6Tv4fmX_jwfJlh0O3J37HEOqjYtdDbLM5cg==">
+         <script src="js/cdn_js/v0.js" async="async"></script>
+         <script src="js/cdn_js/jquery.min.js" async="async" custom-element="amp-iframe"></script>
+         <script src="js/jquery.maskedinput.min.js" async="async" custom-element="amp-lightbox"></script>
+         <script src="js/cdn_js/amp-mustache-0.2.js" async="async" custom-element="amp-list"></script>
+         <script src="js/cdn_js/amp-list-0.1.js" async="async" custom-template="amp-mustache"></script>
+         <script src="js/cdn_js/amp-lightbox-0.1.js" async="async" custom-element="amp-bind"></script>
+         <script src="js/cdn_js/amp-iframe-0.1.js" async="async" custom-element="amp-carousel"></script>
+         <script src="js/cdn_js/amp-carousel-0.1.js" async="async" custom-element="amp-analytics"></script>
+         <script src="js/cdn_js/amp-bind-0.1.js" type="text/javascript"></script>
+         <script src="js/cdn_js/amp-analytics-0.1.js" type="text/javascript"></script>
+        <!--JQuery Masked Input-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/jquery.maskedinput.min.js"></script>
+</head>
+<body>
+    <ul class="center h2 list-reset mt0 head-menu">
+        <li class="inline-block mr1">
+            <a href="/site/article?id=4">Расписание богослужений</a>
+        </li>
+        <li class="inline-block mr1">
+            <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
+        </li>
+        <li class="inline-block mr1">
+            <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        </li>
+        <li class="inline-block mr1">
+            <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="note.php">Подать записку</a>
+        </li>
+    </ul>
+    
+    <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
+        <li class="inline-block mr1">
+            <a class="" href="/site/article?id=3">Духовенство</a>
+        </li>
+        <li class="inline-block mr1">
+            <a class="" href="/site/article?id=1">История</a>
+        </li>
+        <li class="inline-block mr1">
+            <a class="" href="/site/article?id=2">Святыни</a>
+        </li>
+        <li class="inline-block mr1">
+            <a class="" href="/site/article?id=5">Роспись</a>
+        </li>
+    </ul>
+    
+    <ul class="hide" [class]="activitiesMenu||'hide'">
+        <li class="inline-block mr1">
+            <a href="/site/article?id=6">Воскресная школа</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="/site/article?id=7">Молодежный центр</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="/site/article?id=8">Библиотека</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="/site/article?id=9">Социальная деятельность</a>
+        </li>
+    </ul>
+    
+    <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
+        <li class="inline-block mr1">
+            <a href="christening.php">Крещение</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="wedding.php">Венчание</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="confession.php">Исповедь</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="eucharist.php">Причастие</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="unction.php">Соборование</a>
+        </li>
+    </ul>
+    
+    <hr>
+<div class="container" style="margin-top: 1%; margin-bottom: 5%;"><!--py-5-->
+    <h1 class="text-center">Роспись</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo metus euismod volutpat iaculis. 
+    Cras euismod leo id lorem egestas tempor. Sed dolor elit, sodales egestas varius aliquet, porttitor quis purus. 
+    Pellentesque in risus nec mauris posuere viverra sit amet at felis. Fusce sed ultricies ex, sit amet ornare elit. 
+    Aliquam odio est, congue in aliquam nec, viverra a orci. Donec a ultrices arcu, ut tincidunt diam. 
+    Fusce ac ex ac elit pellentesque dictum id nec elit. Mauris lorem est, congue nec condimentum quis, dignissim id 
+    libero. Cras id fermentum orci.</p>
+</div>
+<!-- <div class="container" style="margin-top: 1%; margin-bottom: 1%;">
+	<h1 class="text-center">Расписания</h1>
+	<table class="table table-striped">
+		<tr style="font-weight: bold; font-style: italic;">
+			<td>ID</td>
+			<td>Заголовок</td>
+			<td>Статус</td>
+			<td>Загрузил</td>
+			<td>Действие</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+		</tr>
+	</table>
+	<button type="submit" class="btn btn-warning"><a href="#" style="text-decoration: none; color: #000000;">На главную</a></button>
+</div> -->
+
+<div class="relative">
+	<amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img><!--/files/mountains-no-sky-sharpened.png-->
+</div>
+<div class="jumbotron text-center">
+	<b><i>&copy; Колодочкин Алексей<br>
+	Дробилко Данила</i></b>
+</div>
+<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+<script src="js/script.js"></script>
+</body>
+</html>

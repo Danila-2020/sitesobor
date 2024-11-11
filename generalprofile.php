@@ -113,7 +113,7 @@ body{background-image:url('img/background3.jpg');};
         <a href="viewactivitygen.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
-        <a href="gallery.php">ФотогалереЯ</a>
+        <a href="gallery.php">Фотогалерея</a>
     </li>
 </ul>
 

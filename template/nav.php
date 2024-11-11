@@ -1,7 +1,10 @@
 <div class="container">
 <ul class="nav nav-pills">
     <li class="nav-item">
-      <a class="nav-link active" href="scedule.php">Расписание богослужений</a>
+      <a class="nav-link" href="index.php">Главная</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="scedule.php">Расписание богослужений</a>
     </li>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Таинства</a>
@@ -14,7 +17,7 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="signin.php">Вход</a>
+      <a class="nav-link  active" href="signin.php">Вход</a>
     </li>
   </ul>
   </div>

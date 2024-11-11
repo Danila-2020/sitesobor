@@ -8,10 +8,10 @@ if(isset($_POST['submit'])){
     $descpainting = $_POST['descpainting'];
     $query = ("INSERT INTO `painting`(`npainting`, `descpainting`, `id_uprofile`) 
     VALUES ('$npainting','$descpainting',$id)");
-    var_dump($query);
+    // var_dump($query);
     $result = $mysqli->query($query);
     echo("<script>alert('Основные сведения о росписи добавлены.');</script>");
     // $result->free();
-    // header('Location: addpainting.php');
+    header('Location: addpainting.php');
 }
 ?>

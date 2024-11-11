@@ -1,5 +1,7 @@
 <?php
 session_start();
+ob_start();
+
 include('template/head.php');//Две башки, которые не нужны
 include('template/sceduleuploaderhead.php');
 include('template/barber.php');
@@ -28,13 +30,13 @@ require_once('bd.php');
         <li class="inline-block mr1">
             <form action="" method="post">
                 <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-                <!-- <?php
+                <?php
                 if(isset($_POST['submit'])){
                     $_SESSION['id'] = "";
                     session_unset();
                     echo'<script>window.location.href="signin.php"</script>';
                 }
-                ?> -->
+                ?>
             </form>
         </li>
     </ul>
@@ -79,7 +81,10 @@ require_once('bd.php');
     </ul>
     <?php
     $id = $_SESSION['id'];
-    echo('<h1>Сейчас авторизован пользователь '.$id.'</h1>');
+    if(empty($id)){
+        header('Location: signin.php');
+    }
+    // echo('<h1>Сейчас авторизован пользователь '.$id.'</h1>');
     ?>
     <hr>
 <div class="container"><!--py-5-->
