@@ -23,8 +23,8 @@ if(isset($_POST['submit'])){
         VALUES ('$naimimgpainting','$textimgpainting','$images',$id)");
         $result = $mysqli->query($query);
         if($result){
-            header('Location: inspainting.php');
             echo("<script>alert('Изменения произведены успешно')</script>");
+            header('Location: inspainting.php');
         }
     }
 }
