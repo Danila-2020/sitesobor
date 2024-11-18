@@ -70,7 +70,10 @@ require_once('bd.php');
             <a href="viewactivitygen.php">Деятельность</a>
         </li>
         <li class="inline-block mr1">
-            <a href="gallery.php">ФотогалереЯ</a>
+            <a href="gallery.php">Фотогалерея</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="editpaintinggeneral.php">Роспись(Редактирование)</a>
         </li>
     </ul>
     

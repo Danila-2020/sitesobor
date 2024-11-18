@@ -1,11 +1,12 @@
 <?php
-// session_start();
+session_start();
 
 include('template/head.php');
 include('template/barber.php');
 require_once('bd.php');
 
 ?>
+
 <body>
     <ul class="center h2 list-reset mt0 head-menu">
         <li class="inline-block mr1">
@@ -83,23 +84,53 @@ require_once('bd.php');
     margin-right: auto;
 }
 </style>
-    <?php
+    <?php    
     $query = ("SELECT `painting`.`id_painting`, `painting`.`npainting`, `painting`.`descpainting`, 
             `painting`.`id_uprofile`,`imgpainting`.`id_imgpainting`, `imgpainting`.`naimimgpainting`, 
             `imgpainting`.`textimgpainting`, `imgpainting`.`images`, `imgpainting`.`imagesstatus`, 
             `imgpainting`.`id_painting` 
             FROM `painting`
-            INNER JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
+            RIGHT JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
             WHERE 1=1");
+    $descquery =("SELECT `painting`.`id_painting`,`painting`.`descpainting`, 
+    `painting`.`id_uprofile` 
+    FROM `painting`
+    INNER JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
+    WHERE 1=1
+    LIMIT 1");
+    $resultdesc = $mysqli->query($descquery);
     $result = $mysqli->query($query);
     echo('<h1 class="text-center">Роспись</h1>');
+    $i=0;
     while($row = $result->fetch_assoc()){
         $img = base64_encode($row['images']);
-        echo('
-        <img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img>
-        <p>'.$row['descpainting'].'</p>
-        <p>'.$row['textimgpainting'].'</p>');
+    
+    if($i == 0) {
+        // echo($i."<br>");
+        echo('<form method="post" action="submitpaintinggen.php" enctype="multipart/form-data">
+        <input type="hidden" name="hiddenid" value="'.$row['id_painting'].'"></input>
+        <textarea rows="6" cols="1" class="form-control" name="descpainting">'.$row['descpainting'].'</textarea><br>
+        ');//submitpaintingdescgen.php
+        $i++;
+        echo($i);
+    }if($i > 0){
+    echo('
+    
+    <label for="" style="font-weight:bold;">Редактировать изображение</label><br>
+    <input type="file" name="images" class="form-control" /><br>');
+    echo('<img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img><br>
+    <h2>Название</h2>
+    <input type="text" class="form-control" name="naimimgpainting" value="'.$row['naimimgpainting'].'"></input><br>');
+    echo('
+    <input type="hidden" name="hidden" value="'.$row['id_imgpainting'].'"></input>
+    <input type="hidden" name="hiddenpainting" value="'.$row['id_painting'].'"></input>
+    <textarea rows="6" cols="1" class="form-control" name="textimgpainting">'.$row['textimgpainting'].'</textarea><br>');
+    $i++;
     }
+    }
+    echo('<button type="submit" name="submit" class="btn btn-primary">Сохранить изменения</button><br>
+    </form><br>');
+
     ?>
 </div>
 
