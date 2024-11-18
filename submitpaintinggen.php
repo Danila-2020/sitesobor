@@ -1,6 +1,7 @@
 <?php
-ob_start();
+// ob_start();
 session_start();
+include('template/head.php');
 require_once('bd.php');
 
 if(isset($_POST['submit'])){
@@ -9,9 +10,10 @@ if(isset($_POST['submit'])){
     $descpainting = $_POST['descpainting']; // descpainting
     $qpainting = "UPDATE `painting` SET `descpainting`='$descpainting' WHERE `id_painting` = $idpainting";
     $mysqli->query($qpainting);
+    echo("<script>alert('Описание успешно сохранено!');</script>");
 
     // Редактирование изображения
-    if(!empty($_FILES['images']['tmp_name']) && !empty($_POST['naimimgpainting'])){
+    if(!empty($_FILES['images']['tmp_name'])){ //&& !empty($_POST['naimimgpainting'])
         $idimg = $_POST['hidden']; // id_imgpainting
         $naimimgpainting = $_POST['naimimgpainting'];
         $textimgpainting = $_POST['textimgpainting'];
@@ -26,7 +28,7 @@ if(isset($_POST['submit'])){
         // Проверка размера файла
         $new_img_size = $_FILES['images']['size'];
         if ($new_img_size > 15 * 1024 * 1024) {
-            echo("<script>alert('Размер изображения не должен превышать 2 МБ.');</script>");
+            echo("<script>alert('Размер изображения не должен превышать 15 МБ.');</script>");
             exit;
         }
 
@@ -39,7 +41,15 @@ if(isset($_POST['submit'])){
 
         if($result) {
             echo("<script>alert('Изменения сохранены');</script>");
-            header("Location: editpaintinggeneral.php");
+            echo('<div class="container" style="margin-top: 2%">
+            <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"><a href="editpaintinggeneral.php" class="btn btn-warning" style="width:100%">Вернуться назад</a></div></div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+            </div>');
+            
+            // echo('<a href="editpaintinggeneral.php">Вернуться назад</a>');
+            //header("Location: editpaintinggeneral.php");
         } else {
             echo("<script>alert('Ошибка при сохранении изменений: " . $mysqli->error . "');</script>");
         }
@@ -54,7 +64,8 @@ if(isset($_POST['submit'])){
 
         if($result) {
             echo("<script>alert('Изменения сохранены');</script>");
-            header("Location: editpaintinggeneral.php");
+            echo('<a href="editpaintinggeneral.php" class="btn btn-outline-primary">Вернуться назад</a>');
+            //header("Location: editpaintinggeneral.php");
         } else {
             echo("<script>alert('Ошибка при сохранении изменений: " . $mysqli->error . "');</script>");
         }
