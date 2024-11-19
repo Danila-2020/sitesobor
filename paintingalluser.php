@@ -85,20 +85,34 @@ require_once('bd.php');
 </style>
     <?php
     $query = ("SELECT `painting`.`id_painting`, `painting`.`npainting`, `painting`.`descpainting`, 
-            `painting`.`id_uprofile`,`imgpainting`.`id_imgpainting`, `imgpainting`.`naimimgpainting`, 
-            `imgpainting`.`textimgpainting`, `imgpainting`.`images`, `imgpainting`.`imagesstatus`, 
-            `imgpainting`.`id_painting` 
-            FROM `painting`
-            INNER JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
-            WHERE 1=1");
-    $result = $mysqli->query($query);
-    echo('<h1 class="text-center">Роспись</h1>');
+    `painting`.`id_uprofile`,`imgpainting`.`id_imgpainting`, `imgpainting`.`naimimgpainting`, 
+    `imgpainting`.`textimgpainting`, `imgpainting`.`images`, `imgpainting`.`imagesstatus`, 
+    `imgpainting`.`id_painting` 
+    FROM `painting`
+    RIGHT JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
+    WHERE 1=1");
+$descquery =("SELECT `painting`.`id_painting`,`painting`.`descpainting`, 
+`painting`.`id_uprofile` 
+FROM `painting`
+INNER JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
+WHERE 1=1
+LIMIT 1");
+$resultdesc = $mysqli->query($descquery);
+$result = $mysqli->query($query);
+$i=0;
+echo('<h1 class="text-center">Роспись</h1>');
     while($row = $result->fetch_assoc()){
         $img = base64_encode($row['images']);
-        echo('
-        <img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img>
-        <p>'.$row['descpainting'].'</p>
+        if($i == 0) {
+        echo('<p>'.$row['descpainting'].'</p>
+        <img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img>');
+        $i++;
+        }
+        if($i > 0){
+        echo('<img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img>
         <p>'.$row['textimgpainting'].'</p>');
+        $i++;
+        }
     }
     ?>
 </div>
