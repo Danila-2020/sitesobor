@@ -84,14 +84,15 @@ require_once('bd.php');
     margin-right: auto;
 }
 </style>
-    <?php    
+    <h1 class="text-center">Роспись</h1>
+        <?php    
     $query = ("SELECT `painting`.`id_painting`, `painting`.`npainting`, `painting`.`descpainting`, 
-            `painting`.`id_uprofile`,`imgpainting`.`id_imgpainting`, `imgpainting`.`naimimgpainting`, 
-            `imgpainting`.`textimgpainting`, `imgpainting`.`images`, `imgpainting`.`imagesstatus`, 
-            `imgpainting`.`id_painting` 
-            FROM `painting`
-            RIGHT JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
-            WHERE 1=1");
+    `painting`.`id_uprofile`,`imgpainting`.`id_imgpainting`, `imgpainting`.`naimimgpainting`, 
+    `imgpainting`.`textimgpainting`, `imgpainting`.`images`, `imgpainting`.`imagesstatus`, 
+    `imgpainting`.`id_painting` 
+    FROM `painting`
+    RIGHT JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
+    WHERE 1=1");
     $descquery =("SELECT `painting`.`id_painting`,`painting`.`descpainting`, 
     `painting`.`id_uprofile` 
     FROM `painting`
@@ -99,50 +100,50 @@ require_once('bd.php');
     WHERE 1=1
     LIMIT 1");
     $resultdesc = $mysqli->query($descquery);
+    while($rowdesc = $resultdesc->fetch_assoc()){
+    ?>
+    <h2>Редактирование описания</h2>
+        <form action="save_description.php" method="post">
+            <div class="form-group">
+                <input type="hidden" name="hidden" value="<?php echo($rowdesc['id_painting']);?>">
+                <textarea id="descpainting" name="descpainting" cols="1" rows="6" class="form-control"><?php echo htmlspecialchars($rowdesc['descpainting']); ?></textarea>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Сохранить описание</button>
+        </form>
+    <?php
+    }//Конец цикла
+    $i = 0;
     $result = $mysqli->query($query);
-    echo('<h1 class="text-center">Роспись</h1>');
-    $i=0;
     while($row = $result->fetch_assoc()){
         $img = base64_encode($row['images']);
-    
-    if($i == 0) {
-        // echo($i."<br>");
-        echo('<form method="post" action="submitpaintinggen.php" enctype="multipart/form-data">
-        <input type="hidden" name="hiddenid" value="'.$row['id_painting'].'"></input>
-        <textarea rows="6" cols="1" class="form-control" name="descpainting">'.$row['descpainting'].'</textarea><br>
-        ');//submitpaintingdescgen.php
-        $i++;
-        echo($i);
-    }if($i > 0){
-    echo('
-    
-    <label for="" style="font-weight:bold;">Редактировать изображение</label><br>
-    <input type="file" name="images" class="form-control" /><br>');
-    echo('<img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img><br>
-    <h2>Название</h2>
-    <input type="text" class="form-control" name="naimimgpainting" value="'.$row['naimimgpainting'].'"></input><br>');
-    echo('
-    <input type="hidden" name="hidden" value="'.$row['id_imgpainting'].'"></input>
-    <input type="hidden" name="hiddenpainting" value="'.$row['id_painting'].'"></input>
-    <textarea rows="6" cols="1" class="form-control" name="textimgpainting">'.$row['textimgpainting'].'</textarea><br>');
-    $i++;
+        ?>
+        <form action="updpaintinggensubmit.php" method="post" enctype="multipart/form-data">
+            <?php $i = $row['id_imgpainting']?>
+            <div class="form-group">
+                <h2>Название</h2>
+                <input type="hidden" name="id" value="<?php echo($i);?>">
+                <input type="text" name="naimimgpainting" value="<?php echo($row['naimimgpainting']); ?>" placeholder="Название" class="form-control" required/><br>
+                <textarea name="textimgpainting" cols="1" rows="6" class="form-control" placeholder="Текст"><?php echo($row['textimgpainting']);?></textarea>
+                <h2>Изображение</h2>
+                <?php
+                if(!empty($row['images'])){
+                    echo '<img class="center-img img-fluid" src="data:image/jpeg;base64,'.$img.'"></img>';
+                }else{
+                    echo '<img class="center-img" src="img/no-image.png" class="img-fluid"></img>';
+                }
+                ?>
+                <label for="newimg">Редактировать изображение</label>
+                <input type="file" name="newimg" id="newimg" class="form-control"/><br>
+                <button type="submit" name="submit" class="btn btn-primary">Изменить сохранение</button>
+            </div>
+        </form>
+    <?php
     }
-    }
-    echo('<button type="submit" name="submit" class="btn btn-primary">Сохранить изменения</button><br>
-    </form><br>');
-
     ?>
+        
+    
 </div>
 
-<div class="relative">
-	<amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img><!--/files/mountains-no-sky-sharpened.png-->
-</div>
-<div class="jumbotron text-center">
-	<b><i>&copy; Колодочкин Алексей<br>
-	Дробилко Данила</i></b>
-</div>
-<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
-<script src="js/script.js"></script>
-</body>
-</html>
+<?php
+include('template/footer3.php');
+?>
