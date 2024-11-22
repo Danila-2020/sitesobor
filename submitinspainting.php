@@ -1,4 +1,6 @@
 <?php
+// Обработчик добавления изображений Росписи в таблицу `imgpainting` (Пользователь General)
+
 session_start();
 ob_start();
 

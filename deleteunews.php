@@ -1,4 +1,6 @@
 <?php
+// Обработчик удаления новости
+
 require_once('bd.php');
 
 if(isset($_POST['submit'])){

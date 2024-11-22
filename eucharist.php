@@ -1,4 +1,6 @@
 <?php
+// Таинство причастия (Все пользователи)
+
 include('template/eucharisthead.php');
 ?>
 <body>

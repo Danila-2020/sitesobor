@@ -1,4 +1,6 @@
 <?php
+// Страница просмотра Публикации(Все пользователи)
+
 session_start();
 
 include('template/head.php');

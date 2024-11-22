@@ -1,4 +1,6 @@
 <?php
+// Обработчик редактирования описания Росписи(Пользователь General)
+
 session_start();
 ob_start();
 require_once('bd.php');

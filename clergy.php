@@ -1,4 +1,6 @@
-<?php 
+<?php
+// Модуль Духовенства
+
 require_once('bd.php');
 include('template/clergyhead.php');
 include('template/barber.php');

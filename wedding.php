@@ -1,4 +1,6 @@
 <?php
+// Таинство Венчания (Все пользователи)
+
 include('template/weddinghead.php');
 ?>
 <body>

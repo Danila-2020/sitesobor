@@ -1,3 +1,4 @@
+<!-- Духовенство (голова) -->
 <!DOCTYPE html>
 <html amp lang="ru-RU">
 <head>

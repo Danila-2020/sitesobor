@@ -1,4 +1,6 @@
 <?php
+// Модуль таинства Исповеди
+
 include('template/confessionhead.php');
 ?>
 <body>

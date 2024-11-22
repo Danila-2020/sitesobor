@@ -1,4 +1,6 @@
 <?php
+// Страница просмотра Росписи(Все пользователи)
+
 // session_start();
 
 include('template/head.php');

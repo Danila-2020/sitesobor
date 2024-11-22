@@ -1,4 +1,6 @@
 <?php
+// Обработчик обновления публикации(Пользователь User)
+
 session_start();
 require_once('bd.php');
 $id = $_SESSION['id_upublic'];

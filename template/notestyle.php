@@ -1,3 +1,4 @@
+<!-- Стили для модуля Подать Записку(note.php) -->
 <style>
 html {
 	font-family: sans-serif;

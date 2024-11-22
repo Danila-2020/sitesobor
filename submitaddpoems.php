@@ -1,4 +1,5 @@
 <?php
+// Обработчик добавления стиха
 session_start();
 require_once('bd.php');
 
@@ -12,7 +13,7 @@ if(isset($_POST['submit'])){
         var_dump($query);//Надо посмотреть под капотом
         $result = $mysqli->query($query);
         if($result){
-            echo("<script>alert('Стих добавлен успешно!!!');</script>");//Встъебенено успешно!!!
+            echo("<script>alert('Стих добавлен успешно!!!');</script>");
             echo('<script>window.location.href="addpoems.php";</script>');
         }
     }

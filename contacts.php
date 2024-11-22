@@ -1,4 +1,6 @@
 <?php
+// Форма обратной связи
+
 session_start();
 require_once('template\contactshead.php');
 require_once('template\contactsstyle.php');

@@ -1,4 +1,6 @@
 <?php
+// Обработчик удаления фото публикации(пользователь Admin)
+
 session_start();
 require_once('bd.php');
 $id = $_SESSION['id'];

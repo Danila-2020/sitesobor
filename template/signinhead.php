@@ -1,3 +1,4 @@
+<!-- Модуль авторизации (голова) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

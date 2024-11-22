@@ -1,4 +1,5 @@
 <?php
+// Обработчик добавления пользователя
 session_start();//Тут идёт session_start, он наверное не нужен ☺
 require_once('bd.php');
 if(isset($_POST['submit'])){

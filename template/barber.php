@@ -1,3 +1,4 @@
+<!-- CSS - Стили для подключения(аналог barber.css) -->
 <style amp-custom="">
 html {
 	font-family: sans-serif;

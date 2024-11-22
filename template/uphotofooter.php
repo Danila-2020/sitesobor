@@ -1,3 +1,4 @@
+<!-- Футер модуля uphoto.php для загрузки фото в публикацию -->
 <script src="js/photouploader.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>

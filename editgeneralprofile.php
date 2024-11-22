@@ -1,4 +1,6 @@
 <?php
+// Обработчик редактирования профиля (Пользователь General)
+
 sesssion_start();//Тут идёт session_start(), он наверное не нужен
 require_once('bd.php');
 $id = $_SESSION['id'];

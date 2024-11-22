@@ -1,4 +1,6 @@
 <?php
+// Просмотр Новостей(Пользователь Admin)
+
 session_start();
 require_once('bd.php');
 include('template/head.php');

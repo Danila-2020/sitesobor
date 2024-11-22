@@ -1,3 +1,4 @@
+<!-- Таинство соборования (Голова) -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>

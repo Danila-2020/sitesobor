@@ -1,4 +1,6 @@
 <?php
+// Просмотр мероприятий (Пользователь General)
+
 session_start();
 require_once('bd.php');
 include('template/head.php');

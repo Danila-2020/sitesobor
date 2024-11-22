@@ -1,4 +1,5 @@
 <?php
+// Обработчик добавления мероприятия (Пользователь User)
 require_once("bd.php");
 session_start();
 

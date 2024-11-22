@@ -1,4 +1,6 @@
 <?php
+// Обработчик обновления изображений таблица `imgpainting` (Пользователь General)
+
 session_start();
 require_once('bd.php');
 

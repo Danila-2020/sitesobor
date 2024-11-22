@@ -1,4 +1,6 @@
 <?php
+// Обработчик обновления расписания богослужений
+
 session_start();
 require_once('bd.php');
 // $sid = $_SESSION['idscedule'];

@@ -1,4 +1,6 @@
 <?php
+// Страница "Все Новости"
+
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');

@@ -1,4 +1,5 @@
 <?php
+// Добавление новости (пользователь admin)
 session_start();
 require_once('bd.php');
 include('template/head.php');

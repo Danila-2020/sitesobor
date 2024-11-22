@@ -1,4 +1,6 @@
 <?php
+// Страница обновления расписания богослужений
+
 session_start();
 require_once('bd.php');
 include('template/head.php');
@@ -22,7 +24,7 @@ if(isset($_POST['submit'])){
             $query = "SELECT `scedule`.`id_scedule`, `scedule`.`titlescedule`, `scedule`.`imagescedule`, `scedule`.`sstatus`, `uprofile`.`ulastname`, `uprofile`.`ufirstname`, `uprofile`.`upatronymic` 
                     FROM `scedule` 
                     INNER JOIN `uprofile` ON `scedule`.`id_uprofile` = `uprofile`.`id_uprofile`
-                    WHERE `id_scedule` = $sid";//Запрос для выборки всех записей из таблицы sceduleи записи из таблицы uprofile, в которых id_uprofile = id_uprofile
+                    WHERE `id_scedule` = $sid";//Запрос для выборки всех записей из таблицы scedule и записи из таблицы uprofile, в которых id_uprofile = id_uprofile
             //var_dump($query);
             $result = $mysqli->query($query);
             while($row = $result->fetch_assoc()){

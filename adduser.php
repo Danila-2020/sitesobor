@@ -1,4 +1,5 @@
 <?php
+// Страница добавления пользователя
 session_start();
 require_once('bd.php');
 include('template/head.php');

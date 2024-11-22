@@ -1,4 +1,6 @@
 <?php
+// Добавление Росписи в таблицу `imgpainting`
+
 session_start();
 require_once('bd.php');
 include('template/paintinghead.php');

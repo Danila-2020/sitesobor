@@ -1,4 +1,6 @@
 <?php
+// Обработчик редактирования профиля(пользователь User)
+
 require_once('bd.php');
 session_start();
 $id = $_SESSION['id'];

@@ -1,4 +1,6 @@
 <?php
+// Редактирование Росписи (пользователь General)
+
 session_start();
 
 include('template/head.php');

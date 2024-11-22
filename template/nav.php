@@ -1,3 +1,4 @@
+<!-- Модуль навигации(Основной для всех пользователей) -->
 <div class="container">
 <ul class="nav nav-pills">
     <li class="nav-item">

@@ -1,4 +1,5 @@
 <?php
+//Страница добавления фото в публикацию(Пользователь general)
 session_start();
 include('template/uphotohead.php');
 require_once('bd.php');

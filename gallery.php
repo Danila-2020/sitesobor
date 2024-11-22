@@ -1,4 +1,6 @@
  <?php
+// Тестовая галерея изображений 1
+
  //session_start();
  require_once('bd.php');
  include('template/galleryhead.php');

@@ -1,3 +1,4 @@
+<!-- Голова (Подать записку) (note.php) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

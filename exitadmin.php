@@ -1,4 +1,6 @@
 <?php
+// Обработчик выхода из профиля Admin
+
 session_start();
 require_once('bd.php');
 

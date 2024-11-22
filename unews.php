@@ -1,4 +1,6 @@
 <?php
+// Просмотр Новости(Все пользователи)
+
 session_start();
 ob_start();
 require_once('bd.php');

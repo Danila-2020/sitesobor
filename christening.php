@@ -1,4 +1,6 @@
 <?php
+// Модуль таинства крещения
+
 include('template/christeningheadnew.php');
 ?>
 <body>

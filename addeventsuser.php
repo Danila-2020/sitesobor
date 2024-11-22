@@ -1,5 +1,5 @@
 <?php
-/* Добавление мероприятий  user*/
+/* Добавление мероприятий user*/
 session_start();
 require_once('bd.php');
 include('template/head.php');

@@ -1,4 +1,5 @@
 <?php
+// Обработчик отправки "Подать записку"
     $from = "robot.sobor@mail.ru";
     $to = "sobor.noreply@mail.ru";
     $subject = "Новая записка";

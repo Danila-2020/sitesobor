@@ -1,3 +1,4 @@
+<!-- CDN - скрипты для модуля Контакты(contacts.php) -->
 <meta name="csrf-param" content="_csrf-frontend">
          <meta name="csrf-token" content="rufNjNmfaRuKJ-ssgba1NeE69mEJj3aI0QWIBDjgdkDc0YLLjMY6Tv4fmX_jwfJlh0O3J37HEOqjYtdDbLM5cg==">
          

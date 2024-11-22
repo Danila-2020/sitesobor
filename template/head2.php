@@ -1,3 +1,4 @@
+<!-- Основная голова 2 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

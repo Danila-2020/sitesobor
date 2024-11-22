@@ -1,4 +1,6 @@
 <?php
+// Обработчик добавления Деятельности
+
 ob_start();//Разьебедить
 session_start();
 require_once("bd.php");

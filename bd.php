@@ -1,4 +1,6 @@
 <?php
+// Модуль подключения к базе данных
+
 // $mysqli = new mysqli("localhost","root","jH75DLsvi6Mm","ddrobi4v_example");
 // $mysqli->set_charset("utf8");
 

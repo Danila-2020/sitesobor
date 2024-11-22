@@ -1,5 +1,6 @@
 <?php
-//Добавление деятельности
+// Страница редактирования деятельности(пользователь General)
+
 session_start();
 require_once('bd.php');
 include('template/head.php');

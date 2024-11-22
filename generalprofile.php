@@ -1,5 +1,6 @@
 <?php
-    /* Данный модуль является профилем general-администратора */
+// Профиль General-Администратора
+
 session_start();
 require_once('bd.php');
 include('template/head.php');

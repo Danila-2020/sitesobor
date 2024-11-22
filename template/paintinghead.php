@@ -1,3 +1,4 @@
+<!-- Голова для Росписи(painting.php) все пользователи -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

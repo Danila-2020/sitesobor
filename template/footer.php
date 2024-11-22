@@ -1,3 +1,4 @@
+<!-- Футер (номер 1) -->
 <div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
     
 <!--<ul class="mx-auto center list-reset social-icons-wrap">

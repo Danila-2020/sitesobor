@@ -1,4 +1,6 @@
-<?php 
+<?php
+// Расписание богослужений(Все пользователи)
+
 require_once('bd.php');
 session_start();//Тут идёт session_start, он наверное не нужен
 

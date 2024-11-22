@@ -1,4 +1,5 @@
-  <meta name="csrf-param" content="_csrf-frontend">
+<!-- Продолжение головы note.php(Подать записку) с CDN-скриптами -->
+<meta name="csrf-param" content="_csrf-frontend">
          <meta name="csrf-token" content="rufNjNmfaRuKJ-ssgba1NeE69mEJj3aI0QWIBDjgdkDc0YLLjMY6Tv4fmX_jwfJlh0O3J37HEOqjYtdDbLM5cg==">
          
          <script src="https://cdn.ampproject.org/v0.js" async="async"></script>

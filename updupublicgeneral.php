@@ -1,4 +1,6 @@
 <?php
+// Страница обновления публикации(Пользователь General)
+
 session_start();//Тут идёт session_start(), он наверное не нужен 
 include('template/head.php');
 include('template/barber.php');//Не забываем подключить бороду

@@ -1,4 +1,6 @@
 <?php
+// Главная страница сайта
+
 // session_start();
 
 include('template/head.php');

@@ -1,4 +1,5 @@
-         <script src="../js/cdn_js/v0.js" async="async"></script>
+<!-- JS CDN-Скрипты -->
+        <script src="../js/cdn_js/v0.js" async="async"></script>
          <script src="../js/cdn_js/jquery.min.js" async="async" custom-element="amp-iframe"></script>
          <script src="../js/cdn_js/jquery.maskedinput.min.js" async="async" custom-element="amp-lightbox"></script>
          <script src="../js/cdn_js/amp-mustache-0.2.js" async="async" custom-element="amp-list"></script>

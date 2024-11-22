@@ -1,4 +1,6 @@
 <?php
+// Обработчик добавления Фото в Публикацию(Пользователь General)
+
 session_start();
 require_once('bd.php');
 

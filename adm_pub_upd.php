@@ -1,5 +1,5 @@
 <?php
-/*Обновление фото публикации Admin*/
+// Обновление фото публикации admin
 session_start();
 require_once('bd.php');
 include('template/head.php');

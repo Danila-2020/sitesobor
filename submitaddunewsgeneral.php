@@ -1,4 +1,6 @@
 <?php
+// Обработчик добавления Новости (Пользователь General)
+
 session_start();
 require_once('bd.php');
 $id = $_SESSION['id'];

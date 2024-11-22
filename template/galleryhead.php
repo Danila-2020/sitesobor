@@ -1,3 +1,4 @@
+<!-- Голова галереи -->
 <!DOCTYPE html>
    <html lang="ru">
    <head>

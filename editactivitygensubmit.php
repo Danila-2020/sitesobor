@@ -1,4 +1,6 @@
 <?php
+// Обработчик редактирования деятельности(пользователь General)
+
 ob_start();
 session_start(); //Тут идёт session_start(), он наверное не нужен
 require_once('bd.php');

@@ -1,3 +1,4 @@
+<!-- Таинство исповеди (голова) -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>

@@ -1,4 +1,6 @@
 <?php
+// Обработчик восстановления Публикации(Пользователь General)
+
 session_start();
 require_once('bd.php');
 $idupublic = $_POST['id'];

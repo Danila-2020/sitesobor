@@ -1,3 +1,4 @@
+<!-- Навигация для загрузчика(Модуль п) -->
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
         <a href="sceduleuploader.php">Расписание богослужений</a>

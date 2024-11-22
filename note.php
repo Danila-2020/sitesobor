@@ -1,4 +1,6 @@
 <?php
+// Страница Подать записку
+
 include('template/notehead.php');
 include('template/notestyle.php');
 include('template/noteheadend.php');

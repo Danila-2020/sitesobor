@@ -1,3 +1,4 @@
+<!-- Голова модуля uphoto.php для загрузки фото в публикацию -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

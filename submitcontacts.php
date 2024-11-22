@@ -1,4 +1,6 @@
 <?php
+// Обработчик формы обратной связи
+
     $from = "robot.sobor@mail.ru";
     $to = "sobor.noreply@mail.ru";
     $subject = "Новое письмо с сайта";

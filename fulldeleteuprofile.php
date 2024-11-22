@@ -1,4 +1,6 @@
 <?php
+// Обработчик полного удаления профиля(Пользователь General)
+
 session_start();
 require_once('bd.php');
 

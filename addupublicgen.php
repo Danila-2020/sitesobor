@@ -1,5 +1,5 @@
 <?php
-/* Добавление публикаций general*/
+//Страница добавления публикации(Пользователь general)
 session_start();
 require_once('bd.php');
 include('template/head.php');

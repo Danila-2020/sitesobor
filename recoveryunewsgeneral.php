@@ -1,4 +1,6 @@
 <?php
+// Обработчик восстановления Новости(Пользователь General)
+
 require_once('bd.php');
 
 if(isset($_POST['submit'])){

@@ -1,4 +1,6 @@
 <?php
+// Просмотр Публикаций(Пользователь User)
+
 session_start();
 require_once('bd.php');
 include('template/head.php');

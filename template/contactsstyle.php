@@ -1,3 +1,4 @@
+<!-- Стили для страницы Контактов(contacts.php) -->
 <style amp-boilerplate="">
     body
     {

@@ -1,5 +1,5 @@
 <?php
-/*Добавление стиха*/
+// Страница добавления стиха
 session_start();
 include('template/uphotohead.php');
 require_once('bd.php');

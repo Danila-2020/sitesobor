@@ -1,4 +1,6 @@
 <?php
+// Обработчик полного удаления публикации(Пользователь General)
+
 session_start();
 require_once('bd.php');
 $id = $_POST['id'];

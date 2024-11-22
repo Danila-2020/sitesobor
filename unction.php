@@ -1,4 +1,5 @@
 <?php
+// Таинство Соборования(Все пользователи)
 include('template/unctionhead.php');
 ?>
 <body>

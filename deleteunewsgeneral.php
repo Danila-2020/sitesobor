@@ -1,4 +1,5 @@
 <?php
+// Обработчик удаления новости (пользователь general)
 require_once('bd.php');
 
 if(isset($_POST['submit'])){

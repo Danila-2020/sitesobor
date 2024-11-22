@@ -1,4 +1,6 @@
 <?php
+// Редактирование расписания богослужений(Пользователь User)
+
 session_start();
 include('template/sceduleuploaderhead.php');
 require_once('bd.php');

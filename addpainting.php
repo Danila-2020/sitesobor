@@ -1,4 +1,5 @@
 <?php
+// Добавление записи в таблицу painting
 session_start();
 ob_start();
 

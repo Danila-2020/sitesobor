@@ -1,4 +1,6 @@
 <?php
+// Обработчик модуля авторизации(Форма signin.php)
+
 session_start();
 require_once('bd.php');
 

@@ -1,4 +1,6 @@
 <?php
+// Страница "Все публикации"
+
 session_start();
 $id = $_POST['id'];
 include('template/head.php');
