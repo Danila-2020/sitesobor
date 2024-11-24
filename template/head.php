@@ -46,6 +46,10 @@
          <script src="../js/cdn_js/amp-carousel-0.1.js" async="async" custom-element="amp-analytics"></script>
          <script src="../js/cdn_js/amp-bind-0.1.js" type="text/javascript"></script>
          <script src="../js/cdn_js/amp-analytics-0.1.js" type="text/javascript"></script>
+         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
         <!--JQuery Masked Input-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="js/jquery.maskedinput.min.js"></script>
