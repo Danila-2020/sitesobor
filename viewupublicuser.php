@@ -195,7 +195,7 @@ while($row = $result->fetch_array()){
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-primary">Просмотреть</button>
     </form>
-    <form method="POST" action="">
+    <form method="POST" action="updupublicuser.php">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
     </form>

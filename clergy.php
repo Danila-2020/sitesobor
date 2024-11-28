@@ -1,27 +1,34 @@
 <?php
-// Модуль Духовенства
+// Страница Духовенства(Все пользователи).
 
-require_once('bd.php');
-include('template/clergyhead.php');
+session_start();
+
+include('template/head.php');
 include('template/barber.php');
-?>
+require_once('bd.php');
 
-<body class="land-see ">
-    <div class="content-wrap relative"><!-- content-wrap -->
-    <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
-      <div class="land-see-hero-main mx-auto"></div>
-    </section>
- <div class="max-width-4 mx-auto p2">
-    
-  <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
-    <div class="clearfix p1">
-        <div class="desk-logo-wrap mx-auto block">
-            <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"><!--/files/logo-color.png-->
-        </div>
-    </div>
-    <div class="clearfix">
-            <!--<h1 class="hide h2 center">Спасский Кафедральный собор Пятигорска</h1>-->
-                
+
+// Получаем данные из базы данных
+$query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`, 
+`awardsclergy` FROM `clergy` WHERE 1=1";
+$result = $mysqli->query($query);
+
+if (!$result) {
+    die("Ошибка запроса: " . $conn->error);
+}
+
+?>
+<body>
+    <style>
+        .clergy-card {
+            margin-bottom: 20px;
+        }
+
+        .overflow-container {
+        overflow-x: auto; /* Включаем горизонтальную прокрутку */
+        /* white-space: nowrap; Запрещаем перенос строк */
+    }
+    </style>
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
         <a href="scedule.php">Расписание богослужений</a><!--/site/article?id=4-->
@@ -99,97 +106,52 @@ include('template/barber.php');
             </ul>
           </div>
 
-<!--<ul class="mx-auto center list-reset social-icons-wrap">
-    <li class="inline-block mr1">
-        <a href="https://www.youtube.com/channel/UCT9LuM1abyX14sRm6um0pNg" target="_blank">
-            <i class="fab fa-youtube fa-lg"></i>
-        </a>
-    </li>
-    <li class="inline-block">
-        <a href="https://t.me/soborvpyatigorske" target="_blank">
-            <i class="fab fa-telegram fa-lg"></i>
-        </a>
-    </li>
-</ul>-->
-
-
-    <ul class="list-reset breadcrumbs">
-                    <li class="inline-block mr1">
-                                    <a href="/">
-                
-                Главная
-                                    </a>
-                    </li>
-                    <li class="inline-block mr1">
-                                    <a href="/site/articles?catids%5B0%5D=1">О Соборе</a>
-                            </li>
-                    <li class="inline-block mr1">Духовенство</li>
-    </ul>
-
-                <h1>Духовенство</h1>
-
-                <div class="article-wrap">
-                    <div class="article-wrap">
-<div>&nbsp;</div>
-<div class="row">
-<?php
-    $query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`, `awardsclergy` FROM `clergy` WHERE 1=1 LIMIT 5";
-    $result = $mysqli->query($query);
-    
-    while($row = $result->fetch_array()){
-        $img = base64_encode($row['imagesclergy']);
-        echo('<h1 style="margin-left:2%;">'.$row['titleclergy'].'</h1>')?>
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                <img src="data:image/jpeg;base64,<?=$img?>" alt="" style="margin:0;" class="img-fluid">
-            </div>
-            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-                <?php
-                $id = $row['id_clergy'];
-                echo('<input type="hidden" name="id_clergy" value="'.$id.'">');
-                echo('<h2>ИД: '.$id.'</h2>
-                <p>'.$row['datesclergy'].'</p>
-                <h2>Образование</h2>
-                <p>'.$row['educlergy'].'</p>');
-                if(!empty($row['awardsclergy'])){
-                    echo('<h2>Награды</h2>
-                    <p>'.$row['awardsclergy'].'</p>');
-                }
-                ?>
-                <button class="btn btn-primary show" id="show<?=$id;?>" style="float:right; margin-right: 1%;" onclick="toggleBio(<?=$id;?>)">Подробнее</button>
-                <div class="bio" id="bio<?=$id;?>" style="display:none;">
-                    <p><?=$row['textclergy'];?></p>
-                    <button class="btn btn-secondary" style="float:right; margin-right: 1%;" onclick="toggleBio(<?=$id;?>)">Скрыть</button>
-                </div>
-            </div>
-            <?php
-    }
-    ?>
-</div>
-
-<script>
-function toggleBio(id) {
-    var bio = document.getElementById('bio' + id);
-    if (bio.style.display === "none") {
-        bio.style.display = "block";
-    } else {
-        bio.style.display = "none";
-    }
-}
-</script>
-
-<!-- Найти еще -->
-            </div>
-                </div>
-                    <p style="border: 1px solid;" class="text-center">Данный раздел находится в разработке, содержимое будет добавляться.</p>
+<div class="container mt-5">
+<div class="overflow-container">
+        <div class="row flex-nowrap">
+            <?php while ($clergy = $result->fetch_assoc()): 
+                $img = base64_encode($clergy['imagesclergy']); ?>
+                <div class="col-md-4">
+                    <div class="card clergy-card">
+                        <img src="data:image/jpeg;base64,<?=$img?>" class="card-img-top" alt="<?php echo $clergy['titleclergy']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $clergy['titleclergy']; ?></h5>
+                            <p class="card-text">Дата: <?php echo $clergy['datesclergy']; ?></p>
+                            <p class="card-text">Образование: <?php echo $clergy['educlergy']; ?></p>
+                            <p class="card-text">Награды: <?php echo $clergy['awardsclergy']; ?></p>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#clergyModal<?php echo $clergy['id_clergy']; ?>">
+                                Подробнее
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div><!-- clearfix-end -->
-        </div><!-- full-width-wrap-end -->
-    </div><!-- content-wrap-end -->
-</div>
 
+                <!-- Модальное окно для подробной информации -->
+                <div class="modal fade" id="clergyModal<?php echo $clergy['id_clergy']; ?>" tabindex="-1" role="dialog" aria-labelledby="clergyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="clergyModalLabel"><?php echo $clergy['titleclergy']; ?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <?php echo $clergy['textclergy']; ?>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+    </div>
 
-
-<?php
-include('template\footer2.php');
-?>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
