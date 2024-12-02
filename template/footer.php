@@ -57,14 +57,14 @@
     <form method="POST" action="">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
             <?php
-            // if(isset($_POST['submit'])){
-            //     $_SESSION['id'] = "";
-            //     $id = "";
-            //     session_unset();
-            //     echo'<script>window.location.href="signin.php"</script>';
+            if(isset($_POST['submit'])){
+                $_SESSION['id'] = "";
+                $id = "";
+                session_unset();
+                echo'<script>window.location.href="signin.php"</script>';
 
-            //     //header('Location: signin.php');
-            // };
+                //header('Location: signin.php');
+            };
             ?>
     </form>
     </li>

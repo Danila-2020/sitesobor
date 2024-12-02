@@ -51,7 +51,10 @@ body{background-image:url('img/background3.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="generalprofile.php">Профиль</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="genclergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
         <a href="adduser.php">Добавить пользователя</a>
