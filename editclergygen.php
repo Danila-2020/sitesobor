@@ -57,7 +57,7 @@ if(empty($id)){
             </div>
             <div class="form-group">
                 <label for="datesclergy">Дата рождения</label>
-                <input type="date" class="form-control" id="datesclergy" name="datesclergy" value="<?php echo($row['datesclergy']);?>" required>
+                <input type="date" class="form-control" id="datesclergy" name="datesclergy" value="<?php echo($row['datesclergy']);?>">
             </div>
             <div class="form-group">
                 <label for="educlergy">Образование</label>
@@ -65,7 +65,7 @@ if(empty($id)){
             </div>
             <div class="form-group">
                 <label for="awardsclergy">Награды</label>
-                <textarea class="form-control" id="awardsclergy" name="awardsclergy" required><?php echo($row['awardsclergy']);?></textarea>
+                <textarea class="form-control" id="awardsclergy" name="awardsclergy"><?php echo($row['awardsclergy']);?></textarea>
             </div>
             <input type="hidden" name="id_clergy" value="<?php echo ($id); ?>">
             <button type="submit" name="submit" class="btn btn-primary">Обновить</button>

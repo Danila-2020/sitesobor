@@ -10,7 +10,7 @@ require_once('bd.php');
 
 // Получаем данные из базы данных
 $query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`, 
-`awardsclergy` FROM `clergy` WHERE 1=1";
+`awardsclergy`,`statusclergy` FROM `clergy` WHERE 1=1";
 $result = $mysqli->query($query);
 
 if (!$result) {
@@ -136,10 +136,33 @@ if (!$result) {
                             <button class="btn btn-primary" data-toggle="modal" data-target="#clergyModal<?php echo $clergy['id_clergy']; ?>" style="margin-bottom:5%;">
                                 Подробнее
                             </button>
-                            <form action="editclergygen.php" method="post">
-                            <input type="hidden" name="hiddenid" value="<?php echo($clergy['id_clergy']);?>"></input><!--Тут не видит ID-->
-                            <button type="submit" name="submit" class="btn btn-primary">Редактировать</button>
-                            </form>
+                            <?php
+                            if($clergy['statusclergy'] == 'active'){
+                                ?>
+                                <form action="editclergygen.php" method="post">
+                                <input type="hidden" name="hiddenid" value="<?php echo($clergy['id_clergy']);?>"></input><!--Тут не видит ID-->
+                                <button type="submit" name="submit" class="btn btn-primary">Редактировать</button>
+                                </form>
+                                <form action="deleteclergygen.php" method="post" style="margin-top: 5%;">
+                                <input type="hidden" name="hidden" value="<?php echo($clergy['id_clergy']);?>"></input><!--Тут не видит ID-->
+                                <button type="submit" name="submitdel" class="btn btn-success">Удалить</button>
+                                </form>
+                                <form action="fulldeleteclergygen.php" method="post" style="margin-top: 5%;">
+                                <input type="hidden" name="hidden" value="<?php echo($clergy['id_clergy']);?>"></input><!--Тут не видит ID-->
+                                <button type="submit" name="submitfulldel" class="btn btn-danger">Полное удаление</button>
+                                </form>
+                                <?php
+                            }
+                            if($clergy['statusclergy'] == 'deleted'){
+                                ?>
+                                <form action="recoveryclergygen.php" method="post" style="margin-top: 5%;">
+                                <input type="hidden" name="hidden" value="<?php echo($clergy['id_clergy']);?>"></input><!--Тут не видит ID-->
+                                <button type="submit" name="submitrec" class="btn btn-success">Восстановить</button>
+                                </form>
+                                <?php
+                            }
+                            ?>
+                            
                         </div>
                     </div>
                     

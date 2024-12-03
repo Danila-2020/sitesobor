@@ -9,12 +9,15 @@ require_once('bd.php');
 
 
 // Получаем данные из базы данных
-$query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`, 
-`awardsclergy` FROM `clergy` WHERE 1=1";
+$query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`,
+ `awardsclergy`, `statusclergy`, `id_uprofile` 
+FROM `clergy` 
+WHERE 1=1 
+AND `statusclergy` = 'active'";
 $result = $mysqli->query($query);
 
 if (!$result) {
-    die("Ошибка запроса: " . $conn->error);
+    die("Ошибка запроса: " . $mysqli->error);
 }
 
 ?>
