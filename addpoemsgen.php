@@ -1,5 +1,5 @@
 <?php
-// Страница добавления стиха(Пользователь User)
+// Страница добавления стиха(Пользователь General)
 session_start();
 include('template/uphotohead.php');
 require_once('bd.php');
@@ -13,7 +13,7 @@ $id = $_SESSION['id'];
                 <h1>Добавить стих</h1>
                 <!-- Upload image input-->
             
-                <form action="submitaddpoems.php" method="post" enctype="multipart/form-data">
+                <form action="submitaddpoemsgen.php" method="post" enctype="multipart/form-data">
                     <h4>Добавление</h4>
                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
                     
@@ -32,7 +32,7 @@ $id = $_SESSION['id'];
               </div>
             </div>
           </div>
-          <button type="submit" onclick="location.href='userprofile.php'" class="btn btn-outline-dark">Вернуться назад</button>
+          <button type="submit" onclick="location.href='generalprofile.php'" class="btn btn-outline-dark">Вернуться назад</button>
     </div>
 <?php
 include('template/uphotofooter.php');

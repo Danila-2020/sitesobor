@@ -1,5 +1,5 @@
 <?php
-// Модуль добавления Духовенства(Пользователь General)
+// Модуль добавления Духовенства(Пользователь Admin)
 
 ob_start();
 session_start(); // Тут идёт session_start(), он наверное не нужен
@@ -29,7 +29,7 @@ include('template/barber.php');
         <a href="adminprofile.php">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
-        <a href="addusergen.php">Добавить пользователя</a>
+        <a href="adduser.php">Добавить пользователя</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
@@ -59,13 +59,13 @@ include('template/barber.php');
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="addunewsgeneral.php">Новость</a>
+        <a class="" href="addunewsadmin.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="addeventsgen.php">Мероприятие</a>
+        <a class="" href="addeventsadmin.php">Мероприятие</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="addclergygen.php">Духовенство</a>
+        <a class="" href="addclergy.php">Духовенство</a>
     </li>
     <!-- <li class="inline-block mr1">
         <a class="" href="/site/article?id=5">Публикацию</a>
