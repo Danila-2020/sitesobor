@@ -1,5 +1,5 @@
 <?php
-// Обработчик добавления пользователя(Пользователь Admin)
+// Обработчик добавления пользователя(Пользователь General)
 session_start();//Тут идёт session_start, он наверное не нужен ☺
 require_once('bd.php');
 if(isset($_POST['submit'])){
@@ -18,6 +18,6 @@ if(isset($_POST['submit'])){
     //var_dump($query);
     $mysqli->query($query);
     echo("<script>alert('Пользователь успешно добавлен!!!')</script>");
-    echo('<script>window.location.href="adduser.php"</script>');
+    echo('<script>window.location.href="addusergen.php"</script>');
 }
 ?>

@@ -49,24 +49,27 @@ body{background-image:url('img/background3.jpg');};
             <!--<h1 class="hide h2 center">Спасский Кафедральный собор Пятигорска</h1>-->
 
             
-<ul class="center h2 list-reset mt0 head-menu">
+            <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="/site/article?id=4">Расписание богослужений</a>
+        <a href="generalprofile.php">Профиль</a>
     </li>
     <li class="inline-block mr1">
-        <a href="adduser.php">Добавить пользователя</a>
+        <a href="genclergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
+        <a href="addusergen.php">Добавить пользователя</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
+        <a href="adduphotogen.php">Добавить фото</a>
     </li>
     <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
+        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
+    </li>
+    <li class="inline-block mr1">
+        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
     </li>
     <li class="inline-block mr1">
         <form action="" method="post">
@@ -84,50 +87,43 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="clergy.php">Духовенство</a>
+        <a class="" href="addunewsgeneral.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
+        <a class="" href="addeventsgen.php">Мероприятие</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
+        <a class="" href="addupublicgen.php">Публикацию</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="addactivity.php">Деятельность</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="addpainting.php">Сведения о Росписи</a>
     </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
-<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
     <li class="inline-block mr1">
-        <a href="/site/article?id=6">Воскресная школа</a>
+        <a href="viewunewsgeneral.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=7">Молодежный центр</a>
+        <a href="viewueventsgeneral.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=8">Библиотека</a>
+        <a href="viewupublicgeneral.php">Публикации</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=9">Социальная деятельность</a>
+        <a href="viewactivitygen.php">Деятельность</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="gallery.php">Фотогалерея</a>
     </li>
 </ul>
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
     <li class="inline-block mr1">
-        <a href="/site/article?id=10">Крещение</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=11">Венчание</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=12">Исповедь</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=13">Причастие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=184">Соборование</a>
+        <a href="controluprofile.php">Управление</a>
     </li>
 </ul>
 
@@ -140,7 +136,7 @@ body{background-image:url('img/background3.jpg');};
           <div class="col-sm-4"></div>
           <div class="col-sm-4">
           <h2>Добавить нового пользователя</h2>
-            <form action="addusersubmit.php" method="post">
+            <form action="addusergensubmit.php" method="post">
             <?php
             $result = $mysqli->query("SELECT `id_uprofile`, `ulastname`, `ufirstname`, `upatronymic`, `uemail`, `urole`, `ulogin`, `upassword`, `ucode`, `uphone`, `uvisible`, `uphoto` FROM `uprofile` WHERE `id_uprofile`=$id");
             while($row = $result->fetch_array()){

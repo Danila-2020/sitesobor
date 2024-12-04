@@ -101,7 +101,7 @@ body{
     <a class="" href="#">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="viewueventsuser.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
         <a href="viewupublicuser.php">Публикации</a>

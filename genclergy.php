@@ -37,7 +37,7 @@ if (!$result) {
         <a href="genclergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a href="adduser.php">Добавить пользователя</a>
+        <a href="addusergen.php">Добавить пользователя</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>

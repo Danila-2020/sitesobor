@@ -32,7 +32,7 @@ $result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unew
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 ?>
 <style>
-body{background-image:url('img/background3.jpg');};
+body{background-image:url('img/background4.jpg');};
 </style>
 <body>
     <script>
@@ -183,17 +183,13 @@ while($row = $result->fetch_array()){
     <td>'.$row['statusevents'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
-    <form method="POST" action="#" style="margin-bottom:10%;"><!--Ссылка на редактирование мероприятия-->
-    <input type="hidden" name="id" value="'.$row['id_upublic'].'">
+    <form method="POST" action="editueventsuser.php" style="margin-bottom:10%;"><!--Ссылка на редактирование мероприятия-->
+    <input type="hidden" name="id" value="'.$row['id_events'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
     </form>
-    <form method="POST" action="deleteupublicgeneral.php" style="margin-bottom:10%;">
-    <input type="hidden" name="id" value="'.$row['id_upublic'].'">
+    <form method="POST" action="deleteueventsuser.php" style="margin-bottom:10%;">
+    <input type="hidden" name="id" value="'.$row['id_events'].'">
     <button type="submit" name="submit" class="btn btn-success">Удалить</button>
-    </form>
-    <form method="POST" action="fulldeleteupublicgeneral.php" style="margin-bottom:10%;">
-    <input type="hidden" name="id" value="'.$row['id_upublic'].'">
-    <button type="submit" name="submit" class="btn btn-danger">Полное удаление</button>
     </form>
     </td>
     </tr>');
@@ -207,8 +203,8 @@ while($row = $result->fetch_array()){
         <td>'.$row['statusevents'].'</td>
         <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
         <td>
-        <form method="POST" action="recoveryupublicgeneral.php" style="margin-bottom:10%;">
-        <input type="hidden" name="id" value="'.$row['id_upublic'].'">
+        <form method="POST" action="recoveryueventsuser.php" style="margin-bottom:10%;">
+        <input type="hidden" name="id" value="'.$row['id_events'].'">
         <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
         </form>
         </td>
