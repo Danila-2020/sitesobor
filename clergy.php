@@ -3,7 +3,7 @@
 
 session_start();
 
-include('template/head.php');
+include('template/clergyhead.php');
 include('template/barber.php');
 require_once('bd.php');
 
@@ -52,7 +52,7 @@ if (!$result) {
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
     <li class="inline-block mr1">
-        <a class="" href="clergy.php">Духовенство</a>
+        <a class="" href="#">Духовенство</a>
     </li>
     <li class="inline-block mr1">
         <a class="" href="">История</a>

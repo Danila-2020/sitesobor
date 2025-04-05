@@ -75,12 +75,13 @@ if ($result->num_rows === 0) {
             <div class="container mt-5">
     <h1 class="text-center">Сведения о деятельности</h1>
     <div class="row justify-content-center">
-        <?php while ($row = $result->fetch_assoc()) : ?>
+        <?php while ($row = $result->fetch_assoc()) : 
+            $img = base64_encode($row['images']);?>
             <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
                 <div class="card">
                     <?php
                     if (!empty($row['images'])) {
-                        echo '<img src="' . htmlspecialchars($row['images']) . '" class="card-img-top" alt="' . htmlspecialchars($row['nactivity']) . '">';
+                        echo '<img src="data:image/jpeg; base64,' .$img. '" class="card-img-top" alt="' . htmlspecialchars($row['nactivity']) . '">';
                     } else {
                         ?>
                         <img src="img/no_img — копия.jpeg" class="card-img-top" alt="<?php echo htmlspecialchars($row['nactivity']); ?>">
