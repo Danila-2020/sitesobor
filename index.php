@@ -3,7 +3,8 @@
 
 // session_start();
 
-include('template/head.php');
+include('template/scedulehead.php');//Если включить обычную голову, то будет криво выглядеть, так как на странице будет два шапки
+// include('template/head.php');
 include('template/barber.php');
 require_once('bd.php');
 
@@ -46,7 +47,8 @@ require_once('bd.php');
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        <!-- <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a> -->
+         <a href="activity.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
@@ -71,8 +73,8 @@ require_once('bd.php');
     </li>
 </ul>
 
-<ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
-<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
+<!-- <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
+<!--<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
     <li class="inline-block mr1">
         <a href="#">Воскресная школа</a>
     </li>
@@ -85,7 +87,7 @@ require_once('bd.php');
     <li class="inline-block mr1">
         <a href="#">Социальная деятельность</a>
     </li>
-</ul>
+</ul> -->
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
     <li class="inline-block mr1">
@@ -173,7 +175,7 @@ require_once('bd.php');
                 FROM `upublic` 
                 INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
                 INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
-                WHERE `uphoto`.`uphototitle` IS NULL
+                WHERE 1=1
                 GROUP BY `upublic`.`id_upublic`
                 LIMIT 3");
                 //Ротерблиль запрос мана
