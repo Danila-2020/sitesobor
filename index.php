@@ -66,7 +66,7 @@ require_once('bd.php');
         <a class="" href="clergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
+        <a class="" href="story.php">История</a>
     </li>
     <li class="inline-block mr1">
         <a class="" href="paintingalluser.php">Роспись</a><!--Тут отображаем, но не загружаем😀-->

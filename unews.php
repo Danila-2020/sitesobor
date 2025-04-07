@@ -10,7 +10,8 @@ include('template/barber.php');
 $_SESSION['id'] = $_POST['id'];
 $id = $_SESSION['id'];
 if(empty($id)){
-    echo('<script>window.location.href="index.php"</script>');
+    // echo('<script>window.location.href="index.php"</script>');
+    echo("ID не задан!");
 }
 ?>
 
@@ -155,7 +156,11 @@ if(empty($id)){
                         ?>
                         <div class="col col-12">
                             <?php
-                            $queryimg = ("SELECT unews.id_unews, uphotonews.uphotonews FROM `unews` INNER JOIN `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews` INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile` WHERE unews.id_unews = $id");
+                            $queryimg = ("SELECT unews.id_unews, uphotonews.uphotonews FROM `unews` LEFT JOIN 
+                            `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews` 
+                            INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile` 
+                            WHERE unews.id_unews = $id");
+                            
                             $resultimg = $mysqli->query($queryimg);//Запрос выборки изображений
                             $count =  $resultimg->num_rows;
                             while($row = $result->fetch_assoc()){

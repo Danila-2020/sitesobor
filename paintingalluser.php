@@ -85,38 +85,73 @@ require_once('bd.php');
     margin-right: auto;
 }
 </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">В одном маленьком, но живописном городке, где улицы были обрамлены цветущими деревьями, жила группа подруг: Катя, Маша и Лена. Каждое лето они собирались вместе, чтобы исследовать окрестности и создавать незабываемые воспоминания.
+
+Однажды, в теплый солнечный день, девочки решили отправиться в лес, который находился неподалеку. Говорили, что там есть старое заброшенное озеро, о котором ходили легенды. Слухи говорили, что в его глубинах скрыты тайны, и кто найдет это озеро, тот обретет удачу.
+
+Собравшись с рюкзаками, полными закусок и карт, они отправились в путь. По дороге они смеялись, делились секретами и строили планы на будущее. В лесу было прекрасно: солнечные лучи пробивались сквозь листву, создавая волшебную атмосферу.
+
+Когда девочки наконец нашли озеро, их глаза загорелись от восторга. Вода была кристально чистой, а вокруг росли яркие цветы. Они решили устроить пикник на берегу и насладиться моментом. После еды, Маша предложила поиграть в игру: каждая должна была рассказать о своем самом заветном желании.
+
+Катя мечтала о путешествиях по миру, Лена хотела стать известной художницей, а Маша мечтала о том, чтобы открыть свой собственный кафе. В этот момент они поняли, что их мечты могут стать реальностью, если они будут поддерживать друг друга.
+
+После пикника девочки решили искупаться в озере. Вода была прохладной, но это только добавляло веселья. Они смеялись и плескались, забыв обо всех заботах. В этот момент они поняли, что настоящая удача — это не только находка сокровищ, но и дружба, которая поддерживает в любых ситуациях.
+
+С тех пор это озеро стало их особым местом. Каждый год они возвращались туда, чтобы вспоминать свои мечты и делиться новыми. Дружба, как и озеро, была полна жизни и чудес, и они знали, что вместе смогут преодолеть любые преграды.</div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <img src="..\img\no_img — копия.jpeg" alt="" class="img-fluid"></img>
+            </div>
+        </div>
     <?php
     $query = ("SELECT `painting`.`id_painting`, `painting`.`npainting`, `painting`.`descpainting`, 
-    `painting`.`id_uprofile`,`imgpainting`.`id_imgpainting`, `imgpainting`.`naimimgpainting`, 
+    `painting`.`id_uprofile`, `imgpainting`.`id_imgpainting`, `imgpainting`.`naimimgpainting`, 
     `imgpainting`.`textimgpainting`, `imgpainting`.`images`, `imgpainting`.`imagesstatus`, 
     `imgpainting`.`id_painting` 
     FROM `painting`
-    RIGHT JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
+    LEFT JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
     WHERE 1=1");
-$descquery =("SELECT `painting`.`id_painting`,`painting`.`descpainting`, 
-`painting`.`id_uprofile` 
-FROM `painting`
-INNER JOIN `imgpainting` ON `imgpainting`.`id_painting` = `painting`.`id_painting`
-WHERE 1=1
-LIMIT 1");
-$resultdesc = $mysqli->query($descquery);
+    
 $result = $mysqli->query($query);
-$i=0;
+$hasImages = false;
+$descriptionDisplayed = false;
+
 echo('<h1 class="text-center">Роспись</h1>');
-    while($row = $result->fetch_assoc()){
-        $img = base64_encode($row['images']);
-        if($i == 0) {
-        echo('<p>'.$row['descpainting'].'</p>
-        <img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img>');
-        $i++;
-        }
-        if($i > 0){
-        echo('<img src="data:image/jpeg;base64, '.$img.'" class="img-fluid center-img"></img>
-        <p>'.$row['textimgpainting'].'</p>');
-        $i++;
-        }
+echo('<div class="container">');
+echo('  <div class="row">');
+
+while($row = $result->fetch_assoc()) {
+    // Выводим описание только один раз слева
+    if (!$descriptionDisplayed) {
+        echo('    <div class="col-md-6">');
+        echo('      <p>'.$row['descpainting'].'</p>');
+        echo('    </div>');
+        $descriptionDisplayed = true;
     }
+    
+    // Выводим изображения справа
+    if (!empty($row['images'])) {
+        echo('    <div class="col-md-6">');
+        $img = base64_encode($row['images']);
+        echo('      <img src="data:image/jpeg;base64, '.$img.'" class="img-fluid"></img>');
+        if (!empty($row['textimgpainting'])) {
+            echo('      <p>'.$row['textimgpainting'].'</p>');
+        }
+        echo('    </div>');
+        $hasImages = true;
+    }
+}
+
+// Если изображений нет, закрываем row и container
+if (!$hasImages) {
+    echo('    <div class="col-md-6"></div>'); // Пустая колонка для баланса
+}
+
+echo('  </div>');
+echo('</div>');
     ?>
+    </div>
 </div>
 
 <?php

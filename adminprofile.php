@@ -2,7 +2,7 @@
 // Профиль администратора
 session_start();
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');//Обычная бошка не для админа
 include('template/barber.php');
 
 $id = $_SESSION['id'];
@@ -64,9 +64,6 @@ body{background-image:url('img/background3.jpg');};
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
     </li>
     <li class="inline-block mr1">
         <form action="" method="post">
@@ -177,7 +174,7 @@ body{background-image:url('img/background3.jpg');};
             };
             ?>
             </form>
-            <form action="updateuphotousersubmit.php" method="post" enctype="multipart/form-data">
+            <form action="updateuphotoadminsubmit.php" method="post" enctype="multipart/form-data">
             <label for="uphoto">Загрузить новое фото</label>
             <input type="file" name="uphoto" class="form-control" required /><br>
             <button type="submit" name="submitupdate" class="btn btn-success">Сохранить фото</button>

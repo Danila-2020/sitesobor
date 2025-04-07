@@ -217,12 +217,12 @@ while($row = $result->fetch_array()){
     $result->free();
     $mysqli->close();
 
-    if(isset($_POST['submit'])){
-        $idunews = $_POST['id'];
-        $_SESSION['id'] = $idunews;
-        //header('Location: unews.php');
-        echo('<script>window.location.href="unews.php"</script>');
-    }//Тут почему-то редиректится на signin.php
+    // if(isset($_POST['submit'])){
+    //     $idunews = $_POST['id'];
+    //     $_SESSION['id'] = $idunews;
+    //     //header('Location: unews.php');
+    //     echo('<script>window.location.href="unews.php"</script>');
+    // }//Тут почему-то редиректится на signin.php
 
 	//mysqli_close($mysqli);
   ?>	

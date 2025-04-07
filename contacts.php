@@ -173,16 +173,18 @@ include('template/barber.php');
                             if(isset($_POST['submit'])){
                                 $uname = $_POST['uname'];
                                 $uemail = $_POST['uemail'];
-                                $umessage = $_POST['umessage'];
-
+                                $umessage = "Имя: " . $uname . "<br>" . 
+                                            "Сообщение: " . nl2br(htmlspecialchars($_POST['umessage'])) . "<br>" . 
+                                            "E-Mail для обратной связи: " . $uemail;
+                            
                                 echo($umessage);
                                 $to = "sobor.noreply@mail.ru";
                                 $subject = "Новое обращение с сайта";
                                 $headers = "Content-type: text/html; charset=utf-8 \r\n";
                                 $headers .= "From: robot.sobor@mail.ru";
-
+                            
                                 mail($to, $subject, $umessage, $headers);
-                            }
+                            }                            
                         ?>
                   <?php echo('</form>')?>
                   <?php echo('</div>')?>

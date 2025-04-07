@@ -1,21 +1,42 @@
 <?php
-// Обработчик добавления стиха(Пользователь general)
-session_start();
 require_once('bd.php');
+session_start();//Тут идёт session_start(), он наверное должен быть в этом файле
+ob_start();
 
-if(isset($_POST['submit'])){
-    // $upublic = $_POST['upublic'];
-    $img_type = substr($_FILES['uphoto']['type'],0,5);
-    $img_size = 2*1024*1024;
-    if(!empty($_FILES['uphoto']['tmp_name']) and ($img_type === 'image/jpeg' or $img_type === 'image/png' or $img_type === 'image' and $_FILES['uphoto']['size'] <= $img_size)){
-        $uphoto = addslashes(file_get_contents($_FILES['uphoto']['tmp_name']));
-        $query = ("INSERT INTO `uphoto`(`uphoto`,`uphototitle`,`id_upublic`) VALUES ('$uphoto','poems',0)");
-        var_dump($query);//Надо посмотреть под капотом
-        $result = $mysqli->query($query);
-        if($result){
-            echo("<script>alert('Стих добавлен успешно!!!');</script>");
-            echo('<script>window.location.href="addpoemsgen.php";</script>');
+// Проверка, была ли отправлена форма
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Получение данных из формы
+    $poem_title = $mysqli->real_escape_string($_POST['poem_title']);
+    $additional_text = $mysqli->real_escape_string($_POST['additional_text']);
+    
+    // Предполагаем, что id_uprofile передается из сессии или другого источника
+    // Например, если вы используете сессии, вы можете сделать так:
+    session_start();
+    $id = $_SESSION['id']; // Замените на ваш способ получения ID пользователя
+
+    // Обработка изображения
+    if (isset($_FILES['uphoto']) && $_FILES['uphoto']['error'] == 0) {
+        $image = $_FILES['uphoto']['tmp_name'];
+        $imageData = file_get_contents($image);
+        $base64 = base64_encode($imageData);
+        
+        // SQL-запрос для вставки данных
+        $sql = "INSERT INTO poems (n_poems, textpoems, imgpoems, id_uprofile) VALUES ('$poem_title', '$additional_text', '$base64', '$id')";
+
+        if ($mysqli->query($sql) === TRUE) {
+            echo "<script>
+            alert('Новый стих успешно добавлен!');
+            setTimeout(function() {
+                window.location.href = 'addpoemsgen.php';
+            }, 1000); // Задержка 1000 миллисекунд (1 секунда)
+          </script>";
+        } else {
+            echo "Ошибка: " . $sql . "<br>" . $mysqli->error;
         }
+    } else {
+        echo "Ошибка загрузки изображения.";
     }
 }
+
+$mysqli->close();
 ?>

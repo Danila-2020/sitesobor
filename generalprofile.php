@@ -3,7 +3,7 @@
 
 session_start();
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');//Обычная бошка не подходит, надо будет переписать в нормальную.
 include('template/barber.php');
 
 $id = $_SESSION['id'];
