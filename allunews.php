@@ -9,6 +9,9 @@ require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
 
+// Выводим стили
+echo getStyles();
+
 //Вагинация на печке
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
     $page_no = $_GET['page_no'];

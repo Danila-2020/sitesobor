@@ -4,6 +4,10 @@
 session_start();//Тут идёт session_start(), он наверное не нужен 
 include('template/head.php');
 include('template/barber.php');//Не забываем подключить бороду
+
+// Выводим стили
+echo getStyles();
+
 require_once('bd.php');
 
 $id = $_POST['id'];//Получаем id публикации

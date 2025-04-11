@@ -5,6 +5,10 @@ session_start();
 
 include('template/head.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
+
 require_once('bd.php');
 
 ?>

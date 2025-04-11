@@ -4,6 +4,9 @@ session_start();
 include('template/uphotohead.php');
 require_once('bd.php');
 $id = $_SESSION['id'];
+
+// Выводим стили
+echo getStyles();
 ?>
 <body>
     <div class="container">

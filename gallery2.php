@@ -32,6 +32,9 @@ if ($result->num_rows > 0) {
     echo "Нет изображений";
 }
 $mysqli->close();
+
+// Выводим стили
+echo getStyles();
 ?>
 
 <!DOCTYPE html>

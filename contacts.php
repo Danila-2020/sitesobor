@@ -6,6 +6,9 @@ require_once('template\contactshead.php');
 require_once('template\contactsstyle.php');
 require_once('template\contactscdn.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
          
 <body>

@@ -2,6 +2,10 @@
 // Страница добавления стиха(Пользователь User)
 session_start();
 include('template/uphotohead.php');
+
+// Выводим стили
+echo getStyles();
+
 require_once('bd.php');
 $id = $_SESSION['id'];
 ?>

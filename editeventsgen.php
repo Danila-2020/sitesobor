@@ -5,6 +5,9 @@ session_start();
 ob_start();
 require_once('bd.php');
 include('template/head.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <body>
 <div class="jumbotron text-center" style="margin-bottom:0">

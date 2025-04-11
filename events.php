@@ -6,6 +6,9 @@ ob_start();//обнуляем буфер
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <body>
     <amp-analytics type="metrika">

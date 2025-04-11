@@ -6,6 +6,9 @@ session_start();//Тут идёт session_start, он наверное не ну
 
 include('template/scedulehead.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 
 <body class="land-see amp-mode-mouse" style="opacity: 1; visibility: visible; animation: auto ease 0s 1 normal none running none;">

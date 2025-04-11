@@ -6,6 +6,9 @@ require_once('bd.php');
 include('template/scedulehead.php');
 include('template/barber.php');
 
+// Выводим стили
+echo getStyles();
+
 $id = $_SESSION['id'];
 if(empty($id)){
     echo('<script>window.location.href="signin.php"</script>');

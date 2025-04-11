@@ -10,6 +10,9 @@ $query = ("");
 
 include('template/head.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <div class="container">
 

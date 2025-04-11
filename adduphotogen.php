@@ -3,6 +3,10 @@
 session_start();
 include('template/uphotohead.php');
 require_once('bd.php');
+
+// Выводим стили
+echo getStyles();
+
 $id = $_SESSION['id'];
 ?>
 <body>

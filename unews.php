@@ -7,6 +7,9 @@ require_once('bd.php');
 
 include('template/head.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 
 <amp-analytics type="metrika">

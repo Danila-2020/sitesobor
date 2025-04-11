@@ -6,6 +6,9 @@ session_start(); // Тут идёт session_start(), он наверное не 
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <div class="content-wrap relative"><!-- content-wrap -->
     <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">

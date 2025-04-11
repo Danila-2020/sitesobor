@@ -7,6 +7,9 @@ include('template/head.php');//Две башки, которые не нужны
 include('template/sceduleuploaderhead.php');
 include('template/barber.php');
 require_once('bd.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <body>
     <ul class="center h2 list-reset mt0 head-menu">

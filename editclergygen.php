@@ -5,6 +5,9 @@ session_start();
 ob_start();
 require_once('bd.php');
 
+// Выводим стили
+echo getStyles();
+
 $id = $_POST['hiddenid'];
 if(empty($id)){
     header('Location: genclergy.php');

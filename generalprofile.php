@@ -5,6 +5,8 @@ session_start();
 require_once('bd.php');
 include('template/scedulehead.php');//Обычная бошка не подходит, надо будет переписать в нормальную.
 include('template/barber.php');
+// Выводим стили
+echo getStyles();
 
 $id = $_SESSION['id'];
 if(empty($id)){

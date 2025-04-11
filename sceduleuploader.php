@@ -4,6 +4,9 @@
 session_start();
 include('template/sceduleuploaderhead.php');
 require_once('bd.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <div class="container py-5">
   <div class="row py-4">

@@ -7,6 +7,9 @@ include('template/head.php');
 include('template/barber.php');
 require_once('bd.php');
 
+// Выводим стили
+echo getStyles();
+
 
 // Получаем данные из базы данных
 $query = "SELECT `id_clergy`, `titleclergy`, `imagesclergy`, `textclergy`, `datesclergy`, `educlergy`, 

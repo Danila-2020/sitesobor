@@ -7,6 +7,9 @@ require_once('bd.php');
 include('template/scedulehead.php');
 include('template/barber.php');
 
+// Выводим стили
+echo getStyles();
+
 $iduser = $_SESSION['id'];
 ?>
 <style>

@@ -6,6 +6,8 @@ ob_start();
 require_once('bd.php');
 include('template/head.php');
 
+
+
 // Проверяем, была ли отправлена форма
 if (isset($_POST['submitrec'])) {
     $id = $_POST['hidden'];

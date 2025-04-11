@@ -5,6 +5,9 @@
  require_once('bd.php');
  include('template/galleryhead.php');
  include('template/barber.php');
+
+ // Выводим стили
+echo getStyles();
  ?>
    <body>
    <ul class="center h2 list-reset mt0 head-menu">

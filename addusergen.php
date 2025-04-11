@@ -5,6 +5,9 @@ require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
 
+// Выводим стили
+echo getStyles();
+
 $id = $_SESSION['id'];
 if(empty($id)){
     echo('<script>window.location.href="index.php"</script>');

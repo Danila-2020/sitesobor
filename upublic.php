@@ -15,6 +15,9 @@ if(empty($id)){
 include('template/head.php');
 include('template/barber.php');
 include('template/nav.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <div class="container">
 <div class="clearfix">

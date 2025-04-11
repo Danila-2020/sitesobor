@@ -5,6 +5,9 @@ session_start();
 require_once('bd.php');
 include('template/head.php');
 
+// Выводим стили
+echo getStyles();
+
 if(isset($_POST['submit'])){
     $id = $_POST['id'];
     if(empty($id)){

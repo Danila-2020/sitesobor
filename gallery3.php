@@ -23,6 +23,9 @@ INNER JOIN `activity` ON `imgactivity`.`id_activity` = `activity`.`id_activity`
 INNER JOIN `uprofile` ON `activity`.`id_uprofile` = `uprofile`.`id_uprofile`
 WHERE 1=1";
 $result = $mysqli->query($sql);
+
+// Выводим стили
+echo getStyles();
 ?>
 
 <!DOCTYPE html>

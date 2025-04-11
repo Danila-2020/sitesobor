@@ -1,9 +1,13 @@
 <?php
 // Страница "История"
 
+ob_start();
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 <!-- Прикрутим голову из index(-a) -->
 <div class="relative page-wrap">

@@ -6,6 +6,9 @@ require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
 
+// Выводим стили
+echo getStyles();
+
 // Проверка на наличие идентификатора пользователя в сессии
 $id = $_SESSION['id'];
 if(empty($id)){
