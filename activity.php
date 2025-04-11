@@ -1,6 +1,16 @@
 <?php
 // Страница Деятельности(Все пользователи)
+session_start();
+
+// Подключаем модуль базы данных
 require_once('bd.php');
+
+// Подключаем шаблоны
+include('template/scedulehead.php');
+include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 
 
 // Функция для получения данных из таблицы activity
@@ -22,8 +32,6 @@ function getActivities($mysqli) {
 // Получение данных
 $result = getActivities($mysqli);
 
-include('template/scedulehead.php');
-include('template/barber.php');
 ?>
 <body>
 <div class="content-wrap relative"><!-- content-wrap -->
@@ -35,7 +43,7 @@ include('template/barber.php');
   <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
     <div class="clearfix p1">
         <div class="desk-logo-wrap mx-auto block">
-            <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive">
+            <a href="index.php"><amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"></a>
         </div>
     </div>
     <div class="clearfix">
@@ -69,7 +77,7 @@ include('template/barber.php');
         <a class="" href="clergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
+        <a class="" href="story.php">История</a>
     </li>
     <li class="inline-block mr1">
         <a class="" href="paintingalluser.php">Роспись</a><!--Тут отображаем, но не загружаем😀-->

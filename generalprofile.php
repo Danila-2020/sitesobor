@@ -8,7 +8,8 @@ include('template/barber.php');
 
 $id = $_SESSION['id'];
 if(empty($id)){
-    echo('<script>window.location.href="signin.php"</script>');
+    // echo('<script>window.location.href="signin.php"</script>');
+    echo("<script>alert('ID пустой');</script>");
 }
 ?>
 <style>

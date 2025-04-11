@@ -1,45 +1,15 @@
 <?php
-// Просмотр Новости(Все пользователи)
+//Страница новости (Все пользователи)
 
-session_start();
 ob_start();
+session_start();
 require_once('bd.php');
+
 include('template/head.php');
 include('template/barber.php');
-
-$_SESSION['id'] = $_POST['id'];
-$id = $_SESSION['id'];
-if(empty($id)){
-    // echo('<script>window.location.href="index.php"</script>');
-    echo("ID не задан!");
-}
 ?>
 
-    
-    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <!--Стилизация-->
-    
-        <style>
-            body{background-image: url('../img/background2.jpg');}
-        </style>
-         <meta name="csrf-param" content="_csrf-frontend">
-         <meta name="csrf-token" content="rufNjNmfaRuKJ-ssgba1NeE69mEJj3aI0QWIBDjgdkDc0YLLjMY6Tv4fmX_jwfJlh0O3J37HEOqjYtdDbLM5cg==">
-         
-         <script src="https://cdn.ampproject.org/v0.js" async="async"></script>
-         <script src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js" async="async" custom-element="amp-iframe"></script>
-         <script src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js" async="async" custom-element="amp-lightbox"></script>
-         <script src="https://cdn.ampproject.org/v0/amp-list-0.1.js" async="async" custom-element="amp-list"></script>
-         <script src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js" async="async" custom-template="amp-mustache"></script>
-         <script src="https://cdn.ampproject.org/v0/amp-bind-0.1.js" async="async" custom-element="amp-bind"></script>
-         <script src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js" async="async" custom-element="amp-carousel"></script>
-         <script src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" async="async" custom-element="amp-analytics"></script>
-
-         <link rel="stylesheet" href="../css/custom-style1.css">
-    <link rel="stylesheet" href="../css/favicon-style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-    <amp-analytics type="metrika">
+<amp-analytics type="metrika">
         <script type="application/json">
             {
                 "vars": {
@@ -50,7 +20,7 @@ if(empty($id)){
     </amp-analytics>
 
     
-<div class="relative page-wrap">
+<div class="relative page-wrap"><!-- page-wrap -->
 
 <div class="content-wrap relative"><!-- content-wrap -->
     <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
@@ -61,14 +31,14 @@ if(empty($id)){
   <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
     <div class="clearfix p1">
         <div class="desk-logo-wrap mx-auto block">
-            <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive">
+            <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"><!--/files/logo-color.png-->
         </div>
     </div>
     <div class="clearfix">
-            <!--Тут заголовок-->
+            <!--<h1 class="hide h2 center">Спасский Кафедральный собор Пятигорска</h1>-->
 
             
-<ul class="center h2 list-reset mt0 head-menu">
+            <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
         <a href="scedule.php">Расписание богослужений</a>
     </li>
@@ -76,7 +46,8 @@ if(empty($id)){
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        <!-- <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a> -->
+         <a href="activity.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
@@ -84,33 +55,20 @@ if(empty($id)){
     <li class="inline-block mr1">
         <a href="note.php">Подать записку</a>
     </li>
+    <li class="inline-block mr1">
+        <button type="submit" class="btn btn-primary" OnClick='window.location.href="signin.php"'>Вход</button>
+    </li>
 </ul>
 
-<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
+<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
         <a class="" href="clergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="#">История</a>
+        <a class="" href="story.php">История</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="#">Роспись</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'">
-<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
-    <li class="inline-block mr1">
-        <a href="#">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Социальная деятельность</a>
+        <a class="" href="paintingalluser.php">Роспись</a><!--Тут отображаем, но не загружаем😀-->
     </li>
 </ul>
 
@@ -131,10 +89,8 @@ if(empty($id)){
         <a href="unction.php">Соборование</a>
     </li>
 </ul>
-
 <hr>
-
-          <div class="social">
+        <div class="social">
             <ul class="social-share">
               <li><a href="#"><i class="fa fa-telegram"></i></a></li>
               <li><a href="#"><i class="fa fa-vk"></i></a></li>
@@ -142,91 +98,49 @@ if(empty($id)){
               <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
               <li><a href="#"><i class="fa fa-skype"></i></a></li>
             </ul>
-          </div>
-
-    </div>
-
-    <div class="clearfix">
+        </div>
+<div class="container" style="margin-top:1%; margin-bottom:1%;">
+<div class="clearfix">
 
             <div class="md-col md-col-12 lg-col-12 p2">
                 <h2>Новости</h2>
-                        <?php
-                        $query = ("SELECT unews.id_unews, unews.utitle, unews.udescription, unews.textunews, unews.id_uprofile, uphotonews.id_uphotonews, uphotonews.uphotonews, uphotonews.id_unews, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic FROM `unews` INNER JOIN `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews` INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile` WHERE unews.id_unews = $id");
-                        $result = $mysqli->query($query);
-                        ?>
+                <?php
+                $idunews = $_SESSION['idunews'];
+                $query = "SELECT `unews`.`id_unews`, `unews`.`utitle`, `unews`.`udescription`, `unews`.`textunews`, `unews`.`statusunews`, `unews`.`dateunews`, `unews`.`id_uprofile`,`uphotonews`.`id_uphotonews`,`uphotonews`.`uphotonews`,`uphotonews`.`id_unews`
+                        FROM `unews`
+                        LEFT JOIN `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews`
+                        WHERE `unews`.`id_unews` = $idunews";
+                var_dump($query);
+                $result = $mysqli->query($query);
+                while($row = $result->fetch_array){
+                ?>
                         <div class="col col-12">
-                            <?php
-                            $queryimg = ("SELECT unews.id_unews, uphotonews.uphotonews FROM `unews` LEFT JOIN 
-                            `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews` 
-                            INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile` 
-                            WHERE unews.id_unews = $id");
-                            
-                            $resultimg = $mysqli->query($queryimg);//Запрос выборки изображений
-                            $count =  $resultimg->num_rows;
-                            while($row = $result->fetch_assoc()){
-
-                            echo("<h1>".$row['utitle']."</h1>");
-                            echo("<p>".$row['udescription']."</p>");
-                            ?>
+                            <h1><?php echo($row['utitle']);?></h1>
+                            <img src="img/no_img.jpeg" class="img-fluid" layout="responsive">
                         </div>
-                        <?php
-                            $img = base64_encode($row['uphotonews']);
-                        ?>
-
+                        <p>
+                        <?php echo($row['utitle']);?>
+                        </p>
+                        <!--__-__-->
                         <div class="col col-12">
-                            <?php
-                            if($count = 0){
-                                ?>
-                                <img src="img/noimg.jpg" class="img-fluid" layout="responsive">
-                                <?php
-                            }
-                            ?>
-                            <img src="data:image/jpeg; base64,<?=$img?>" class="img-fluid" layout="responsive">
+                            <img src="img/no_img.jpeg" class="img-fluid" layout="responsive">
                         </div>
-
-                            <?php echo("<p>".$row['textunews']."</p>");?>
-                        <?php
-                        };
-                        ?>
+                        <div class="absolute bg-white-a60 col col-12 h3 p1 media-label">
+                            Неделя Торжества Православия
+                        </div>
+                        <p>
+                            Раннюю Божественную Литургию возглавил настоятель собора - иерей Дмитрий Мовчанов. В конце Божественной Литургии прихожане приступили к Святому Причастию.
+                        </p>
                         
-                        <form action="allunews.php" method="post">
-                            <button type="submit" name="submit" class="btn btn-primary">Вернуться назад</button>
-                        </form>
+                <?php 
+                }//Конец while
+                ?>
+                <a href="#" class="nav-link" >Вернуться назад</a>
             </div>
             
 
     </div>
-  </div>
- </div>
-
- <div class="max-width-4 mx-auto p2">
-    <div class="rounded border border-grey bg-white alpha-90 clearfix">
-        <div class="clearfix">
-            <div class="md-col md-col-6 p2">
-
-                <div class="module-wrap"></div>
-
-                <div class="module-wrap">
-                    <h2><a href="#" target="_blank">Фотогалерея</a></h2>
-                    <img src="img/no_img — копия.jpeg" class="img-fluid">
-                </div>
-            </div>
-            <div class="md-col md-col-6 p2">
-                <div class="module-wrap mb2">
-                    <h2><a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">Музыка</a></h2>
-                    <img src="img/no_img — копия.jpeg" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </div>
- </div>
-
-
- 
-</div><!-- content-wrap -->
-
-</div> <!-- page-wrap -->
-
+</div>
 <?php
-include('template\footer.php');
+include('template/footer2.php');
 ?>

@@ -2,7 +2,8 @@
 // Добавление деятельности
 session_start();
 require_once('bd.php');
-include('template/head.php');
+// include('template/head.php');
+include('template/scedulehead.php');//Обычная голова не работает
 include('template/barber.php');
 
 $id = $_SESSION['id'];

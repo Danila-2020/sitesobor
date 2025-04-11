@@ -1,13 +1,18 @@
 <?php
 // Главная страница сайта
 
-// session_start();
+// Стартуем сессию ДО подключения шаблонов
+session_start();
 
-include('template/scedulehead.php');//Если включить обычную голову, то будет криво выглядеть, так как на странице будет два шапки
-// include('template/head.php');
-include('template/barber.php');
+// Подключаем модуль базы данных
 require_once('bd.php');
 
+// Подключаем шаблоны
+include('template/scedulehead.php');
+include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 ?>
 
 <body>

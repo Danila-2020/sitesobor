@@ -36,7 +36,7 @@
 
 <ul class="mx-auto center h2 list-reset">
     <li class="inline-block mr1">
-        <a href="#">Задать вопрос</a>
+        <a href="contacts.php">Задать вопрос</a>
     </li>
     <li class="inline-block mr1">
         <a href="note.php">Подать записку</a>

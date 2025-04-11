@@ -1,16 +1,13 @@
 <?php
 // Страница "Все Новости"
 
+ob_clean(); // Очищаем буфер вывода
+ob_start(); // Начинаем буферизацию вывода
+session_start(); // Запускаем сессию
+
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
-
-//session_start();
-//$_SESSION['id'] = $_POST['id'];
-/*$id = $_SESSION['id'];
-if(empty($id)){
-    echo('<script>window.location.href="index.php"</script>');
-}*/
 
 //Вагинация на печке
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
@@ -197,7 +194,8 @@ LIMIT $offset, $total_records_per_page");
 //var_dump($query);
 $result = $mysqli->query($query);
 
-while($row = $result->fetch_array()){			
+while($row = $result->fetch_array()){
+    $idunews = $row['id_unews'];
     if($row['statusunews'] == "active"){
     echo('<tr>
     <td>'.$row['id_unews'].'</td>
@@ -206,13 +204,17 @@ while($row = $result->fetch_array()){
     <td>'.$row['textunews'].'</td>
     <td>'.$row['dateunews'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-    <td><form method="POST" action="unews.php">
-    <input type="hidden" name="id" value="'.$row['id_unews'].'">');?>
+    <td><form method="POST" action="">
+    <input type="hidden" name="idunews" value="'.$idunews.'">
     <button type="submit" name="submit" class="btn btn-primary">Просмотр</button>
-    <?php echo('
     </form></td>
     </tr>');
     }
+    }
+    if(isset($_POST['submit'])){
+        $_SESSION['idunews'] = $_POST['idunews'];
+        echo($_SESSION['idunews']);
+        //header('Location: unews.php');
     }
     $result->free();
     $mysqli->close();

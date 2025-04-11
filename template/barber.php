@@ -1,4 +1,8 @@
 <!-- CSS - Стили для подключения(аналог barber.css) -->
+	<?php
+	function getStyles() {
+    ob_start(); // Начинаем буферизацию вывода
+	?>
 <style amp-custom="">
 html {
 	font-family: sans-serif;
@@ -3570,3 +3574,7 @@ ul.breadcrumbs li:last-child:after {
 
 }
     </style>
+	<?php
+    return ob_get_clean(); // Возвращаем буферизированный вывод
+	}
+	?>

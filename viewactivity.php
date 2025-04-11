@@ -2,10 +2,16 @@
 // Страница просмотра деятельности
 session_start();
 ob_start();
+
+// Подключаем модуль базы данных
 require_once('bd.php');
 
+// Подключаем шаблоны
 include('template/scedulehead.php');
 include('template/barber.php');
+
+// Выводим стили
+echo getStyles();
 
 $id = $_POST['hidden'];
 $_SESSION['id_activity'] = $id;
@@ -64,10 +70,30 @@ if ($result->num_rows === 0) {
                         <a href="activity.php">Деятельность</a>
                     </li>
                     <li class="inline-block mr1">
+                        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
+                    </li>
+                    <li class="inline-block mr1">
                         <a href="note.php">Подать записку</a>
                     </li>
                     <li class="inline-block mr1">
                         <button type="submit" class="btn btn-primary" OnClick='window.location.href="signin.php"'>Вход</button>
+                    </li>
+                </ul>
+                <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
+                    <li class="inline-block mr1">
+                        <a href="christening.php">Крещение</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="wedding.php">Венчание</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="confession.php">Исповедь</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="eucharist.php">Причастие</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="unction.php">Соборование</a>
                     </li>
                 </ul>
                 <hr>

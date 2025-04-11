@@ -6,10 +6,12 @@ require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
 
-/*$id = $_SESSION['id'];
+// Проверка на наличие идентификатора пользователя в сессии
+$id = $_SESSION['id'];
 if(empty($id)){
     echo('<script>window.location.href="signin.php"</script>');
-}*/
+    exit; // Завершите выполнение скрипта после редиректа
+}
 ?>
 <style>
 body{background-image:url('img/background3.jpg');};
@@ -147,7 +149,7 @@ body{background-image:url('img/background3.jpg');};
             <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
             <td>
             <form method="POST" action="editactivitygen.php" style="margin-bottom:8%;">
-            <input type="hidden" name="hidden" value="'.$row['id_activity'].'"></input>
+            <input type="hidden" name="idactivity" value="'.$row['id_activity'].'"></input>
             <button type="submit" name="submit" class="btn btn-primary">Редактировать</button>
             </form>
             <form method="POST" action="deleteactivitygen.php">
