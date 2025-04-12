@@ -2,6 +2,7 @@
 // Страница добавления стиха(Пользователь General)
 session_start();
 include('template/uphotohead.php');
+include('template/barber.php');
 require_once('bd.php');
 $id = $_SESSION['id'];
 

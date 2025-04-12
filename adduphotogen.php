@@ -2,6 +2,7 @@
 //Страница добавления фото в публикацию(Пользователь general)
 session_start();
 include('template/uphotohead.php');
+include('template/barber.php');
 require_once('bd.php');
 
 // Выводим стили

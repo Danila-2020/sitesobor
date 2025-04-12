@@ -72,9 +72,6 @@ body{background-image:url('img/background3.jpg');};
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
     </li>
     <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-    <li class="inline-block mr1">
         <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
             <?php

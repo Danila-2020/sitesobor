@@ -2,6 +2,7 @@
 // Страница добавления стиха(Пользователь User)
 session_start();
 include('template/uphotohead.php');
+include('template/barber.php');
 
 // Выводим стили
 echo getStyles();
