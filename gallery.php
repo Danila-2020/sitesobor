@@ -1,14 +1,13 @@
- <?php
-// Тестовая галерея изображений 1
+<?php
+session_start();
+require_once('bd.php');
+ob_start();
+include('template/scedulehead.php');
+include('template/barber.php');
 
- //session_start();
- require_once('bd.php');
- include('template/galleryhead.php');
- include('template/barber.php');
-
- // Выводим стили
+// Выводим стили
 echo getStyles();
- ?>
+?>
    <body>
    <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
@@ -63,13 +62,13 @@ echo getStyles();
         <a href="viewunewsgeneral.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="viewueventsgeneral.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
         <a href="viewupublicgeneral.php">Публикации</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">ФотогалереЯ</a>
+        <a href="#">Фотогалерея</a>
     </li>
 </ul>
 
@@ -91,7 +90,7 @@ echo getStyles();
            <h1 class="text-center">Фотогалерея</h1>
            <div class="row">
                <?php
-               $sql = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`uphotostatus`, `uphoto`.`id_upublic`, `upublic`.`naim` FROM `uphoto` 
+               $sql = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`id_upublic`, `upublic`.`naim` FROM `uphoto` 
                     INNER JOIN `upublic` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic`
                     WHERE 1=1";
                //SELECT image FROM images
@@ -106,8 +105,8 @@ echo getStyles();
                        echo '<div class="card">';
                        echo '<form action="" method="post" enctype="multipart/form-data">';
                        echo '<img src="data:image/jpeg;base64,'.$img.'" class="card-img-top" alt="Изображение">';
-                       echo '<div class="card-body">Content
-                       <button type="submit" class="btn btn-primary" style="float: right;">Подробнее</button></div>';
+                    //    echo '<div class="card-body">Content
+                    //    <button type="submit" class="btn btn-primary" style="float: right;">Подробнее</button></div>';
                        echo '</form>';
                        echo '</div>';
                        echo '</div>';
