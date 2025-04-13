@@ -109,36 +109,48 @@ echo getStyles();
                 <h2>Новости</h2>
                 <?php
                 $idunews = $_SESSION['idunews'];
-                $query = "SELECT `unews`.`id_unews`, `unews`.`utitle`, `unews`.`udescription`, `unews`.`textunews`, `unews`.`statusunews`, `unews`.`dateunews`, `unews`.`id_uprofile`,`uphotonews`.`id_uphotonews`,`uphotonews`.`uphotonews`,`uphotonews`.`id_unews`
+                
+                //var_dump($idunews);
+                $query = "SELECT `unews`.`id_unews`, `unews`.`utitle`, `unews`.`udescription`, `unews`.`textunews`, `unews`.`statusunews`, `unews`.`dateunews`, `unews`.`id_uprofile`,
+                `uphotonews`.`id_uphotonews`,`uphotonews`.`uphotonews`,`uphotonews`.`id_unews`
                         FROM `unews`
                         LEFT JOIN `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews`
                         WHERE `unews`.`id_unews` = $idunews";
-                var_dump($query);
                 $result = $mysqli->query($query);
-                while($row = $result->fetch_array){
+                
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_array()){
+        // Кодируем изображение в base64, если оно существует
+        $img = '';
+        if (!empty($row['uphotonews'])) {
+            $img = 'data:image/jpeg;base64,' . base64_encode($row['uphotonews']);
+        } else {
+            $img = 'img/no_img.jpeg'; // Заглушка, если изображение отсутствует
+        }
+
+        // Вывод данных
+        echo('
+            <div class="col col-12">
+                <h1>' . htmlspecialchars($row['utitle']) . '</h1>
+            </div>
+            <p>
+                ' . htmlspecialchars($row['udescription']) . '
+            </p>
+            <!--__-__-->
+            <div class="col col-12">
+                <img src="' . $img . '" class="img-fluid" layout="responsive">
+            </div>
+            <p>
+                ' . htmlspecialchars($row['textunews']) . '
+            </p>
+        ');
+    }
+    } else {
+        echo "Нет данных для отображения.";
+    }
                 ?>
-                        <div class="col col-12">
-                            <h1><?php echo($row['utitle']);?></h1>
-                            <img src="img/no_img.jpeg" class="img-fluid" layout="responsive">
-                        </div>
-                        <p>
-                        <?php echo($row['utitle']);?>
-                        </p>
-                        <!--__-__-->
-                        <div class="col col-12">
-                            <img src="img/no_img.jpeg" class="img-fluid" layout="responsive">
-                        </div>
-                        <div class="absolute bg-white-a60 col col-12 h3 p1 media-label">
-                            Неделя Торжества Православия
-                        </div>
-                        <p>
-                            Раннюю Божественную Литургию возглавил настоятель собора - иерей Дмитрий Мовчанов. В конце Божественной Литургии прихожане приступили к Святому Причастию.
-                        </p>
-                        
-                <?php 
-                }//Конец while
-                ?>
-                <a href="#" class="nav-link" >Вернуться назад</a>
+                <!-- <a href="index.php" class="nav-link" >Вернуться на главную</a> -->
+                 <button type="submit" class="btn btn-primary" OnClick='window.location.href="index.php"'>Вернуться на главную</button>
             </div>
             
 

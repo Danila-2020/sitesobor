@@ -214,11 +214,17 @@ while($row = $result->fetch_array()){
     </tr>');
     }
     }
-    if(isset($_POST['submit'])){
+
+    // Обработка кнопки "Просмотр"
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+        // Устанавливаем ID новости в сессию
         $_SESSION['idunews'] = $_POST['idunews'];
-        echo($_SESSION['idunews']);
-        //header('Location: unews.php');
+
+        // Перенаправляем на страницу новости
+        header('Location: unews.php');
+        exit();
     }
+    
     $result->free();
     $mysqli->close();
 

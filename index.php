@@ -1,6 +1,7 @@
 <?php
 // Главная страница сайта
 
+ob_start();
 // Стартуем сессию ДО подключения шаблонов
 session_start();
 
@@ -117,59 +118,159 @@ echo getStyles();
 
     <div class="clearfix">
 
-            <div class="md-col md-col-6 lg-col-4 p2">
-                <?php
-                echo('<h2>Новости</h2>');
-                $result = $mysqli->query("SELECT DISTINCT `unews`.`id_unews`, `unews`.`utitle`, `unews`.`udescription`, `unews`.`textunews`,`uphotonews`.`uphotonews` FROM `unews` INNER JOIN `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews` LIMIT 3");
-                $count = $result->num_rows;
-                while($row = $result->fetch_array()){
-                    $img = base64_encode($row['uphotonews']);
-                    echo('<form method="POST" action="unews.php" style="margin-bottom:1%;">
-                    <input type="hidden" name="id" value="'.$row['id_unews'].'"></input>');
-                    echo('<a href="" name="link" class="block relative clearfix mb2">
-                        <div class="col col-12">');?>
-                            <img src="data:image/jpeg; base64,<?=$img?>" alt="image" class="img-fluid" layout="responsive">
-                            <?php
-                    echo('</div>
-                        <div class="absolute bg-white-a60 col col-12 h3 p1 media-label">
-                            '.$row['utitle'].'
+    <div class="md-col md-col-6 lg-col-4 p2">
+    <?php
+    // Вывод заголовка "Новости"
+    echo '<h2>Новости</h2>';
+
+    // Запрос для получения новостей
+    $query = "
+        SELECT DISTINCT 
+            `unews`.`id_unews`, 
+            `unews`.`utitle`, 
+            `unews`.`udescription`, 
+            `unews`.`textunews`, 
+            `uphotonews`.`uphotonews` 
+        FROM `unews` 
+        INNER JOIN `uphotonews` ON `unews`.`id_unews` = `uphotonews`.`id_unews` 
+        LIMIT 3
+    ";
+    $result = $mysqli->query($query);
+
+    // Проверка наличия данных
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $idunews = $row['id_unews']; // ID новости
+            $img = ''; // Переменная для изображения
+
+            // Кодируем изображение в base64, если оно существует
+            if (!empty($row['uphotonews'])) {
+                $img = 'data:image/jpeg;base64,' . base64_encode($row['uphotonews']);
+            } else {
+                $img = 'img/no_img.jpeg'; // Заглушка, если изображение отсутствует
+            }
+
+            // Форма для каждой новости
+            echo '
+                <form method="POST" action="" style="margin-bottom:1%;">
+                    <input type="hidden" name="idunews" value="' . htmlspecialchars($idunews) . '">
+                    <a href="#" name="link" class="block relative clearfix mb2">
+                        <div class="col col-12">
+                            <img src="' . $img . '" alt="image" class="img-fluid" layout="responsive">
                         </div>
-                    </a>');?>
-                    <button type="submit" class="btn btn-primary" style="width:100%;">Подробнее</button>
-                    <?php echo('</form>');
-                };
-                if(isset($_POST['submit'])){
-                    $id = $_POST['id'];
-                    $_SESSION['id'] = $id;
-                    echo("<script>alert('$id')</script>");
-                    header('Location: unews.php');
-                };
-                echo('<a href="allunews.php" class="h3">Все новости</a>');
-                ?>
-            </div>
+                        <div class="absolute bg-white-a60 col col-12 h3 p1 media-label">
+                            ' . htmlspecialchars($row['utitle']) . '
+                        </div>
+                    </a>
+                    <button type="submit" name="submit" class="btn btn-primary" style="width:100%;">Подробнее</button>
+                </form>
+            ';
+        }
+    } else {
+        echo '<p>Нет новостей для отображения.</p>';
+    }
+
+    // Обработка отправленной формы
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+        // Получаем ID новости из POST
+        $idunews = $_POST['idunews'];
+
+        // Проверяем, что ID является числом (защита от инъекций)
+        if (is_numeric($idunews)) {
+            // Сохраняем ID в сессии
+            $_SESSION['idunews'] = $idunews;
+
+            // Перенаправляем на страницу новости
+            header('Location: unews.php');
+            exit();
+        } else {
+            echo '<script>alert("Некорректный ID новости.");</script>';
+        }
+    }
+
+    // Ссылка на все новости
+    echo '<a href="allunews.php" class="h3">Все новости</a>';
+    ?>
+</div>
             <div class="md-col md-col-6 lg-col-4 p2">
-                <?php
-                 echo('<h2>Мероприятия</h2>');
-                 $result = $mysqli->query("SELECT DISTINCT events.id_events, events.caption, events.description, events.datep, events.id_uprofile, uphotoevent.id_uphotoevent, uphotoevent.uphotoevent, uprofile.ulastname, uprofile.ufirstname, uprofile.upatronymic FROM `events` INNER JOIN `uphotoevent` ON `events`.`id_events` = `uphotoevent`.`id_events` INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile` LIMIT 3");
-                 $count = $result->num_rows;
-                 while($row = $result->fetch_array()){
-                     $img = base64_encode($row['uphotoevent']);
-                     echo('<form method="POST" action="events.php" style="margin-bottom:1%;">
-                     <input type="hidden" name="id" value="'.$row['id_events'].'"></input>');
-                     echo('<a href="#" class="block relative clearfix mb2">
-                         <div class="col col-12">');?>
-                             <img src="data:image/jpeg; base64,<?=$img?>" alt="image" class="img-fluid" layout="responsive">
-                             <?php
-                     echo('</div>
-                         <div class="absolute bg-white-a60 col col-12 h3 p1 media-label">
-                             '.$row['caption'].'
-                         </div>
-                     </a>');?>
-                     <button type="submit" name="submit" class="btn btn-primary" style="width: 100%;">Подробнее</button>
-                     <?php echo('</form>');
-                 }
-                 echo('<a href="allevents.php" class="h3">Все мероприятия</a>');
-                ?>
+            <?php
+// Вывод заголовка "Мероприятия"
+echo '<h2>Мероприятия</h2>';
+
+// Запрос для получения мероприятий
+$query = "
+    SELECT DISTINCT 
+        events.id_events, 
+        events.caption, 
+        events.description, 
+        events.datep, 
+        events.id_uprofile, 
+        uphotoevent.id_uphotoevent, 
+        uphotoevent.uphotoevent, 
+        uprofile.ulastname, 
+        uprofile.ufirstname, 
+        uprofile.upatronymic 
+    FROM `events` 
+    INNER JOIN `uphotoevent` ON `events`.`id_events` = `uphotoevent`.`id_events` 
+    INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile` 
+    LIMIT 3
+";
+$result = $mysqli->query($query);
+
+// Проверка наличия данных
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $idevents = $row['id_events']; // ID мероприятия
+        $img = ''; // Переменная для изображения
+
+        // Кодируем изображение в base64, если оно существует
+        if (!empty($row['uphotoevent'])) {
+            $img = 'data:image/jpeg;base64,' . base64_encode($row['uphotoevent']);
+        } else {
+            $img = 'img/no_img.jpeg'; // Заглушка, если изображение отсутствует
+        }
+
+        // Форма для каждого мероприятия
+        echo '
+            <form method="POST" action="" style="margin-bottom:1%;">
+                <input type="hidden" name="idevents" value="' . htmlspecialchars($idevents) . '">
+                <a href="#" name="link" class="block relative clearfix mb2">
+                    <div class="col col-12">
+                        <img src="' . $img . '" alt="image" class="img-fluid" layout="responsive">
+                    </div>
+                    <div class="absolute bg-white-a60 col col-12 h3 p1 media-label">
+                        ' . htmlspecialchars($row['caption']) . '
+                    </div>
+                </a>
+                <button type="submit" name="submit_event" class="btn btn-primary" style="width:100%;">Подробнее</button>
+            </form>
+        ';
+    }
+} else {
+    echo '<p>Нет мероприятий для отображения.</p>';
+}
+
+// Обработка отправленной формы
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_event'])) {
+    // Получаем ID мероприятия из POST
+    $idevents = $_POST['idevents'];
+
+    // Проверяем, что ID является числом (защита от инъекций)
+    if (is_numeric($idevents)) {
+        // Сохраняем ID в сессии
+        $_SESSION['idevents'] = $idevents;
+
+        // Перенаправляем на страницу мероприятия
+        header('Location: events.php');
+        exit();
+    } else {
+        echo '<script>alert("Некорректный ID мероприятия.");</script>';
+    }
+}
+
+// Ссылка на все мероприятия
+echo '<a href="allevents.php" class="h3">Все мероприятия</a>';
+?>
             </div>
             <div class="md-col md-col-6 lg-col-4 p2">
             <?php
@@ -183,30 +284,12 @@ echo getStyles();
                 WHERE 1=1
                 GROUP BY `upublic`.`id_upublic`
                 LIMIT 3");
-                //Ротерблиль запрос мана
-                /*$result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, 
-                `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`id_uprofile`,`uprofile`.`ulastname`, 
-                `uprofile`.`ufirstname`, `uprofile`.`upatronymic`,`uphoto`.`uphoto` 
-                FROM `upublic` 
-                INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
-                INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
-                WHERE `uphoto`.`uphototitle` IS NULL
-                LIMIT 3");*/
-                
-                /*$result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, 
-                `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`id_uprofile`,`uprofile`.`ulastname`, 
-                `uprofile`.`ufirstname`, `uprofile`.`upatronymic` 
-                FROM `upublic` 
-                INNER JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
-                INNER JOIN `uprofile` ON `upublic`.`id_uprofile` = `uprofile`.`id_uprofile` 
-                WHERE uphoto.uphototitle IS null 
-                LIMIT 3"); */
                 
                 $count = $result->num_rows;
                 while($row = $result->fetch_array()){
                     $img = base64_encode($row['uphoto']);
-                    echo('<form method="POST" action="upublic.php" style="margin-bottom:1%;">
-                    <input type="hidden" name="id" value="'.$row['id_upublic'].'"></input>');
+                    echo('<form method="POST" action="" style="margin-bottom:1%;">
+                    <input type="hidden" name="idupublic" value="'.$row['id_upublic'].'"></input>');
                     echo('<a href="#" class="block relative clearfix mb2">
                         <div class="col col-12">');?>
                             <img src="data:image/jpeg; base64,<?=$img?>" alt="image" class="img-fluid" layout="responsive">
@@ -219,7 +302,27 @@ echo getStyles();
                     <button type="submit" class="btn btn-primary" style="width:100%;">Подробнее</button>
                     <?php echo('</form>');
                 }
-                echo('<a href="allupublic.php" class="h3">Все публикации</a>');
+
+                // Обработка отправленной формы
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_event'])) {
+                    // Получаем ID мероприятия из POST
+                    $idupublic = $_POST['idupublic'];
+
+                    // Проверяем, что ID является числом (защита от инъекций)
+                    if (is_numeric($idevents)) {
+                        // Сохраняем ID в сессии
+                        $_SESSION['idupublic'] = $idupublic;
+
+                        // Перенаправляем на страницу публикации
+                        header('Location: upublic.php');
+                        exit();
+                    } else {
+                        echo '<script>alert("Некорректный ID публикации.");</script>';
+                    }
+                }
+
+                // Ссылка на все публикации
+                echo '<a href="allupublic.php" class="h3">Все публикации</a>';
                 ?>
             </div>
 

@@ -1,8 +1,8 @@
 <?php
 // Страница "Все Мероприятия"
 
-// session_start();
-// ob_start();
+session_start();
+ob_start();
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
@@ -206,26 +206,40 @@ while($row = $result->fetch_array()){
     <td>'.$row['statusevents'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
-    <form method="POST" action="events.php">
-    <input type="hidden" name="id" value="'.$row['id_events'].'">
+    <form method="POST" action="">
+    <input type="hidden" name="idevents" value="'.$row['id_events'].'">
     <button type="submit" name="submit" class="btn btn-primary">Просмотр</button>
     </form></td>
     </tr>');
     }
-    if($row['statusunews'] == "deleted"){
-        echo('<tr>
-        <td>'.$row['id_unews'].'</td>
-        <td>'.$row['utitle'].'</td>
-        <td>'.$row['udescription'].'</td>
-        <td>'.$row['textunews'].'</td>
-        <td>'.$row['dateunews'].'</td>
-        <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-        <td>
-        </tr>');
-        }
     }
+
+    // Обработка кнопки "Просмотр"
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+        // Устанавливаем ID новости в сессию
+        $_SESSION['idevents'] = $_POST['idevents'];
+
+        // Перенаправляем на страницу новости
+        header('Location: events.php');
+        exit();
+    }
+    
     $result->free();
     $mysqli->close();
+    // if($row['statusunews'] == "deleted"){
+    //     echo('<tr>
+    //     <td>'.$row['id_unews'].'</td>
+    //     <td>'.$row['utitle'].'</td>
+    //     <td>'.$row['udescription'].'</td>
+    //     <td>'.$row['textunews'].'</td>
+    //     <td>'.$row['dateunews'].'</td>
+    //     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
+    //     <td>
+    //     </tr>');
+    //     }
+    // }
+    // $result->free();
+    // $mysqli->close();
 	//mysqli_close($mysqli);
   ?>	
 </table>

@@ -4,7 +4,8 @@
 session_start();
 ob_start();//обнуляем буфер
 require_once('bd.php');
-include('template/head.php');
+// include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
@@ -74,13 +75,13 @@ echo getStyles();
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="/site/article?id=4">Расписание богослужений</a>
+        <a href="scedule.php">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        <a href="activity.php" class="nav-link">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
@@ -92,49 +93,31 @@ echo getStyles();
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=3">Духовенство</a>
+        <a class="" href="clergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
+        <a class="" href="story.php">История</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'">
-    <li class="inline-block mr1">
-        <a href="/site/article?id=6">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=7">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=8">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=9">Социальная деятельность</a>
+        <a class="" href="paintingalluser.php">Роспись</a>
     </li>
 </ul>
 
 <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
     <li class="inline-block mr1">
-        <a href="/site/article?id=10">Крещение</a>
+        <a href="christening.php">Крещение</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=11">Венчание</a>
+        <a href="wedding.php">Венчание</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=12">Исповедь</a>
+        <a href="confession.php">Исповедь</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=13">Причастие</a>
+        <a href="eucharist.php">Причастие</a>
     </li>
     <li class="inline-block mr1">
-        <a href="/site/article?id=184">Соборование</a>
+        <a href="unction.php">Соборование</a>
     </li>
 </ul>
 
@@ -155,56 +138,67 @@ echo getStyles();
     <div class="md-col md-col-12 lg-col-12 p2">
     <h2>Мероприятия</h2>
             <?php
-            $id = $_POST['id'];
-            $_SESSION['id'] = $id;
-            if(empty($id)) {
-                header('Location: allevents.php');
-            }
-            $query = "SELECT `events`.`id_events`, `events`.`caption`, `events`.`description`, `events`.`datep`, `events`.`statusevents`, `events`.`id_uprofile` FROM `events`
-            INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile`
-            WHERE 1=1 AND `events`.`id_events` = $id
-            ORDER BY `events`.`id_events` ASC";//переменная для запроса
-            // var_dump($query);
-            // var_dump($id);
+            // Получаем ID мероприятия из сессии
+            $idevents = $_SESSION['idevents'];
+            
+            // Формируем SQL-запрос
+            $query = "
+                SELECT 
+                    `events`.`id_events`, 
+                    `events`.`caption`, 
+                    `events`.`description`, 
+                    `events`.`datep`, 
+                    `events`.`statusevents`, 
+                    `events`.`id_uprofile`,
+                    `uphotoevent`.`id_uphotoevent`,
+                    `uphotoevent`.`uphotoevent`,
+                    `uphotoevent`.`id_events`
+                FROM `events`
+                LEFT JOIN `uphotoevent` ON `events`.`id_events` = `uphotoevent`.`id_events`
+                LEFT JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile`
+                WHERE 1=1 AND `events`.`id_events` = $idevents
+                ORDER BY `events`.`id_events` ASC
+            ";
+            
+            // Выполняем запрос
             $result = $mysqli->query($query);
-            while($row = $result->fetch_array()) {
-
-                echo('
-                <div class="col col-12">
-                    <h1>'.$row['caption'].'</h1>
-                    <img src="img/no_img.jpeg" class="img-fluid" layout="responsive">
-                </div>
-                <p>
-                    '.$row['description'].'
-                </p>
-                <p>
-                    <h2>Текст</h2>
-                </p>
-                ');
-            }
-            ?>
-    </div>
-
-            <!-- <div class="md-col md-col-12 lg-col-12 p2">
-                <h2>Мероприятия</h2>
+            
+            // Проверяем, есть ли данные в результате
+            if ($result && $result->num_rows > 0) {
+                // Обрабатываем каждую строку результата
+                while ($row = $result->fetch_array()) {
+                    // Кодируем изображение в base64, если оно существует
+                    $img = '';
+                    if (!empty($row['uphotoevent'])) {
+                        $img = 'data:image/jpeg;base64,' . base64_encode($row['uphotoevent']);
+                    } else {
+                        $img = 'img/no_img.jpeg'; // Заглушка, если изображение отсутствует
+                    }
+            
+                    // Выводим данные
+                    echo('
                         <div class="col col-12">
-                            <h1>Тестовое мероприятие</h1>
-                            <img src="img/no_img.jpeg" class="img-fluid" layout="responsive">
+                            <h1>' . htmlspecialchars($row['caption']) . '</h1>
                         </div>
                         <p>
-                            Текст
+                            ' . htmlspecialchars($row['description']) . '
                         </p>
                         <!--__-__-->
-                        <!-- <div class="col col-12">
-                            <img src="img/no_img.jpeg" class="img-fluid" layout="responsive">
+                        <div class="col col-12">
+                            <img src="' . $img . '" class="img-fluid" layout="responsive">
                         </div>
                         <p>
-                            <h2>Текст</h2>
+                            Дата: ' . htmlspecialchars($row['datep']) . '
                         </p>
-                        
-                
-                <a href="#" class="h3" >Вернуться назад</a>
-            </div>-->
+                    ');
+                }
+            } else {
+                // Если данных нет, выводим сообщение
+                echo "Нет данных для отображения.";
+            }
+            ?>
+    <button type="submit" class="btn btn-primary" OnClick='window.location.href="index.php"'>Вернуться на главную</button>
+    </div>        
             
 
     </div>

@@ -2,6 +2,7 @@
 // Страница "Все публикации"
 
 session_start();
+ob_start();
 $id = $_POST['id'];
 include('template/head.php');
 include('template/barber.php');
@@ -206,13 +207,24 @@ while($row = $result->fetch_array()){
     <td>'.$row['uptext'].'</td>
     <td>'.$row['statusupublic'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-    <td><form method="POST" action="upublic.php">
-    <input type="hidden" name="id" value="'.$idupublic.'">
+    <td><form method="POST" action="">
+    <input type="hidden" name="idupublic" value="'.$idupublic.'">
     <button type="submit" name="submit" class="btn btn-primary">Просмотр</button>
     </form></td>
     </tr>');
     };
     }
+
+    // Обработка кнопки "Просмотр"
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+        // Устанавливаем ID новости в сессию
+        $_SESSION['idupublic'] = $_POST['idupublic'];
+
+        // Перенаправляем на страницу новости
+        header('Location: upublic.php');
+        exit();
+    }
+
     $result->free();
     $mysqli->close();
 	//mysqli_close($mysqli);
