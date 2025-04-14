@@ -1,5 +1,5 @@
 <?php
-// Просмотр мероприятий (Пользователь General)
+// Просмотр Мероприятий(Пользователь Admin)
 
 session_start();
 require_once('bd.php');
@@ -35,7 +35,7 @@ $result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unew
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 ?>
 <style>
-body{background-image:url('img/background4.jpg');};
+body{background-image:url('img/background3.jpg');};
 </style>
 <body>
     <script>
@@ -75,7 +75,10 @@ body{background-image:url('img/background4.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="sceduleuploader.php">Расписание богослужений</a>
+        <a href="adminprofile.php">Расписание богослужений</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="adduser.php">Добавить пользователя</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
@@ -87,21 +90,34 @@ body{background-image:url('img/background4.jpg');};
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
     </li>
     <li class="inline-block mr1">
-        <form action="exituser.php" method="post">
+        <a href="note.php">Подать записку</a>
+    </li>
+    <li class="inline-block mr1">
+        <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
+            <?php
+            if(isset($_POST['submit'])){
+                $_SESSION['id'] = "";
+                session_unset();
+                echo'<script>window.location.href="signin.php"</script>';
+            }
+            ?>
         </form>
     </li>
 </ul>
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="addunewsuser.php">Новость</a>
+        <a class="" href="addunewsadmin.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="#">Мероприятие</a><!--addeventsgen.php-->
+        <a class="" href="/site/article?id=1">Мероприятие</a>
     </li>
+    <!--<li class="inline-block mr1">
+        <a class="" href="/site/article?id=2">Святыни</a>
+    </li>-->
     <li class="inline-block mr1">
-        <a class="" href="#">Публикацию</a><!--addupublicgen.php-->
+        <a class="" href="/site/article?id=5">Публикацию</a>
     </li>
 </ul>
 
@@ -117,63 +133,83 @@ body{background-image:url('img/background4.jpg');};
     </li>
 </ul>
 
+<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
+    <li class="inline-block mr1">
+        <a href="/site/article?id=10">Крещение</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=11">Венчание</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=12">Исповедь</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=13">Причастие</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="/site/article?id=184">Соборование</a>
+    </li>
+</ul>
+
 <hr>
 
     </div>
     
     <div class="container" style="margin-top:30px">
-    <h1>Все Мероприятия</h1>
+    <h1>Все новости</h1>
     <table class="table table-striped">
 			<tr style="font-weight:bold; font-style:itallic;">
 			<td>ID</td>
             <td>Название</td>
+            <td>Описание</td>
             <td>Текст</td>
-            <td>Дата проведения</td>
             <td>Статус</td>
+            <td>Дата</td>
             <td>Разместил</td>
             <td>Действие</td>
 			  </tr>
 <?php 
 
-$result = $mysqli->query("SELECT `events`.`id_events`, `events`.`caption`, `events`.`description`, `events`.`datep`, `events`.`statusevents`, `uprofile`.`ulastname`, `uprofile`.`ufirstname` 
-FROM `events` 
-INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile` 
-WHERE 1=1 
-ORDER BY `events`.`id_events` ASC
+$result = $mysqli->query("SELECT `unews`.`id_unews`, `unews`.`utitle`,`unews`.`udescription`,`unews`.`textunews`,`unews`.`statusunews`,`unews`.`dateunews`,`uprofile`.`ulastname`,`uprofile`.`ufirstname` 
+FROM `unews` 
+INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile`
+WHERE 1=1
 LIMIT $offset, $total_records_per_page");
 
 while($row = $result->fetch_array()){			
-    if($row['statusevents'] == "active"){
+    if($row['statusunews'] == "active"){
     echo('<tr>
-    <td>'.$row['id_events'].'</td>
-    <td>'.$row['caption'].'</td>
-    <td>'.$row['description'].'</td>
-    <td>'.$row['datep'].'</td>
-    <td>'.$row['statusevents'].'</td>
+    <td>'.$row['id_unews'].'</td>
+    <td>'.$row['utitle'].'</td>
+    <td>'.$row['udescription'].'</td>
+    <td>'.$row['textunews'].'</td>
+    <td>'.$row['statusunews'].'</td>
+    <td>'.$row['dateunews'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
-    <form method="POST" action="editueventsuser.php" style="margin-bottom:10%;"><!--Ссылка на редактирование мероприятия-->
-    <input type="hidden" name="id" value="'.$row['id_events'].'">
+    <form method="POST" action="#">
+    <input type="hidden" name="id" value="'.$row['id_unews'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
     </form>
-    <form method="POST" action="deleteueventsuser.php" style="margin-bottom:10%;">
-    <input type="hidden" name="id" value="'.$row['id_events'].'">
+    <form method="POST" action="#">
+    <input type="hidden" name="id" value="'.$row['id_unews'].'">
     <button type="submit" name="submit" class="btn btn-success">Удалить</button>
     </form>
     </td>
     </tr>');
     };
-    if($row['statusevents'] == "deleted"){
+    if($row['statusunews'] == "deleted"){
         echo('<tr>
-        <td>'.$row['id_events'].'</td>
-        <td>'.$row['caption'].'</td>
-        <td>'.$row['description'].'</td>
-        <td>'.$row['datep'].'</td>
-        <td>'.$row['statusevents'].'</td>
+        <td>'.$row['id_unews'].'</td>
+        <td>'.$row['utitle'].'</td>
+        <td>'.$row['udescription'].'</td>
+        <td>'.$row['textunews'].'</td>
+        <td>'.$row['statusunews'].'</td>
+        <td>'.$row['dateunews'].'</td>
         <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
         <td>
-        <form method="POST" action="recoveryueventsuser.php" style="margin-bottom:10%;">
-        <input type="hidden" name="id" value="'.$row['id_events'].'">
+        <form method="POST" action="#">
+        <input type="hidden" name="id" value="'.$row['id_unews'].'">
         <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
         </form>
         </td>

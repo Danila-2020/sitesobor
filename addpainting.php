@@ -3,7 +3,7 @@
 session_start();
 ob_start();
 
-include('template/head.php');//Две башки, которые не нужны
+include('template/scedulehead.php');//Две башки, которые не нужны
 include('template/sceduleuploaderhead.php');
 include('template/barber.php');
 require_once('bd.php');
@@ -17,7 +17,7 @@ echo getStyles();
             <a href="sceduleuploader.php">Расписание богослужений</a>
         </li>
         <li class="inline-block mr1">
-            <a href="#">Добавить пользователя</a><!--adduser.php-->
+            <a href="adduser.php">Добавить пользователя</a><!--adduser.php-->
         </li>
         <li class="inline-block mr1">
             <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
@@ -32,15 +32,8 @@ echo getStyles();
             <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
         </li>
         <li class="inline-block mr1">
-            <form action="" method="post">
+            <form action="exitgen.php" method="post">
                 <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-                <?php
-                if(isset($_POST['submit'])){
-                    $_SESSION['id'] = "";
-                    session_unset();
-                    echo'<script>window.location.href="signin.php"</script>';
-                }
-                ?>
             </form>
         </li>
     </ul>

@@ -2,7 +2,7 @@
 // Страница добавления пользователя(Пользователь General)
 session_start();
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
@@ -54,23 +54,23 @@ body{background-image:url('img/background3.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="/site/article?id=4">Расписание богослужений</a>
+        <a href="sceduleuploadergen.php">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
         <a href="adduser.php">Добавить пользователя</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
+        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
-    <li class="inline-block mr1">
+    <!-- <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
+    </li> -->
+    <!-- <li class="inline-block mr1">
         <a href="note.php">Подать записку</a>
-    </li>
+    </li> -->
     <li class="inline-block mr1">
         <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
@@ -116,8 +116,8 @@ body{background-image:url('img/background3.jpg');};
     </li>
 </ul>
 
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
+<!-- <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
+    <!-- <li class="inline-block mr1">
         <a href="/site/article?id=10">Крещение</a>
     </li>
     <li class="inline-block mr1">
@@ -132,7 +132,7 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a href="/site/article?id=184">Соборование</a>
     </li>
-</ul>
+</ul> -->
 
 <hr>
 

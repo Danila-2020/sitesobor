@@ -156,15 +156,11 @@ $event = mysqli_fetch_assoc($result);
 // Обработка отправки формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Получаем данные из формы
-    $caption = trim($_POST['caption']);
-    $description = trim($_POST['description']);
+    $caption = $_POST['caption'];
+    $description = $_POST['description'];
     $datep = $_POST['datep'];
     $statusevents = $_POST['statusevents'];
-
-    // Валидация данных (можно добавить дополнительные проверки)
-    if (empty($caption) || empty($description) || empty($datep)) {
-        echo "<p style='color:red;'>Все поля обязательны для заполнения.</p>";
-    } else {
+        if((!empty($_POST['caption'])) and (!empty($_POST['statusevents']))){
         // Экранируем входные данные для защиты от SQL-инъекций
         $caption = $mysqli->real_escape_string($caption);
         $description = $mysqli->real_escape_string($description);
@@ -215,8 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="statusevents">Статус:</label>
                     <select class="form-control" id="statusevents" name="statusevents" required>
                         <option value="active" <?php echo ($event['statusevents'] === 'active') ? 'selected' : ''; ?>>Активный</option>
-                        <option value="inactive" <?php echo ($event['statusevents'] === 'inactive') ? 'selected' : ''; ?>>Неактивный</option>
-                        <option value="cancelled" <?php echo ($event['statusevents'] === 'cancelled') ? 'selected' : ''; ?>>Отменен</option>
+                        <option value="deleted" <?php echo ($event['statusevents'] === 'deleted') ? 'selected' : ''; ?>>Удалённый</option>
                     </select>
                 </div>
 

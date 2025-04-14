@@ -84,34 +84,15 @@ body{background-image:url('img/background4.jpg');};
         <a class="" href="addunewsuser.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">Мероприятие</a>
+        <a class="" href="addeventsuser.php">Мероприятие</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=5">Публикацию</a>
     </li>
 </ul>
 
-<ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
-<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=6">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=7">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=8">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=9">Социальная деятельность</a>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
+<!-- <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
+    <!-- <li class="inline-block mr1">
         <a href="/site/article?id=10">Крещение</a>
     </li>
     <li class="inline-block mr1">
@@ -126,7 +107,7 @@ body{background-image:url('img/background4.jpg');};
     <li class="inline-block mr1">
         <a href="/site/article?id=184">Соборование</a>
     </li>
-</ul>
+</ul> -->
 
 <hr>
 

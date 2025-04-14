@@ -86,12 +86,9 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
-    <li class="inline-block mr1">
+    <!-- <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
+    </li> -->
     <li class="inline-block mr1">
         <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
@@ -133,8 +130,8 @@ body{background-image:url('img/background3.jpg');};
     </li>
 </ul>
 
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
+<!-- <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
+<!--    <li class="inline-block mr1">
         <a href="/site/article?id=10">Крещение</a>
     </li>
     <li class="inline-block mr1">
@@ -149,7 +146,7 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a href="/site/article?id=184">Соборование</a>
     </li>
-</ul>
+</ul> -->
 
 <hr>
 
@@ -187,11 +184,11 @@ while($row = $result->fetch_array()){
     <form method="POST" action="updupublicgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
-    </form>
+    </form><br>
     <form method="POST" action="deleteupublicgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-success">Удалить</button>
-    </form>
+    </form><br>
     <form method="POST" action="fulldeleteupublicgeneral.php">
     <input type="hidden" name="id" value="'.$row['id_upublic'].'">
     <button type="submit" name="submit" class="btn btn-danger">Полное удаление</button>
