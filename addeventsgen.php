@@ -2,7 +2,8 @@
 /* Добавление мероприятий general*/
 session_start();
 require_once('bd.php');
-include('template/head.php');
+// include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
@@ -89,7 +90,7 @@ body{background-image:url('img/background3.jpg');};
         <a class="" href="addunewsgeneral.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">Мероприятие</a>
+        <a class="" href="addeventsgen.php">Мероприятие</a>
     </li>
     <!--<li class="inline-block mr1">
         <a class="" href="/site/article?id=2">Святыни</a>
@@ -104,10 +105,10 @@ body{background-image:url('img/background3.jpg');};
         <a href="viewunewsgeneral.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="viewueventsgeneral.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Публикации</a>
+        <a href="viewupublicgeneral.php">Публикации</a>
     </li>
 </ul>
 </div>

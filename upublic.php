@@ -19,22 +19,20 @@ echo getStyles();
             <?php
             // Проверяем, установлен ли ID публикации в сессии
             if (empty($_SESSION['idupublic'])) {
-                header('Location: index.php');
+                echo("<script>alert('Отсутствует ID публикации!!!');</script>");
                 exit();
             }
 
             $idupublic = $_SESSION['idupublic'];
 
-            // Формируем SQL-запрос
+            // Формируем SQL-запрос для получения данных публикации
             $query = "
                 SELECT 
                     `upublic`.`id_upublic`, 
                     `upublic`.`naim`, 
                     `upublic`.`uptext`,
-                    `upublic`.`statusupublic`, 
-                    `uphoto`.`uphoto`
-                FROM `upublic` 
-                LEFT JOIN `uphoto` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic` 
+                    `upublic`.`statusupublic`
+                FROM `upublic`
                 WHERE `upublic`.`statusupublic` = 'active' AND `upublic`.`id_upublic` = $idupublic
             ";
 
@@ -43,46 +41,73 @@ echo getStyles();
 
             // Проверяем, есть ли данные в результате
             if ($result && $result->num_rows > 0) {
-                // Обрабатываем каждую строку результата
-                while ($row = $result->fetch_assoc()) {
-                    // Кодируем изображение в base64, если оно существует
-                    $img = '';
-                    if (!empty($row['uphoto'])) {
-                        $img = 'data:image/jpeg;base64,' . base64_encode($row['uphoto']);
+                $row = $result->fetch_assoc();
+
+                // Выводим основной текст публикации
+                echo('
+                    <div class="col col-12">
+                        <h1>' . htmlspecialchars($row['naim']) . '</h1>
+                    </div>
+                    <p>
+                        Описание: ' . htmlspecialchars($row['uptext']) . '
+                    </p>
+                ');
+            } else {
+                echo "Нет данных для отображения.";
+                exit();
+            }
+
+            // Формируем SQL-запрос для получения фотографий и их текстов
+            $photoQuery = "
+                SELECT 
+                    `uphoto`.`uphoto`, 
+                    `uphoto`.`description`
+                FROM `uphoto` 
+                WHERE `uphoto`.`id_upublic` = $idupublic
+            ";
+
+            // Выполняем запрос
+            $photoResult = $mysqli->query($query);
+
+            // Проверяем, есть ли фотографии
+            if ($photoResult && $photoResult->num_rows > 0) {
+                // Создаем массив для хранения фотографий и текстов
+                $photos = [];
+                while ($photoRow = $photoResult->fetch_assoc()) {
+                    $imageData = $photoRow['uphoto'];
+                    $imageBase64 = '';
+                    if (!empty($imageData)) {
+                        // Проверяем, является ли данные изображением
+                        if (@exif_imagetype('data://application/octet-stream;base64,' . base64_encode($imageData))) {
+                            $imageBase64 = 'data:image/jpeg;base64,' . base64_encode($imageData);
+                        } else {
+                            $imageBase64 = 'img/no_img.jpeg'; // Заглушка, если данные не являются изображением
+                        }
                     } else {
-                        $img = 'img/no_img.jpeg'; // Заглушка, если изображение отсутствует
+                        $imageBase64 = 'img/no_img.jpeg'; // Заглушка, если данные пустые
                     }
 
-                    // Выводим данные
-                    echo('
-                        <div class="col col-12">
-                            <h1>' . htmlspecialchars($row['naim']) . '</h1>
-                        </div>
-                        <!--__-__-->
-                        <div class="col col-12">
-                            <img src="' . $img . '" class="img-fluid" layout="responsive">
-                        </div>
-                        <p>
-                            Описание: ' . htmlspecialchars($row['uptext']) . '
-                        </p>
-                    ');
+                    $photos[] = [
+                        'image' => $imageBase64,
+                        'text' => htmlspecialchars($photoRow['description'])
+                    ];
                 }
             } else {
-                // Если данных нет, выводим сообщение
-                echo "Нет данных для отображения.";
+                $photos = []; // Нет фотографий
             }
             ?>
-            <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">Вернуться на главную</button>
 
+            <!-- Карусель -->
             <div class="col col-12">
-                <h1><?php echo htmlspecialchars($name); ?></h1>
-
                 <?php if (!empty($photos)): ?>
                     <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <?php foreach ($photos as $index => $img): ?>
+                            <?php foreach ($photos as $index => $photo): ?>
                                 <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                    <img src="data:image/jpeg;base64,<?= htmlspecialchars($img) ?>" class="d-block w-100" alt="Фото">
+                                    <img src="<?php echo $photo['image']; ?>" class="d-block w-100" alt="Фото">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p><?php echo $photo['text']; ?></p>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -96,11 +121,8 @@ echo getStyles();
                         </button>
                     </div>
                 <?php else: ?>
-                    <img src="../img/no_img.jpeg" alt="Нет изображения" class="img-fluid">
+                    <img src="img/no_img.jpeg" alt="Нет изображения" class="img-fluid">
                 <?php endif; ?>
-
-                <!-- Выводим текст публикации один раз после фотогалереи -->
-                <p><?php echo htmlspecialchars($uptext); ?></p>
             </div>
 
             <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">Вернуться на главную</button>
@@ -108,5 +130,5 @@ echo getStyles();
     </div>
 </div>
 <?php
-include('template/footer.php'); // Подключаем шаблон footer.php
+include('template/footer2.php'); // Подключаем шаблон footer.php
 ?>

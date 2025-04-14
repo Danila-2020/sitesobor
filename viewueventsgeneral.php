@@ -2,6 +2,7 @@
 // Просмотр мероприятий (Пользователь General)
 
 session_start();
+ob_start();
 require_once('bd.php');
 include('template/head.php');
 include('template/barber.php');
@@ -93,14 +94,14 @@ body{background-image:url('img/background3.jpg');};
         <a href="note.php">Подать записку</a>
     </li>
     <li class="inline-block mr1">
-        <form action="" method="post">
+        <form action="exitgen.php" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
             <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
+            // if(isset($_POST['submit'])){
+            //     $_SESSION['id'] = "";
+            //     session_unset();
+            //     echo'<script>window.location.href="signin.php"</script>';
+            // }
             ?>
         </form>
     </li>
@@ -157,72 +158,72 @@ body{background-image:url('img/background3.jpg');};
     
     <div class="container" style="margin-top:30px">
     <h1>Все Мероприятия</h1>
+    <div class="table-responsive">
     <table class="table table-striped">
-			<tr style="font-weight:bold; font-style:itallic;">
-			<td>ID</td>
+        <tr style="font-weight:bold; font-style:itallic;">
+            <td>ID</td>
             <td>Название</td>
             <td>Текст</td>
             <td>Дата проведения</td>
             <td>Статус</td>
             <td>Разместил</td>
             <td>Действие</td>
-			  </tr>
-<?php 
+        </tr>
+        <?php 
+        $result = $mysqli->query("SELECT `events`.`id_events`, `events`.`caption`, `events`.`description`, `events`.`datep`, `events`.`statusevents`, `uprofile`.`ulastname`, `uprofile`.`ufirstname` 
+        FROM `events` 
+        INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile` 
+        WHERE 1=1 
+        ORDER BY `events`.`id_events` ASC
+        LIMIT $offset, $total_records_per_page");
 
-$result = $mysqli->query("SELECT `events`.`id_events`, `events`.`caption`, `events`.`description`, `events`.`datep`, `events`.`statusevents`, `uprofile`.`ulastname`, `uprofile`.`ufirstname` 
-FROM `events` 
-INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile` 
-WHERE 1=1 
-ORDER BY `events`.`id_events` ASC
-LIMIT $offset, $total_records_per_page");
-
-while($row = $result->fetch_array()){			
-    if($row['statusevents'] == "active"){
-    echo('<tr>
-    <td>'.$row['id_events'].'</td>
-    <td>'.$row['caption'].'</td>
-    <td>'.$row['description'].'</td>
-    <td>'.$row['datep'].'</td>
-    <td>'.$row['statusevents'].'</td>
-    <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-    <td>
-    <form method="POST" action="#" style="margin-bottom:10%;"><!--Ссылка на редактирование мероприятия-->
-    <input type="hidden" name="id" value="'.$row['id_upublic'].'">
-    <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
-    </form>
-    <form method="POST" action="deleteupublicgeneral.php" style="margin-bottom:10%;">
-    <input type="hidden" name="id" value="'.$row['id_upublic'].'">
-    <button type="submit" name="submit" class="btn btn-success">Удалить</button>
-    </form>
-    <form method="POST" action="fulldeleteupublicgeneral.php" style="margin-bottom:10%;">
-    <input type="hidden" name="id" value="'.$row['id_upublic'].'">
-    <button type="submit" name="submit" class="btn btn-danger">Полное удаление</button>
-    </form>
-    </td>
-    </tr>');
-    };
-    if($row['statusevents'] == "deleted"){
-        echo('<tr>
-        <td>'.$row['id_events'].'</td>
-        <td>'.$row['caption'].'</td>
-        <td>'.$row['description'].'</td>
-        <td>'.$row['datep'].'</td>
-        <td>'.$row['statusevents'].'</td>
-        <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
-        <td>
-        <form method="POST" action="recoveryupublicgeneral.php" style="margin-bottom:10%;">
-        <input type="hidden" name="id" value="'.$row['id_upublic'].'">
-        <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
-        </form>
-        </td>
-        </tr>');
-        };
-    }
-    $result->free();
-    $mysqli->close();
-	//mysqli_close($mysqli);
-  ?>	
-</table>
+        while ($row = $result->fetch_array()) {			
+            if ($row['statusevents'] == "active") {
+                echo('<tr>
+                <td>'.$row['id_events'].'</td>
+                <td>'.$row['caption'].'</td>
+                <td>'.$row['description'].'</td>
+                <td>'.$row['datep'].'</td>
+                <td>'.$row['statusevents'].'</td>
+                <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
+                <td>
+                <form method="POST" action="set_idevents.php" style="margin-bottom:10%;"><!--Ссылка на редактирование мероприятия-->
+                <input type="hidden" name="idevents" value="'.$row['id_events'].'">
+                <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
+                </form>
+                <form method="POST" action="deleteupublicgeneral.php" style="margin-bottom:10%;">
+                <input type="hidden" name="id" value="'.$row['id_events'].'">
+                <button type="submit" name="submit" class="btn btn-success">Удалить</button>
+                </form>
+                <form method="POST" action="fulldeleteupublicgeneral.php" style="margin-bottom:10%;">
+                <input type="hidden" name="id" value="'.$row['id_events'].'">
+                <button type="submit" name="submit" class="btn btn-danger">Полное удаление</button>
+                </form>
+                </td>
+                </tr>');
+            }
+            if ($row['statusevents'] == "deleted") {
+                echo('<tr>
+                <td>'.$row['id_events'].'</td>
+                <td>'.$row['caption'].'</td>
+                <td>'.$row['description'].'</td>
+                <td>'.$row['datep'].'</td>
+                <td>'.$row['statusevents'].'</td>
+                <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
+                <td>
+                <form method="POST" action="recoveryupublicgeneral.php" style="margin-bottom:10%;">
+                <input type="hidden" name="id" value="'.$row['id_events'].'">
+                <button type="submit" name="submit" class="btn btn-success">Восстановить</button>
+                </form>
+                </td>
+                </tr>');
+            }
+        }
+        $result->free();
+        $mysqli->close();
+        ?>
+    </table>
+</div>
     
     <ul class="pagination">
 	<?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } ?>
