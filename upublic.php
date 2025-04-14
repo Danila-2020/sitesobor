@@ -1,134 +1,198 @@
 <?php
-// Просмотр публикации (Все пользователи)
+// Страница публикации (Все пользователи)
 
-session_start(); // Стартуем сессию
-ob_start(); // Включаем буферизацию вывода
-require_once('bd.php'); // Подключаем файл базы данных
+ob_start();
+session_start();
+require_once('bd.php');
 
-include('template/head.php'); // Подключаем шаблон head.php
-include('template/barber.php'); // Подключаем шаблон barber.php
-include('template/nav.php'); // Подключаем шаблон nav.php
+include('template/head.php');
+include('template/barber.php');
 
 // Выводим стили
 echo getStyles();
 ?>
-<div class="container">
-    <div class="clearfix">
-        <div class="md-col md-col-12 lg-col-12 p2">
-            <h2>Публикации</h2>
-            <?php
-            // Проверяем, установлен ли ID публикации в сессии
-            if (empty($_SESSION['idupublic'])) {
-                echo("<script>alert('Отсутствует ID публикации!!!');</script>");
-                exit();
+
+<amp-analytics type="metrika">
+    <script type="application/json">
+        {
+            "vars": {
+                "counterId": "53592163"
             }
+        }
+    </script>
+</amp-analytics>
 
-            $idupublic = $_SESSION['idupublic'];
+<div class="relative page-wrap"><!-- page-wrap -->
 
-            // Формируем SQL-запрос для получения данных публикации
-            $query = "
-                SELECT 
-                    `upublic`.`id_upublic`, 
-                    `upublic`.`naim`, 
-                    `upublic`.`uptext`,
-                    `upublic`.`statusupublic`
-                FROM `upublic`
-                WHERE `upublic`.`statusupublic` = 'active' AND `upublic`.`id_upublic` = $idupublic
-            ";
-
-            // Выполняем запрос
-            $result = $mysqli->query($query);
-
-            // Проверяем, есть ли данные в результате
-            if ($result && $result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-
-                // Выводим основной текст публикации
-                echo('
-                    <div class="col col-12">
-                        <h1>' . htmlspecialchars($row['naim']) . '</h1>
-                    </div>
-                    <p>
-                        Описание: ' . htmlspecialchars($row['uptext']) . '
-                    </p>
-                ');
-            } else {
-                echo "Нет данных для отображения.";
-                exit();
-            }
-
-            // Формируем SQL-запрос для получения фотографий и их текстов
-            $photoQuery = "
-                SELECT 
-                    `uphoto`.`uphoto`, 
-                    `uphoto`.`description`
-                FROM `uphoto` 
-                WHERE `uphoto`.`id_upublic` = $idupublic
-            ";
-
-            // Выполняем запрос
-            $photoResult = $mysqli->query($query);
-
-            // Проверяем, есть ли фотографии
-            if ($photoResult && $photoResult->num_rows > 0) {
-                // Создаем массив для хранения фотографий и текстов
-                $photos = [];
-                while ($photoRow = $photoResult->fetch_assoc()) {
-                    $imageData = $photoRow['uphoto'];
-                    $imageBase64 = '';
-                    if (!empty($imageData)) {
-                        // Проверяем, является ли данные изображением
-                        if (@exif_imagetype('data://application/octet-stream;base64,' . base64_encode($imageData))) {
-                            $imageBase64 = 'data:image/jpeg;base64,' . base64_encode($imageData);
-                        } else {
-                            $imageBase64 = 'img/no_img.jpeg'; // Заглушка, если данные не являются изображением
-                        }
-                    } else {
-                        $imageBase64 = 'img/no_img.jpeg'; // Заглушка, если данные пустые
-                    }
-
-                    $photos[] = [
-                        'image' => $imageBase64,
-                        'text' => htmlspecialchars($photoRow['description'])
-                    ];
-                }
-            } else {
-                $photos = []; // Нет фотографий
-            }
-            ?>
-
-            <!-- Карусель -->
-            <div class="col col-12">
-                <?php if (!empty($photos)): ?>
-                    <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <?php foreach ($photos as $index => $photo): ?>
-                                <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                    <img src="<?php echo $photo['image']; ?>" class="d-block w-100" alt="Фото">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <p><?php echo $photo['text']; ?></p>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                <?php else: ?>
-                    <img src="img/no_img.jpeg" alt="Нет изображения" class="img-fluid">
-                <?php endif; ?>
+<div class="content-wrap relative"><!-- content-wrap -->
+    <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
+        <div class="land-see-hero-main mx-auto"></div>
+    </section>
+    <div class="max-width-4 mx-auto p2">
+        <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
+            <div class="clearfix p1">
+                <div class="desk-logo-wrap mx-auto block">
+                    <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"></amp-img>
+                </div>
             </div>
+            <div class="clearfix">
+                <ul class="center h2 list-reset mt0 head-menu">
+                    <li class="inline-block mr1">
+                        <a href="scedule.php">Расписание богослужений</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="activity.php">Деятельность</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="note.php">Подать записку</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <button type="submit" class="btn btn-primary" OnClick='window.location.href="signin.php"'>Вход</button>
+                    </li>
+                </ul>
 
-            <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">Вернуться на главную</button>
+                <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
+                    <li class="inline-block mr1">
+                        <a class="" href="clergy.php">Духовенство</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a class="" href="story.php">История</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a class="" href="paintingalluser.php">Роспись</a>
+                    </li>
+                </ul>
+
+                <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
+                    <li class="inline-block mr1">
+                        <a href="christening.php">Крещение</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="wedding.php">Венчание</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="confession.php">Исповедь</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="eucharist.php">Причастие</a>
+                    </li>
+                    <li class="inline-block mr1">
+                        <a href="unction.php">Соборование</a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="social">
+                    <ul class="social-share">
+                        <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-vk"></i></a></li>
+                        <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+                        <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                    </ul>
+                </div>
+                <div class="container" style="margin-top:1%; margin-bottom:1%;">
+                    <div class="clearfix">
+                        <div class="md-col md-col-12 lg-col-12 p2">
+                        <h2>Публикация</h2>
+                        <?php
+                        $idupublic = $_SESSION['idupublic'];
+
+                        // Запрос для получения данных публикации
+                        $query = "
+                            SELECT 
+                                `upublic`.`id_upublic`, 
+                                `upublic`.`naim`, 
+                                `upublic`.`uptext`,
+                                `upublic`.`statusupublic`
+                            FROM `upublic`
+                            WHERE `upublic`.`statusupublic` = 'active' AND `upublic`.`id_upublic` = $idupublic
+                        ";
+
+                        $result = $mysqli->query($query);
+
+                        if ($result && $result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+
+                            // Вывод заголовка и текста публикации
+                            echo('
+                                <div class="col col-12">
+                                    <h1>' . htmlspecialchars($row['naim']) . '</h1>
+                                </div>
+                                <p>
+                                    ' . htmlspecialchars($row['uptext']) . '
+                                </p>
+                            ');
+
+                            // Запрос для получения фотографий, связанных с публикацией
+                            $photoQuery = "
+                                SELECT 
+                                    `uphoto`.`id_uphoto`, 
+                                    `uphoto`.`uphoto`
+                                FROM `uphoto` 
+                                WHERE `uphoto`.`id_upublic` = $idupublic
+                            ";
+
+                            $photoResult = $mysqli->query($photoQuery);
+
+                            // Отладочная информация
+                            if (!$photoResult) {
+                                echo "<p>Ошибка при выполнении запроса к таблице uphoto: " . $mysqli->error . "</p>";
+                            } elseif ($photoResult->num_rows === 0) {
+                                echo "<p>Нет фотографий для публикации №$idupublic.</p>";
+                            }
+
+                            // Собираем все фотографии публикации в массив
+                            $photos = [];
+                            if ($photoResult && $photoResult->num_rows > 0) {
+                                while ($photoRow = $photoResult->fetch_assoc()) {
+                                    if (!empty($photoRow['uphoto'])) {
+                                        $photos[] = [
+                                            'src' => 'data:image/jpeg;base64,' . base64_encode($photoRow['uphoto']),
+                                            'alt' => 'Фотография публикации'
+                                        ];
+                                    } else {
+                                        echo "<p>Фотография для публикации №$idupublic пуста или повреждена.</p>";
+                                    }
+                                }
+                            }
+
+                            // Если есть фотографии, выводим их в виде карусели
+                            if (!empty($photos)) {
+                                echo('
+                                    <div class="col col-12">
+                                        <amp-carousel width="400" height="300" layout="responsive" type="slides" controls loop autoplay delay="3000">
+                                            ' . implode('', array_map(function ($photo) {
+                                                return '<amp-img src="' . $photo['src'] . '" width="400" height="300" layout="responsive" alt="' . $photo['alt'] . '"></amp-img>';
+                                            }, $photos)) . '
+                                        </amp-carousel>
+                                    </div>
+                                ');
+                            } else {
+                                // Если фотографий нет, выводим заглушку
+                                echo('
+                                    <div class="col col-12">
+                                        <img src="img/no_img.jpeg" class="img-fluid" alt="Нет изображений">
+                                    </div>
+                                ');
+                            }
+                        } else {
+                            echo "Нет данных для отображения.";
+                        }
+                        ?>
+                        <button type="submit" class="btn btn-primary" OnClick='window.location.href="index.php"' style="margin-top:5%;">Вернуться на главную</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <?php
-include('template/footer2.php'); // Подключаем шаблон footer.php
+include('template/footer2.php');
 ?>

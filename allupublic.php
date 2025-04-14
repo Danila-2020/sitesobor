@@ -220,7 +220,7 @@ while($row = $result->fetch_array()){
         // Устанавливаем ID новости в сессию
         $_SESSION['idupublic'] = $_POST['idupublic'];
 
-        // Перенаправляем на страницу новости
+        // Перенаправляем на страницу публикации
         header('Location: upublic.php');
         exit();
     }
