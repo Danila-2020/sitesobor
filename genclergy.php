@@ -3,7 +3,7 @@
 
 session_start();
 
-include('template/head.php');
+include('template/scedulehead.php');//Обычная голова не работает, т.к. на ней есть своя структура.
 include('template/barber.php');
 require_once('bd.php');
 

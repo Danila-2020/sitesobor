@@ -2,7 +2,8 @@
 // Расписание богослужений(Все пользователи)
 
 require_once('bd.php');
-session_start();//Тут идёт session_start, он наверное не нужен
+ob_start();
+//session_start();//Тут идёт session_start, он наверное не нужен
 
 include('template/scedulehead.php');
 include('template/barber.php');
@@ -163,7 +164,8 @@ echo getStyles();
                         <?php
                         $img = base64_encode($row['imagescedule']);
                         ?>
-                        <p><amp-img src="data:image/jpeg; base64, <?=$img?>" height="2436" width="1125" layout="responsive" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="responsive" style="--loader-delay-offset: 1ms !important;"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 216.533%;"></i-amphtml-sizer></amp-img></p><!--<img decoding="async" src="/files/new/june2023/rast.png" class="i-amphtml-fill-content i-amphtml-replaced-content">-->
+                        <p><amp-img src="data:image/jpeg; base64, <?=$img?>" layout="responsive" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout img-fluid" i-amphtml-layout="responsive" style="--loader-delay-offset: 1ms !important;"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 216.533%;"></i-amphtml-sizer></amp-img></p><!--<img decoding="async" src="/files/new/june2023/rast.png" class="i-amphtml-fill-content i-amphtml-replaced-content">-->
+                        <!--<p><amp-img src="data:image/jpeg; base64, <?=$img?>" height="2436" width="1125" layout="responsive" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="responsive" style="--loader-delay-offset: 1ms !important;"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 216.533%;"></i-amphtml-sizer></amp-img></p>--><!--<img decoding="async" src="/files/new/june2023/rast.png" class="i-amphtml-fill-content i-amphtml-replaced-content">-->
                     </div>
                     <?php }?><!--Конец цикла-->
                     <?php }else{//Если активного расписания нет, показываем сообщение пользователю?>

@@ -4,6 +4,7 @@
 session_start();
 require_once('bd.php');
 include('template/head.php');
+include('template/barber.php');
 
 // Выводим стили
 echo getStyles();
@@ -15,12 +16,12 @@ if(isset($_POST['submit'])){
     }
     $_SESSION['idscedule'] = $id;
     $sid = $_SESSION['idscedule'];
-    var_dump($sid);
+    // var_dump($sid);
 };
 ?>
 <body>
     <div class="container">
-    <div class="row">
+    <div class="row" style="margin-bottom:2%;">
         <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-xl-4"></div>
         <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-xl-4">
             <?php

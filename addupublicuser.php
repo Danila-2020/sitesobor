@@ -1,8 +1,10 @@
 <?php
-/* Добавление мероприятий user*/
+//Добавление публикации (Пользователь User)
+
+ob_start();
 session_start();
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
@@ -14,7 +16,7 @@ if(empty($id)){
 }
 ?>
 <style>
-body{background-image:url('img/background4.jpg');};
+body{background-image:url('img/background3.jpg');};
 </style>
 <body>
     <script>
@@ -65,11 +67,21 @@ body{background-image:url('img/background4.jpg');};
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
     <li class="inline-block mr1">
+        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
+    </li>
+    <li class="inline-block mr1">
         <a href="note.php">Подать записку</a>
     </li>
     <li class="inline-block mr1">
-        <form action="exituser.php" method="post">
+        <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
+            <?php
+            if(isset($_POST['submit'])){
+                $_SESSION['id'] = "";
+                session_unset();
+                echo'<script>window.location.href="signin.php"</script>';
+            }
+            ?>
         </form>
     </li>
 </ul>
@@ -79,11 +91,8 @@ body{background-image:url('img/background4.jpg');};
         <a class="" href="addunewsuser.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="#">Мероприятие</a>
+        <a class="" href="addeventsuser.php">Мероприятие</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=5">Публикацию</a>
     </li>
@@ -91,13 +100,13 @@ body{background-image:url('img/background4.jpg');};
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="#">Новости</a><!--viewunewsgeneral.php-->
+        <a href="">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a><!--viewueventsgeneral.php-->
+        <a href="viewueventsuser.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
-        <a href="viewupublicuser.php">Публикации</a>
+        <a href="#">Публикации</a>
     </li>
 </ul>
 </div>
@@ -105,13 +114,11 @@ body{background-image:url('img/background4.jpg');};
         <div class="row" style="margin-bottom:5%;">
           <div class="col-sm-4"></div>
           <div class="col-sm-4">
-            <form action="submitaddeventsuser.php" method="post" class=""><!-- style="border:1px solid #000000; border-radius:15px;"
+            <form action="submitaddupublicuser.php" method="post" class=""><!-- style="border:1px solid #000000; border-radius:15px;"
                 Бордер обрамление наверное жопное, хотя незнаю-->
-            <h3>Добавление мероприятия</h3>
-            <input type="text" name="caption" placeholder="Введите название" class="form-control" required /><br>
-            <textarea rows="5" cols="1" name="description" placeholder="Введите описание" class="form-control"></textarea><br>
-            <label for="dateunews">Дата проведения</label>
-            <input type="date" name="datep" class="form-control"><br>
+            <h3>Добавление публикации</h3>
+            <input type="text" name="naim" placeholder="Введите название" class="form-control" required /><br>
+            <textarea rows="5" cols="1" name="uptext" placeholder="Введите описание" class="form-control"></textarea><br>
             <button type="submit" name="submit" class="btn btn-primary">Добавить</button>
             </form>
             <hr class="d-sm-none">
@@ -121,10 +128,17 @@ body{background-image:url('img/background4.jpg');};
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <!--Тут будут мероприятия-->
+        <!--Тут будут публикации-->
             </div>
         </div>
       </div>
+
+<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
+    <li class="inline-block mr1">
+        <a href="controluprofile.php">Управление</a>
+    </li>
+</ul>
+
 <hr>
 
 <?php

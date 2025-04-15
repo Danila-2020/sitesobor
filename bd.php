@@ -13,7 +13,7 @@ ob_start();
 // bd.php — файл для подключения к базе данных и инициализации сессии
 
 // 1. Стартуем сессию
-session_start();
+// session_start();
 
 // 2. Подключаемся к базе данных
 $mysqli = new mysqli("localhost","root","","sobor");

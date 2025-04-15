@@ -3,6 +3,7 @@
 
 session_start();
 include('template/sceduleuploaderhead.php');
+include('template/barber.php');
 require_once('bd.php');
 
 // Выводим стили
