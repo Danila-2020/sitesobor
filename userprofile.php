@@ -95,7 +95,7 @@ body{
         <a class="" href="addeventsuser.php">Мероприятие</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="#">Публикацию</a>
+        <a class="" href="addupublicuser.php">Публикацию</a>
     </li>
 </ul>
 
