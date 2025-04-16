@@ -2,7 +2,7 @@
 /* Добавление мероприятий admin*/
 session_start();
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');//Обычная голова не для админки
 include('template/barber.php');
 
 // Выводим стили
@@ -53,7 +53,7 @@ body{background-image:url('img/background3.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="adminprofile.php">Профиль</a>
     </li>
     <li class="inline-block mr1">
         <a href="adduser.php">Добавить пользователя</a>
@@ -64,36 +64,23 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
-    <li class="inline-block mr1">
+    <!-- <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
-    </li>
+    </li> -->
     <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-    <li class="inline-block mr1">
-        <form action="" method="post">
+        <form action="exitadmin.php" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-            <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
-            ?>
         </form>
     </li>
 </ul>
 
 <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
     <li class="inline-block mr1">
-        <a class="" href="addunewsgeneral.php">Новость</a>
+        <a class="" href="addunewsadmin.php">Новость</a>
     </li>
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=1">Мероприятие</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
         <a class="" href="/site/article?id=5">Публикацию</a>
     </li>
@@ -101,10 +88,10 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="viewunewsgeneral.php">Новости</a>
+        <a href="viewunewsadmin.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="viewueventsadmin.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
         <a href="#">Публикации</a>
@@ -136,11 +123,11 @@ body{background-image:url('img/background3.jpg');};
         </div>
       </div>
 
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
+<!-- <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
+    <!--<li class="inline-block mr1">
         <a href="controluprofile.php">Управление</a>
     </li>
-</ul>
+</ul> -->
 
 <hr>
 

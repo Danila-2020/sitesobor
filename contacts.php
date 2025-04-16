@@ -29,13 +29,13 @@ echo getStyles();
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="#">Расписание богослужений</a>
+        <a href="scedule.php">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        <a href="activity.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
@@ -50,26 +50,10 @@ echo getStyles();
         <a class="" href="clergy.php">Духовенство</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
+        <a class="" href="story.php">История</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'">
-    <p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=6">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=7">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=8">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=9">Социальная деятельность</a>
+        <a class="" href="paintingalluser.php">Роспись</a>
     </li>
 </ul>
 

@@ -4,6 +4,7 @@
 include('template/notehead.php');
 include('template/notestyle.php');
 include('template/noteheadend.php');
+include('template/barber.php');
 
 // Выводим стили
 echo getStyles();

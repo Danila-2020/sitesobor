@@ -4,7 +4,7 @@
 ob_start();
 session_start(); // Тут идёт session_start(), он наверное не нужен
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
@@ -29,7 +29,7 @@ echo getStyles();
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="adminprofile.php">Профиль</a>
     </li>
     <li class="inline-block mr1">
         <a href="adduser.php">Добавить пользователя</a>
@@ -41,21 +41,11 @@ echo getStyles();
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
         <a href="note.php">Подать записку</a>
     </li>
     <li class="inline-block mr1">
-        <form action="" method="post">
+        <form action="exitadmin.php" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-            <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
-            ?>
         </form>
     </li>
 </ul>
@@ -90,23 +80,6 @@ echo getStyles();
     </li>
 </ul>
 
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
-        <a href="/site/article?id=10">Крещение</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=11">Венчание</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=12">Исповедь</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=13">Причастие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=184">Соборование</a>
-    </li>
-</ul>
 <hr>
 </div>
 <div class="container" style="background-image: url('img/background2.jpg');">

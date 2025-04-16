@@ -3,7 +3,7 @@
 
 ob_start();
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили

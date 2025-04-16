@@ -104,9 +104,10 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a class="" href="addpainting.php">Сведения о Росписи</a>
     </li>
-    <li class="inline-block mr1">
+    <!-- Данный раздел временно отключен. -->
+    <!-- <li class="inline-block mr1">
         <a class="" href="addpoemsgen.php">Новый стих</a>
-    </li>
+    </li> -->
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
@@ -123,7 +124,7 @@ body{background-image:url('img/background3.jpg');};
         <a href="viewactivitygen.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
-        <a href="gallery.php">Фотогалерея</a>
+        <a href="gallerygen.php">Фотогалерея</a>
     </li>
 </ul>
 

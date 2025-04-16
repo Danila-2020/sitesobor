@@ -6,7 +6,7 @@ ob_start(); // Начинаем буферизацию вывода
 session_start(); // Запускаем сессию
 
 require_once('bd.php');
-include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
@@ -96,7 +96,7 @@ $result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unew
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
     </li>
     <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
+        <a href="activity.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
@@ -115,22 +115,6 @@ $result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unew
     </li>
     <li class="inline-block mr1">
         <a class="" href="#">Роспись</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'">
-<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
-    <li class="inline-block mr1">
-        <a href="#">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Социальная деятельность</a>
     </li>
 </ul>
 
