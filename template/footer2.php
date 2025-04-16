@@ -45,13 +45,13 @@
         <a href="contacts.php">Контакты</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Новости собора</a>
+        <a href="allunews.php">Новости собора</a>
     </li>
     <li class="inline-block mr1">
         <a href="#" target="_blank">Новости епархии</a>
     </li>
     <li class="inline-block mr1">
-        <a href="http://www.patriarchia.ru/db/news/" target="_blank">Общецерковные новости</a>
+        <a href="https://www.patriarchia.ru/news" target="_blank">Общецерковные новости</a>
     </li>
     <li class="inline-block mr1">
         <button type="submit" class="btn btn-primary" OnClick='location.href="signin.php"'>Вход</button>

@@ -27,7 +27,7 @@ $offset = ($page_no-1) * $total_records_per_page;
 $previous_page = $page_no - 1;
 $next_page = $page_no + 1;
 $adjacents = "2";
-$result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM unews");
+$result_count = mysqli_query($mysqli,"SELECT COUNT(*) as total_records FROM events");
 	//$total_records = mysqli_fetch_array($result_count);
     $total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
@@ -156,35 +156,34 @@ body{background-image:url('img/background3.jpg');};
     </div>
     
     <div class="container" style="margin-top:30px">
-    <h1>Все новости</h1>
+    <h1>Все мероприятия</h1>
     <table class="table table-striped">
 			<tr style="font-weight:bold; font-style:itallic;">
 			<td>ID</td>
             <td>Название</td>
-            <td>Описание</td>
             <td>Текст</td>
+            <td>Дата проведения</td>
             <td>Статус</td>
-            <td>Дата</td>
             <td>Разместил</td>
             <td>Действие</td>
 			  </tr>
 <?php 
 
-$result = $mysqli->query("SELECT `unews`.`id_unews`, `unews`.`utitle`,`unews`.`udescription`,`unews`.`textunews`,`unews`.`statusunews`,`unews`.`dateunews`,`uprofile`.`ulastname`,`uprofile`.`ufirstname` 
-FROM `unews` 
-INNER JOIN `uprofile` ON `unews`.`id_uprofile` = `uprofile`.`id_uprofile`
-WHERE 1=1
+$result = $mysqli->query("SELECT `events`.`id_events`, `events`.`caption`, `events`.`description`, `events`.`datep`, `events`.`statusevents`, `uprofile`.`ulastname`, `uprofile`.`ufirstname` 
+        FROM `events` 
+        INNER JOIN `uprofile` ON `events`.`id_uprofile` = `uprofile`.`id_uprofile` 
+        WHERE 1=1 
+        ORDER BY `events`.`id_events` ASC
 LIMIT $offset, $total_records_per_page");
 
 while($row = $result->fetch_array()){			
-    if($row['statusunews'] == "active"){
+    if($row['statusevents'] == "active"){
     echo('<tr>
-    <td>'.$row['id_unews'].'</td>
-    <td>'.$row['utitle'].'</td>
-    <td>'.$row['udescription'].'</td>
-    <td>'.$row['textunews'].'</td>
-    <td>'.$row['statusunews'].'</td>
-    <td>'.$row['dateunews'].'</td>
+    <td>'.$row['id_events'].'</td>
+    <td>'.$row['caption'].'</td>
+    <td>'.$row['description'].'</td>
+    <td>'.$row['datep'].'</td>
+    <td>'.$row['statusevents'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
     <form method="POST" action="#">
@@ -198,7 +197,7 @@ while($row = $result->fetch_array()){
     </td>
     </tr>');
     };
-    if($row['statusunews'] == "deleted"){
+    if($row['statusevents'] == "deleted"){
         echo('<tr>
         <td>'.$row['id_unews'].'</td>
         <td>'.$row['utitle'].'</td>
