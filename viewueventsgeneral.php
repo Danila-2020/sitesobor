@@ -96,13 +96,6 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <form action="exitgen.php" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-            <?php
-            // if(isset($_POST['submit'])){
-            //     $_SESSION['id'] = "";
-            //     session_unset();
-            //     echo'<script>window.location.href="signin.php"</script>';
-            // }
-            ?>
         </form>
     </li>
 </ul>
