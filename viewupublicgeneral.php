@@ -73,22 +73,28 @@ body{background-image:url('img/background3.jpg');};
             <!--<h1 class="hide h2 center">Спасский Кафедральный собор Пятигорска</h1>-->
 
             
-<ul class="center h2 list-reset mt0 head-menu">
+            <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="generalprofile.php">Профиль</a>
     </li>
     <li class="inline-block mr1">
-        <a href="adduser.php">Добавить пользователя</a>
+        <a href="genclergy.php">Духовенство</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="addusergen.php">Добавить пользователя</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
     </li>
     <li class="inline-block mr1">
+        <a href="adduphotogen.php">Добавить фото</a>
+    </li>
+    <li class="inline-block mr1">
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
     </li>
-    <!-- <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li> -->
+    <li class="inline-block mr1">
+        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
+    </li>
     <li class="inline-block mr1">
         <form action="" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
@@ -110,43 +116,44 @@ body{background-image:url('img/background3.jpg');};
     <li class="inline-block mr1">
         <a class="" href="addeventsgen.php">Мероприятие</a>
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
         <a class="" href="addupublicgen.php">Публикацию</a>
     </li>
+    <li class="inline-block mr1">
+        <a class="" href="addactivity.php">Деятельность</a>
+    </li>
+    <li class="inline-block mr1">
+        <a class="" href="addpainting.php">Сведения о Росписи</a>
+    </li>
+    <!-- Данный раздел временно отключен. -->
+    <!-- <li class="inline-block mr1">
+        <a class="" href="addpoemsgen.php">Новый стих</a>
+    </li> -->
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="#">Новости</a>
+        <a href="viewunewsgeneral.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="viewueventsgeneral.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Публикации</a>
+        <a href="viewupublicgeneral.php">Публикации</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="viewactivitygen.php">Деятельность</a>
+    </li>
+    <li class="inline-block mr1">
+        <a href="gallerygen.php">Фотогалерея</a>
     </li>
 </ul>
 
-<!-- <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-<!--    <li class="inline-block mr1">
-        <a href="/site/article?id=10">Крещение</a>
-    </li>
+<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
     <li class="inline-block mr1">
-        <a href="/site/article?id=11">Венчание</a>
+        <a href="controluprofile.php">Управление</a>
     </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=12">Исповедь</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=13">Причастие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=184">Соборование</a>
-    </li>
-</ul> -->
+</ul>
 
 <hr>
 
