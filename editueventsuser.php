@@ -5,50 +5,127 @@ session_start();
 ob_start();
 require_once('bd.php');
 
-// if(isset($_POST['submit'])){
-    
-// }
+include('template/scedulehead.php');
+include('template/barber.php');
+// Выводим стили
+echo getStyles();
+
+$idevents = $_SESSION['idevents'];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_events = $_POST['id_events'];
-    $caption = $_POST['caption'];
-    $description = $_POST['description'];
-    $datep = $_POST['datep'];
-    $statusevents = $_POST['statusevents'];
+// Подключение к базе данных
+require_once('bd.php');
 
-    // Подключение к базе данных
-    $conn = new mysqli('localhost', 'username', 'password', 'database');
+// Проверяем, передан ли ID мероприятия через GET или POST
+if (!empty($_SESSION['idevents'])) { //$_POST['idevents']
+    // $id_events = intval($_POST['idevents']); // Преобразуем ID в число для безопасности
 
-    // Проверка соединения
-    if ($conn->connect_error) {
-        die("Ошибка соединения: " . $conn->connect_error);
-    }
+    // Запрос для получения данных мероприятия
+    $query = "SELECT `caption`, `description`, `datep` 
+              FROM `events` 
+              WHERE `id_events` = $idevents";
 
-    // Экранирование данных для предотвращения SQL-инъекций
-    $caption = $conn->real_escape_string($caption);
-    $description = $conn->real_escape_string($description);
-    $datep = $conn->real_escape_string($datep);
-    $statusevents = $conn->real_escape_string($statusevents);
+    $result = $mysqli->query($query);
 
-    // Формирование и выполнение SQL-запроса
-    $sql = "UPDATE events SET caption='" . $caption . "', description='" . $description . "', datep='" . $datep . "', statusevents='" . $statusevents . "' WHERE id_events=" . $id_events;
-    if ($conn->query($sql) === TRUE) {
-        echo "Запись успешно обновлена.";
+    if ($result && $result->num_rows > 0) {
+        $event = $result->fetch_assoc(); // Получаем данные мероприятия
     } else {
-        echo "Ошибка: " . $conn->error;
+        die("Мероприятие не найдено.");
     }
-
-    $conn->close();
+} else {
+    die("ID мероприятия не передан.");
 }
 ?>
-</body>
-</html>
+    <div class="relative page-wrap">
+    <div class="content-wrap relative"><!-- content-wrap -->
+        <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
+        <div class="land-see-hero-main mx-auto"></div>
+        </section>
+    <div class="max-width-4 mx-auto p2">
+        
+    <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
+        <div class="clearfix p1">
+            <div class="desk-logo-wrap mx-auto block">
+                <amp-img class="" src="/files/logo-color.png" width="1024" height="540" layout="responsive">
+                <h1 style="font-family: Calibri; font-weight: bold; text-align: center; margin-bottom: 25%; margin-top:0;">Логотип</h1>
+            </div>
+        </div>
+        <div class="clearfix">
+                <!--Тут заголовок-->
+
+    <ul class="center h2 list-reset mt0 head-menu">
+        <li class="inline-block mr1">
+            <a href="userprofile.php">Профиль</a>
+        </li>
+        <li class="inline-block mr1">
+            <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
+        </li>
+        <li class="inline-block mr1">
+            <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
+        </li>
+        <li class="inline-block mr1">
+            <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})" href="adduphoto.php">Добавить фото</a>
+        </li>
+        <li class="inline-block mr1">
+            <form action="exituser.php" method="post">
+                <button type="submit" name="submit" class="btn btn-danger">Выход</button>
+            </form>
+        </li>
+    </ul>
+
+    <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
+        <li class="inline-block mr1">
+            <a class="" href="addunewsuser.php">Новость</a>
+        </li>
+        <li class="inline-block mr1">
+            <a class="" href="addeventsuser.php">Мероприятие</a>
+        </li>
+        <li class="inline-block mr1">
+            <a class="" href="addupublicuser.php">Публикацию</a>
+        </li>
+    </ul>
+
+    <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
+        <li class="inline-block mr1">    
+        <a class="viewunewsuser.php" href="#">Новости</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="viewueventsuser.php">Мероприятия</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="viewupublicuser.php">Публикации</a>
+        </li>
+    </ul>
+
+    <hr>
+        </div>
+    <div class="container" style="margin-bottom:5%;">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <form action="updateevents.php" method="post" class="">
+            <h3>Редактирование мероприятия</h3>
+
+            <!-- Поле для названия -->
+            <input type="text" name="caption" value="<?php echo htmlspecialchars($event['caption']); ?>" placeholder="Введите название" class="form-control" required /><br>
+
+            <!-- Поле для описания -->
+            <textarea rows="5" cols="1" name="description" placeholder="Введите описание" class="form-control"><?php echo htmlspecialchars($event['description']); ?></textarea><br>
+
+            <!-- Поле для даты проведения -->
+            <label for="datep">Дата проведения</label>
+            <input type="date" name="datep" value="<?php echo htmlspecialchars($event['datep']); ?>" class="form-control"><br>
+
+            <!-- Скрытое поле для ID мероприятия -->
+            <input type="hidden" name="idevents" value="<?php echo $id_events; ?>">
+
+            <!-- Кнопка отправки формы -->
+            <button type="submit" name="submit" class="btn btn-primary">Сохранить изменения</button>
+        </form>
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+        </div>
+    </div>
+<?php
+include('template/footer.php');
+?>

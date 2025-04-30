@@ -111,7 +111,7 @@ body{background-image:url('img/background3.jpg');};
         <a class="" href="addunewsadmin.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">Мероприятие</a>
+        <a class="" href="addeventsadmin.php">Мероприятие</a>
     </li>
     <!--<li class="inline-block mr1">
         <a class="" href="/site/article?id=2">Святыни</a>
@@ -123,13 +123,13 @@ body{background-image:url('img/background3.jpg');};
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="#">Новости</a>
+        <a href="viewunewsadmin.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a>
+        <a href="viewueventsadmin.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Публикации</a>
+        <a href="viewupublicadmin.php">Публикации</a>
     </li>
 </ul>
 

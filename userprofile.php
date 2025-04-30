@@ -101,7 +101,7 @@ body{
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">    
-    <a class="" href="#">Новости</a>
+    <a class="" href="viewunewsuser.php">Новости</a>
     </li>
     <li class="inline-block mr1">
         <a href="viewueventsuser.php">Мероприятия</a>

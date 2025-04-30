@@ -55,10 +55,10 @@ body{background-image:url('img/background3.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="sceduleuploader.php">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
-        <a href="adduser.php">Добавить пользователя</a>
+        <a href="userprofile.php">Профиль</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
@@ -70,18 +70,8 @@ body{background-image:url('img/background3.jpg');};
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
     </li>
     <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-    <li class="inline-block mr1">
-        <form action="" method="post">
+        <form action="exituser.php" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-            <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
-            ?>
         </form>
     </li>
 </ul>
@@ -94,19 +84,19 @@ body{background-image:url('img/background3.jpg');};
         <a class="" href="addeventsuser.php">Мероприятие</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Публикацию</a>
+        <a class="" href="#">Публикацию</a><!--Текущая страница-->
     </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="">Новости</a>
+        <a href="viewunewsuser.php">Новости</a>
     </li>
     <li class="inline-block mr1">
         <a href="viewueventsuser.php">Мероприятия</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Публикации</a>
+        <a href="viewupublicuser.php">Публикации</a>
     </li>
 </ul>
 </div>
@@ -132,12 +122,6 @@ body{background-image:url('img/background3.jpg');};
             </div>
         </div>
       </div>
-
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
-        <a href="controluprofile.php">Управление</a>
-    </li>
-</ul>
 
 <hr>
 

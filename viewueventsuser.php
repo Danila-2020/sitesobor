@@ -152,8 +152,8 @@ while($row = $result->fetch_array()){
     <td>'.$row['statusevents'].'</td>
     <td>'.$row['ulastname'].' '.$row['ufirstname'].'</td>
     <td>
-    <form method="POST" action="editueventsuser.php" style="margin-bottom:10%;"><!--Ссылка на редактирование мероприятия-->
-    <input type="hidden" name="id" value="'.$row['id_events'].'">
+    <form method="POST" action="set_ideventsuser.php" style="margin-bottom:10%;"><!--Ссылка на редактирование мероприятия-->
+    <input type="hidden" name="idevents" value="'.$row['id_events'].'">
     <button type="submit" name="submit" class="btn btn-primary">Изменить</button>
     </form>
     <form method="POST" action="deleteueventsuser.php" style="margin-bottom:10%;">

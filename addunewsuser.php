@@ -66,15 +66,8 @@ body{background-image:url('img/background4.jpg');};
         <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})" href="adduphoto.php">Добавить фото</a>
     </li>
     <li class="inline-block mr1">
-        <form action="" method="post">
+        <form action="exituser.php" method="post">
             <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-            <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
-            ?>
         </form>
     </li>
 </ul>

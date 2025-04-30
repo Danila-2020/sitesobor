@@ -53,19 +53,16 @@ body{background-image:url('img/background4.jpg');};
             
 <ul class="center h2 list-reset mt0 head-menu">
     <li class="inline-block mr1">
-        <a href="adminprofile.php">Расписание богослужений</a>
+        <a href="sceduleuploader.php">Расписание богослужений</a>
     </li>
     <li class="inline-block mr1">
-        <a href="adduser.php">Добавить пользователя</a>
+        <a href="userprofile.php">Профиль</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
     </li>
     <li class="inline-block mr1">
         <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
     </li>
     <li class="inline-block mr1">
         <form action="exituser.php" method="post">
@@ -79,22 +76,19 @@ body{background-image:url('img/background4.jpg');};
         <a class="" href="addunewsuser.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="#">Мероприятие</a>
+        <a class="" href="#">Мероприятие</a><!--Текущая страница-->
     </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
     <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Публикацию</a>
+        <a class="" href="addupublicuser.php">Публикацию</a>
     </li>
 </ul>
 
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
-        <a href="#">Новости</a><!--viewunewsgeneral.php-->
+        <a href="viewunewsuser.php">Новости</a>
     </li>
     <li class="inline-block mr1">
-        <a href="#">Мероприятия</a><!--viewueventsgeneral.php-->
+        <a href="viewueventsuser.php">Мероприятия</a><!--viewueventsgeneral.php-->
     </li>
     <li class="inline-block mr1">
         <a href="viewupublicuser.php">Публикации</a>
