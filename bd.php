@@ -1,7 +1,7 @@
 <?php
 // Модуль подключения к базе данных
 
-// $mysqli = new mysqli("localhost","root","jH75DLsvi6Mm","ddrobi4v_example");
+// $mysqli = new mysqli("localhost","root","zbnyfElB%I2a","ddrobi3v_sobor");
 // $mysqli->set_charset("utf8");
 
 // $mysqli = new mysqli("localhost","root","","sobor");
