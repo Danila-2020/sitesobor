@@ -48,7 +48,6 @@ if(isset($_POST['submit'])){
                 <?php
             }
             ?>
-            
             <br>
            <button type="submit" name="back" OnClick='location.href="sceduleuploader.php"' class="btn btn-danger">Вернуться назад</button>
         </div>
