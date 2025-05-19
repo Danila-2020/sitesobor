@@ -77,6 +77,9 @@ echo getStyles();
     <li class="inline-block mr1">
         <a class="" href="paintingalluser.php">Роспись</a><!--Тут отображаем, но не загружаем😀-->
     </li>
+    <li class="inline-block mr1">
+        <a class="" href="uotdel.php">Отделы</a>
+    </li>
 </ul>
 
 <!-- <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->

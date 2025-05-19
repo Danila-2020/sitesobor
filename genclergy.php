@@ -32,85 +32,9 @@ if (!$result) {
         /* white-space: nowrap; Запрещаем перенос строк */
     }
     </style>
-<ul class="center h2 list-reset mt0 head-menu">
-    <li class="inline-block mr1">
-        <a href="generalprofile.php">Профиль</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="genclergy.php">Духовенство</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="addusergen.php">Добавить пользователя</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="adduphotogen.php">Добавить фото</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
-    </li>
-    <li class="inline-block mr1">
-        <form action="" method="post">
-            <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-            <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
-            ?>
-        </form>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
-    <li class="inline-block mr1">
-        <a class="" href="addunewsgeneral.php">Новость</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="addeventsgen.php">Мероприятие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="addupublicgen.php">Публикацию</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="addactivity.php">Деятельность</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="addpainting.php">Сведения о Росписи</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
-    <li class="inline-block mr1">
-        <a href="viewunewsgeneral.php">Новости</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="viewueventsgeneral.php">Мероприятия</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="viewupublicgeneral.php">Публикации</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="viewactivitygen.php">Деятельность</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="gallery.php">Фотогалерея</a>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
-        <a href="controluprofile.php">Управление</a>
-    </li>
-</ul>
-
-<hr>
+<?php
+    include('template/generalheader.php');
+?>
 
           <div class="social">
             <ul class="social-share">
