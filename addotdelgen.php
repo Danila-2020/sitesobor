@@ -1,13 +1,26 @@
 <?php
-//Добавление отдела (Пользователь General)
+// Добавление отдела (Пользователь General)
 
 session_start();
-require_once('bd.php');
-include('template/scedulehead.php');//Обычная бошка не подходит, надо будет переписать в нормальную.
+require_once('bd.php'); // Убедитесь, что путь к файлу правильный
+include('template/scedulehead.php'); // Проверьте название файла - возможно опечатка в "scedulehead" (должно быть schedulehead)
 include('template/barber.php');
+
+if (isset($_GET['success'])): ?>
+    <div class="alert alert-success">
+        Отдел успешно добавлен!
+    </div>
+<?php endif; 
+
+// Проверка авторизации пользователя (добавлено для безопасности)
+if (!isset($_SESSION['id'])) {
+    header('Location: signin.php');
+    exit();
+}
+
 // Выводим стили
-echo getStyles();
-include('template/generalheader.php')
+echo getStyles(); // Убедитесь, что эта функция определена в одном из подключаемых файлов
+include('template/generalheader.php');
 ?>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -17,7 +30,7 @@ include('template/generalheader.php')
                     <h4 class="mb-0">Добавление нового отдела</h4>
                 </div>
                 <div class="card-body">
-                    <form id="addDepartmentForm" action="submitaddotdelgen.php" method="POST" enctype="multipart/form-data">
+                    <form id="addDepartmentForm" action="submitaddotdelgen.php" method="POST">
                         <!-- Название отдела -->
                         <div class="form-group">
                             <label for="departmentName">Название отдела *</label>
@@ -41,62 +54,6 @@ include('template/generalheader.php')
         </div>
     </div>
 </div>
-
-<script>
-// Скрипт для отображения названий выбранных файлов
-document.querySelector('.custom-file-input').addEventListener('change', function(e) {
-    var files = e.target.files;
-    var label = this.nextElementSibling;
-    var previewArea = document.getElementById('previewArea');
-    
-    if (files.length > 0) {
-        if (files.length === 1) {
-            label.textContent = files[0].name;
-        } else {
-            label.textContent = files.length + ' файлов выбрано';
-        }
-        
-        // Очищаем превью
-        previewArea.innerHTML = '';
-        
-        // Ограничиваем количество превью до 5
-        let maxFiles = Math.min(files.length, 5);
-        
-        // Создаем превью для каждого изображения
-        for (let i = 0; i < maxFiles; i++) {
-            if (files[i].type.match('image.*')) {
-                let reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    let img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'img-thumbnail mr-2 mb-2';
-                    img.style.maxHeight = '100px';
-                    previewArea.appendChild(img);
-                }
-                
-                reader.readAsDataURL(files[i]);
-            }
-        }
-    } else {
-        label.textContent = 'Выберите файлы';
-        previewArea.innerHTML = '';
-    }
-});
-
-// Валидация формы перед отправкой
-document.getElementById('addDepartmentForm').addEventListener('submit', function(e) {
-    let files = document.getElementById('departmentPhotos').files;
-    
-    if (files.length > 5) {
-        alert('Можно загрузить не более 5 фотографий');
-        e.preventDefault();
-        return false;
-    }
-    
-    return true;
-});
-</script>
 
 <?php
 include('template/footer.php');

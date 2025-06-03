@@ -10,115 +10,128 @@ include('template/barber.php');
 echo getStyles();
 ?>
    <body>
-   <ul class="center h2 list-reset mt0 head-menu">
-    <li class="inline-block mr1">
-        <a href="generalprofile.php">Профиль</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="adduser.php">Добавить пользователя</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">Добавить</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="adduphotogen.php">Добавить фото</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Просмотреть</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Профили</a>
-    </li>
-    <li class="inline-block mr1">
-        <form action="" method="post">
-            <button type="submit" name="submit" class="btn btn-danger">Выход</button>
-            <?php
-            if(isset($_POST['submit'])){
-                $_SESSION['id'] = "";
-                session_unset();
-                echo'<script>window.location.href="signin.php"</script>';
-            }
-            ?>
-        </form>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
-    <li class="inline-block mr1">
-        <a class="" href="addunewsgeneral.php">Новость</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="addeventsgen.php">Мероприятие</a>
-    </li>
-    <!--<li class="inline-block mr1">
-        <a class="" href="/site/article?id=2">Святыни</a>
-    </li>-->
-    <li class="inline-block mr1">
-        <a class="" href="addupublicgen.php">Публикацию</a>
-    </li>
-</ul>
-
-<ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
-    <li class="inline-block mr1">
-        <a href="viewunewsgeneral.php">Новости</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="viewueventsgeneral.php">Мероприятия</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="viewupublicgeneral.php">Публикации</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Фотогалерея</a>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'"> <!--Выпадающее меню 3-->
-    <li class="inline-block mr1">
-        <a href="controluprofile.php">Управление</a>
-    </li>
-</ul>
-        <div class="social">
-            <ul class="social-share">
-              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
-              <li><a href="#"><i class="fa fa-vk"></i></a></li>
-              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a href="#"><i class="fa fa-skype"></i></a></li>
-            </ul>
-        </div>
+   <?php
+    include('template/generalheader.php');
+    ?>
        <div class="container mt-5">
            <h1 class="text-center">Фотогалерея</h1>
            <div class="row">
-               <?php
-               $sql = "SELECT `uphoto`.`id_uphoto`, `uphoto`.`uphoto`, `uphoto`.`id_upublic`, `upublic`.`naim` FROM `uphoto` 
-                    INNER JOIN `upublic` ON `upublic`.`id_upublic` = `uphoto`.`id_upublic`
-                    WHERE 1=1";
-               //SELECT image FROM images
-               $result = $mysqli->query($sql);
+           <div class="row" id="gallery">
+        <?php
+        require_once('bd.php');
+        $query = ("SELECT * FROM uphotogallery WHERE id_ugallery = 1 ORDER BY id_uphotogallery ASC");
+        $result = $mysqli->query($query);
+        while($row = $result->fetch_assoc()): ?>
+            <?php
+                $show_img = base64_encode($row['uphotogal']);
+                $desc = htmlspecialchars($row['udescphoto']);
+            ?>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <img src="data:image/jpeg;base64,<?=$show_img?>"
+                         class="card-img-top gallery-img"
+                         alt="<?=$desc?>"
+                         data-toggle="modal"
+                         data-target="#imageModal"
+                         data-img="data:image/jpeg;base64,<?=$show_img?>"
+                         data-desc="<?=$desc?>">
+                    <div class="card-body">
+                        <p class="card-text"><?=$desc?></p>
+                    </div>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    </div>
+    <!-- Пагинация -->
+    <?php if (isset($total_pages) && $total_pages > 1): ?>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <?php if (isset($current_page) && $current_page > 1): ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<?=($current_page - 1)?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+            
+            <?php 
+            if (isset($current_page) && isset($total_pages)) {
+                // Показываем ограниченное количество страниц вокруг текущей
+                $start_page = max(1, $current_page - 2);
+                $end_page = min($total_pages, $current_page + 2);
+                
+                if ($start_page > 1) {
+                    echo '<li class="page-item"><a class="page-link" href="?page=1">1</a></li>';
+                    if ($start_page > 2) {
+                        echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                    }
+                }
+                
+                for ($i = $start_page; $i <= $end_page; $i++): ?>
+                    <li class="page-item <?=($i == $current_page) ? 'active' : ''?>">
+                        <a class="page-link" href="?page=<?=$i?>"><?=$i?></a>
+                    </li>
+                <?php endfor; 
+                
+                if ($end_page < $total_pages) {
+                    if ($end_page < $total_pages - 1) {
+                        echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                    }
+                    echo '<li class="page-item"><a class="page-link" href="?page='.$total_pages.'">'.$total_pages.'</a></li>';
+                }
+            }
+            ?>
+            
+            <?php if (isset($current_page) && isset($total_pages) && $current_page < $total_pages): ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<?=($current_page + 1)?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+    <?php endif; ?>
+    <!-- Модальное окно для просмотра изображений -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Просмотр изображения</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" class="img-fluid">
+                <p id="modalDesc" class="mt-3"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-               // Проверяем, есть ли результаты
-               if ($result->num_rows > 0) {
-                   while($row = $result->fetch_assoc()) {
-                        $img = base64_encode($row['uphoto']);
-                       // Выводим каждое изображение
-                       echo '<div class="col-md-4 mb-4">';
-                       echo '<div class="card">';
-                       echo '<form action="" method="post" enctype="multipart/form-data">';
-                       echo '<img src="data:image/jpeg;base64,'.$img.'" class="card-img-top" alt="Изображение">';
-                    //    echo '<div class="card-body">Content
-                    //    <button type="submit" class="btn btn-primary" style="float: right;">Подробнее</button></div>';
-                       echo '</form>';
-                       echo '</div>';
-                       echo '</div>';
-                   }
-               } else {
-                   echo "Нет изображений";
-               }
+<!-- Подключаем только одну версию jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-               // Закрываем соединение
-               $mysqli->close();
-               ?>
+<script>
+$(document).ready(function() {
+    // Обработчик для модального окна
+    $('#imageModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var imgSrc = button.data('img');
+        var imgDesc = button.data('desc');
+        
+        var modal = $(this);
+        modal.find('#modalImage').attr('src', imgSrc);
+        modal.find('#modalDesc').text(imgDesc);
+    });
+});
+</script>
            </div>
        </div>
 
@@ -132,18 +145,13 @@ echo getStyles();
             </ul>
         </div>
 
-
         <div class="jumbotron text-center">
             <b><i>&copy; Колодочкин Алексей<br>
             Дробилко Данила</i></b>
         </div>
         <div class="relative">
-            <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img><!--/files/mountains-no-sky-sharpened.png-->
+            <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img>
         </div>
 </div>
-
-       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    </body>
    </html>

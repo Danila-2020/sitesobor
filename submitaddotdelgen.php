@@ -4,47 +4,39 @@ ob_start();
 session_start();
 require_once('bd.php');
 
-// Проверяем, была ли отправлена форма
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: addotdelgen.php');
+// Проверка авторизации
+if (!isset($_SESSION['id'])) {
+    header('Location: login.php');
     exit();
 }
 
-// Получаем данные из формы
-$departmentName = trim($_POST['departmentName'] ?? '');
-$departmentDescription = trim($_POST['departmentDescription'] ?? '');
+// Проверяем, что форма отправлена
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $iduprofile = $_SESSION['id'];
+    $departmentName = $mysqli->real_escape_string(trim($_POST['departmentName']));
+    $departmentDescription = $mysqli->real_escape_string(trim($_POST['departmentDescription']));
 
-// Проверяем обязательные поля
-if (empty($departmentName) || empty($departmentDescription)) {
-    $_SESSION['error'] = 'Название и описание отдела обязательны для заполнения';
-    header('Location: addotdelgen.php');
-    exit();
-}
-
-// Добавляем отдел в базу данных
-try {
-    // Экранируем специальные символы
-    $name = $mysqli->real_escape_string($departmentName);
-    $description = $mysqli->real_escape_string($departmentDescription);
-    
-    // Вставляем данные отдела
-    $query = "INSERT INTO otdel (naim_otdel, desc_otdel) 
-              VALUES ('$name', '$description')";
-    
-    if (!$mysqli->query($query)) {
-        throw new Exception('Ошибка при добавлении отдела: ' . $mysqli->error);
+    // Валидация данных
+    if (empty($departmentName) || empty($departmentDescription)) {
+        die("Все поля обязательны для заполнения");
     }
-    
-    $_SESSION['success'] = 'Отдел успешно добавлен!';
-    header('Location: uotdel.php');
-    exit();
 
-} catch (Exception $e) {
-    $_SESSION['error'] = 'Ошибка: ' . $e->getMessage();
-    $_SESSION['form_data'] = [
-        'departmentName' => $departmentName,
-        'departmentDescription' => $departmentDescription
-    ];
+    // Простой INSERT (небезопасно без экранирования!)
+    $query = "INSERT INTO `otdel` (`naim_otdel`, `desc_otdel`, `id_uprofile`) 
+              VALUES ('$departmentName', '$departmentDescription', '$iduprofile')";
+
+    $result = $mysqli->query($query);
+
+    if ($result) {
+        // Успешное добавление
+        header('Location: addotdelgen.php?success=1');
+        exit();
+    } else {
+        // Ошибка при выполнении запроса
+        die("Ошибка при добавлении отдела: " . $mysqli->error);
+    }
+} else {
+    // Если форма не отправлена, перенаправляем
     header('Location: addotdelgen.php');
     exit();
 }

@@ -68,7 +68,7 @@ echo getStyles();
                         <a class="" href="paintingalluser.php">Роспись</a>
                     </li>
                     <li class="inline-block mr1">
-                        <a class="" href="uotdel.php">Отделы</a>
+                        <a class="" href="alluotdel.php">Отделы</a>
                     </li>
                 </ul>
 
@@ -104,7 +104,7 @@ echo getStyles();
                         <div class="md-col md-col-12 lg-col-12 p2">
                         <h2>Отделы</h2>
                         <?php
-                        // $id_otdel = $_SESSION['id_otdel'];
+                        $idotdel = $_SESSION['id_otdel'];
 
                         // Запрос для получения данных отдела
                         $query = "
@@ -118,6 +118,7 @@ echo getStyles();
                             FROM `otdel` 
                             LEFT JOIN `uphotootdel` ON `otdel`.`id_otdel` = `uphotootdel`.`id_otdel`
                             WHERE 1=1
+                            AND `otdel`.`id_otdel` = '$idotdel'
                         ";
 
                         $result = $mysqli->query($query);

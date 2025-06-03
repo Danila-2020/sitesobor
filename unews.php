@@ -5,7 +5,7 @@ ob_start();
 session_start();
 require_once('bd.php');
 
-include('template/head.php');
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
@@ -35,58 +35,9 @@ echo getStyles();
                     <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"></amp-img>
                 </div>
             </div>
-            <div class="clearfix">
-                <ul class="center h2 list-reset mt0 head-menu">
-                    <li class="inline-block mr1">
-                        <a href="scedule.php">Расписание богослужений</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a href="activity.php">Деятельность</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a href="note.php">Подать записку</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <button type="submit" class="btn btn-primary" OnClick='window.location.href="signin.php"'>Вход</button>
-                    </li>
-                </ul>
-
-                <ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
-                    <li class="inline-block mr1">
-                        <a class="" href="clergy.php">Духовенство</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a class="" href="story.php">История</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a class="" href="paintingalluser.php">Роспись</a>
-                    </li>
-                </ul>
-
-                <ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
-                    <li class="inline-block mr1">
-                        <a href="christening.php">Крещение</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a href="wedding.php">Венчание</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a href="confession.php">Исповедь</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a href="eucharist.php">Причастие</a>
-                    </li>
-                    <li class="inline-block mr1">
-                        <a href="unction.php">Соборование</a>
-                    </li>
-                </ul>
-                <hr>
+            <?php
+            include('template/allnavbar.php');
+            ?>
                 <div class="social">
                     <ul class="social-share">
                         <li><a href="#"><i class="fa fa-telegram"></i></a></li>

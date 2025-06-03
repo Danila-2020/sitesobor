@@ -74,7 +74,7 @@
        <div class="relative">
             <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img><!--/files/mountains-no-sky-sharpened.png-->
         </div>
-        <div class="jumbotron text-center">
+        <div class="jumbotron text-center" style="color: #000; background-color: #004571;">
             <b><i>&copy; Колодочкин Алексей<br>
             Дробилко Данила</i></b>
         </div>

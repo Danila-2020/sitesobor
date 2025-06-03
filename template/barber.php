@@ -3219,19 +3219,19 @@ a {
 	}
 
 	body.index {
-		background-image: url(/files/sky-texture.jpg);
+		background-color: #004571;
 		background-size: auto;
 		background-position-x: unset;
 	}
 
 	.h1, h1 {
 		line-height: 1.75rem;
-		font-size: 1.45rem;
+		//font-size: 1.45rem;
 	}
 
 	.h2, h2 {
 		line-height: 1.75rem;
-		font-size: 1.3rem;
+		//font-size: 1.3rem;
 	}
 
 }

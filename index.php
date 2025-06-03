@@ -2,22 +2,154 @@
 // Главная страница сайта
 
 ob_start();
-// Стартуем сессию ДО подключения шаблонов
 session_start();
-
-// Подключаем модуль базы данных
 require_once('bd.php');
-
-// Подключаем шаблоны
 include('template/scedulehead.php');
 include('template/barber.php');
-
-// Выводим стили
 echo getStyles();
 ?>
+<style>
+    @font-face {
+      font-family: 'Russian Land Cyrillic';
+      src: url('fonts/russianlandcyrillic.ttf') format('truetype');<!--RussianLandCyrillic.ttf-->
+    }
 
+    h,h1,h2,h3,h4,h5 {
+      font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+      font-size: 24px;
+      color: #fdfdfd;
+    }
+    
+    body {
+        font-family: 'CONSTANTIA', Arial, sans-serif;
+        background: linear-gradient(135deg, #004571 0%, #6096b8 50%, #004571 100%);
+        background-attachment: fixed;
+        color: #fdfdfd;
+        min-height: 100vh;
+    }
+    
+    .content-wrap, 
+    .max-width-4, 
+    .rounded, 
+    .border, 
+    .bg-white, 
+    .alpha-90-dep, 
+    .alpha-90 {
+        background-color: rgba(0, 69, 113, 0.8) !important;
+        color: #fdfdfd !important;
+        border-color: #fdfdfd !important;
+    }
+    
+    .media-label,
+    .h3 {
+        color: #fdfdfd !important;
+    }
+    
+    a {
+        color: #fdfdfd !important;
+    }
+    
+    .btn-primary {
+        background-color: rgba(96, 150, 184, 0.7) !important;
+        border-color: #fdfdfd !important;
+        color: #fdfdfd !important;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: rgba(96, 150, 184, 1) !important;
+    }
+    
+    .btn-outline-primary {
+        border-color: #fdfdfd !important;
+        color: #fdfdfd !important;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #fdfdfd !important;
+        color: #004571 !important;
+    }
+    
+    .land-see-hero-container {
+        display: none; /* Скрываем герой-секцию с фоновым изображением */
+    }
+    
+    /* Дополнительные стили для улучшения читаемости */
+    .module-wrap {
+        background-color: rgba(0, 69, 113, 0.6);
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .img-fluid {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+    
+    .img-fluid:hover {
+        transform: scale(1.02);
+    }
+    
+    .media-label {
+        background-color: rgba(0, 69, 113, 0.7) !important;
+        border-radius: 0 0 8px 8px;
+    }
+    
+    .clearfix {
+        background: linear-gradient(to right, rgba(0, 69, 113, 0.9), rgba(96, 150, 184, 0.7));
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(253, 253, 253, 0.2);
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+        background: linear-gradient(to right, transparent, rgba(253, 253, 253, 0.1), transparent);
+        height: 1px;
+        margin: 15px 0;
+    }
+
+    /* Стили для колонок внутри clearfix */
+    .md-col {
+        background-color: rgba(0, 69, 113, 0.6);
+        border-radius: 8px;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(253, 253, 253, 0.1);
+    }
+
+    .md-col:hover {
+        background-color: rgba(0, 69, 113, 0.8);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Стили для галереи */
+    .gallery-item {
+        margin-bottom: 20px;
+    }
+    
+    .ekko-lightbox .modal-content {
+        background-color: rgba(0, 69, 113, 0.95);
+    }
+    
+    .ekko-lightbox .modal-header {
+        border-bottom: 1px solid rgba(253, 253, 253, 0.2);
+    }
+    
+    .ekko-lightbox .close {
+        color: #fdfdfd;
+        opacity: 0.8;
+        text-shadow: none;
+    }
+</style>
 <body>
-    <amp-analytics type="metrika">
+<amp-analytics type="metrika">
         <script type="application/json">
             {
                 "vars": {
@@ -35,96 +167,22 @@ echo getStyles();
     </section>
  <div class="max-width-4 mx-auto p2">
     
-  <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
+  <div class="clearfix"><!--rounded border border-grey bg-white alpha-90-dep-->
     <div class="clearfix p1">
         <div class="desk-logo-wrap mx-auto block">
             <amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive">
         </div>
     </div>
-    <div class="clearfix">
-            <!--Тут был заголовок-->
-
-            
-<ul class="center h2 list-reset mt0 head-menu">
-    <li class="inline-block mr1">
-        <a href="scedule.php">Расписание богослужений</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
-    </li>
-    <li class="inline-block mr1">
-        <!-- <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a> -->
-         <a href="activity.php">Деятельность</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-    <li class="inline-block mr1">
-        <button type="submit" class="btn btn-primary" OnClick='window.location.href="signin.php"'>Вход</button>
-    </li>
-</ul>
-
-<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'"> <!--Выпадающее меню 1-->
-    <li class="inline-block mr1">
-        <a class="" href="clergy.php">Духовенство</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="story.php">История</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="paintingalluser.php">Роспись</a><!--Тут отображаем, но не загружаем😀-->
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="uotdel.php">Отделы</a>
-    </li>
-</ul>
-
-<!-- <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
-<!--<p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
-    <li class="inline-block mr1">
-        <a href="#">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Социальная деятельность</a>
-    </li>
-</ul> -->
-
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
-    <li class="inline-block mr1">
-        <a href="christening.php">Крещение</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="wedding.php">Венчание</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="confession.php">Исповедь</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="eucharist.php">Причастие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="unction.php">Соборование</a>
-    </li>
-</ul>
-
-<hr>
-    </div>
+    <?php
+    include('template/allnavbar.php');
+    ?>
 
     <div class="clearfix">
 
     <div class="md-col md-col-6 lg-col-4 p2">
     <?php
     // Вывод заголовка "Новости"
-    echo '<h2>Новости</h2>';
+    echo '<h1>Новости</h1>';
     
 // Запрос для получения новостей с уникальными заголовками
 $query = "
@@ -200,7 +258,7 @@ if ($result && $result->num_rows > 0) {
             <div class="md-col md-col-6 lg-col-4 p2">
             <?php
 // Вывод заголовка "Мероприятия"
-echo '<h2>Мероприятия</h2>';
+echo '<h1>Мероприятия</h1>';
 
 // Запрос для получения мероприятий
 $query = "
@@ -281,7 +339,7 @@ echo '<a href="allevents.php" class="h3">Все мероприятия</a>';
             </div>
             <div class="md-col md-col-6 lg-col-4 p2">
             <?php
-                echo('<h2>Публикации</h2>');
+                echo('<h1>Публикации</h1>');
                 $result = $mysqli->query("SELECT DISTINCT `upublic`.`id_upublic`, `upublic`.`id_uphoto`, 
                 `upublic`.`naim`, `upublic`.`uptext`, `upublic`.`id_uprofile`,`uprofile`.`ulastname`, 
                 `uprofile`.`ufirstname`, `uprofile`.`upatronymic`,`uphoto`.`uphoto` 
@@ -337,63 +395,128 @@ echo '<a href="allevents.php" class="h3">Все мероприятия</a>';
   </div>
  </div>
 
- <div class="max-width-4 mx-auto p2">
+    <div class="max-width-4 mx-auto p2">
     <div class="rounded border border-grey bg-white alpha-90 clearfix">
         <div class="clearfix">
-            <div class="md-col md-col-6 p2">
-
-                <div class="module-wrap"></div>
+            <div class="md-col md-col-12 p2">
                 <div class="module-wrap">
-                    <h2><a href="#" target="_blank">Фотогалерея</a></h2>
-                    <img src="img/no_img — копия.jpeg" class="img-fluid">
-                </div>
-            </div>
-            <div class="md-col md-col-6 p2">
-                <div class="module-wrap mb2">
-                    <h2><a href="https://soundcloud.com/rdyxfnx53xwp" target="_blank">Музыка</a></h2>
-                    <img src="img/no_img — копия.jpeg" class="img-fluid">
+                    <h2>Фотогалерея</h2>
+                    
+                    <!-- Слайдер галереи -->
+                    <div id="gallerySlider" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <?php
+                            $galleryDir = 'gallery/';
+                            $images = glob($galleryDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+                            
+                            if (!empty($images)) {
+                                foreach ($images as $index => $image) {
+                                    $active = $index === 0 ? 'active' : '';
+                                    echo '
+                                    <div class="carousel-item '.$active.'">
+                                        <a href="'.$image.'" data-toggle="lightbox" data-gallery="gallery">
+                                            <img src="'.$image.'" class="d-block w-100 rounded" alt="Слайд '.($index+1).'" loading="lazy">
+                                        </a>
+                                    </div>';
+                                }
+                            } else {
+                                echo '<p>В галерее пока нет фотографий.</p>';
+                            }
+                            ?>
+                        </div>
+                        
+                        <!-- Элементы управления -->
+                        <a class="carousel-control-prev" href="#gallerySlider" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Назад</span>
+                        </a>
+                        <a class="carousel-control-next" href="#gallerySlider" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Вперед</span>
+                        </a>
+                        
+                        <!-- Индикаторы -->
+                        <ol class="carousel-indicators">
+                            <?php
+                            if (!empty($images)) {
+                                foreach ($images as $index => $image) {
+                                    $active = $index === 0 ? 'active' : '';
+                                    echo '<li data-target="#gallerySlider" data-slide-to="'.$index.'" class="'.$active.'"></li>';
+                                }
+                            }
+                            ?>
+                        </ol>
+                    </div>
+                    
+                    <a href="photogallery.php" class="btn btn-primary mt-3">Посмотреть все фото</a>
                 </div>
             </div>
         </div>
     </div>
- </div>
-
-</div><!-- content-wrap -->
-
-</div> <!-- page-wrap -->
-
-
-
-
-<div class="bg-white alpha-90 fit relative pt1" style="height:fit-content;">
-
-<ul class="mx-auto center h2 list-reset">
-    <li class="inline-block mr1">
-        <a href="contacts.php">Задать вопрос</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    <li>
-    <li class="inline-block mr1">
-        <a href="contacts.php">Контакты</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#">Новости собора</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="#" target="_blank">Новости епархии</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="http://www.patriarchia.ru/db/news/" target="_blank">Общецерковные новости</a>
-    </li>
-    <li class="inline-block mr1">
-        <button type="submit" class="btn btn-primary" OnClick='location.href="signin.php"'>Вход</button>
-    </li>
-</ul>
-
-        <div class="relative">
-            <amp-img class="" src="img/mountains-no-sky-sharpened.png" width="1600" height="254" layout="responsive"></amp-img><!--/files/mountains-no-sky-sharpened.png-->
-        </div>
 </div>
+
+<!-- Стили для карусели -->
+<style>
+    #gallerySlider {
+        background: rgba(0, 69, 113, 0.3);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .carousel-item {
+        height: 400px; /* Фиксированная высота слайдов */
+    }
+    
+    .carousel-item img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+        background: rgba(0, 69, 113, 0.5);
+    }
+    
+    .carousel-indicators li {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(253, 253, 253, 0.5);
+    }
+    
+    .carousel-indicators .active {
+        background-color: #6096b8;
+    }
+    
+    @media (max-width: 768px) {
+        .carousel-item {
+            height: 300px;
+        }
+    }
+</style>
+
+<?php
+include('template/footer2.php');
+?>
+
+<!-- Подключение Ekko Lightbox -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<script>
+  // Активация Lightbox
+  $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox({
+      wrapping: false,
+      onShown: function() {
+        $('.ekko-lightbox').css('background-color', 'rgba(0, 69, 113, 0.95)');
+      }
+    });
+  });
+</script>
 </body>
 </html>
