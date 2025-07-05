@@ -76,7 +76,8 @@
         <a class="" href="addactivity.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="adduphotogallery.php">Фотогалерею</a>
+        <a class="" href="uploadimggallery.php">Фото в галерею</a>
+        <!--adduphotogallery.php-->
     </li>
     <li class="inline-block mr1">
         <a class="" href="addotdelgen.php">Отдел</a>

@@ -13,12 +13,19 @@ echo getStyles();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фотогалерея</title>
+    
+    <!-- Подключение Intersection Observer для ленивой загрузки -->
+    <script src="https://cdn.jsdelivr.net/npm/intersection-observer@0.12.0/intersection-observer.js"></script>
+    
+    <!-- Подключение Lazysizes для оптимизированной ленивой загрузки -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 
     <!-- Подключение шрифтов -->
     <style>
         @font-face {
             font-family: 'Russian Land Cyrillic';
             src: url('fonts/russianlandcyrillic.ttf') format('truetype');
+            font-display: swap;
         }
 
         h1,h2,h3,h4,h5 {
@@ -63,6 +70,7 @@ echo getStyles();
             transition: all 0.3s ease;
             aspect-ratio: 1 / 1;
             cursor: pointer;
+            background-color: rgba(96, 150, 184, 0.2);
         }
 
         .gallery-item:hover {
@@ -75,6 +83,12 @@ echo getStyles();
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item img.lazyloaded {
+            opacity: 1;
         }
 
         /* Модальное окно */
@@ -169,6 +183,29 @@ echo getStyles();
         .btn-primary:hover {
             background-color: rgba(96, 150, 184, 1);
         }
+
+        /* Прелоадер для изображений */
+        .gallery-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(96,150,184,0.1) 0%, rgba(96,150,184,0.3) 50%, rgba(96,150,184,0.1) 100%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            z-index: 1;
+        }
+
+        .gallery-item img.lazyloaded ~ ::before {
+            display: none;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
     </style>
 </head>
 <body>
@@ -213,9 +250,22 @@ echo getStyles();
             echo '<div class="gallery-grid" id="gallery">';
             foreach ($currentImages as $image) {
                 $imageName = basename($image);
+                $thumbPath = 'gallery/thumbs/' . $imageName;
+                
+                // Создаем миниатюру, если ее нет
+                if (!file_exists($thumbPath)) {
+                    createThumbnail($image, $thumbPath, 300);
+                }
+                
                 echo '
                 <div class="gallery-item" onclick="openModal(this)">
-                    <img src="'.$image.'" alt="'.$imageName.'" data-full="'.$image.'" loading="lazy" />
+                    <img 
+                        class="lazyload" 
+                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
+                        data-src="'.$thumbPath.'" 
+                        data-full="'.$image.'" 
+                        alt="'.$imageName.'" 
+                    />
                 </div>';
             }
             echo '</div>';
@@ -260,6 +310,64 @@ echo getStyles();
                 echo '</div>';
             }
         }
+        
+        // Функция создания миниатюр
+        function createThumbnail($source, $destination, $width) {
+            $dir = dirname($destination);
+            if (!file_exists($dir)) {
+                mkdir($dir, 0755, true);
+            }
+            
+            $info = getimagesize($source);
+            $mime = $info['mime'];
+            
+            switch ($mime) {
+                case 'image/jpeg':
+                    $image = imagecreatefromjpeg($source);
+                    break;
+                case 'image/png':
+                    $image = imagecreatefrompng($source);
+                    break;
+                case 'image/gif':
+                    $image = imagecreatefromgif($source);
+                    break;
+                default:
+                    return false;
+            }
+            
+            $srcWidth = imagesx($image);
+            $srcHeight = imagesy($image);
+            
+            $height = (int) (($width / $srcWidth) * $srcHeight);
+            
+            $thumb = imagecreatetruecolor($width, $height);
+            
+            // Сохраняем прозрачность для PNG и GIF
+            if ($mime == 'image/png' || $mime == 'image/gif') {
+                imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
+                imagealphablending($thumb, false);
+                imagesavealpha($thumb, true);
+            }
+            
+            imagecopyresampled($thumb, $image, 0, 0, 0, 0, $width, $height, $srcWidth, $srcHeight);
+            
+            switch ($mime) {
+                case 'image/jpeg':
+                    imagejpeg($thumb, $destination, 80);
+                    break;
+                case 'image/png':
+                    imagepng($thumb, $destination, 8);
+                    break;
+                case 'image/gif':
+                    imagegif($thumb, $destination);
+                    break;
+            }
+            
+            imagedestroy($image);
+            imagedestroy($thumb);
+            
+            return true;
+        }
         ?>
         
         <div style="text-align: center;">
@@ -283,6 +391,10 @@ echo getStyles();
             const galleryItems = document.querySelectorAll('.gallery-item');
             modalImages = Array.from(galleryItems).map(item => item.querySelector('img').dataset.full);
             currentIndex = modalImages.indexOf(element.querySelector('img').dataset.full);
+            
+            // Предзагрузка соседних изображений
+            preloadAdjacentImages(currentIndex);
+            
             document.getElementById('modal-img').src = modalImages[currentIndex];
             document.getElementById('modal').style.display = 'flex';
         }
@@ -294,11 +406,30 @@ echo getStyles();
         function prevImage() {
             currentIndex = (currentIndex - 1 + modalImages.length) % modalImages.length;
             document.getElementById('modal-img').src = modalImages[currentIndex];
+            
+            // Предзагрузка соседних изображений при навигации
+            preloadAdjacentImages(currentIndex);
         }
 
         function nextImage() {
             currentIndex = (currentIndex + 1) % modalImages.length;
             document.getElementById('modal-img').src = modalImages[currentIndex];
+            
+            // Предзагрузка соседних изображений при навигации
+            preloadAdjacentImages(currentIndex);
+        }
+
+        // Функция предзагрузки соседних изображений
+        function preloadAdjacentImages(currentIdx) {
+            const preloadIndices = [
+                (currentIdx - 1 + modalImages.length) % modalImages.length,
+                (currentIdx + 1) % modalImages.length
+            ];
+            
+            preloadIndices.forEach(idx => {
+                const img = new Image();
+                img.src = modalImages[idx];
+            });
         }
 
         document.addEventListener('keydown', function(e) {
@@ -306,6 +437,31 @@ echo getStyles();
                 if (e.key === 'Escape') closeModal();
                 if (e.key === 'ArrowLeft') prevImage();
                 if (e.key === 'ArrowRight') nextImage();
+            }
+        });
+
+        // Инициализация Intersection Observer для более точной ленивой загрузки
+        document.addEventListener('DOMContentLoaded', function() {
+            if ('IntersectionObserver' in window) {
+                const lazyImages = document.querySelectorAll('.gallery-item img.lazyload');
+                
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.add('lazyloaded');
+                            observer.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '200px 0px', // Начинаем загружать заранее
+                    threshold: 0.01
+                });
+
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
             }
         });
     </script>

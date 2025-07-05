@@ -52,7 +52,13 @@ echo getStyles();
                         <div class="md-col md-col-12 lg-col-12 p2">
                             <h2>Новости</h2>
                             <?php
-                            $idunews = $_SESSION['idunews'];
+                            // Получаем ID новости из GET-параметра
+                            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+                                echo "<p>Ошибка: Не указан корректный ID новости.</p>";
+                                exit;
+                            }
+
+                            $idunews = intval($_GET['id']);
 
                             // Запрос для получения данных новости и связанных фотографий
                             $query = "
@@ -115,14 +121,18 @@ echo getStyles();
                                     ');
                                 }
 
-                                // Вывод текста новости
+                                // Возвращаем указатель результата к началу, чтобы получить текст новости
+                                $result->data_seek(0);
+                                $firstRow = $result->fetch_assoc();
+
                                 echo('
                                     <p>
-                                        ' . htmlspecialchars($row['textunews']) . '
+                                        ' . htmlspecialchars($firstRow['textunews']) . '
                                     </p>
                                 ');
+
                             } else {
-                                echo "Нет данных для отображения.";
+                                echo "<p>Новость не найдена.</p>";
                             }
                             ?>
                             <button type="submit" class="btn btn-primary" OnClick='window.location.href="index.php"'>Вернуться на главную</button>
