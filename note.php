@@ -1,213 +1,286 @@
 <?php
 // Страница Подать записку
 
-include('template/notehead.php');
-include('template/notestyle.php');
-include('template/noteheadend.php');
+ob_start();
+session_start();
+require_once('bd.php');
+
+include('template/scedulehead.php');
 include('template/barber.php');
 
 // Выводим стили
 echo getStyles();
 ?>
-       
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подать записку</title>
+    <!-- Подключение Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <!-- Подключение Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @font-face {
+            font-family: 'Russian Land Cyrillic';
+            src: url('fonts/russianlandcyrillic.ttf') format('truetype');
+        }
+
+        h,h1,h2,h3,h4,h5 {
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+            font-size: 24px;
+            color: #fdfdfd;
+        }
+        
+        body {
+            font-family: 'CONSTANTIA', Arial, sans-serif;
+            background: linear-gradient(135deg, #004571 0%, #6096b8 50%, #004571 100%);
+            background-attachment: fixed;
+            color: #fdfdfd;
+            min-height: 100vh;
+            padding-top: 56px;
+        }
+        
+        .note-container {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .note-form .form-control {
+            background-color: rgba(253, 253, 253, 0.1);
+            border: 1px solid rgba(253, 253, 253, 0.3);
+            color: #fdfdfd;
+        }
+        
+        .note-form .form-control:focus {
+            background-color: rgba(253, 253, 253, 0.2);
+            border-color: #d4a76a;
+        }
+        
+        .btn-note {
+            background-color: #d4a76a;
+            border: none;
+            color: #004571;
+            font-weight: bold;
+            padding: 10px 30px;
+        }
+        
+        .btn-note:hover {
+            background-color: #c0955f;
+        }
+        
+        .radio-label {
+            display: block;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+        
+        .radio-label input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .qr-container {
+            background-color: rgba(0, 69, 113, 0.4);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .qr-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
 <body>
-<div class="content-wrap relative"><!-- content-wrap -->
-    <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
-      <div class="land-see-hero-main mx-auto"></div>
-    </section>
- <div class="max-width-4 mx-auto p2">
-    
-  <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
-    <div class="clearfix p1">
-        <div class="desk-logo-wrap mx-auto block">
-            <a href="index.php"><amp-img class="" src="img/mestologo.png" width="1024" height="540" layout="responsive"><!--/files/logo-color.png--></a>
+<amp-analytics type="metrika">
+    <script type="application/json">
+        {
+            "vars": {
+                "counterId": "53592163"
+            }
+        }
+    </script>
+</amp-analytics>
+
+<!-- Навбар -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #004571 !important;">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">
+            <amp-img src="img/mestologo.png" width="50" height="50" layout="fixed"></amp-img>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Главная</a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        О Соборе
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="aboutDropdown" style="background-color: #004571 !important;">
+                        <a class="dropdown-item" href="clergy.php">Духовенство</a>
+                        <a class="dropdown-item" href="history.php">История</a>
+                        <a class="dropdown-item" href="feodosiy.php">Прп. Феодосий Кавказский</a>
+                        <a class="dropdown-item" href="tour.php">Виртуальный тур</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="blagochiniyaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Благочиния
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown" style="background-color: #004571 !important;">
+                        <a class="dropdown-item" href="blagochiniya-info.php">Общие сведения</a>
+                        <a class="dropdown-item" href="blagochiniya-temples.php">Храмы</a>
+                        <a class="dropdown-item" href="blagochiniya-clergy.php">Духовенство</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Деятельность
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="activityDropdown" style="background-color: #004571 !important;">
+                        <a class="dropdown-item" href="sunday-school.php">Воскресная школа</a>
+                        <a class="dropdown-item" href="youth-center.php">Молодёжный центр</a>
+                        <a class="dropdown-item" href="tea-room.php">Чайный дворик</a>
+                        <a class="dropdown-item" href="social-activity.php">Социальная деятельность</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="allunews.php">Новости</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="photogallery.php">Галерея</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contacts.php">Контакты</a>
+                </li>
+                
+                <li class="nav-item active">
+                    <a class="btn btn-outline-primary ml-2" href="note.php">Подать записку</a>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="clearfix">
+</nav>
 
+<div class="container">
+    <div class="note-container">
+        <h1 class="text-center mb-4">Подать записку</h1>
+        
+        <p class="mb-4">
+            В этом разделе сайта Вы можете заказать поминовение о здравии и упокоении православных христиан сроком на 1, 40 дней, полгода или год. Поданные Вами записки будут читаться при совершении Божественной Литургии.
+        </p>
+        
+        <form method="post" action="" class="note-form">
+            <div class="form-group">
+                <h4>Поминовение:</h4>
+                <label class="radio-label">
+                    <input type="radio" name="type" value="О здравии" checked> О здравии
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="type" value="Об упокоении"> Об упокоении
+                </label>
+            </div>
             
-<ul class="center h2 list-reset mt0 head-menu">
-    <li class="inline-block mr1">
-        <a href="#">Расписание богослужений</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="aboutItem" on="tap:AMP.setState({sacramentsItem: null, sacramentsMenu: null, activitiesItem: null, activitiesMenu: null, aboutItem: 'underline', aboutMenu: 'center h4 list-reset'})">О соборе</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="activitiesItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, sacramentsItem: null, sacramentsMenu: null, activitiesItem: 'underline', activitiesMenu: 'center h4 list-reset'})">Деятельность</a>
-    </li>
-    <li class="inline-block mr1">
-        <a [class]="sacramentsItem" on="tap:AMP.setState({aboutItem:null, aboutMenu: null, activitiesItem: null, activitiesMenu: null, sacramentsItem: 'underline', sacramentsMenu: 'center h4 list-reset'})">Таинства</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="note.php">Подать записку</a>
-    </li>
-</ul>
+            <div class="form-group">
+                <h4>Длительность поминовения:</h4>
+                <label class="radio-label">
+                    <input type="radio" name="period" value="Единоразово"> Единоразово (вынимание частиц на проскомидии)
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="period" value="40 дней" checked> 40 дней - 300 руб. / за 1 имя (ориентировочное пожертвование)
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="period" value="Полгода"> Полгода - 1000 руб. / за 1 имя (ориентировочное пожертвование)
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="period" value="Год"> Год - 1500 руб. / за 1 имя (ориентировочное пожертвование)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <h4>Поминовение во время:</h4>
+                <label class="radio-label">
+                    <input type="radio" name="time" value="Божественной литургии" checked> Божественной литургии в Соборе
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <h4>Имена для поминовения:</h4>
+                <p>Укажите имена православных христиан (данные при Святом Крещении) в родительном падеже через запятую:</p>
+                <textarea class="form-control" name="targetNames" rows="6" required></textarea>
+                <small class="form-text">Пример: Михаила, Анастасии, Антония, Фотинии, Петра</small>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button type="submit" name="submit" class="btn btn-note">Заказать поминовение</button>
+            </div>
+            
+            <div class="qr-container">
+                <h4>Пожертвование</h4>
+                <amp-img src="img/Qr.png" width="300" height="300" layout="responsive" class="qr-image"></amp-img>
+                <p>Для внесения пожертвования отсканируйте QR-код через приложение вашего банка</p>
+            </div>
+        </form>
+        
+        <?php
+        if(isset($_POST['submit'])){
+            $type = $_POST['type'];
+            $period = $_POST['period'];
+            $time = $_POST['time'];
+            $targetNames = $_POST['targetNames'];
 
-<ul class="center h4 list-reset hide" [class]="aboutMenu||'hide'">
-    <li class="inline-block mr1">
-        <a class="" href="clergy.php">Духовенство</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="/site/article?id=1">История</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="/site/article?id=5">Роспись</a>
-    </li>
-</ul>
+            $message = ('Молитва: '.$type.'<br>'.
+            'Период: '.$period.'<br>'.
+            'Во время: '.$time.'<br>'.
+            'Имена: '.$targetNames.'<br>');
 
-<ul class="hide" [class]="activitiesMenu||'hide'">
-    <p style="font-weight: bold; font-size: 14pt; color: blue; border: 1px solid #000;">Данные разделы примерные, содержимое будет изменено в процессе разработки</p>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=6">Воскресная школа</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=7">Молодежный центр</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=8">Библиотека</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="/site/article?id=9">Социальная деятельность</a>
-    </li>
-</ul>
+            $to = "sobor.noreply@mail.ru";
+            $subject = "Новая записка";
+            $headers = "Content-type: text/html; charset=utf-8 \r\n";
+            $headers .= "From: robot.sobor@mail.ru";
 
-<ul class="center h4 list-reset hide" [class]="sacramentsMenu||'hide'">
-    <li class="inline-block mr1">
-        <a href="christening.php">Крещение</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="wedding.php">Венчание</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="сonfession.php">Исповедь</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="eucharist.php">Причастие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="unction.php">Соборование</a>
-    </li>
-</ul>
+            if(mail($to, $subject, $message, $headers)) {
+                echo '<div class="alert alert-success mt-3">Ваша записка успешно отправлена!</div>';
+            } else {
+                echo '<div class="alert alert-danger mt-3">Ошибка при отправке записки. Пожалуйста, попробуйте позже.</div>';
+            }
+        }
+        ?>
+    </div>
+</div>
 
-<div class="site-article">
-    <div class="content-wrap"><!-- content-wrap -->
-        <div class="max-width-4 mx-auto p2"><!-- full-width-wrap -->
-            <div class="border border-grey bg-white-a60 rounded clearfix p2"><!-- clearfix -->
-                
-<hr>
+<?php
+include('template/footer2.php');
+?>
 
-<div class="social">
-            <ul class="social-share">
-              <li><a href="#"><i class="fa fa-telegram"></i></a></li>
-              <li><a href="#"><i class="fa fa-vk"></i></a></li>
-              <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a href="#"><i class="fa fa-skype"></i></a></li>
-            </ul>
-          </div>
-
-            <ul class="list-reset breadcrumbs">
-                    <li class="inline-block mr1">
-                                    <a href="/">Главная</a>
-                            </li>
-                    <li class="inline-block mr1">Подать записку</li>
-            </ul>
-
-                <h1>Подать записку</h1>
-
-                <p class="mb2">
-                    В этом разделе сайта Вы можете заказать поминовение о здравии и упокоении православных христиан сроком на 1, 40 дней, полгода или год. Поданные Вами записки будут читаться при совершении Божественной Литургии, молебна с акафистом или панихиды.
-                </p>
-
-                <p class="mb2">
-                    Чтобы заказать поминовение, прежде всего, Вам нужно выбрать, какое необходимо совершать поминовение: о здравии или об упокоении, и при необходимости определить его длительность:
-                </p>
-
-                <div class="form-wrap">
-                    <form method="post" action="" target="_top" class="amp-form i-amphtml-form" novalidate="">
-                        <div class="clearfix">
-                            <div class="md-col md-col-2 mb2">
-                                <label>Поминовение:</label>
-                            </div>
-                            <div class="md-col md-col-10 mb2">
-                                <input type="radio" name="type" value="О здравии" checked=""> О здравии<br>      
-                                <input type="radio" name="type" value="Об упокоении"> Об упокоении<br>  
-                            </div>
-                        </div>
-                        <div class="clearfix">
-                            <div class="md-col md-col-2 mb2">
-                                <label>Длительность поминовения:</label>
-                            </div>
-                            <div class="md-col md-col-10 mb2">
-                                <input type="radio" name="period" value="Единоразово"> Единоразово (вынимание частиц на проскомидии)<br>
-                                <input type="radio" name="period" value="40 дней" checked=""> 40 дней 300 руб. / за 1 имя (ориентировочное пожертвование)<br>      
-                                <input type="radio" name="period" value="Полгода"> Полгода 1000 руб. / за 1 имя (ориентировочное пожертвование)<br>  
-                                <input type="radio" name="period" value="Год"> Год 1500 руб. / за 1 имя (ориентировочное пожертвование)<br>
-                            </div>
-                        </div>
-                        <div class="clearfix">
-                            <div class="md-col md-col-2 mb2">
-                                <label>Поминовение во время:</label>
-                            </div>
-                            <div class="md-col md-col-10 mb2">
-                                <input type="radio" name="time" value="Божественной литургии" checked=""> Божественной литургии в Соборе<br>
-                            </div>
-                        </div>
-
-                        <p class="mb2">Затем Вам нужно написать имена православных христиан, о которых следует молиться в Соборе. В подаваемых записках необходимо записывать церковные имена (данные при Святом Крещении), указывая их в родительном падеже («Михаила», «Анастасии», «Антония», «Фотинии», «Петра») через запятую:</p>
-
-                        <div class="alert alert-dark" submit-success="">
-                            <template type="amp-mustache">{{message}}</template>
-                        </div>
-                        <div class="alert alert-danger" submit-error="">
-                            <template type="amp-mustache">Ошибка!</template>
-                        </div>
-
-                        <div class="clearfix">
-                            <div class="md-col md-col-2 mb2">
-                                <label>Имена:</label>
-                            </div>
-                            <div class="md-col md-col-10 mb2">
-                                <textarea class="rounded col-12 fit input" name="targetNames" rows="6"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="clearfix">
-                            <div class="col-12 text-center mb2">
-                                <button type="submit" name="submit" class="btn btn-primary"><b>Заказать поминование</b></button>
-                            </div>
-
-                            <a href="/files/qr_payment.png" target="_blank" class=" block block-center max-width-200px text-center">
-                                <amp-img src="img/Qr.png" height="390" width="390" layout="responsive" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="responsive"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 100%;"></i-amphtml-sizer>
-                            <img decoding="async" src="" class="i-amphtml-fill-content i-amphtml-replaced-content"></amp-img></a>
-                            <div>Чтобы внести пожертвование, необходимо зайти в приложение вашего банка, выбрать пункт «оплата по QR-коду» и отсканировать через камеру телефона или добавить из галереи сохранённый QR-код</div>
-                        </div>
-
-                        <input type="hidden" name="_csrf-frontend" value="rGV5abZWm7OBkTtCffdgfHEEfHeMF38tDCmR6_HnFzLDVg4b5Bio9N71TjIYhAs9M2sGQuVCJ3VCZPmemaFQCg==">
-                        <?php
-                            if(isset($_POST['submit'])){
-                                $type = $_POST['type'];
-                                $period = $_POST['period'];
-                                $time = $_POST['time'];
-                                $targetNames = $_POST['targetNames'];
-
-                                $message = ('Молитва: '.$type.'<br>'.
-                                'Период: '.$period.'<br>'.
-                                'Во время: '.$time.'<br>'.
-                                'Имена: '.$targetNames.'<br>');
-
-                                echo($message);
-                                $to = "sobor.noreply@mail.ru";
-                                $subject = "Новая записка";
-                                $headers = "Content-type: text/html; charset=utf-8 \r\n";
-                                $headers .= "From: robot.sobor@mail.ru";
-
-                                mail($to, $subject, $message, $headers);
-                            }
-                        ?>
-                  <?php echo('</form>')?>
-                  <?php echo('</div>')?>
-    <?php
-    include('template/footer2.php');
-    ?>
+<!-- Подключение jQuery, Popper.js и Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+<?php ob_end_flush(); ?>
