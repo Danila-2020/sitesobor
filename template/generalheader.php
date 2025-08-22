@@ -67,12 +67,6 @@
         <a class="" href="addunewsgeneral.php">Новость</a>
     </li>
     <li class="inline-block mr1">
-        <a class="" href="addeventsgen.php">Мероприятие</a>
-    </li>
-    <li class="inline-block mr1">
-        <a class="" href="addupublicgen.php">Публикацию</a>
-    </li>
-    <li class="inline-block mr1">
         <a class="" href="addactivity.php">Деятельность</a>
     </li>
     <li class="inline-block mr1">
@@ -94,12 +88,6 @@
 <ul class="hide" [class]="activitiesMenu||'hide'"> <!--Выпадающее меню 2-->
     <li class="inline-block mr1">
         <a href="viewunewsgeneral.php">Новости</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="viewueventsgeneral.php">Мероприятия</a>
-    </li>
-    <li class="inline-block mr1">
-        <a href="viewupublicgeneral.php">Публикации</a>
     </li>
     <li class="inline-block mr1">
         <a href="viewactivitygen.php">Деятельность</a>

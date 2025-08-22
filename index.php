@@ -298,10 +298,10 @@ echo getStyles();
                     </div>
                 </li>
                 
-                <!-- Пункт "Благочиния" с подменю -->
+                <!-- Пункт "Благочиние" с подменю -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="blagochiniyaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Благочиния
+                        Благочиние
                     </a>
                     <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
                         <a class="dropdown-item" href="blagochiniya-info.php" style="color: #fdfdfd;">Общие сведения</a>
