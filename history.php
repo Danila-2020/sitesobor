@@ -1,5 +1,5 @@
 <?php
-// Страница преподобный Феодосий Кавказский
+// Страница истории Покровского собора Минеральных Вод
 
 ob_start();
 session_start();
@@ -17,7 +17,7 @@ echo getStyles();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Преподобный Феодосий Кавказский</title>
+    <title>История Покровского собора - Минеральные Воды</title>
     <!-- Подключение Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <!-- Подключение Font Awesome -->
@@ -40,10 +40,9 @@ echo getStyles();
             background-attachment: fixed;
             color: #fdfdfd;
             min-height: 100vh;
-            /* Убрано padding-top для фиксированного навбара */
         }
         
-        .saint-section {
+        .history-section {
             background-color: rgba(0, 69, 113, 0.6);
             border-radius: 8px;
             padding: 30px;
@@ -51,46 +50,49 @@ echo getStyles();
             border: 1px solid rgba(253, 253, 253, 0.2);
         }
         
-        .saint-image {
+        .history-image {
             border-radius: 8px;
             border: 2px solid rgba(253, 253, 253, 0.3);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
         
-        .saint-image:hover {
+        .history-image:hover {
             transform: scale(1.02);
         }
         
-        .miracle-item {
-            background-color: rgba(0, 69, 113, 0.4);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #d4a76a;
-        }
-        
-        .relics-badge {
-            background-color: rgba(212, 167, 106, 0.2);
-            color: #d4a76a;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-right: 10px;
-        }
-        
-        .prayer-card {
+        .timeline-item {
             background-color: rgba(0, 69, 113, 0.4);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid rgba(253, 253, 253, 0.1);
+            border-left: 4px solid #d4a76a;
+            position: relative;
         }
         
-        .prayer-icon {
+        .timeline-year {
+            background-color: rgba(212, 167, 106, 0.2);
             color: #d4a76a;
-            font-size: 2rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .architectural-feature {
+            background-color: rgba(0, 69, 113, 0.4);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            color: #d4a76a;
+            font-size: 2.5rem;
             margin-bottom: 15px;
         }
         
@@ -100,7 +102,7 @@ echo getStyles();
             border-bottom: 1px solid rgba(253, 253, 253, 0.2);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 0.5rem 0;
-            position: relative; /* Убрано fixed положение */
+            position: relative;
             top: 0;
             width: 100%;
             z-index: 1000;
@@ -126,18 +128,6 @@ echo getStyles();
             background-color: rgba(96, 150, 184, 0.7);
         }
 
-        @media (max-width: 992px) {
-            .navbar-collapse {
-                background-color: rgba(0, 69, 113, 0.95);
-                padding: 1rem;
-                border-radius: 0 0 8px 8px;
-            }
-            
-            .nav-link {
-                margin: 0.2rem 0;
-            }
-        }
-        
         /* Стили для выпадающих меню */
         .dropdown-menu {
             border: 1px solid rgba(253, 253, 253, 0.2);
@@ -173,6 +163,16 @@ echo getStyles();
         
         /* Адаптация для мобильных устройств */
         @media (max-width: 992px) {
+            .navbar-collapse {
+                background-color: rgba(0, 69, 113, 0.95);
+                padding: 1rem;
+                border-radius: 0 0 8px 8px;
+            }
+            
+            .nav-link {
+                margin: 0.2rem 0;
+            }
+            
             .dropdown-menu {
                 background-color: transparent;
                 border: none;
@@ -194,13 +194,27 @@ echo getStyles();
                 text-align: center;
             }
             
-            .saint-section {
+            .history-section {
                 padding: 20px;
             }
-            
-            .saint-image {
-                margin-bottom: 20px;
-            }
+        }
+        
+        /* Дополнительные стили для истории */
+        .quote-block {
+            background-color: rgba(212, 167, 106, 0.1);
+            border-left: 4px solid #d4a76a;
+            padding: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .historical-fact {
+            background-color: rgba(96, 150, 184, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid rgba(253, 253, 253, 0.1);
         }
     </style>
 </head>
@@ -303,96 +317,142 @@ echo getStyles();
 
 <div class="container mt-4">
     <!-- Заголовок и основное изображение -->
-    <div class="saint-section text-center">
-        <h1 class="mb-4">Преподобный Феодосий Кавказский</h1>
-        <amp-img src="https://www.stoletie.ru/upload/resize_cache/iblock/3d6/300_300_1/feodosiy.jpg" 
-                width="400" 
+    <div class="history-section text-center">
+        <h1 class="mb-4">История Покровского собора</h1>
+        <h2 class="mb-4">Минеральные Воды</h2>
+        <amp-img src="https://sobory.ru/pic/00400/00490_20070519_212348.jpg" 
+                width="800" 
                 height="500" 
                 layout="responsive" 
-                class="saint-image"
-                alt="Преподобный Феодосий Кавказский"></amp-img>
+                class="history-image"
+                alt="Покровский собор Минеральные Воды"></amp-img>
     </div>
     
-    <!-- Житие святого -->
-    <div class="saint-section">
+    <!-- Основная историческая информация -->
+    <div class="history-section">
         <div class="row">
             <div class="col-md-6">
-                <h2 class="mb-4">Житие святого</h2>
-                <p>Преподобный Феодосий Кавказский (в миру Фёдор Фёдорович Кашин; 1841-1948) - православный святой, старец, почитаемый в лике преподобных.</p>
-                <p>Родился в Пермской губернии в крестьянской семье. С детства проявлял склонность к монашеской жизни. В 17 лет отправился на Афон, где принял постриг с именем Феодосий.</p>
-                <p>После многих лет афонского подвижничества вернулся в Россию, служил в разных монастырях. Последние годы жизни провёл на Кавказе, где принимал множество людей, ищущих духовного совета.</p>
+                <h2 class="mb-4">Основание собора</h2>
+                <p>Покровский собор в Минеральных Водах - один из старейших и наиболее почитаемых храмов Ставропольского края. Его история начинается в конце XIX века, когда возникла необходимость в строительстве православного храма для быстро растущего населения курортного региона.</p>
+                <p>Инициатива строительства принадлежала местным жителям и духовенству, которые понимали важность создания духовного центра для развивающегося города.</p>
+                
+                <div class="historical-fact">
+                    <h4><i class="fa fa-info-circle"></i> Интересный факт</h4>
+                    <p>Первоначально храм планировалось посвятить святителю Николаю Чудотворцу, но впоследствии было решено освятить его в честь Покрова Пресвятой Богородицы.</p>
+                </div>
             </div>
             <div class="col-md-6">
-                <h2 class="mb-4">Духовный путь</h2>
-                <p>Прославился даром прозорливости и чудотворений. Канонизирован в 1995 году как местночтимый святой Кубанской епархии.</p>
-                <p>Преподобный Феодосий особо почитается на Юге России как покровитель Кавказа и молитвенник за страждущих.</p>
-                <div class="mt-4">
-                    <span class="relics-badge">День памяти: 8 августа</span>
-                    <span class="relics-badge">Годы жизни: 1841-1948</span>
+                <h2 class="mb-4">Архитектурные особенности</h2>
+                <p>Собор построен в русско-византийском стиле, характерном для церковной архитектуры конца XIX века. Храм представляет собой крестово-купольное сооружение с пятью главами, символизирующими Христа и четырех евангелистов.</p>
+                <p>Высота главного купола составляет 33 метра - в память о земных годах жизни Спасителя.</p>
+                
+                <div class="quote-block">
+                    <p>"Покровский собор стал не просто храмом, а духовным символом всего региона Кавказских Минеральных Вод."</p>
+                    <small>- Из воспоминаний старожилов города</small>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Чудеса и пророчества -->
-    <div class="saint-section">
-        <h2 class="text-center mb-4">Чудеса и пророчества</h2>
+    <!-- Хронология истории -->
+    <div class="history-section">
+        <h2 class="text-center mb-4">Хронология истории собора</h2>
         <div class="row">
             <div class="col-md-6">
-                <div class="miracle-item">
-                    <h4><i class="fa fa-heart" style="color: #d4a76a;"></i> Исцеления</h4>
-                    <p>Многочисленные свидетельства об исцелении больных, в том числе от неизлечимых болезней, по молитвам старца.</p>
+                <div class="timeline-item">
+                    <span class="timeline-year">1895</span>
+                    <h4>Начало строительства</h4>
+                    <p>Закладка первого камня и начало строительства храма. Средства на строительство собирались всем миром - пожертвования поступали от местных жителей, купцов и даже от царской семьи.</p>
                 </div>
-                <div class="miracle-item">
-                    <h4><i class="fa fa-eye" style="color: #d4a76a;"></i> Прозорливость</h4>
-                    <p>Дар предвидения будущего, включая предсказание революции 1917 года и гонений на Церковь.</p>
+                
+                <div class="timeline-item">
+                    <span class="timeline-year">1907</span>
+                    <h4>Освящение храма</h4>
+                    <p>Торжественное освящение Покровского храма. Первая Божественная литургия собрала hundreds прихожан со всего региона.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <span class="timeline-year">1917-1941</span>
+                    <h4>Трудные годы</h4>
+                    <p>Храм пережил революцию и гражданскую войну. В 1930-е годы был закрыт и использовался как складское помещение.</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="miracle-item">
-                    <h4><i class="fa fa-star" style="color: #d4a76a;"></i> Пророчества</h4>
-                    <p>Пророчества о будущем России и судьбах людей, обращавшихся к нему за советом.</p>
+                <div class="timeline-item">
+                    <span class="timeline-year">1943</span>
+                    <h4>Возрождение</h4>
+                    <p>В годы Великой Отечественной войны храм был возвращен верующим. Службы возобновились и не прекращались даже в самые трудные времена.</p>
                 </div>
-                <div class="miracle-item">
-                    <h4><i class="fa fa-handshake-o" style="color: #d4a76a;"></i> Помощь</h4>
-                    <p>Многочисленные случаи помощи в безвыходных ситуациях по молитвам к преподобному.</p>
+                
+                <div class="timeline-item">
+                    <span class="timeline-year">1990-е</span>
+                    <h4>Реконструкция</h4>
+                    <p>Масштабная реконструкция и восстановление храма. Были воссозданы росписи, установлен новый иконостас.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <span class="timeline-year">2000-е</span>
+                    <h4>Современный период</h4>
+                    <p>Покровский собор становится кафедральным. При храме открываются воскресная школа, библиотека и социальная служба.</p>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Почитание и мощи -->
-    <div class="saint-section">
-        <h2 class="text-center mb-4">Почитание и мощи</h2>
+    <!-- Архитектурные особенности -->
+    <div class="history-section">
+        <h2 class="text-center mb-4">Архитектурные особенности</h2>
         <div class="row">
-            <div class="col-md-6">
-                <p>Преподобный Феодосий Кавказский почил 8 августа 1948 года в возрасте 107 лет. Был похоронен в городе Минеральные Воды.</p>
-                <p>В 1995 года состоялось обретение его мощей, которые ныне покоятся в Покровском соборе Минеральных Вод.</p>
-                <p>Ежегодно 8 августа совершается память святого. К мощам преподобного Феодосия приезжают паломники со всей России и из-за рубежа, получая по его молитвам исцеления и помощь в житейских нуждах.</p>
-            </div>
-            <div class="col-md-6">
-                <amp-img src="https://ruskline.ru/images/icons/%D0%9A%D0%B0%D0%B2%D0%BA%D0%B0%D0%B7%D0%A4%D0%B5%D0%BE%D0%B4%D0%BE%D1%818.jpg" 
-                        width="400" 
-                        height="500" 
-                        layout="responsive" 
-                        class="saint-image"
-                        alt="Мощи преподобного Феодосия"></amp-img>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Молитвы и акафист -->
-    <div class="saint-section">
-        <h2 class="text-center mb-4">Молитвенное почитание</h2>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="prayer-card text-center">
-                    <div class="prayer-icon">
-                        <i class="fa fa-book"></i>
+            <div class="col-md-4">
+                <div class="architectural-feature">
+                    <div class="feature-icon">
+                        <i class="fa fa-building-o"></i>
                     </div>
-                    <h3>Акафист</h3>
-                    <p>Текст акафиста преподобному Феодосию Кавказскому</p>
-                    <a href="https://akafist.ru/saints/feodosij-kavkazskij/akafist" class="btn btn-primary">Читать акафист</a>
+                    <h4>Стиль</h4>
+                    <p>Русско-византийский стиль с элементами классицизма</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="architectural-feature">
+                    <div class="feature-icon">
+                        <i class="fa fa-arrows-alt"></i>
+                    </div>
+                    <h4>Размеры</h4>
+                    <p>Высота - 33 метра, вместимость - до 1000 человек</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="architectural-feature">
+                    <div class="feature-icon">
+                        <i class="fa fa-paint-brush"></i>
+                    </div>
+                    <h4>Росписи</h4>
+                    <p>Стеновые росписи выполнены в традициях русской церковной живописи</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Современное состояние -->
+    <div class="history-section">
+        <h2 class="text-center mb-4">Современная жизнь собора</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <amp-img src="https://avatars.mds.yandex.net/get-altay/223006/2a0000015a7e5bf6de3d8a0c88c8c0b1c577/XXL" 
+                        width="600" 
+                        height="400" 
+                        layout="responsive" 
+                        class="history-image"
+                        alt="Внутреннее убранство собора"></amp-img>
+            </div>
+            <div class="col-md-6">
+                <h3>Духовный центр региона</h3>
+                <p>Сегодня Покровский собор является не только архитектурной доминантой города, но и важным духовным центром. Здесь регулярно проходят богослужения, совершаются таинства, работает воскресная школа для детей и взрослых.</p>
+                <p>При соборе действует социальная служба, оказывающая помощь нуждающимся, и библиотека православной литературы.</p>
+                
+                <div class="historical-fact">
+                    <h4><i class="fa fa-heart"></i> Благотворительность</h4>
+                    <p>Собор активно занимается благотворительной деятельностью, помогая многодетным семьям, инвалидам и пожилым людям.</p>
                 </div>
             </div>
         </div>

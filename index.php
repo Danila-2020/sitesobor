@@ -83,6 +83,56 @@ echo getStyles();
             display: none;
         }
         
+        /* Стили для iframe контейнера */
+        .iframe-news-container {
+            padding: 30px 0;
+            background: transparent;
+        }
+        
+        .news-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fdfdfd;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .iframe-wrapper {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: white;
+        }
+        
+        .iframe-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .iframe-btn {
+            background: rgba(96, 150, 184, 0.7);
+            border: 2px solid #fdfdfd;
+            color: #fdfdfd;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        
+        .iframe-btn:hover {
+            background: rgba(96, 150, 184, 1);
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: #fdfdfd;
+        }
+        
         /* Стили для навбара */
         .navbar {
             background-color: rgba(0, 69, 113, 0.95) !important;
@@ -120,6 +170,24 @@ echo getStyles();
             
             .nav-link {
                 margin: 0.2rem 0;
+            }
+            
+            .iframe-wrapper {
+                height: 600px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .iframe-wrapper {
+                height: 500px;
+            }
+            
+            .iframe-btn {
+                padding: 8px 20px;
+                margin: 5px;
+                display: block;
+                width: 200px;
+                margin: 10px auto;
             }
         }
         
@@ -257,6 +325,61 @@ echo getStyles();
             margin: 0 auto;
             padding: 20px 0;
         }
+        
+        /* Стили для выпадающих меню */
+        .dropdown-menu {
+            border: 1px solid rgba(253, 253, 253, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dropdown-item {
+            transition: all 0.3s ease;
+            padding: 8px 20px;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(96, 150, 184, 0.5);
+        }
+        
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Стили для кнопки Вход */
+        .btn-outline-primary {
+            border-color: #fdfdfd;
+            color: #fdfdfd;
+            margin-left: 10px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #fdfdfd;
+            color: #004571;
+        }
+        
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 992px) {
+            .dropdown-menu {
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                margin-left: 15px;
+            }
+            
+            .dropdown-item {
+                padding: 8px 15px;
+            }
+            
+            .nav-item.dropdown:hover .dropdown-menu {
+                display: none;
+            }
+            
+            .btn-outline-primary {
+                margin: 10px 15px;
+                width: calc(100% - 30px);
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -356,69 +479,40 @@ echo getStyles();
     </div>
 </nav>
 
-<style>
-    /* Стили для выпадающих меню */
-    .dropdown-menu {
-        border: 1px solid rgba(253, 253, 253, 0.2);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    .dropdown-item {
-        transition: all 0.3s ease;
-        padding: 8px 20px;
-    }
-    
-    .dropdown-item:hover {
-        background-color: rgba(96, 150, 184, 0.5);
-    }
-    
-    .nav-item.dropdown:hover .dropdown-menu {
-        display: block;
-    }
-    
-    /* Стили для кнопки Вход */
-    .btn-outline-primary {
-        border-color: #fdfdfd;
-        color: #fdfdfd;
-        margin-left: 10px;
-    }
-    
-    .btn-outline-primary:hover {
-        background-color: #fdfdfd;
-        color: #004571;
-    }
-    
-    /* Адаптация для мобильных устройств */
-    @media (max-width: 992px) {
-        .dropdown-menu {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
-            margin-left: 15px;
-        }
-        
-        .dropdown-item {
-            padding: 8px 15px;
-        }
-        
-        .nav-item.dropdown:hover .dropdown-menu {
-            display: none;
-        }
-        
-        .btn-outline-primary {
-            margin: 10px 15px;
-            width: calc(100% - 30px);
-            text-align: center;
-        }
-    }
-</style>
-
 <div class="relative page-wrap">
     <div class="content-wrap relative">
         <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
             <div class="land-see-hero-main mx-auto"></div>
         </section>
         
+        <!-- Блок с iframe вместо карточек новостей -->
+        <div class="iframe-news-container">
+            <h2 class="news-header">Новости Благочиния</h2>
+            
+            <!-- Iframe с прокси-страницей -->
+            <iframe 
+                class="iframe-wrapper"
+                src="iframe-proxy.php" 
+                title="Новости Благочиния" 
+                allowfullscreen
+                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                loading="eager"
+                frameborder="0"
+                id="newsIframe"
+            ></iframe>
+            
+            <div class="iframe-controls">
+                <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
+                   target="_blank" 
+                   class="iframe-btn">
+                    Открыть в новом окне
+                </a>
+                <a href="allunews.php" class="iframe-btn">
+                    Наши новости
+                </a>
+            </div>
+        </div>
+
         <div class="container mt-4">
             <!-- Логотип по центру в пределах container -->
             <div class="logo-container text-center">
@@ -596,6 +690,27 @@ include('template/footer2.php');
             }
         });
     });
+    
+    // Автоматическая высота iframe
+    function adjustIframeHeight() {
+        const iframe = document.getElementById('newsIframe');
+        if (iframe) {
+            iframe.onload = function() {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const contentBlock = iframeDoc.querySelector('.content-block-wrap');
+                    if (contentBlock) {
+                        iframe.style.height = (contentBlock.scrollHeight + 50) + 'px';
+                    }
+                } catch (e) {
+                    console.log('Не удалось настроить высоту iframe:', e);
+                }
+            };
+        }
+    }
+    
+    // Вызываем функцию после загрузки DOM
+    document.addEventListener('DOMContentLoaded', adjustIframeHeight);
 </script>
 </body>
 </html>

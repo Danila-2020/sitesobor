@@ -20,6 +20,9 @@ if(!empty($_POST)){//$_POST
                 header('Location: adminprofile.php');
             }else if($row['urole'] == "general"){
                 header('Location: generalprofile.php');
+            }else if($row['urole'] == "general-major"){
+                $_SESSION['admin_logged_in'] = true;
+                header('Location: generalmajorprofile.php');
             }
         }
     }else{

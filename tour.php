@@ -100,8 +100,8 @@ echo getStyles();
     </script>
 </amp-analytics>
 
-<!-- Навбар на всю ширину -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<!-- Навбар без фиксированного положения -->
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="index.php">
             <amp-img src="img/mestologo.png" width="50" height="50" layout="fixed"></amp-img>
@@ -120,23 +120,23 @@ echo getStyles();
                     <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         О Соборе
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="aboutDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
-                        <a class="dropdown-item" href="clergy.php" style="color: #fdfdfd;">Духовенство</a>
-                        <a class="dropdown-item" href="history.php" style="color: #fdfdfd;">История</a>
-                        <a class="dropdown-item" href="feodosiy.php" style="color: #fdfdfd;">Прп. Феодосий Кавказский</a>
-                        <a class="dropdown-item active" href="tour.php" style="color: #fdfdfd;">Виртуальный тур</a>
+                    <div class="dropdown-menu" aria-labelledby="aboutDropdown">
+                        <a class="dropdown-item" href="clergy.php">Духовенство</a>
+                        <a class="dropdown-item" href="history.php">История</a>
+                        <a class="dropdown-item" href="feodosiy.php">Прп. Феодосий Кавказский</a>
+                        <a class="dropdown-item" href="tour.php">Виртуальный тур</a>
                     </div>
                 </li>
                 
-                <!-- Пункт "Благочиния" с подменю -->
+                <!-- Пункт "Благочиние" с подменю -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="blagochiniyaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Благочиния
+                        Благочиние
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
-                        <a class="dropdown-item" href="blagochiniya-info.php" style="color: #fdfdfd;">Общие сведения</a>
-                        <a class="dropdown-item" href="blagochiniya-temples.php" style="color: #fdfdfd;">Храмы</a>
-                        <a class="dropdown-item" href="blagochiniya-clergy.php" style="color: #fdfdfd;">Духовенство</a>
+                    <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown">
+                        <a class="dropdown-item" href="blagochiniya-info.php">Общие сведения</a>
+                        <a class="dropdown-item" href="blagochiniya-temples.php">Храмы</a>
+                        <a class="dropdown-item" href="blagochiniya-clergy.php">Духовенство</a>
                     </div>
                 </li>
                 
@@ -145,11 +145,25 @@ echo getStyles();
                     <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Деятельность
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="activityDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
-                        <a class="dropdown-item" href="sunday-school.php" style="color: #fdfdfd;">Воскресная школа</a>
-                        <a class="dropdown-item" href="youth-center.php" style="color: #fdfdfd;">Молодёжный центр</a>
-                        <a class="dropdown-item" href="tea-room.php" style="color: #fdfdfd;">Чайный дворик</a>
-                        <a class="dropdown-item" href="social-activity.php" style="color: #fdfdfd;">Социальная деятельность</a>
+                    <div class="dropdown-menu" aria-labelledby="activityDropdown">
+                        <a class="dropdown-item" href="sunday-school.php">Воскресная школа</a>
+                        <a class="dropdown-item" href="youth-center.php">Молодёжный центр</a>
+                        <a class="dropdown-item" href="tea-room.php">Чайный дворик</a>
+                        <a class="dropdown-item" href="social-activity.php">Социальная деятельность</a>
+                    </div>
+                </li>
+
+                <!-- Пункт "Таинства" с подменю -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Таинства
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="activityDropdown">
+                        <a class="dropdown-item" href="christening.php">Крещение</a>
+                        <a class="dropdown-item" href="wedding.php">Венчание</a>
+                        <a class="dropdown-item" href="confession.php">Исповедь</a>
+                        <a class="dropdown-item" href="eucharist.php">Причастие</a>
+                        <a class="dropdown-item" href="unction.php">Соборование</a>
                     </div>
                 </li>
                 
