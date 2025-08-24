@@ -245,7 +245,7 @@ echo getStyles();
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         
-        /* Стили для слайдера новостей */
+        /* Стили для слайдера новостей - УМЕНЬШЕНЫ В 2 РАЗА */
         #newsSlider {
             background: rgba(0, 69, 113, 0.3);
             border-radius: 10px;
@@ -254,7 +254,7 @@ echo getStyles();
         }
         
         .news-slide {
-            height: 400px;
+            height: 200px; /* Уменьшено с 400px до 200px */
             position: relative;
         }
         
@@ -270,21 +270,23 @@ echo getStyles();
             left: 0;
             right: 0;
             background-color: rgba(0, 69, 113, 0.8);
-            padding: 15px;
+            padding: 10px; /* Уменьшено с 15px до 10px */
             color: #fdfdfd;
         }
         
         .news-title {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1rem; /* Уменьшено с 1.2rem до 1rem */
+            margin-bottom: 3px; /* Уменьшено с 5px до 3px */
+            line-height: 1.2;
         }
         
         .news-description {
-            font-size: 0.9rem;
+            font-size: 0.8rem; /* Уменьшено с 0.9rem до 0.8rem */
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2; /* Уменьшено с 3 до 2 строк */
             -webkit-box-orient: vertical;
             overflow: hidden;
+            line-height: 1.2;
         }
         
         .carousel-control-prev,
@@ -294,8 +296,8 @@ echo getStyles();
         }
         
         .carousel-indicators li {
-            width: 12px;
-            height: 12px;
+            width: 10px; /* Уменьшено с 12px до 10px */
+            height: 10px; /* Уменьшено с 12px до 10px */
             border-radius: 50%;
             background-color: rgba(253, 253, 253, 0.5);
         }
@@ -306,7 +308,7 @@ echo getStyles();
         
         @media (max-width: 768px) {
             .news-slide {
-                height: 300px;
+                height: 150px; /* Уменьшено с 300px до 150px */
             }
         }
         
@@ -484,32 +486,31 @@ echo getStyles();
         <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
             <div class="land-see-hero-main mx-auto"></div>
         </section>
-        
         <!-- Блок с iframe вместо карточек новостей -->
-        <div class="iframe-news-container">
-            <h2 class="news-header">Новости Благочиния</h2>
-            
-            <!-- Iframe с прокси-страницей -->
-            <iframe 
-                class="iframe-wrapper"
-                src="iframe-proxy.php" 
-                title="Новости Благочиния" 
-                allowfullscreen
-                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                loading="eager"
-                frameborder="0"
-                id="newsIframe"
-            ></iframe>
-            
-            <div class="iframe-controls">
-                <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
-                   target="_blank" 
-                   class="iframe-btn">
-                    Открыть в новом окне
-                </a>
-                <a href="allunews.php" class="iframe-btn">
-                    Наши новости
-                </a>
+<div class="iframe-news-container">
+    <h2 class="news-header">Новости Благочиния</h2>
+    
+    <!-- Iframe с прямым URL -->
+    <div style="width: 100%; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
+        <iframe 
+            src="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
+            style="width: 100%; height: 800px; border: none; margin-top: -200px; margin-left: 0px;"
+            title="Новости Благочиния"
+            allowfullscreen
+            id="newsIframe"
+        ></iframe>
+    </div>
+    
+    <div class="iframe-controls">
+        <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
+           target="_blank" 
+           class="iframe-btn">
+            Открыть в новом окне
+        </a>
+        <a href="allunews.php" class="iframe-btn">
+            Наши новости
+        </a>
+                </div>
             </div>
         </div>
 
@@ -659,6 +660,7 @@ echo getStyles();
                                 <a href="photogallery.php" class="btn btn-primary">Посмотреть все фото</a>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

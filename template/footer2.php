@@ -33,6 +33,7 @@
         <li class="inline-block mr1">
             <button type="submit" class="btn btn-primary" OnClick='location.href="signin.php"' style="color: #fdfdfd; border-color: #fdfdfd;">Вход</button>
         </li>
+        <br>
         <li class="inline-block mr1">
             <a href="http://www.patriarchia.ru/">Патриархия ру</a>
         </li>
