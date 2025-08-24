@@ -219,7 +219,7 @@ $second_last = $total_no_of_pages - 1;
     </div>
 </nav>
 
-<div class="container">
+<!-- <div class="container"> -->
     <div class="news-container">
         <h1 class="text-center mb-4">Все новости</h1>
         
@@ -323,7 +323,7 @@ $second_last = $total_no_of_pages - 1;
             </ul>
         </nav>
     </div>
-</div>
+<!-- </div> -->
 
 <?php
 include('template/footer2.php');

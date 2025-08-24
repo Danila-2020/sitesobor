@@ -301,7 +301,6 @@ echo getStyles();
     </div>
 </nav>
 
-<div class="container mt-4">
     <!-- Заголовок и основное изображение -->
     <div class="saint-section text-center">
         <h1 class="mb-4">Преподобный Феодосий Кавказский</h1>
@@ -397,7 +396,6 @@ echo getStyles();
             </div>
         </div>
     </div>
-</div>
 
 <?php
 include('template/footer2.php');

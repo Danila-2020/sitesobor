@@ -10,7 +10,7 @@
             <li><a href="#"><i class="fa fa-skype" style="color: #fdfdfd;"></i></a></li>
         </ul>
     </div>
-
+    <iframe src="https://radiovera.ru/player/" frameborder="0" height="120" width="400"></iframe>
     <ul class="mx-auto center h2 list-reset" style="color: #fdfdfd;">
         <li class="inline-block mr1">
             <a href="contacts.php" style="color: #fdfdfd;">Задать вопрос</a>
@@ -32,6 +32,21 @@
         </li>
         <li class="inline-block mr1">
             <button type="submit" class="btn btn-primary" OnClick='location.href="signin.php"' style="color: #fdfdfd; border-color: #fdfdfd;">Вход</button>
+        </li>
+        <li class="inline-block mr1">
+            <a href="http://www.patriarchia.ru/">Патриархия ру</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="https://www.miloserdie.ru/">Милосердие ру</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="https://radiovera.ru/">Радио Вера</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="https://foma.ru/">Журнал Фома</a>
+        </li>
+        <li class="inline-block mr1">
+            <a href="https://spastv.ru/">Телеканал Спас</a>
         </li>
     </ul>
     

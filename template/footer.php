@@ -33,7 +33,7 @@
               <li><a href="#"><i class="fa fa-skype"></i></a></li>
             </ul>
           </div>
-
+        <iframe src="https://radiovera.ru/player/" frameborder="0" height="120" width="400"></iframe>
 <ul class="mx-auto center h2 list-reset">
     <li class="inline-block mr1">
         <a href="#">Задать вопрос</a>
