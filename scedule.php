@@ -180,6 +180,9 @@ echo getStyles();
         </div><!-- content-wrap-end -->
     </div>
     <!--Тут подключаем Футер-->
-    <?php
-    include('template\footer2.php');
-    ?>
+    <div class="container">
+        <?php include('template/social-icons.php'); ?>
+    </div>
+        <?php
+            include('template\footer2.php');
+        ?>
