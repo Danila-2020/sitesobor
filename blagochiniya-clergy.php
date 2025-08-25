@@ -129,77 +129,10 @@ echo getStyles();
     </script>
 </amp-analytics>
 
-<!-- Навбар на всю ширину -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #004571 !important;">
-    <div class="container">
-        <div class="logo-container text-center">
-            <a href="index.php"><amp-img src="img/mestologo.png" width="1024" height="540" layout="responsive"></amp-img></a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Главная</a>
-                </li>
-                
-                <!-- Пункт "О Соборе" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        О Соборе
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="aboutDropdown" style="background-color: #004571 !important;">
-                        <a class="dropdown-item" href="clergy.php" style="color: #fdfdfd;">Духовенство</a>
-                        <a class="dropdown-item" href="history.php" style="color: #fdfdfd;">История</a>
-                        <a class="dropdown-item" href="feodosiy.php" style="color: #fdfdfd;">Прп. Феодосий Кавказский</a>
-                        <a class="dropdown-item" href="tour.php" style="color: #fdfdfd;">Виртуальный тур</a>
-                    </div>
-                </li>
-                
-                <!-- Пункт "Благочиния" с подменю -->
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="blagochiniyaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Благочиния
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown" style="background-color: #004571 !important;">
-                        <a class="dropdown-item" href="blagochiniya-info.php" style="color: #fdfdfd;">Общие сведения</a>
-                        <a class="dropdown-item" href="blagochiniya-temples.php" style="color: #fdfdfd;">Храмы</a>
-                        <a class="dropdown-item active" href="blagochiniya-clergy.php" style="color: #fdfdfd;">Духовенство</a>
-                    </div>
-                </li>
-                
-                <!-- Пункт "Деятельность" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Деятельность
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="activityDropdown" style="background-color: #004571 !important;">
-                        <a class="dropdown-item" href="sunday-school.php" style="color: #fdfdfd;">Воскресная школа</a>
-                        <a class="dropdown-item" href="youth-center.php" style="color: #fdfdfd;">Молодёжный центр</a>
-                        <a class="dropdown-item" href="tea-room.php" style="color: #fdfdfd;">Чайный дворик</a>
-                        <a class="dropdown-item" href="social-activity.php" style="color: #fdfdfd;">Социальная деятельность</a>
-                    </div>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="allunews.php">Новости</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="photogallery.php">Галерея</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.php">Контакты</a>
-                </li>
-                
-                <!-- Кнопка "Вход" -->
-                <li class="nav-item">
-                    <a class="btn btn-outline-primary ml-2" href="signin.php">Вход</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php
+// Подключаем навбар
+include('template/allnavbar.php');
+?>
 
 <div class="relative page-wrap">
     <div class="content-wrap relative">

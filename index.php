@@ -175,6 +175,33 @@ echo getStyles();
             .iframe-wrapper {
                 height: 600px;
             }
+            
+            /* Исправления для мобильного меню */
+            .dropdown-menu {
+                background-color: rgba(0, 69, 113, 0.8) !important;
+                border: 1px solid rgba(253, 253, 253, 0.2);
+                margin-left: 20px;
+                padding: 0.5rem 0;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            
+            .dropdown-item {
+                padding: 0.5rem 1.5rem;
+                color: #fdfdfd !important;
+            }
+            
+            .dropdown-item:hover {
+                background-color: rgba(96, 150, 184, 0.5);
+            }
+            
+            .dropdown-toggle::after {
+                float: right;
+                margin-top: 0.7rem;
+            }
+            
+            .nav-item.dropdown.show .dropdown-menu {
+                display: block;
+            }
         }
         
         @media (max-width: 768px) {
@@ -343,8 +370,11 @@ echo getStyles();
             background-color: rgba(96, 150, 184, 0.5);
         }
         
-        .nav-item.dropdown:hover .dropdown-menu {
-            display: block;
+        /* Стили для десктопной версии подменю */
+        @media (min-width: 993px) {
+            .nav-item.dropdown:hover .dropdown-menu {
+                display: block;
+            }
         }
         
         /* Стили для кнопки Вход */
@@ -362,24 +392,30 @@ echo getStyles();
         /* Адаптация для мобильных устройств */
         @media (max-width: 992px) {
             .dropdown-menu {
-                background-color: transparent;
-                border: none;
-                box-shadow: none;
-                margin-left: 15px;
+                background-color: rgba(0, 69, 113, 0.8);
+                border: 1px solid rgba(253, 253, 253, 0.2);
+                margin-left: 20px;
+                padding: 0.5rem 0;
             }
             
             .dropdown-item {
-                padding: 8px 15px;
-            }
-            
-            .nav-item.dropdown:hover .dropdown-menu {
-                display: none;
+                padding: 0.5rem 1.5rem;
             }
             
             .btn-outline-primary {
                 margin: 10px 15px;
                 width: calc(100% - 30px);
                 text-align: center;
+            }
+            
+            /* Убираем hover эффект для мобильных, так как он мешает работе */
+            .nav-item.dropdown:hover .dropdown-menu {
+                display: none;
+            }
+            
+            /* Показываем меню только когда есть класс show */
+            .nav-item.dropdown.show .dropdown-menu {
+                display: block;
             }
         }
     </style>
@@ -395,91 +431,10 @@ echo getStyles();
     </script>
 </amp-analytics>
 
-<!-- Навбар на всю ширину -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">
-            <amp-img src="img/mestologo.png" width="50" height="50" layout="fixed"></amp-img>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Главная</a>
-                </li>
-                
-                <!-- Пункт "О Соборе" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        О Соборе
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="aboutDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
-                        <a class="dropdown-item" href="clergy.php" style="color: #fdfdfd;">Духовенство</a>
-                        <a class="dropdown-item" href="history.php" style="color: #fdfdfd;">История</a>
-                        <a class="dropdown-item" href="feodosiy.php" style="color: #fdfdfd;">Прп. Феодосий Кавказский</a>
-                        <a class="dropdown-item" href="tour.php" style="color: #fdfdfd;">Виртуальный тур</a>
-                    </div>
-                </li>
-                
-                <!-- Пункт "Благочиние" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="blagochiniyaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Благочиние
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
-                        <a class="dropdown-item" href="blagochiniya-info.php" style="color: #fdfdfd;">Общие сведения</a>
-                        <a class="dropdown-item" href="blagochiniya-temples.php" style="color: #fdfdfd;">Храмы</a>
-                        <a class="dropdown-item" href="blagochiniya-clergy.php" style="color: #fdfdfd;">Духовенство</a>
-                    </div>
-                </li>
-                
-                <!-- Пункт "Деятельность" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Деятельность
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="activityDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
-                        <a class="dropdown-item" href="sunday-school.php" style="color: #fdfdfd;">Воскресная школа</a>
-                        <a class="dropdown-item" href="youth-center.php" style="color: #fdfdfd;">Молодёжный центр</a>
-                        <a class="dropdown-item" href="tea-room.php" style="color: #fdfdfd;">Чайный дворик</a>
-                        <a class="dropdown-item" href="social-activity.php" style="color: #fdfdfd;">Социальная деятельность</a>
-                    </div>
-                </li>
-
-                <!-- Пункт "Таинства" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Таинства
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="activityDropdown" style="background-color: rgba(0, 69, 113, 0.95);">
-                        <a class="dropdown-item" href="christening.php" style="color: #fdfdfd;">Крещение</a>
-                        <a class="dropdown-item" href="wedding.php" style="color: #fdfdfd;">Венчание</a>
-                        <a class="dropdown-item" href="confession.php" style="color: #fdfdfd;">Исповедь</a>
-                        <a class="dropdown-item" href="eucharist.php" style="color: #fdfdfd;">Причастие</a>
-                        <a class="dropdown-item" href="unction.php" style="color: #fdfdfd;">Соборование</a>
-                    </div>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="allunews.php">Новости</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="photogallery.php">Галерея</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.php">Контакты</a>
-                </li>
-                
-                <!-- Кнопка "Вход" -->
-                <li class="nav-item">
-                    <a class="btn btn-outline-primary ml-2" href="signin.php">Вход</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php
+// Подключаем навбар
+include('template/allnavbar.php');
+?>
 
 <div class="relative page-wrap">
     <div class="content-wrap relative">
@@ -489,16 +444,14 @@ echo getStyles();
         <!-- Блок с iframe вместо карточек новостей -->
 <div class="iframe-news-container">
     <h2 class="news-header">Новости Благочиния</h2>
-    
-    <!-- Iframe с прямым URL -->
-    <div style="width: 100%; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
-        <iframe 
-            src="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
-            style="width: 100%; height: 800px; border: none; margin-top: -200px; margin-left: 0px;"
-            title="Новости Благочиния"
-            allowfullscreen
-            id="newsIframe"
-        ></iframe>
+        
+        <div style="width: 100%; height: 800px; overflow: hidden; position: relative; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
+            <iframe 
+                src="proxy-news.php"
+                style="width: 100%; height: 1200px; border: none;"
+                title="Новости Благочиния"></iframe>
+        </div>
+        
     </div>
     
     <div class="iframe-controls">
@@ -713,6 +666,11 @@ include('template/footer2.php');
     
     // Вызываем функцию после загрузки DOM
     document.addEventListener('DOMContentLoaded', adjustIframeHeight);
+    
+    // Исправление для мобильного меню - предотвращение закрытия при клике внутри подменю
+    $(document).on('click', '.dropdown-menu', function (e) {
+        e.stopPropagation();
+    });
 </script>
 </body>
 </html>
