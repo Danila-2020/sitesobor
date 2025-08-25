@@ -27,10 +27,18 @@ $html = preg_replace('/<div id="mobile-menu-content"[\s\S]*?<\/div>/i', '', $htm
 
 // --- Удаляем блок с классом "radio-icon-wrap md-hide sm-hide xs-hide"
 $html = preg_replace('/<div class="[^"]*radio-icon-wrap[^"]*"[\s\S]*?<\/div>/i', '', $html);
+$html = preg_replace('/<div class="[^"]*w-100pc user-valid valid[^"]*"[\s\S]*?<\/div>/i', '', $html);
 
-// ⚡ Дополнительно можно убрать верхнее меню/хедер, если нужно:
-// $html = preg_replace('/<header[\s\S]*?<\/header>/i', '', $html);
+// --- УДАЛЯЕМ ВСЕ INPUT ЭЛЕМЕНТЫ ---
+$html = preg_replace('/<input[^>]*>/i', '', $html);
+
+// --- Дополнительно: удаляем формы, если они содержат только inputs
+$html = preg_replace('/<form[^>]*>[\s\S]*?<\/form>/i', '', $html);
+
+// --- Альтернативный вариант: скрыть inputs через CSS, если удаление не работает
+$html = str_replace('</head>', '<style>input { display: none !important; }</style></head>', $html);
 
 // Отправляем как HTML
 header("Content-Type: text/html; charset=utf-8");
 echo $html;
+?>
