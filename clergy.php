@@ -162,66 +162,6 @@ if (!$result) {
             background-color: rgba(96, 150, 184, 1);
         }
         
-        /* Социальные иконки внизу */
-        .social-footer {
-            background-color: rgba(0, 69, 113, 0.8);
-            padding: 20px 0;
-            margin-top: 40px;
-            border-top: 1px solid rgba(253, 253, 253, 0.2);
-        }
-        
-        .social-share {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .social-share li a {
-            display: block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            background: rgba(96, 150, 184, 0.7);
-            color: #fdfdfd;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .social-share li a:hover {
-            background: rgba(96, 150, 184, 1);
-            transform: translateY(-3px);
-        }
-        
-        /* Футер */
-        .footer {
-            background-color: rgba(0, 69, 113, 0.9);
-            color: #fdfdfd;
-            padding: 30px 0;
-            margin-top: auto;
-            border-top: 1px solid rgba(253, 253, 253, 0.2);
-        }
-        
-        .footer h5 {
-            color: #fdfdfd;
-            margin-bottom: 20px;
-        }
-        
-        .footer a {
-            color: #fdfdfd;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer a:hover {
-            color: #6096b8;
-            text-decoration: none;
-        }
-        
         @media (max-width: 768px) {
             body {
                 padding-top: 66px;
@@ -290,56 +230,18 @@ include('template/allnavbar.php');
             </div>
         </div>
     </div>
-
-    <!-- Социальные иконки внизу -->
-    <div class="social-footer">
-        <div class="container">
-            <ul class="social-share">
-                <li><a href="#"><i class="fab fa-telegram"></i></a></li>
-                <li><a href="#"><i class="fab fa-vk"></i></a></li>
-                <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                <li><a href="#"><i class="fab fa-skype"></i></a></li>
-            </ul>
-        </div>
+    <div class="social">
+        <ul class="social-share">
+            <li><a href="https://t.me/Pokrov_sob_mrv"><i class="fa fa-telegram" style="color: #fdfdfd;"></i></a></li>
+            <li><a href="#"><i class="fa fa-vk" style="color: #fdfdfd;"></i></a></li>
+            <li><a href="#"><i class="fa fa-whatsapp" style="color: #fdfdfd;"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube-play" style="color: #fdfdfd;"></i></a></li>
+            <li><a href="#"><i class="fa fa-skype" style="color: #fdfdfd;"></i></a></li>
+        </ul>
+    </div>
     </div>
 </div>
-
-<!-- Футер -->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Контакты</h5>
-                <p>Адрес: г. Минеральные Воды, ул. Пятигорская 35</p>
-                <p>Телефон: +7 (879) 225-24-16</p>
-                <p>Email: info@sobor.ru</p>
-            </div>
-            <div class="col-md-4">
-                <h5>Быстрые ссылки</h5>
-                <ul class="list-unstyled">
-                    <li><a href="index.php">Главная</a></li>
-                    <li><a href="allunews.php">Новости</a></li>
-                    <li><a href="photogallery.php">Галерея</a></li>
-                    <li><a href="contacts.php">Контакты</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Время работы</h5>
-                <p>Пн-Пт: 8:00 - 18:00</p>
-                <p>Сб-Вс: 7:00 - 20:00</p>
-            </div>
-        </div>
-        <hr style="border-color: rgba(253, 253, 253, 0.2);">
-        <div class="text-center">
-            <p>&copy; <b><i>Дробилко Данила<br>
-                            Колодочкин Алексей</i></b></p>
-        </div>
-    </div>
-</footer>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php
+include('template/footer2.php');
+?>
+<?php ob_end_flush(); ?>

@@ -16,6 +16,8 @@ echo getStyles();
     <title>Главная страница</title>
     <!-- Подключение Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <!-- Подключение Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         @font-face {
             font-family: 'Russian Land Cyrillic';
@@ -418,6 +420,66 @@ echo getStyles();
                 display: block;
             }
         }
+
+        /* Социальные иконки внизу */
+        .social-footer {
+            background-color: rgba(0, 69, 113, 0.8);
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .social-share {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-share li a {
+            display: block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: rgba(96, 150, 184, 0.7);
+            color: #fdfdfd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-share li a:hover {
+            background: rgba(96, 150, 184, 1);
+            transform: translateY(-3px);
+        }
+        
+        /* Футер */
+        .footer {
+            background-color: rgba(0, 69, 113, 0.9);
+            color: #fdfdfd;
+            padding: 30px 0;
+            margin-top: auto;
+            border-top: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .footer h5 {
+            color: #fdfdfd;
+            margin-bottom: 20px;
+        }
+        
+        .footer a {
+            color: #fdfdfd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: #6096b8;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -555,9 +617,9 @@ include('template/allnavbar.php');
         </div>
 
         <!-- Галерея -->
-        <div class="container mt-4">
-            <div class="rounded border border-grey bg-white alpha-90 clearfix">
-                <div class="clearfix">
+        <!-- <div class="container mt-4"> -->
+            <!-- <div class="rounded border border-grey bg-white alpha-90 clearfix"> -->
+                <!-- <div class="clearfix"> -->
                     <div class="col-12 p-2">
                         <div class="module-wrap">
                             <h2 class="text-center">Фотогалерея</h2>
@@ -616,8 +678,20 @@ include('template/allnavbar.php');
                     </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
+</div>
+
+<div class="social-footer">
+    <div class="container">
+        <ul class="social-share">
+            <li><a href="https://t.me/Pokrov_sob_mrv"><i class="fab fa-telegram"></i></a></li>
+            <li><a href="#"><i class="fab fa-vk"></i></a></li>
+            <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fab fa-skype"></i></a></li>
+        </ul>
     </div>
 </div>
 
