@@ -483,9 +483,9 @@ echo getStyles();
                         
                         <div class="mt-4">
                             <h5>Мы в соцсетях:</h5>
-                            <a href="#" class="btn btn-outline-primary mr-2"><i class="fa fa-vk"></i> ВКонтакте</a>
-                            <a href="#" class="btn btn-outline-primary mr-2"><i class="fa fa-telegram"></i> Telegram</a>
-                            <a href="#" class="btn btn-outline-primary"><i class="fa fa-instagram"></i> Instagram</a>
+                            <div class="container">
+                                <?php include('template/social-icons.php'); ?>
+                            </div>
                         </div>
                     </div>
                 </div>

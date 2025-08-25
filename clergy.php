@@ -231,13 +231,9 @@ include('template/allnavbar.php');
         </div>
     </div>
     <div class="social">
-        <ul class="social-share">
-            <li><a href="https://t.me/Pokrov_sob_mrv"><i class="fa fa-telegram" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-vk" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-whatsapp" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-youtube-play" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-skype" style="color: #fdfdfd;"></i></a></li>
-        </ul>
+        <div class="container">
+            <?php include('template/social-icons.php'); ?>
+        </div>
     </div>
     </div>
 </div>

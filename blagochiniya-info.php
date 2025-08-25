@@ -221,13 +221,9 @@ include('template/allnavbar.php');
                 </div>
                 
                 <div class="social text-center mb-4">
-                    <ul class="social-share">
-                        <li><a href="#"><i class="fa fa-telegram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                        <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-                        <li><a href="#"><i class="fa fa-skype"></i></a></li>
-                    </ul>
+                    <div class="container">
+                        <?php include('template/social-icons.php'); ?>
+                    </div>
                 </div>
                 
                 <div class="clearfix">

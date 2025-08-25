@@ -64,15 +64,11 @@
             text-decoration: none;
         }
     </style>
-    <!--<div class="social">
-        <ul class="social-share">
-            <li><a href="https://t.me/Pokrov_sob_mrv"><i class="fa fa-telegram" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-vk" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-whatsapp" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-youtube-play" style="color: #fdfdfd;"></i></a></li>
-            <li><a href="#"><i class="fa fa-skype" style="color: #fdfdfd;"></i></a></li>
-        </ul>
-    </div>-->
+    <div class="social">
+        <div class="container">
+            <?php include('template/social-icons.php'); ?>
+        </div>
+    </div>
     <iframe src="https://radiovera.ru/player/" frameborder="0" height="120" width="400"></iframe>
     <ul class="mx-auto center h2 list-reset" style="color: #fdfdfd;">
         <li class="inline-block mr1">

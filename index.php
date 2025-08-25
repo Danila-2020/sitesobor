@@ -685,13 +685,7 @@ include('template/allnavbar.php');
 
 <div class="social-footer">
     <div class="container">
-        <ul class="social-share">
-            <li><a href="https://t.me/Pokrov_sob_mrv"><i class="fab fa-telegram"></i></a></li>
-            <li><a href="#"><i class="fab fa-vk"></i></a></li>
-            <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-            <li><a href="#"><i class="fab fa-skype"></i></a></li>
-        </ul>
+        <?php include('template/social-icons.php'); ?>
     </div>
 </div>
 

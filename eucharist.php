@@ -503,13 +503,9 @@ include('template/allnavbar.php');
     <!-- Социальные иконки внизу -->
     <div class="social-footer">
         <div class="container">
-            <ul class="social-share">
-                <li><a href="#"><i class="fab fa-telegram"></i></a></li>
-                <li><a href="#"><i class="fab fa-vk"></i></a></li>
-                <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                <li><a href="#"><i class="fab fa-skype"></i></a></li>
-            </ul>
+            <div class="container">
+                <?php include('template/social-icons.php'); ?>
+            </div>
         </div>
         </div>
 </div>

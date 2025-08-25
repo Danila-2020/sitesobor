@@ -223,12 +223,9 @@ echo getStyles();
                 
                 <div class="social mt-4">
                     <h3>Мы в соцсетях</h3>
-                    <ul class="social-share">
-                        <li><a href="https://t.me/Pokrov_sob_mrv"><i class="fa fa-telegram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                        <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-                    </ul>
+                    <div class="container">
+                        <?php include('template/social-icons.php'); ?>
+                    </div>
                 </div>
             </div>
             
