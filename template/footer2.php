@@ -64,11 +64,11 @@
             text-decoration: none;
         }
     </style>
-    <div class="social">
+    <!-- <div class="social">
         <div class="container">
-            <?php include('template/social-icons.php'); ?>
+            <?php// include('template/social-icons.php'); ?>
         </div>
-    </div>
+    </div> -->
     <iframe src="https://radiovera.ru/player/" frameborder="0" height="120" width="400"></iframe>
     <ul class="mx-auto center h2 list-reset" style="color: #fdfdfd;">
         <li class="inline-block mr1">
