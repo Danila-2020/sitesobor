@@ -64,13 +64,10 @@ if ($currentTable && in_array($currentTable, $tables)) {
     }
 }
 
-// Функция для безопасного вывода
-function safeOutput($value, $maxLength = 50) {
+// Функция для безопасного вывода (УБРАНА ОБРЕЗКА ТЕКСТА)
+function safeOutput($value) {
     if ($value === null) {
         return 'NULL';
-    }
-    if (is_string($value) && strlen($value) > $maxLength) {
-        return htmlspecialchars(substr($value, 0, $maxLength)) . '...';
     }
     return htmlspecialchars($value);
 }
@@ -143,6 +140,20 @@ function safeOutput($value, $maxLength = 50) {
             background: #f8f9fa;
             border-radius: 5px;
             border: 1px solid #ddd;
+        }
+        
+        /* Стили для полного отображения содержимого */
+        .data-table {
+            table-layout: auto;
+            width: 100%;
+        }
+        .data-table td {
+            white-space: normal;
+            word-wrap: break-word;
+            max-width: 300px;
+        }
+        .data-table th {
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -224,7 +235,7 @@ function safeOutput($value, $maxLength = 50) {
 
                 <?php if (!empty($tableData)): ?>
                     <div style="overflow-x: auto;">
-                        <table>
+                        <table class="data-table">
                             <thead>
                                 <tr>
                                     <?php foreach ($columns as $column): ?>

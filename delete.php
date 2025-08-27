@@ -16,8 +16,14 @@ if (!in_array($table, $tables)) {
     die("Таблица не найдена");
 }
 
+// Получаем имя первичного ключа для таблицы
+$primaryKey = getPrimaryKey($pdo, $table);
+if (!$primaryKey) {
+    die("Не удалось определить первичный ключ для таблицы");
+}
+
 // Получаем данные записи перед удалением (для подтверждения)
-$stmt = $pdo->prepare("SELECT * FROM $table WHERE id = ?");
+$stmt = $pdo->prepare("SELECT * FROM $table WHERE $primaryKey = ?");
 $stmt->execute([$id]);
 $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -29,7 +35,7 @@ if (!$record) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['confirm']) && $_POST['confirm'] === 'yes') {
         try {
-            $stmt = $pdo->prepare("DELETE FROM $table WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM $table WHERE $primaryKey = ?");
             $stmt->execute([$id]);
             
             header("Location: generalmajorprofile.php?table=" . urlencode($table) . "&deleted=1");
@@ -45,6 +51,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $error = '';
+
+// Функция для получения имени первичного ключа таблицы
+function getPrimaryKey($pdo, $table) {
+    try {
+        // Для MySQL
+        $stmt = $pdo->prepare("SHOW KEYS FROM $table WHERE Key_name = 'PRIMARY'");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($result && isset($result['Column_name'])) {
+            return $result['Column_name'];
+        }
+        
+        // Альтернативный способ для других СУБД или если первый не сработал
+        $stmt = $pdo->query("SELECT * FROM $table LIMIT 1");
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($row) {
+            // Пробуем найти common primary key names
+            $commonKeys = ['id', $table . '_id', $table . 'ID', 'ID'];
+            foreach ($commonKeys as $key) {
+                if (isset($row[$key])) {
+                    return $key;
+                }
+            }
+            
+            // Если не нашли common keys, берем первый столбец
+            $columns = array_keys($row);
+            return $columns[0];
+        }
+        
+        return false;
+        
+    } catch (Exception $e) {
+        return false;
+    }
+}
 ?>
 
 <!DOCTYPE html>
