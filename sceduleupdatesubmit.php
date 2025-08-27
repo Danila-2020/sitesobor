@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
             // Выполняем запрос
             if ($mysqli->query($query)) {
                 echo "<script>alert('Расписание успешно обновлено!!!');</script>";
-                sleep(5);
+                // sleep(5);
                 header("Location: sceduleuploader.php");
                 exit;
             } else {

@@ -66,9 +66,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isBlobType($column['Type'])) {
                 // Обработка загруженного файла
                 if (isset($_FILES[$field]) && $_FILES[$field]['error'] === UPLOAD_ERR_OK) {
-                    // Читаем содержимое файла и кодируем в base64
-                    $fileContent = file_get_contents($_FILES[$field]['tmp_name']);
-                    $value = base64_encode($fileContent);
+                    // Проверяем тип и размер файла как в sceduleupdatesubmit.php
+                    $img_type = substr($_FILES[$field]['type'], 0, 5);
+                    $img_size = 15 * 1024 * 1024; // 15 МБ
+                    
+                    if ($img_type === 'image' && $_FILES[$field]['size'] <= $img_size) {
+                        // Читаем содержимое файла
+                        $value = file_get_contents($_FILES[$field]['tmp_name']);
+                    } else {
+                        throw new Exception("Некорректный тип файла или размер превышает 15 МБ");
+                    }
                 } elseif (isset($_POST["{$field}_keep_current"]) && $_POST["{$field}_keep_current"] === '1') {
                     // Сохраняем текущее значение
                     $value = $row[$field];
@@ -99,12 +106,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $sql = "UPDATE $table SET " . implode(', ', $updateFields) . " WHERE $primaryKey = ?";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute($updateValues);
         
-        header("Location: generalmajorprofile.php?table=" . urlencode($table));
-        exit;
+        // Выполняем запрос и проверяем результат
+        if ($stmt->execute($updateValues)) {
+            // Если это таблица расписания, устанавливаем статус active как в sceduleupdatesubmit.php
+            if ($table === 'scedule') {
+                $pdo->query("UPDATE `scedule` SET `sstatus`='active' WHERE `$primaryKey` = $id");
+            }
+            
+            // Успешное обновление - перенаправляем на generalmajorprofile.php
+            $_SESSION['success_message'] = 'Данные успешно обновлены!';
+            header("Location: generalmajorprofile.php?table=" . urlencode($table));
+            exit;
+        } else {
+            throw new Exception("Ошибка выполнения SQL запроса");
+        }
         
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $error = "Ошибка обновления: " . $e->getMessage();
     }
 }
@@ -112,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Функция для определения типа BLOB
 function isBlobType($columnType) {
     $type = strtolower($columnType);
-    return strpos($type, 'blob') !== false;
+    return strpos($type, 'blob') !== false || strpos($type, 'binary') !== false;
 }
 
 // Функция для определения типа input
@@ -144,9 +162,13 @@ function getBlobInfo($data) {
     $formattedSize = formatBytes($size);
     
     // Попробуем определить тип содержимого
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimeType = finfo_buffer($finfo, $data);
-    finfo_close($finfo);
+    if (function_exists('finfo_open')) {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_buffer($finfo, $data);
+        finfo_close($finfo);
+    } else {
+        $mimeType = 'unknown';
+    }
     
     return "Размер: $formattedSize, Тип: $mimeType";
 }
@@ -162,6 +184,21 @@ function formatBytes($bytes, $precision = 2) {
     $bytes /= pow(1024, $pow);
     
     return round($bytes, $precision) . ' ' . $units[$pow];
+}
+
+// Вспомогательная функция для преобразования размера из php.ini в байты
+function return_bytes($val) {
+    $val = trim($val);
+    $last = strtolower($val[strlen($val)-1]);
+    $val = (int)$val;
+    
+    switch($last) {
+        case 'g': $val *= 1024;
+        case 'm': $val *= 1024;
+        case 'k': $val *= 1024;
+    }
+    
+    return $val;
 }
 ?>
 
@@ -207,6 +244,11 @@ function formatBytes($bytes, $precision = 2) {
             border-radius: 4px; margin-bottom: 1rem; border: 1px solid #ff4757;
         }
         
+        .success { 
+            color: #27ae60; background: #e6ffe6; padding: 1rem;
+            border-radius: 4px; margin-bottom: 1rem; border: 1px solid #2ecc71;
+        }
+        
         .field-info {
             font-size: 12px; color: #7f8c8d; margin-top: 0.25rem;
         }
@@ -239,6 +281,10 @@ function formatBytes($bytes, $precision = 2) {
             <strong>Первичный ключ:</strong> <?php echo $primaryKey; ?><br>
             <strong>ID записи:</strong> <?php echo $id; ?>
         </div>
+        
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="success"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
+        <?php endif; ?>
         
         <?php if (isset($error)): ?>
             <div class="error"><?php echo $error; ?></div>
@@ -299,13 +345,10 @@ function formatBytes($bytes, $precision = 2) {
                             id="<?php echo $field; ?>"
                             name="<?php echo $field; ?>"
                             <?php if ($isRequired && !$value) echo 'required'; ?>
-                            accept="*/*"
+                            accept="image/*"
                         >
                         <div class="field-info">
-                            Максимальный размер файла: <?php echo formatBytes(min(
-                                return_bytes(ini_get('upload_max_filesize')),
-                                return_bytes(ini_get('post_max_size'))
-                            )); ?>
+                            Максимальный размер файла: 15 МБ, допустимые форматы: изображения
                         </div>
                     
                     <?php elseif (stripos($column['Type'], 'text') !== false): ?>
@@ -362,20 +405,3 @@ function formatBytes($bytes, $precision = 2) {
     </div>
 </body>
 </html>
-
-<?php
-// Вспомогательная функция для преобразования размера из php.ini в байты
-function return_bytes($val) {
-    $val = trim($val);
-    $last = strtolower($val[strlen($val)-1]);
-    $val = (int)$val;
-    
-    switch($last) {
-        case 'g': $val *= 1024;
-        case 'm': $val *= 1024;
-        case 'k': $val *= 1024;
-    }
-    
-    return $val;
-}
-?>
