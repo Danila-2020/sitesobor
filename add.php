@@ -12,6 +12,26 @@ if (!$table) {
 $stmt = $pdo->query("DESCRIBE $table");
 $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Определяем первичный ключ
+$primaryKey = '';
+foreach ($columns as $column) {
+    if ($column['Key'] === 'PRI') {
+        $primaryKey = $column['Field'];
+        break;
+    }
+}
+
+// Если не нашли PRIMARY KEY, ищем возможные варианты
+if (!$primaryKey) {
+    $possibleKeys = ['id', 'id_' . $table, $table . '_id', 'ID'];
+    foreach ($columns as $column) {
+        if (in_array($column['Field'], $possibleKeys)) {
+            $primaryKey = $column['Field'];
+            break;
+        }
+    }
+}
+
 $error = '';
 $success = '';
 
@@ -21,11 +41,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = array();
         $placeholders = array();
         
+        // Добавляем ID профиля из сессии, если в таблице есть поле id_uprofile
+        $hasIdUprofile = false;
+        foreach ($columns as $column) {
+            if ($column['Field'] === 'id_uprofile') {
+                $hasIdUprofile = true;
+                break;
+            }
+        }
+        
+        if ($hasIdUprofile && isset($_SESSION['id'])) {
+            $data['id_uprofile'] = $_SESSION['id'];
+            $placeholders[] = "?";
+        }
+        
         foreach ($columns as $column) {
             $field = $column['Field'];
             
-            // Пропускаем auto_increment поля
-            if ($column['Extra'] === 'auto_increment') {
+            // Пропускаем auto_increment поля, первичный ключ и id_uprofile (уже обработали)
+            if ($column['Extra'] === 'auto_increment' || $field === $primaryKey || $field === 'id_uprofile') {
                 continue;
             }
             
@@ -73,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array_values($data));
             
-            $success = "Запись успешно добавлена!";
+            $success = "Запись успешно добавлена! ID: " . $pdo->lastInsertId();
             // header("Location: generalmajorprofile.php?table=" . urlencode($table));
             // exit;
         }
@@ -123,6 +157,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         .status-controls { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
         .clear-status-btn { padding: 5px 10px; font-size: 12px; }
+        
+        .primary-key-info { 
+            background: #e6f7ff; border: 1px solid #91d5ff; border-radius: 4px; 
+            padding: 10px; margin-bottom: 15px; 
+        }
+        
+        .session-info { 
+            background: #f0ffe6; border: 1px solid #7bed9f; border-radius: 4px; 
+            padding: 10px; margin-bottom: 15px; 
+        }
     </style>
     <script>
         function clearStatusField(fieldName) {
@@ -140,6 +184,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <h2>Добавить запись в таблицу: <?php echo htmlspecialchars($table); ?></h2>
         
+        <?php if ($primaryKey): ?>
+            <div class="primary-key-info">
+                <strong>Первичный ключ:</strong> <?php echo htmlspecialchars($primaryKey); ?> 
+                (будет автоматически сгенерирован)
+            </div>
+        <?php endif; ?>
+        
+        <?php 
+        // Проверяем наличие поля id_uprofile в таблице
+        $hasIdUprofile = false;
+        foreach ($columns as $column) {
+            if ($column['Field'] === 'id_uprofile') {
+                $hasIdUprofile = true;
+                break;
+            }
+        }
+        
+        if ($hasIdUprofile && isset($_SESSION['id'])): ?>
+            <div class="session-info">
+                <strong>ID профиля из сессии:</strong> <?php echo htmlspecialchars($_SESSION['id']); ?> 
+                (будет автоматически добавлен в поле id_uprofile)
+            </div>
+        <?php endif; ?>
+        
         <a href="generalmajorprofile.php?table=<?php echo urlencode($table); ?>" class="btn btn-secondary">← Назад</a>
         
         <?php if ($error): ?>
@@ -152,7 +220,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <form method="POST" style="margin-top: 20px;">
             <?php foreach ($columns as $column): ?>
-                <?php if ($column['Extra'] !== 'auto_increment'): ?>
+                <?php 
+                // Пропускаем auto_increment поля, первичный ключ и id_uprofile
+                $skipField = (
+                    $column['Extra'] === 'auto_increment' || 
+                    $column['Field'] === $primaryKey || 
+                    $column['Field'] === 'id_uprofile'
+                );
+                
+                if (!$skipField): 
+                ?>
                     <div class="form-group">
                         <label for="<?php echo $column['Field']; ?>">
                             <?php echo htmlspecialchars($column['Field']); ?>
