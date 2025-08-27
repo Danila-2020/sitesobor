@@ -480,6 +480,46 @@ echo getStyles();
             color: #6096b8;
             text-decoration: none;
         }
+        
+        /* Уменьшенная фотогалерея - высота 600px */
+        .gallery-container {
+            height: 600px; /* Фиксированная высота 600px */
+            overflow: hidden;
+        }
+        
+        .gallery-slide {
+            height: 550px; /* Высота слайдов немного меньше контейнера */
+        }
+        
+        .gallery-slide img {
+            object-fit: contain; /* Показываем изображение полностью */
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 69, 113, 0.3);
+        }
+        
+        .carousel-indicators {
+            bottom: -30px;
+        }
+        
+        .carousel-indicators li {
+            width: 10px;
+            height: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-container {
+                height: 400px;
+            }
+            
+            .gallery-slide {
+                height: 350px;
+            }
+            
+            .carousel-indicators {
+                bottom: -25px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -506,7 +546,11 @@ include('template/allnavbar.php');
         <!-- Блок с iframe вместо карточек новостей -->
 <div class="iframe-news-container">
     <h2 class="news-header">Новости Благочиния</h2>
-        
+        <div class="form-control bordered" style="background-color: rgba(0, 69, 113, 0.9); border-color:  rgba(0, 69, 113, 0.9);">
+            <?php
+                include('template/social-icons.php');
+            ?>
+        </div>
         <div style="width: 100%; height: 800px; overflow: hidden; position: relative; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
             <iframe 
                 src="proxy-news.php"
@@ -520,7 +564,7 @@ include('template/allnavbar.php');
         <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
            target="_blank" 
            class="iframe-btn">
-            Открыть в новом окне
+            Сайт епархии
         </a>
         <a href="allunews.php" class="iframe-btn">
             Наши новости
@@ -536,7 +580,7 @@ include('template/allnavbar.php');
                         <div class="module-wrap">
                             <h2 class="text-center">Фотогалерея</h2>
                             
-                            <div id="gallerySlider" class="carousel slide" data-ride="carousel">
+                            <div id="gallerySlider" class="carousel slide gallery-container" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <?php
                                     $galleryDir = 'gallery/';
@@ -546,15 +590,15 @@ include('template/allnavbar.php');
                                         foreach ($images as $index => $image) {
                                             $active = $index === 0 ? 'active' : '';
                                             echo '
-                                            <div class="carousel-item '.$active.'">
+                                            <div class="carousel-item '.$active.' gallery-slide">
                                                 <a href="'.$image.'" data-toggle="lightbox" data-gallery="gallery">
                                                     <img src="'.$image.'" class="d-block w-100 rounded" alt="Слайд '.($index+1).'" loading="lazy">
                                                 </a>
                                             </div>';
                                         }
                                     } else {
-                                        echo '<div class="carousel-item active">
-                                            <div class="d-flex align-items-center justify-content-center" style="height: 300px;">
+                                        echo '<div class="carousel-item active gallery-slide">
+                                            <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
                                                 <p>В галерее пока нет фотографий</p>
                                             </div>
                                         </div>';

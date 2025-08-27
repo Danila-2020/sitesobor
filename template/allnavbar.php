@@ -14,7 +14,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">Главная</a>
                 </li>
-                
+                <li class="nav-item">
+                    <a class="nav-link" href="scedule.php">Расписание</a>
+                </li>
                 <!-- Пункт "О Соборе" с подменю -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

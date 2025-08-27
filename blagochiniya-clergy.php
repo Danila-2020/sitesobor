@@ -144,30 +144,7 @@ include('template/allnavbar.php');
                 
                 <div class="clearfix">
                     <div class="col-12 p-4">
-                        <h1 class="text-center mb-4">Духовенство благочиний</h1>
-                        
-                        <!-- Выбор благочиния -->
-                        <div class="blagochiniya-selector">
-                            <h3 class="text-center mb-3">Выберите благочиние</h3>
-                            <div class="row">
-                                <div class="col-md-3 col-6 mb-2">
-                                    <a href="#central" class="btn btn-primary btn-block">Центральное</a>
-                                </div>
-                                <div class="col-md-3 col-6 mb-2">
-                                    <a href="#north" class="btn btn-primary btn-block">Северное</a>
-                                </div>
-                                <div class="col-md-3 col-6 mb-2">
-                                    <a href="#south" class="btn btn-primary btn-block">Южное</a>
-                                </div>
-                                <div class="col-md-3 col-6 mb-2">
-                                    <a href="#east" class="btn btn-primary btn-block">Восточное</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Центральное благочиние -->
                         <div id="central" class="mb-5">
-                            <h2 class="text-center mb-4">Центральное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
@@ -233,7 +210,6 @@ include('template/allnavbar.php');
                         
                         <!-- Северное благочиние -->
                         <div id="north" class="mb-5">
-                            <h2 class="text-center mb-4">Северное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
@@ -269,7 +245,6 @@ include('template/allnavbar.php');
                         
                         <!-- Южное благочиние -->
                         <div id="south" class="mb-5">
-                            <h2 class="text-center mb-4">Южное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
@@ -305,7 +280,6 @@ include('template/allnavbar.php');
                         
                         <!-- Восточное благочиние -->
                         <div id="east" class="mb-5">
-                            <h2 class="text-center mb-4">Восточное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
