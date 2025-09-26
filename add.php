@@ -99,6 +99,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
+        // Обработка файлов для BLOB полей
+        foreach ($columns as $column) {
+            $field = $column['Field'];
+            $fieldType = strtolower($column['Type']);
+            
+            // Пропускаем служебные поля
+            if ($column['Extra'] === 'auto_increment' || $field === $primaryKey || $field === 'id_uprofile') {
+                continue;
+            }
+            
+            // Проверяем, является ли поле BLOB типом
+            if (strpos($fieldType, 'blob') !== false) {
+                // Проверяем, был ли загружен файл для этого поля
+                if (isset($_FILES[$field]) && $_FILES[$field]['error'] === UPLOAD_ERR_OK) {
+                    $fileTmpPath = $_FILES[$field]['tmp_name'];
+                    $fileName = $_FILES[$field]['name'];
+                    $fileSize = $_FILES[$field]['size'];
+                    $fileType = $_FILES[$field]['type'];
+                    
+                    // Читаем содержимое файла
+                    $fileContent = file_get_contents($fileTmpPath);
+                    
+                    // Добавляем в данные для вставки
+                    $data[$field] = $fileContent;
+                    $placeholders[] = "?";
+                    
+                    // Сохраняем информацию о файле для отображения
+                    $_SESSION['uploaded_file_info'][$field] = [
+                        'name' => $fileName,
+                        'size' => $fileSize,
+                        'type' => $fileType
+                    ];
+                } elseif ($column['Null'] === 'YES') {
+                    // Если поле необязательное и файл не загружен, устанавливаем NULL
+                    $data[$field] = null;
+                    $placeholders[] = "?";
+                }
+            }
+        }
+        
         if (!empty($data)) {
             $fields = implode(', ', array_keys($data));
             $values = implode(', ', $placeholders);
@@ -108,8 +148,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute(array_values($data));
             
             $success = "Запись успешно добавлена! ID: " . $pdo->lastInsertId();
-            // header("Location: generalmajorprofile.php?table=" . urlencode($table));
-            // exit;
+            
+            // Показываем информацию о загруженных файлах
+            if (isset($_SESSION['uploaded_file_info']) && !empty($_SESSION['uploaded_file_info'])) {
+                $success .= "<br>Загруженные файлы:";
+                foreach ($_SESSION['uploaded_file_info'] as $field => $fileInfo) {
+                    $success .= "<br>- {$field}: {$fileInfo['name']} ({$fileInfo['size']} bytes, {$fileInfo['type']})";
+                }
+                // Очищаем информацию о файлах после отображения
+                unset($_SESSION['uploaded_file_info']);
+            }
         }
         
     } catch (PDOException $e) {
@@ -133,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
         input[type="text"], input[type="number"], input[type="date"], input[type="datetime"], 
-        textarea, select {
+        textarea, select, input[type="file"] {
             width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;
         }
         textarea { min-height: 100px; resize: vertical; }
@@ -148,6 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .btn-primary { background: #27ae60; color: white; }
         .btn-secondary { background: #95a5a6; color: white; }
         .btn-danger { background: #e74c3c; color: white; }
+        .btn-info { background: #3498db; color: white; }
         .btn:hover { opacity: 0.9; }
         
         .error { color: #e74c3c; background: #ffe6e6; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
@@ -167,6 +216,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background: #f0ffe6; border: 1px solid #7bed9f; border-radius: 4px; 
             padding: 10px; margin-bottom: 15px; 
         }
+        
+        .blob-field-info { 
+            background: #fff3e6; border: 1px solid #ffb366; border-radius: 4px; 
+            padding: 10px; margin-top: 5px; 
+        }
+        
+        .file-preview { 
+            margin-top: 10px; padding: 10px; background: #f9f9f9; border: 1px dashed #ddd; 
+            border-radius: 4px; display: none;
+        }
+        
+        .file-info { font-size: 12px; color: #666; margin-top: 5px; }
+        
+        .max-size-info { color: #e67e22; font-weight: bold; }
     </style>
     <script>
         function clearStatusField(fieldName) {
@@ -176,6 +239,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         function setDefaultStatus(fieldName, defaultValue) {
             document.getElementById(fieldName).value = defaultValue;
+            return false; // Prevent default action
+        }
+        
+        function showFilePreview(input, fieldName) {
+            const file = input.files[0];
+            const preview = document.getElementById('preview-' + fieldName);
+            const fileInfo = document.getElementById('file-info-' + fieldName);
+            
+            if (file) {
+                preview.style.display = 'block';
+                fileInfo.innerHTML = `
+                    <strong>Имя файла:</strong> ${file.name}<br>
+                    <strong>Размер:</strong> ${(file.size / 1024).toFixed(2)} KB<br>
+                    <strong>Тип:</strong> ${file.type}
+                `;
+                
+                // Показываем превью для изображений
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = '<strong>Превью:</strong><br><img src="' + e.target.result + '" style="max-width: 200px; max-height: 150px; margin-top: 5px;">';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.innerHTML = '<strong>Файл:</strong> ' + file.name;
+                }
+            } else {
+                preview.style.display = 'none';
+                fileInfo.innerHTML = '';
+            }
+        }
+        
+        function clearFileField(fieldName) {
+            const input = document.getElementById(fieldName);
+            const preview = document.getElementById('preview-' + fieldName);
+            const fileInfo = document.getElementById('file-info-' + fieldName);
+            
+            input.value = '';
+            preview.style.display = 'none';
+            fileInfo.innerHTML = '';
+            
             return false; // Prevent default action
         }
     </script>
@@ -218,7 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="success"><?php echo $success; ?></div>
         <?php endif; ?>
         
-        <form method="POST" style="margin-top: 20px;">
+        <form method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
             <?php foreach ($columns as $column): ?>
                 <?php 
                 // Пропускаем auto_increment поля, первичный ключ и id_uprofile
@@ -229,6 +333,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 );
                 
                 if (!$skipField): 
+                    $fieldType = strtolower($column['Type']);
+                    $isBlobField = strpos($fieldType, 'blob') !== false;
                 ?>
                     <div class="form-group">
                         <label for="<?php echo $column['Field']; ?>">
@@ -236,7 +342,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </label>
                         
                         <?php
-                        $fieldType = strtolower($column['Type']);
                         $isRequired = $column['Null'] === 'NO' && $column['Default'] === null;
                         $isStatusField = $column['Field'] === 'sstatus';
                         $defaultValue = $isStatusField ? 'active' : '';
@@ -253,7 +358,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php endif; ?>
                         </div>
                         
-                        <?php if ($isStatusField): ?>
+                        <?php if ($isBlobField): ?>
+                            <!-- Обработка BLOB полей -->
+                            <div class="blob-field-info">
+                                <strong>BLOB поле</strong> - загрузите файл
+                            </div>
+                            
+                            <input 
+                                type="file" 
+                                id="<?php echo $column['Field']; ?>" 
+                                name="<?php echo $column['Field']; ?>" 
+                                <?php echo $isRequired ? 'required' : ''; ?>
+                                onchange="showFilePreview(this, '<?php echo $column['Field']; ?>')"
+                                accept="<?php 
+                                    // Устанавливаем рекомендуемые типы файлов в зависимости от имени поля
+                                    $fieldName = strtolower($column['Field']);
+                                    if (strpos($fieldName, 'image') !== false || strpos($fieldName, 'img') !== false) {
+                                        echo 'image/*';
+                                    } elseif (strpos($fieldName, 'pdf') !== false) {
+                                        echo '.pdf';
+                                    } elseif (strpos($fieldName, 'doc') !== false) {
+                                        echo '.doc,.docx';
+                                    } else {
+                                        echo '*/*';
+                                    }
+                                ?>"
+                            >
+                            
+                            <div class="file-controls" style="margin-top: 10px;">
+                                <button type="button" class="btn btn-info" 
+                                    onclick="clearFileField('<?php echo $column['Field']; ?>')">
+                                    Очистить файл
+                                </button>
+                            </div>
+                            
+                            <div id="preview-<?php echo $column['Field']; ?>" class="file-preview"></div>
+                            <div id="file-info-<?php echo $column['Field']; ?>" class="file-info"></div>
+                            
+                            <div class="max-size-info">
+                                <?php
+                                // Определяем максимальный размер в зависимости от типа BLOB
+                                if (strpos($fieldType, 'longblob') !== false) {
+                                    echo "Максимальный размер: 4GB (LONGBLOB)";
+                                } elseif (strpos($fieldType, 'mediumblob') !== false) {
+                                    echo "Максимальный размер: 16MB (MEDIUMBLOB)";
+                                } else {
+                                    echo "Максимальный размер: 64KB (BLOB)";
+                                }
+                                ?>
+                            </div>
+                        
+                        <?php elseif ($isStatusField): ?>
                             <!-- Специальная обработка для поля sstatus -->
                             <input 
                                 type="text" 

@@ -544,38 +544,36 @@ include('template/allnavbar.php');
             <div class="land-see-hero-main mx-auto"></div>
         </section>
         <!-- Блок с iframe вместо карточек новостей -->
-<div class="iframe-news-container">
-    <h2 class="news-header">Новости Благочиния</h2>
-        <div class="form-control bordered" style="background-color: rgba(0, 69, 113, 0.9); border-color:  rgba(0, 69, 113, 0.9);">
-            <?php
-                include('template/social-icons.php');
-            ?>
-        </div>
-        <div style="width: 100%; height: 800px; overflow: hidden; position: relative; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
-            <iframe 
-                src="proxy-news.php"
-                style="width: 100%; height: 1200px; border: none;"
-                title="Новости Благочиния"></iframe>
-        </div>
-        
-    </div>
-    
-    <div class="iframe-controls">
-        <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
-           target="_blank" 
-           class="iframe-btn">
-            Сайт епархии
-        </a>
-        <a href="allunews.php" class="iframe-btn">
-            Наши новости
-        </a>
-                </div>
+        <div class="iframe-news-container">
+            <h2 class="news-header">Новости Благочиния</h2>
+            <div class="form-control bordered" style="background-color: rgba(0, 69, 113, 0.9); border-color:  rgba(0, 69, 113, 0.9);">
+                <?php
+                    include('template/social-icons.php');
+                ?>
+            </div>
+            <div style="width: 100%; height: 800px; overflow: hidden; position: relative; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);">
+                <iframe 
+                    src="proxy-news.php"
+                    style="width: 100%; height: 1200px; border: none;"
+                    title="Новости Благочиния"></iframe>
+            </div>
+            
+            <div class="iframe-controls">
+                <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=1&title=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8&link_id=news" 
+                   target="_blank" 
+                   class="iframe-btn">
+                    Сайт епархии
+                </a>
+                <a href="allunews.php" class="iframe-btn">
+                    Наши новости
+                </a>
             </div>
         </div>
+        
         <!-- Галерея -->
-        <!-- <div class="container mt-4"> -->
-            <!-- <div class="rounded border border-grey bg-white alpha-90 clearfix"> -->
-                <!-- <div class="clearfix"> -->
+        <div class="container mt-4">
+            <div class="rounded border border-grey bg-white alpha-90 clearfix">
+                <div class="clearfix">
                     <div class="col-12 p-2">
                         <div class="module-wrap">
                             <h2 class="text-center">Фотогалерея</h2>
@@ -632,11 +630,10 @@ include('template/allnavbar.php');
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-            <!-- </div> -->
-        <!-- </div> -->
-    <!-- </div> -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="social-footer">
@@ -670,31 +667,37 @@ include('template/footer2.php');
         });
     });
     
-    // Автоматическая высота iframe
-    function adjustIframeHeight() {
-        const iframe = document.getElementById('newsIframe');
-        if (iframe) {
-            iframe.onload = function() {
-                try {
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    const contentBlock = iframeDoc.querySelector('.content-block-wrap');
-                    if (contentBlock) {
-                        iframe.style.height = (contentBlock.scrollHeight + 50) + 'px';
-                    }
-                } catch (e) {
-                    console.log('Не удалось настроить высоту iframe:', e);
-                }
-            };
-        }
-    }
+    // Исправление для мобильного меню
+    $(document).ready(function() {
+        // Закрытие меню при клике на пункт меню (для мобильных устройств)
+        $('.navbar-nav .nav-link').on('click', function() {
+            if ($(window).width() < 992) {
+                $('.navbar-collapse').collapse('hide');
+            }
+        });
+        
+        // Закрытие меню при клике на dropdown-item
+        $('.dropdown-item').on('click', function() {
+            if ($(window).width() < 992) {
+                $('.navbar-collapse').collapse('hide');
+            }
+        });
+        
+        // Предотвращение закрытия при клике внутри dropdown-menu
+        $('.dropdown-menu').on('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Автоматическое закрытие меню при изменении размера окна
+        $(window).on('resize', function() {
+            if ($(window).width() >= 992) {
+                $('.navbar-collapse').removeClass('show');
+            }
+        });
+    });
     
     // Вызываем функцию после загрузки DOM
     document.addEventListener('DOMContentLoaded', adjustIframeHeight);
-    
-    // Исправление для мобильного меню - предотвращение закрытия при клике внутри подменю
-    $(document).on('click', '.dropdown-menu', function (e) {
-        e.stopPropagation();
-    });
 </script>
 </body>
 </html>

@@ -42,15 +42,23 @@ $currentTable = isset($_GET['table']) ? $_GET['table'] : (isset($tables[0]) ? $t
 // Получение данных выбранной таблицы
 $tableData = array();
 $columns = array();
+$blobColumns = array(); // Массив для хранения BLOB-колонок
 $error = '';
 
 if ($currentTable && in_array($currentTable, $tables)) {
     try {
-        // Получаем колонки таблицы
+        // Получаем колонки таблицы и их типы
         $stmt = $pdo->query("DESCRIBE $currentTable");
         $columns = array();
+        $blobColumns = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $columns[] = $row['Field'];
+            // Определяем BLOB-колонки по типу данных
+            if (stripos($row['Type'], 'blob') !== false || 
+                stripos($row['Type'], 'binary') !== false ||
+                stripos($row['Type'], 'image') !== false) {
+                $blobColumns[] = $row['Field'];
+            }
         }
         
         // Получаем данные таблицы (первые 50 записей)
@@ -70,6 +78,85 @@ function safeOutput($value) {
         return 'NULL';
     }
     return htmlspecialchars($value);
+}
+
+// Функция для проверки, является ли данные изображением
+function isImageBlob($data) {
+    if (empty($data)) return false;
+    
+    // Проверяем первые несколько байтов на сигнатуры изображений
+    $signatures = [
+        "\xFF\xD8\xFF", // JPEG
+        "\x89\x50\x4E\x47", // PNG
+        "\x47\x49\x46\x38", // GIF
+        "\x52\x49\x46\x46", // WEBP
+        "\x42\x4D", // BMP
+    ];
+    
+    foreach ($signatures as $signature) {
+        if (substr($data, 0, strlen($signature)) === $signature) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// Функция для создания миниатюры из BLOB-данных
+function createBlobThumbnail($blobData, $maxWidth = 100, $maxHeight = 100) {
+    if (empty($blobData)) {
+        return '<span style="color: #999; font-style: italic;">(пусто)</span>';
+    }
+    
+    if (!isImageBlob($blobData)) {
+        $size = strlen($blobData);
+        return '<span style="color: #666; font-style: italic;">BLOB ('.formatBytes($size).')</span>';
+    }
+    
+    try {
+        $base64 = base64_encode($blobData);
+        $mimeType = getImageMimeType($blobData);
+        
+        return '<img src="data:'.$mimeType.';base64,'.$base64.'" 
+                 class="img-fluid" 
+                 style="max-width: '.$maxWidth.'px; max-height: '.$maxHeight.'px; 
+                        border: 1px solid #ddd; border-radius: 3px;"
+                 alt="Миниатюра">';
+    } catch (Exception $e) {
+        return '<span style="color: #e74c3c; font-style: italic;">Ошибка изображения</span>';
+    }
+}
+
+// Функция для определения MIME-типа изображения
+function getImageMimeType($imageData) {
+    $signatures = [
+        "\xFF\xD8\xFF" => 'image/jpeg',
+        "\x89\x50\x4E\x47" => 'image/png',
+        "\x47\x49\x46\x38" => 'image/gif',
+        "\x52\x49\x46\x46" => 'image/webp',
+        "\x42\x4D" => 'image/bmp',
+    ];
+    
+    foreach ($signatures as $signature => $mime) {
+        if (substr($imageData, 0, strlen($signature)) === $signature) {
+            return $mime;
+        }
+    }
+    
+    return 'application/octet-stream';
+}
+
+// Функция для форматирования размера в байтах
+function formatBytes($bytes, $precision = 2) {
+    $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    
+    $bytes = max($bytes, 0);
+    $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+    $pow = min($pow, count($units) - 1);
+    
+    $bytes /= pow(1024, $pow);
+    
+    return round($bytes, $precision) . ' ' . $units[$pow];
 }
 ?>
 
@@ -155,6 +242,22 @@ function safeOutput($value) {
         .data-table th {
             white-space: nowrap;
         }
+        
+        /* Стили для изображений */
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .blob-indicator {
+            display: inline-block;
+            padding: 2px 6px;
+            background: #3498db;
+            color: white;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -239,7 +342,12 @@ function safeOutput($value) {
                             <thead>
                                 <tr>
                                     <?php foreach ($columns as $column): ?>
-                                        <th><?php echo htmlspecialchars($column); ?></th>
+                                        <th>
+                                            <?php echo htmlspecialchars($column); ?>
+                                            <?php if (in_array($column, $blobColumns)): ?>
+                                                <span class="blob-indicator" title="BLOB поле">BLOB</span>
+                                            <?php endif; ?>
+                                        </th>
                                     <?php endforeach; ?>
                                     <th>Действия</th>
                                 </tr>
@@ -249,7 +357,13 @@ function safeOutput($value) {
                                     <tr>
                                         <?php foreach ($columns as $column): ?>
                                             <td>
-                                                <?php echo safeOutput(isset($row[$column]) ? $row[$column] : null); ?>
+                                                <?php if (in_array($column, $blobColumns) && isset($row[$column])): ?>
+                                                    <!-- Отображаем BLOB-данные как миниатюру -->
+                                                    <?php echo createBlobThumbnail($row[$column]); ?>
+                                                <?php else: ?>
+                                                    <!-- Обычное текстовое поле -->
+                                                    <?php echo safeOutput(isset($row[$column]) ? $row[$column] : null); ?>
+                                                <?php endif; ?>
                                             </td>
                                         <?php endforeach; ?>
                                         <td class="actions">

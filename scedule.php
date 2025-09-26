@@ -49,9 +49,9 @@ echo getStyles();
         .bg-white, 
         .alpha-90-dep, 
         .alpha-90 {
-            background-color: rgba(0, 69, 113, 0.8) !important;
+            background-color: transparent !important;
             color: #fdfdfd !important;
-            border-color: #fdfdfd !important;
+            border-color: transparent !important;
         }
         
         .media-label,
@@ -157,7 +157,7 @@ echo getStyles();
         
         /* Остальные стили */
         .module-wrap {
-            background-color: rgba(0, 69, 113, 0.6);
+            background-color: transparent;
             padding: 20px;
             border-radius: 8px;
         }
@@ -178,35 +178,35 @@ echo getStyles();
         }
         
         .clearfix {
-            background: linear-gradient(to right, rgba(0, 69, 113, 0.9), rgba(96, 150, 184, 0.7));
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(253, 253, 253, 0.2);
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            box-shadow: none;
+            border: none;
         }
 
         .clearfix::after {
             content: "";
             display: table;
             clear: both;
-            background: linear-gradient(to right, transparent, rgba(253, 253, 253, 0.1), transparent);
-            height: 1px;
-            margin: 15px 0;
+            background: transparent;
+            height: 0;
+            margin: 0;
         }
 
         .md-col {
-            background-color: rgba(0, 69, 113, 0.6);
-            border-radius: 8px;
-            margin: 10px 0;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(253, 253, 253, 0.1);
+            background-color: transparent;
+            border-radius: 0;
+            margin: 0;
+            transition: none;
+            border: none;
         }
 
         .md-col:hover {
-            background-color: rgba(0, 69, 113, 0.8);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: transparent;
+            transform: none;
+            box-shadow: none;
         }
         
         .clickable-block {
@@ -351,10 +351,10 @@ echo getStyles();
         
         /* Стили для расписания */
         .schedule-container {
-            background-color: rgba(0, 69, 113, 0.8);
-            border-radius: 10px;
-            padding: 30px;
-            margin: 20px 0;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 20px 0;
+            margin: 0;
         }
         
         .schedule-image {
@@ -386,6 +386,26 @@ echo getStyles();
             content: "";
             margin-left: 0;
         }
+
+        /* Убираем лишние контейнеры */
+        .relative.page-wrap,
+        .content-wrap.relative,
+        .container.mt-4,
+        .rounded.border.border-grey.bg-white.alpha-90.clearfix {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* Центрирование контента */
+        .text-center-content {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -403,7 +423,7 @@ echo getStyles();
 // Подключаем навбар
 include('template/allnavbar.php');
 ?>
-
+<div class="container">
 <div class="relative page-wrap">
     <div class="content-wrap relative">
         <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
@@ -443,24 +463,28 @@ include('template/allnavbar.php');
                                     </ul>
                                         <?php 
                                         //if($count > 0){?>
-                                        <h1 class="text-center"><?php echo($row['titlescedule'])?></h1>
-                                        <p class="text-center">Расписание показано для примера!!!</p>
+                                        <div class="text-center-content">
+                                            <h1 class="text-center"><?php echo($row['titlescedule'])?></h1>
+                                            <p class="text-center">Расписание показано для примера!!!</p>
             
-                                        <div class="article-wrap text-center">
-                                            <?php
-                                            $img = base64_encode($row['imagescedule']);
-                                            ?>
-                                            <img src="data:image/jpeg; base64, <?=$img?>" class="img-fluid schedule-image" alt="Расписание богослужений">
+                                            <div class="article-wrap text-center">
+                                                <?php
+                                                $img = base64_encode($row['imagescedule']);
+                                                ?>
+                                                <img src="data:image/jpeg; base64, <?=$img?>" class="img-fluid schedule-image" alt="Расписание богослужений">
+                                            </div>
                                         </div>
                                         <?php }?><!--Конец цикла-->
                                         <?php }else{//Если активного расписания нет, показываем сообщение пользователю?>
-                                            <h2 class="text-center">Актуальное расписание будет чуть позже, мы уже работаем над этим.</h2>
-                                            <div class="row">
-                                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
-                                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
-                                                    <button class="btn btn-primary" OnClick='location.href="index.php"'>Вернуться на главную</button>
+                                            <div class="text-center-content">
+                                                <h2 class="text-center">Актуальное расписание будет чуть позже, мы уже работаем над этим.</h2>
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
+                                                        <button class="btn btn-primary" OnClick='location.href="index.php"'>Вернуться на главную</button>
+                                                    </div>
+                                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
                                                 </div>
-                                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
                                             </div>
                                         <?php }?><!--Конец if-->
                         </div>
@@ -476,7 +500,7 @@ include('template/allnavbar.php');
         <?php include('template/social-icons.php'); ?>
     </div>
 </div>
-
+</div><!--container-->
 <?php
 include('template/footer2.php');
 ?>

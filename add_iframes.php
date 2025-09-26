@@ -41,6 +41,15 @@ if (isset($_POST['logout'])) {
 $success = isset($_GET['success']) ? true : false;
 $error = isset($_GET['error']) ? $_GET['error'] : '';
 
+// Функция для обработки URL
+function processUrl($url) {
+    // Проверяем, является ли ссылка RuTube iframe
+    if (preg_match('/^<iframe[^>]*src="(https?:\/\/rutube\.ru\/play\/embed\/[^"]+)"[^>]*><\/iframe>$/i', $url, $matches)) {
+        return $matches[1]; // Возвращаем только URL
+    }
+    return $url; // Возвращаем исходный URL, если это не RuTube iframe
+}
+
 // Обработка отправки формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
     // Проверка CSRF-токена
@@ -53,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
     $url = trim($_POST['url'] ?? '');
     $description = isset($_POST['description']) ? trim($_POST['description']) : null;
     
+    // Обрабатываем URL перед валидацией
+    $processedUrl = processUrl($url);
+    
     // Валидация
     $errors = [];
     
@@ -60,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
         $errors[] = 'empty_title';
     }
     
-    if (empty($url) || !filter_var($url, FILTER_VALIDATE_URL)) {
+    if (empty($processedUrl) || !filter_var($processedUrl, FILTER_VALIDATE_URL)) {
         $errors[] = 'invalid_url';
     }
     
@@ -73,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 ':title' => $title,
-                ':url' => $url,
+                ':url' => $processedUrl,
                 ':description' => $description,
                 ':user_id' => $_SESSION['id']
             ]);
@@ -263,7 +275,7 @@ ob_end_clean();
                     
                     <div class="form-group">
                         <label for="url">URL *</label>
-                        <input type="url" id="url" name="url" placeholder="https://example.com" required>
+                        <input type="url" id="url" name="url" placeholder="https://example.com или полный iframe код для RuTube" required>
                     </div>
                     
                     <div class="form-group">
