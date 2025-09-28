@@ -91,6 +91,11 @@ echo getStyles();
             background: transparent;
         }
         
+        .iframe-eternal-container {
+            padding: 30px 0;
+            background: transparent;
+        }
+        
         .news-header {
             text-align: center;
             margin-bottom: 30px;
@@ -520,6 +525,59 @@ echo getStyles();
                 bottom: -25px;
             }
         }
+        
+        /* Стили для блока "Пару минут о вечном" */
+        .eternal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            color: #333;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        
+        .eternal-content .bishops-word-wrapper,
+        .eternal-content .content-block-wrap {
+            background: white !important;
+            color: #333 !important;
+        }
+        
+        .eternal-content a {
+            color: #004571 !important;
+        }
+        
+        .eternal-content a:hover {
+            color: #0066cc !important;
+            text-decoration: underline;
+        }
+        
+        .eternal-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .eternal-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #004571;
+        }
+        
+        .eternal-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .eternal-content img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -566,6 +624,68 @@ include('template/allnavbar.php');
                 </a>
                 <a href="allunews.php" class="iframe-btn">
                     Наши новости
+                </a>
+            </div>
+        </div>
+        
+        <!-- Блок "Пару минут о вечном" -->
+        <div class="iframe-eternal-container">
+            <h2 class="news-header">Пару минут о вечном</h2>
+            <div class="form-control bordered" style="background-color: rgba(0, 69, 113, 0.9); border-color:  rgba(0, 69, 113, 0.9);">
+                <?php
+                    include('template/social-icons.php');
+                ?>
+            </div>
+            
+            <div class="eternal-content">
+                <?php
+                // Прокси для загрузки контента "Пару минут о вечном"
+                $eternalUrl = 'https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal';
+                
+                // Получаем содержимое страницы
+                $eternalHtml = file_get_contents($eternalUrl);
+                
+                if ($eternalHtml !== false) {
+                    // Создаем DOMDocument объект
+                    $dom = new DOMDocument();
+                    @$dom->loadHTML($eternalHtml, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                    
+                    // Находим элемент с классом bishops-word-wrapper или content-block-wrap
+                    $xpath = new DOMXPath($dom);
+                    $contentBlock = $xpath->query('//div[contains(@class, "bishops-word-wrapper")] | //div[contains(@class, "content-block-wrap")]')->item(0);
+                    
+                    if ($contentBlock) {
+                        // Извлекаем HTML содержимое блока
+                        $contentHtml = $dom->saveHTML($contentBlock);
+                        
+                        // Удаляем все скрипты и стили из извлеченного контента
+                        $contentHtml = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $contentHtml);
+                        $contentHtml = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $contentHtml);
+                        
+                        // Добавляем базовые стили для корректного отображения
+                        echo '<div class="eternal-content-inner">' . $contentHtml . '</div>';
+                    } else {
+                        echo '<div style="padding: 20px; text-align: center; color: #333;">
+                                <p>Не удалось загрузить контент "Пару минут о вечном" с сайта blago-kavkaz.ru</p>
+                                <p><a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal" 
+                                      target="_blank" style="color: #6096b8;">Перейти на сайт</a></p>
+                              </div>';
+                    }
+                } else {
+                    echo '<div style="padding: 20px; text-align: center; color: #333;">
+                            <p>Ошибка при загрузке контента "Пару минут о вечном" с сайта blago-kavkaz.ru</p>
+                            <p><a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal" 
+                                  target="_blank" style="color: #6096b8;">Перейти на сайт</a></p>
+                          </div>';
+                }
+                ?>
+            </div>
+            
+            <div class="iframe-controls">
+                <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal" 
+                   target="_blank" 
+                   class="iframe-btn">
+                    Все материалы на сайте епархии
                 </a>
             </div>
         </div>
