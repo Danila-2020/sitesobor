@@ -627,69 +627,98 @@ include('template/allnavbar.php');
                 </a>
             </div>
         </div>
-        
-        <!-- Блок "Пару минут о вечном" -->
-        <div class="iframe-eternal-container">
-            <h2 class="news-header">Пару минут о вечном</h2>
-            <div class="form-control bordered" style="background-color: rgba(0, 69, 113, 0.9); border-color:  rgba(0, 69, 113, 0.9);">
-                <?php
+        <?php
                     include('template/social-icons.php');
-                ?>
+                ?>        
+        <div class="container">
+            <div class="row"><h1>Пару минут о вечном</h1></div>
+            <!-- Блок с iframe "Пару минут о вечном" -->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4">
+                <amp-iframe src="https://rutube.ru/play/embed/a34b4a11eb0b7d17d4d726ca10d2d85a/" height="608" width="360" layout="responsive" sandbox="allow-scripts allow-same-origin" allowfullscreen="" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="responsive" frameborder="0" style="--loader-delay-offset: 1ms !important;"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 168.889%;"></i-amphtml-sizer><amp-img src="/files/global/iframe.png" width="400" height="273" layout="fill" placeholder="" class="i-amphtml-element i-amphtml-layout-fill i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout amp-hidden" i-amphtml-layout="fill"><img decoding="async" src="/files/global/iframe.png" class="i-amphtml-fill-content i-amphtml-replaced-content"></amp-img><i-amphtml-scroll-container class="amp-active"><iframe class="i-amphtml-fill-content" name="amp_iframe0" allowfullscreen="" frameborder="0" allow="" sandbox="allow-scripts allow-same-origin" src="https://rutube.ru/play/embed/a34b4a11eb0b7d17d4d726ca10d2d85a/#amp=1" style="z-index: 0;"></iframe></i-amphtml-scroll-container></amp-iframe>
             </div>
-            
-            <div class="eternal-content">
-                <?php
-                // Прокси для загрузки контента "Пару минут о вечном"
-                $eternalUrl = 'https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal';
-                
-                // Получаем содержимое страницы
-                $eternalHtml = file_get_contents($eternalUrl);
-                
-                if ($eternalHtml !== false) {
-                    // Создаем DOMDocument объект
-                    $dom = new DOMDocument();
-                    @$dom->loadHTML($eternalHtml, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-                    
-                    // Находим элемент с классом bishops-word-wrapper или content-block-wrap
-                    $xpath = new DOMXPath($dom);
-                    $contentBlock = $xpath->query('//div[contains(@class, "bishops-word-wrapper")] | //div[contains(@class, "content-block-wrap")]')->item(0);
-                    
-                    if ($contentBlock) {
-                        // Извлекаем HTML содержимое блока
-                        $contentHtml = $dom->saveHTML($contentBlock);
-                        
-                        // Удаляем все скрипты и стили из извлеченного контента
-                        $contentHtml = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $contentHtml);
-                        $contentHtml = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $contentHtml);
-                        
-                        // Добавляем базовые стили для корректного отображения
-                        echo '<div class="eternal-content-inner">' . $contentHtml . '</div>';
-                    } else {
-                        echo '<div style="padding: 20px; text-align: center; color: #333;">
-                                <p>Не удалось загрузить контент "Пару минут о вечном" с сайта blago-kavkaz.ru</p>
-                                <p><a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal" 
-                                      target="_blank" style="color: #6096b8;">Перейти на сайт</a></p>
-                              </div>';
-                    }
-                } else {
-                    echo '<div style="padding: 20px; text-align: center; color: #333;">
-                            <p>Ошибка при загрузке контента "Пару минут о вечном" с сайта blago-kavkaz.ru</p>
-                            <p><a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal" 
-                                  target="_blank" style="color: #6096b8;">Перейти на сайт</a></p>
-                          </div>';
-                }
-                ?>
-            </div>
-            
-            <div class="iframe-controls">
-                <a href="https://blago-kavkaz.ru/site/articles?catids%5B0%5D=2&title=Пару%20минут%20о%20вечном&link_id=eternal" 
-                   target="_blank" 
-                   class="iframe-btn">
-                    Все материалы на сайте епархии
-                </a>
+            <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8">
+                <p>Полезно рассуждать? Очень полезно! Но во всяком рассуждении есть свои правила. 
+                    Святитель Николай Сербский пишет об этих правилах. 
+                    И мне хотелось бы сегодня вместе с вами над ними поразмышлять. 
+                    О трёх вещах, пишет святитель Николай, не берись рассуждать: о Боге, пока не укрепишься в вере, 
+                    о чужих грехах, пока не вспомнишь о своих,  и о грядущем дне, пока не увидишь рассвет. 
+                    Правила рассуждения всегда кроются в осмыслении своей собственной жизни, осмыслении своей 
+                    духовной жизни, но ещё и в осмыслении Промысла Божия. Действительно, рассуждение о Боге может 
+                    быть полезно и для тебя самого, и для другого человека, когда твоя душа крепка в вере, когда ты 
+                    испытал минуты сомнений, и минуты радости, и благодарности, и имеешь очень твёрдую духовную жизнь,
+                    основу. Рассуждать о грехах чужих полезно только тогда, когда вспомнишь о своих. Тогда твое  
+                    рассуждение о других грехах будет состраданием с надеждой на исправление. 
+                    И уж тем более рассуждать о грядущем дне можно тогда, когда ты видишь рассвет. Не мечтать, 
+                    не фантазировать, а видеть вокруг себя творение Божие и благодарить Того, Кто подарил нам жизнь.</p>
             </div>
         </div>
+        <script>
+        // Функция для автоматической регулировки высоты iframe
+        function adjustIframeHeight() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.onload = function() {
+                    // Даем время на полную загрузку контента
+                    setTimeout(() => {
+                        try {
+                            const contentHeight = iframe.contentWindow.document.body.scrollHeight;
+                            iframe.style.height = contentHeight + 'px';
+                        } catch (e) {
+                            console.log('Не удалось изменить высоту iframe:', e);
+                        }
+                    }, 1000);
+                };
+            });
+        }
+
+        // Вызываем функцию после загрузки DOM
+        document.addEventListener('DOMContentLoaded', adjustIframeHeight);
+
+        // Также вызываем при изменении размера окна
+        window.addEventListener('resize', adjustIframeHeight);
         
+        // Активация Lightbox
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                wrapping: false,
+                onShown: function() {
+                    $('.ekko-lightbox').css('background-color', 'rgba(0, 69, 113, 0.95)');
+                }
+            });
+        });
+        
+        // Исправление для мобильного меню
+        $(document).ready(function() {
+            // Закрытие меню при клике на пункт меню (для мобильных устройств)
+            $('.navbar-nav .nav-link').on('click', function() {
+                if ($(window).width() < 992) {
+                    $('.navbar-collapse').collapse('hide');
+                }
+            });
+            
+            // Закрытие меню при клике на dropdown-item
+            $('.dropdown-item').on('click', function() {
+                if ($(window).width() < 992) {
+                    $('.navbar-collapse').collapse('hide');
+                }
+            });
+            
+            // Предотвращение закрытия при клике внутри dropdown-menu
+            $('.dropdown-menu').on('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Автоматическое закрытие меню при изменении размера окна
+            $(window).on('resize', function() {
+                if ($(window).width() >= 992) {
+                    $('.navbar-collapse').removeClass('show');
+                }
+            });
+        });
+        </script>
+        </div>
         <!-- Галерея -->
         <div class="container mt-4">
             <div class="rounded border border-grey bg-white alpha-90 clearfix">
