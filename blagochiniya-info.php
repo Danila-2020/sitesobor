@@ -159,6 +159,40 @@ echo getStyles();
             border-color: #dc3545;
         }
         
+        /* Стили для iframe контейнера */
+        .iframes-container {
+            background-color: rgba(0, 69, 113, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+
+        .iframe-item {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .iframe-item h4 {
+            color: #fdfdfd;
+            margin-bottom: 10px;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+        }
+
+        .embed-responsive {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .iframe-description {
+            color: #fdfdfd;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
         /* Стили для социальных иконок */
         .social-share {
             list-style: none;
@@ -303,13 +337,22 @@ include('template/allnavbar.php');
                             
                             <h3 class="text-center mb-3 mt-4">Задачи благочиний</h3>
                             <ul>
-                                <li>Координация деятельности приходов на территории благочиния</li>
+                                <li>Коordination деятельности приходов на территории благочиния</li>
                                 <li>Организация совместных мероприятий и богослужений</li>
                                 <li>Контроль за соблюдением церковных уставов и распоряжений епархии</li>
                                 <li>Решение текущих вопросов приходской жизни</li>
                                 <li>Подготовка отчетов для епархиального управления</li>
                             </ul>
                         </div>
+
+                        <!-- Отображение iframe для этой страницы -->
+                        <?php
+                        // Подключаем функцию отображения iframe
+                        require_once 'display_iframes.php';
+                        
+                        // Отображаем iframe для этой страницы
+                        displayIframes('blagochiniya-info.php', $mysqli);
+                        ?>
                     </div>
                 </div>
             </div>

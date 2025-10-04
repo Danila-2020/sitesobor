@@ -164,6 +164,40 @@ echo getStyles();
             margin-bottom: 30px;
         }
         
+        /* Стили для iframe контейнера */
+        .iframes-container {
+            background-color: rgba(0, 69, 113, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+
+        .iframe-item {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .iframe-item h4 {
+            color: #fdfdfd;
+            margin-bottom: 10px;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+        }
+
+        .embed-responsive {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .iframe-description {
+            color: #fdfdfd;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
         /* Стили для социальных иконок */
         .social-share {
             list-style: none;
@@ -239,47 +273,7 @@ include('template/allnavbar.php');
                         <div class="temples-map">
                             <!-- Здесь будет карта с храмами -->
                             <img src="img/temples-map.jpg" alt="Карта храмов благочиний" class="img-fluid rounded">
-                        </div>
-                        
-                        <!-- Фильтр храмов -->
-                        <div class="filter-section">
-                            <h3 class="filter-title">Фильтр храмов</h3>
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="blagochinieFilter">Благочиние</label>
-                                    <select class="form-control" id="blagochinieFilter">
-                                        <option value="all">Все благочиния</option>
-                                        <option value="central">Центральное</option>
-                                        <option value="north">Северное</option>
-                                        <option value="south">Южное</option>
-                                        <option value="east">Восточное</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="typeFilter">Тип храма</label>
-                                    <select class="form-control" id="typeFilter">
-                                        <option value="all">Все типы</option>
-                                        <option value="cathedral">Собор</option>
-                                        <option value="church">Церковь</option>
-                                        <option value="chapel">Часовня</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="yearFilter">Год постройки</label>
-                                    <select class="form-control" id="yearFilter">
-                                        <option value="all">Любой год</option>
-                                        <option value="19century">До 1900 года</option>
-                                        <option value="20century">1901-2000 года</option>
-                                        <option value="21century">После 2000 года</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <button class="btn btn-primary">Применить фильтры</button>
-                                <button class="btn btn-outline-primary ml-2">Сбросить</button>
-                            </div>
-                        </div>
-                        
+                        </div>                        
                         <!-- Список храмов -->
                         <div class="row">
                             <!-- Храм 1 -->
@@ -411,6 +405,15 @@ include('template/allnavbar.php');
                                 </li>
                             </ul>
                         </nav>
+
+                        <!-- Отображение iframe для этой страницы -->
+                        <?php
+                        // Подключаем функцию отображения iframe
+                        require_once 'display_iframes.php';
+                        
+                        // Отображаем iframe для этой страницы
+                        displayIframes('blagochiniya-temples.php', $mysqli);
+                        ?>
                     </div>
                 </div>
             </div>

@@ -46,6 +46,52 @@ echo getStyles();
             padding-top: 56px;
         }
         
+        .content-wrap, 
+        .max-width-4, 
+        .rounded, 
+        .border, 
+        .bg-white, 
+        .alpha-90-dep, 
+        .alpha-90 {
+            background-color: rgba(0, 69, 113, 0.8) !important;
+            color: #fdfdfd !important;
+            border-color: #fdfdfd !important;
+        }
+        
+        .media-label,
+        .h3 {
+            color: #fdfdfd !important;
+        }
+        
+        a {
+            color: #fdfdfd !important;
+        }
+        
+        .btn-primary {
+            background-color: rgba(96, 150, 184, 0.7) !important;
+            border-color: #fdfdfd !important;
+            color: #fdfdfd !important;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: rgba(96, 150, 184, 1) !important;
+        }
+        
+        .btn-outline-primary {
+            border-color: #fdfdfd !important;
+            color: #fdfdfd !important;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #fdfdfd !important;
+            color: #004571 !important;
+        }
+        
+        .land-see-hero-container {
+            display: none;
+        }
+        
         /* Стили для духовенства */
         .clergy-card {
             background-color: rgba(0, 69, 113, 0.6);
@@ -105,6 +151,62 @@ echo getStyles();
             margin-bottom: 20px;
         }
         
+        /* Стили для iframe контейнера */
+        .iframes-container {
+            background-color: rgba(0, 69, 113, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+
+        .iframe-item {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .iframe-item h4 {
+            color: #fdfdfd;
+            margin-bottom: 10px;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+        }
+
+        .embed-responsive {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .iframe-description {
+            color: #fdfdfd;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        /* Стили для навигации по благочиниям */
+        .blagochiniya-nav {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .blagochiniya-nav .nav-link {
+            color: #fdfdfd;
+            border: 1px solid rgba(253, 253, 253, 0.3);
+            margin: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .blagochiniya-nav .nav-link:hover,
+        .blagochiniya-nav .nav-link.active {
+            background-color: rgba(96, 150, 184, 0.7);
+            border-color: #fdfdfd;
+        }
+        
         /* Адаптация для мобильных устройств */
         @media (max-width: 768px) {
             .clergy-photo {
@@ -142,9 +244,36 @@ include('template/allnavbar.php');
                     <amp-img class="mx-auto" src="img/mestologo.png" width="1024" height="540" layout="responsive"></amp-img>
                 </div>
                 
+                <div class="social text-center mb-4">
+                    <div class="container">
+                        <?php include('template/social-icons.php'); ?>
+                    </div>
+                </div>
+                
                 <div class="clearfix">
                     <div class="col-12 p-4">
+                        <h1 class="text-center mb-4">Духовенство благочиний</h1>
+                        
+                        <!-- Навигация по благочиниям -->
+                        <div class="blagochiniya-nav">
+                            <ul class="nav nav-pills justify-content-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#central">Центральное</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#north">Северное</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#south">Южное</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#east">Восточное</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
                         <div id="central" class="mb-5">
+                            <h2 class="text-center mb-4">Центральное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
@@ -210,6 +339,7 @@ include('template/allnavbar.php');
                         
                         <!-- Северное благочиние -->
                         <div id="north" class="mb-5">
+                            <h2 class="text-center mb-4">Северное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
@@ -245,6 +375,7 @@ include('template/allnavbar.php');
                         
                         <!-- Южное благочиние -->
                         <div id="south" class="mb-5">
+                            <h2 class="text-center mb-4">Южное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
@@ -280,6 +411,7 @@ include('template/allnavbar.php');
                         
                         <!-- Восточное благочиние -->
                         <div id="east" class="mb-5">
+                            <h2 class="text-center mb-4">Восточное благочиние</h2>
                             <div class="row">
                                 <!-- Благочинный -->
                                 <div class="col-md-6">
@@ -312,6 +444,15 @@ include('template/allnavbar.php');
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Отображение iframe для этой страницы -->
+                        <?php
+                        // Подключаем функцию отображения iframe
+                        require_once 'display_iframes.php';
+                        
+                        // Отображаем iframe для этой страницы
+                        displayIframes('blagochiniya-clergy.php', $mysqli);
+                        ?>
                     </div>
                 </div>
             </div>
@@ -346,9 +487,29 @@ include('template/footer2.php');
     // Плавная прокрутка к выбранному благочинию
     $('a[href^="#"]').on('click', function(event) {
         event.preventDefault();
+        var target = $(this).attr('href');
+        
+        // Обновляем активную вкладку
+        $('.blagochiniya-nav .nav-link').removeClass('active');
+        $(this).addClass('active');
+        
         $('html, body').animate({
-            scrollTop: $($.attr(this, 'href')).offset().top - 20
+            scrollTop: $(target).offset().top - 20
         }, 500);
+    });
+    
+    // Обновление активной вкладки при прокрутке
+    $(window).on('scroll', function() {
+        var scrollPos = $(document).scrollTop();
+        
+        $('.blagochiniya-nav .nav-link').each(function() {
+            var currLink = $(this);
+            var refElement = $(currLink.attr('href'));
+            if (refElement.position().top <= scrollPos + 100 && refElement.position().top + refElement.height() > scrollPos) {
+                $('.blagochiniya-nav .nav-link').removeClass('active');
+                currLink.addClass('active');
+            }
+        });
     });
 </script>
 </body>
