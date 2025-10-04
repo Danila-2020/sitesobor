@@ -24,7 +24,6 @@ echo getStyles();
     <!-- Подключение Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        /* Все ваши стили остаются без изменений */
         @font-face {
             font-family: 'Russian Land Cyrillic';
             src: url('fonts/russianlandcyrillic.ttf') format('truetype');
@@ -45,7 +44,155 @@ echo getStyles();
             padding-top: 56px;
         }
         
-        /* ... остальные стили ... */
+        .content-wrap, 
+        .max-width-4, 
+        .rounded, 
+        .border, 
+        .bg-white, 
+        .alpha-90-dep, 
+        .alpha-90 {
+            background-color: rgba(0, 69, 113, 0.8) !important;
+            color: #fdfdfd !important;
+            border-color: #fdfdfd !important;
+        }
+        
+        .media-label,
+        .h3 {
+            color: #fdfdfd !important;
+        }
+        
+        a {
+            color: #fdfdfd !important;
+        }
+        
+        .btn-primary {
+            background-color: rgba(96, 150, 184, 0.7) !important;
+            border-color: #fdfdfd !important;
+            color: #fdfdfd !important;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: rgba(96, 150, 184, 1) !important;
+        }
+        
+        .btn-outline-primary {
+            border-color: #fdfdfd !important;
+            color: #fdfdfd !important;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #fdfdfd !important;
+            color: #004571 !important;
+        }
+        
+        .land-see-hero-container {
+            display: none;
+        }
+        
+        /* Стили для галереи */
+        .gallery-slider {
+            position: relative;
+            margin: 20px 0;
+            background: rgba(0, 69, 113, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 500px;
+        }
+        
+        .gallery-item img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .gallery-item:hover {
+            opacity: 0.9;
+        }
+        
+        .news-content {
+            line-height: 1.6;
+            font-size: 1.1rem;
+            padding: 20px 0;
+        }
+        
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.8);
+            border-color: #dc3545;
+        }
+        
+        /* Стили для iframe контейнера */
+        .iframes-container {
+            background-color: rgba(0, 69, 113, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+
+        .iframe-item {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .iframe-item h4 {
+            color: #fdfdfd;
+            margin-bottom: 10px;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+        }
+
+        .embed-responsive {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .iframe-description {
+            color: #fdfdfd;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        /* Стили для социальных иконок */
+        .social-share {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .social-share li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        .social-share li a i {
+            color: #fdfdfd;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-share li a i:hover {
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-item {
+                height: 300px;
+            }
+            
+            .iframes-container {
+                padding: 15px;
+                margin-top: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -162,7 +309,6 @@ echo getStyles();
 
                         // Получаем данные новости
                         $newsQuery = "SELECT * FROM `unews` WHERE `id_unews` = $idunews";
-                        var_dump($newsQuery);
                         $newsResult = $mysqli->query($newsQuery);
 
                         if ($newsResult && $newsResult->num_rows > 0) {
@@ -171,9 +317,9 @@ echo getStyles();
                             // Вывод заголовка и описания в самом верху
                             echo('
                                 <div class="col col-12">
-                                    <h1 class="text-center mb-4">' .$newsRow['utitle'].'</h1>
+                                    <h1 class="text-center mb-4">' . htmlspecialchars($newsRow['utitle']) . '</h1>
                                     <p class="lead text-center mb-4">
-                                        ' .$newsRow['udescription']. '
+                                        ' . htmlspecialchars($newsRow['udescription']) . '
                                     </p>
                                 </div>
                             ');
@@ -186,9 +332,23 @@ echo getStyles();
                             if ($photosResult && $photosResult->num_rows > 0) {
                                 while ($photoRow = $photosResult->fetch_assoc()) {
                                     if (!empty($photoRow['uphotonews'])) {
-                                        // Кодируем изображение в base64
-                                        $show_img = base64_encode($photoRow['uphotonews']);
-                                        $photos[] = 'data:image/jpeg;base64,' . $show_img;
+                                        // Получаем бинарные данные изображения
+                                        $imageData = $photoRow['uphotonews'];
+                                        
+                                        // Проверяем, является ли данные уже base64
+                                        if (base64_encode(base64_decode($imageData, true)) === $imageData) {
+                                            // Данные уже в base64
+                                            $show_img = $imageData;
+                                        } else {
+                                            // Кодируем изображение в base64
+                                            $show_img = base64_encode($imageData);
+                                        }
+                                        
+                                        // Определяем тип изображения
+                                        $finfo = new finfo(FILEINFO_MIME_TYPE);
+                                        $mime_type = $finfo->buffer(base64_decode($show_img));
+                                        
+                                        $photos[] = 'data:' . $mime_type . ';base64,' . $show_img;
                                     }
                                 }
                             }
@@ -269,6 +429,16 @@ echo getStyles();
                             echo "<div class='alert alert-danger'>Новость не найдена.</div>";
                         }
                         ?>
+                        
+                        <!-- Отображение iframe для этой страницы -->
+                        <?php
+                        // Подключаем функцию отображения iframe
+                        require_once 'display_iframes.php';
+                        
+                        // Отображаем iframe для этой страницы
+                        displayIframes('unews.php', $mysqli);
+                        ?>
+                        
                         <div class="text-center mt-4">
                             <button type="button" class="btn btn-primary" onclick="window.location.href='allunews.php'">К списку новостей</button>
                         </div>

@@ -162,6 +162,40 @@ if (!$result) {
             background-color: rgba(96, 150, 184, 1);
         }
         
+        /* Стили для iframe контейнера */
+        .iframes-container {
+            background-color: rgba(0, 69, 113, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+
+        .iframe-item {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .iframe-item h4 {
+            color: #fdfdfd;
+            margin-bottom: 10px;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+        }
+
+        .embed-responsive {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .iframe-description {
+            color: #fdfdfd;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding-top: 66px;
@@ -175,6 +209,11 @@ if (!$result) {
                 width: 35px;
                 height: 35px;
                 line-height: 35px;
+            }
+            
+            .iframes-container {
+                padding: 15px;
+                margin-top: 20px;
             }
         }
     </style>
@@ -229,15 +268,37 @@ include('template/allnavbar.php');
                 <?php endwhile; ?>
             </div>
         </div>
+
+        <!-- Отображение iframe для этой страницы -->
+        <?php
+        // Подключаем функцию отображения iframe
+        require_once 'display_iframes.php';
+        
+        // Отображаем iframe для этой страницы
+        displayIframes('clergy.php', $mysqli);
+        ?>
     </div>
+    
     <div class="social">
         <div class="container">
             <?php include('template/social-icons.php'); ?>
         </div>
     </div>
-    </div>
 </div>
+
 <?php
 include('template/footer2.php');
 ?>
-<?php ob_end_flush(); ?>
+
+<!-- Подключение jQuery, Popper.js и Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+
+<?php 
+// Закрываем соединение с базой данных
+$mysqli->close();
+ob_end_flush(); 
+?>
+</body>
+</html>

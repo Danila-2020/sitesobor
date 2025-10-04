@@ -81,10 +81,49 @@ echo getStyles();
             margin-bottom: 15px;
         }
         
+        /* Стили для iframe контейнера */
+        .iframes-container {
+            background-color: rgba(0, 69, 113, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+
+        .iframe-item {
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .iframe-item h4 {
+            color: #fdfdfd;
+            margin-bottom: 10px;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+        }
+
+        .embed-responsive {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        .iframe-description {
+            color: #fdfdfd;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
         /* Адаптация для мобильных устройств */
         @media (max-width: 768px) {
             .tour-iframe {
                 height: 50vh;
+            }
+            
+            .iframes-container {
+                padding: 15px;
+                margin-top: 20px;
             }
         }
     </style>
@@ -267,6 +306,32 @@ echo getStyles();
                     </div>
                 </div>
             </div>
+            
+            <!-- Отображение iframe для этой страницы -->
+            <?php
+            // Подключаем функцию отображения iframe
+            require_once 'display_iframes.php';
+            
+            // Определяем, какое подключение использовать
+            // Если в tour.php используется PDO, передаем $pdo
+            // Если используется mysqli, передаем $mysqli
+            // В данном случае, судя по ошибке, используется PDO
+            if (isset($pdo) && $pdo instanceof PDO) {
+                displayIframes('tour.php', $pdo);
+            } elseif (isset($mysqli) && $mysqli instanceof mysqli) {
+                displayIframes('tour.php', $mysqli);
+            } else {
+                // Если ни одно подключение не доступно, создаем новое
+                try {
+                    require_once 'config.php';
+                    if (isset($pdo)) {
+                        displayIframes('tour.php', $pdo);
+                    }
+                } catch (Exception $e) {
+                    echo '<!-- Ошибка подключения к БД: ' . htmlspecialchars($e->getMessage()) . ' -->';
+                }
+            }
+            ?>
         </div>
     </div>
 </div>

@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
     $title = trim($_POST['title'] ?? '');
     $url = trim($_POST['url'] ?? '');
     $description = isset($_POST['description']) ? trim($_POST['description']) : null;
+    $page = trim($_POST['page'] ?? '');
     
     // Обрабатываем URL перед валидацией
     $processedUrl = processUrl($url);
@@ -76,18 +77,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
         $errors[] = 'invalid_url';
     }
     
+    if (empty($page)) {
+        $errors[] = 'empty_page';
+    }
+    
     // Если ошибок нет, сохраняем в базу
     if (empty($errors)) {
         try {
-            $sql = "INSERT INTO iframes (utitle, url, description, id_uprofile) 
-                    VALUES (:title, :url, :description, :user_id)";
+            $sql = "INSERT INTO iframes (utitle, url, description, id_uprofile, page_iframes) 
+                    VALUES (:title, :url, :description, :user_id, :page)";
             
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 ':title' => $title,
                 ':url' => $processedUrl,
                 ':description' => $description,
-                ':user_id' => $_SESSION['id']
+                ':user_id' => $_SESSION['id'],
+                ':page' => $page
             ]);
             
             header('Location: add_iframes.php?success=1');
@@ -105,6 +111,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
     }
 }
 
+// Получаем список доступных страниц
+$available_pages = [
+    'unews.php' => 'Новости',
+    'clergy.php' => 'Духовенство', 
+    'tour.php' => 'Виртуальный тур',
+    'blagochiniya-info.php' => 'Благочиния - Общие сведения',
+    'blagochiniya-temples.php' => 'Благочиния - Храмы',
+    'blagochiniya-clergy.php' => 'Благочиния - Духовенство'
+];
+
 // Очищаем буфер и начинаем вывод HTML
 ob_end_clean();
 ?>
@@ -116,6 +132,7 @@ ob_end_clean();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Добавить iframe - Админ-панель</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
@@ -166,7 +183,8 @@ ob_end_clean();
         }
         
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 0.75rem;
             border: 1px solid #ddd;
@@ -203,6 +221,17 @@ ob_end_clean();
             background: #f8f9fa;
             border-radius: 5px;
             border: 1px solid #ddd;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 46px;
+            padding: 0.75rem;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 44px;
         }
     </style>
 </head>
@@ -252,13 +281,16 @@ ob_end_clean();
                         'csrf' => 'Ошибка безопасности. Попробуйте еще раз.',
                         'empty_title' => 'Пожалуйста, укажите заголовок.',
                         'invalid_url' => 'Пожалуйста, укажите корректный URL.',
+                        'empty_page' => 'Пожалуйста, выберите страницу.',
                         'save_failed' => 'Произошла ошибка при сохранении. Попробуйте еще раз.'
                     ];
                     
-                    if (isset($errorMessages[$error])) {
-                        echo $errorMessages[$error];
-                    } else {
-                        echo 'Произошла ошибка. Попробуйте еще раз.';
+                    // Обработка множественных ошибок
+                    $errors = explode(',', $error);
+                    foreach ($errors as $err) {
+                        if (isset($errorMessages[$err])) {
+                            echo $errorMessages[$err] . '<br>';
+                        }
                     }
                     ?>
                 </div>
@@ -279,6 +311,16 @@ ob_end_clean();
                     </div>
                     
                     <div class="form-group">
+                        <label for="page">Страница для отображения *</label>
+                        <select id="page" name="page" required>
+                            <option value="">Выберите страницу...</option>
+                            <?php foreach ($available_pages as $page_file => $page_name): ?>
+                                <option value="<?php echo $page_file; ?>"><?php echo $page_name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
                         <label for="description">Описание (необязательно)</label>
                         <textarea id="description" name="description"></textarea>
                     </div>
@@ -290,5 +332,17 @@ ob_end_clean();
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#page').select2({
+                placeholder: "Выберите страницу...",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 </body>
 </html>
