@@ -2,6 +2,16 @@
 // Включаем буферизацию вывода
 ob_start();
 
+// Устанавливаем уровень обработки ошибок
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // На продакшене лучше отключить вывод ошибок
+ini_set('log_errors', 1);
+
+// Базовые проверки перед подключением config.php
+if (!file_exists('config.php')) {
+    die("Файл config.php не найден. Проверьте путь к файлу.");
+}
+
 require_once 'config.php';
 
 // Если функция checkAuth не определена, создаем её
@@ -22,12 +32,26 @@ checkAuth();
 
 // Проверяем, что $pdo существует и инициализирован
 if (!isset($pdo) || $pdo === null) {
-    die("Ошибка подключения к базе данных. Переменная \$pdo не инициализирована.");
+    error_log("Ошибка: Переменная \$pdo не инициализирована в config.php");
+    die("Ошибка подключения к базе данных. Пожалуйста, обратитесь к администратору.");
+}
+
+// Проверяем соединение с базой данных
+try {
+    $pdo->query("SELECT 1");
+} catch (PDOException $e) {
+    error_log("Ошибка подключения к БД: " . $e->getMessage());
+    die("Ошибка подключения к базе данных. Пожалуйста, попробуйте позже.");
 }
 
 // Генерируем CSRF-токен если его нет
 if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    if (function_exists('random_bytes')) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    } else {
+        // Fallback для старых версий PHP
+        $_SESSION['csrf_token'] = md5(uniqid(mt_rand(), true));
+    }
 }
 
 // Обработка выхода
@@ -43,11 +67,21 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 
 // Функция для обработки URL
 function processUrl($url) {
+    // Удаляем лишние пробелы
+    $url = trim($url);
+    
     // Проверяем, является ли ссылка RuTube iframe
     if (preg_match('/^<iframe[^>]*src="(https?:\/\/rutube\.ru\/play\/embed\/[^"]+)"[^>]*><\/iframe>$/i', $url, $matches)) {
         return $matches[1]; // Возвращаем только URL
     }
-    return $url; // Возвращаем исходный URL, если это не RuTube iframe
+    
+    // Проверяем, является ли обычным URL
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        return $url;
+    }
+    
+    // Если это не валидный URL, возвращаем как есть (для дальнейшей обработки)
+    return $url;
 }
 
 // Обработка отправки формы
@@ -58,10 +92,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
         exit;
     }
     
-    $title = trim($_POST['title'] ?? '');
-    $url = trim($_POST['url'] ?? '');
+    $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+    $url = isset($_POST['url']) ? trim($_POST['url']) : '';
     $description = isset($_POST['description']) ? trim($_POST['description']) : null;
-    $page = trim($_POST['page'] ?? '');
+    $page = isset($_POST['page']) ? trim($_POST['page']) : '';
     
     // Обрабатываем URL перед валидацией
     $processedUrl = processUrl($url);
@@ -73,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
         $errors[] = 'empty_title';
     }
     
-    if (empty($processedUrl) || !filter_var($processedUrl, FILTER_VALIDATE_URL)) {
+    if (empty($processedUrl)) {
         $errors[] = 'invalid_url';
     }
     
@@ -88,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
                     VALUES (:title, :url, :description, :user_id, :page)";
             
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([
+            $result = $stmt->execute([
                 ':title' => $title,
                 ':url' => $processedUrl,
                 ':description' => $description,
@@ -96,11 +130,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
                 ':page' => $page
             ]);
             
-            header('Location: add_iframes.php?success=1');
-            exit;
+            if ($result) {
+                header('Location: add_iframes.php?success=1');
+                exit;
+            } else {
+                throw new PDOException("Не удалось выполнить запрос INSERT");
+            }
             
         } catch (PDOException $e) {
-            error_log("Database error: " . $e->getMessage());
+            error_log("Database error in add_iframes.php: " . $e->getMessage());
             header('Location: add_iframes.php?error=save_failed');
             exit;
         }
@@ -134,38 +172,115 @@ ob_end_clean();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
-        .admin-container { display: flex; min-height: 100vh; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f5f5f5; 
+            line-height: 1.6;
+        }
+        
+        .admin-container { 
+            display: flex; 
+            min-height: 100vh; 
+        }
         
         .sidebar {
-            width: 250px; background: #2c3e50; color: white; padding: 1rem;
+            width: 250px; 
+            background: #2c3e50; 
+            color: white; 
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
         }
-        .sidebar h3 { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #34495e; }
-        .sidebar ul { list-style: none; }
-        .sidebar li { margin: 0.5rem 0; }
-        .sidebar a {
-            color: #ecf0f1; text-decoration: none; display: block; padding: 0.5rem;
-            border-radius: 3px; transition: background 0.3s;
-        }
-        .sidebar a:hover { background: #34495e; }
-        .sidebar li.active a { background: #34495e; }
         
-        .main-content { flex: 1; padding: 2rem; background: white; }
+        .sidebar h3 { 
+            margin-bottom: 1rem; 
+            padding-bottom: 0.5rem; 
+            border-bottom: 1px solid #34495e; 
+            color: #ecf0f1;
+        }
+        
+        .sidebar ul { 
+            list-style: none; 
+        }
+        
+        .sidebar li { 
+            margin: 0.5rem 0; 
+        }
+        
+        .sidebar a {
+            color: #ecf0f1; 
+            text-decoration: none; 
+            display: block; 
+            padding: 0.5rem;
+            border-radius: 3px; 
+            transition: background 0.3s;
+        }
+        
+        .sidebar a:hover { 
+            background: #34495e; 
+        }
+        
+        .sidebar li.active a { 
+            background: #34495e; 
+        }
+        
+        .main-content { 
+            flex: 1; 
+            padding: 2rem; 
+            background: white;
+            margin-left: 250px;
+            min-height: 100vh;
+        }
         
         .btn {
-            display: inline-block; padding: 0.5rem 1rem; color: white; text-decoration: none;
-            border-radius: 3px; border: none; cursor: pointer; margin: 0.2rem;
+            display: inline-block; 
+            padding: 0.5rem 1rem; 
+            color: white; 
+            text-decoration: none;
+            border-radius: 3px; 
+            border: none; 
+            cursor: pointer; 
+            margin: 0.2rem;
+            font-size: 14px;
+            transition: background-color 0.3s;
         }
-        .btn-primary { background: #27ae60; }
-        .btn-secondary { background: #7f8c8d; }
+        
+        .btn-primary { 
+            background: #27ae60; 
+        }
+        
+        .btn-primary:hover {
+            background: #219653;
+        }
+        
+        .btn-secondary { 
+            background: #7f8c8d; 
+        }
+        
+        .btn-secondary:hover {
+            background: #6c7b7d;
+        }
         
         .logout-btn { 
-            background: #e74c3c; margin-top: 2rem; display: block; text-align: center;
-            width: 100%; padding: 0.75rem; font-size: 14px;
+            background: #e74c3c; 
+            margin-top: 2rem; 
+            display: block; 
+            text-align: center;
+            width: 100%; 
+            padding: 0.75rem; 
+            font-size: 14px;
         }
-        .logout-btn:hover { background: #c0392b; }
+        
+        .logout-btn:hover { 
+            background: #c0392b; 
+        }
         
         .form-container {
             max-width: 600px;
@@ -180,6 +295,7 @@ ob_end_clean();
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
+            color: #2c3e50;
         }
         
         .form-group input,
@@ -190,29 +306,39 @@ ob_end_clean();
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
         }
         
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
+            font-family: Arial, sans-serif;
         }
         
         .alert {
             padding: 1rem;
             margin-bottom: 1.5rem;
             border-radius: 4px;
+            border: 1px solid transparent;
         }
         
         .alert-success {
             background-color: #d4edda;
             color: #155724;
-            border: 1px solid #c3e6cb;
+            border-color: #c3e6cb;
         }
         
         .alert-error {
             background-color: #f8d7da;
             color: #721c24;
-            border: 1px solid #f5c6cb;
+            border-color: #f5c6cb;
         }
         
         .admin-actions {
@@ -223,15 +349,41 @@ ob_end_clean();
             border: 1px solid #ddd;
         }
 
+        .admin-actions h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
         .select2-container--default .select2-selection--single {
             border: 1px solid #ddd;
             border-radius: 4px;
             height: 46px;
-            padding: 0.75rem;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 44px;
+            padding-left: 12px;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             height: 44px;
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -248,7 +400,9 @@ ob_end_clean();
             
             <!-- Форма для выхода -->
             <form method="POST" class="logout-form">
-                <button type="submit" name="logout" class="btn logout-btn">Выйти</button>
+                <button type="submit" name="logout" class="btn logout-btn">
+                    <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Выйти
+                </button>
             </form>
         </div>
 
@@ -266,16 +420,18 @@ ob_end_clean();
                 </div>
             </div>
 
-            <h2>Добавить новый iframe</h2>
+            <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">Добавить новый iframe</h2>
             
             <?php if ($success): ?>
                 <div class="alert alert-success">
+                    <i class="fas fa-check-circle" style="margin-right: 8px;"></i>
                     Iframe успешно добавлен!
                 </div>
             <?php endif; ?>
             
             <?php if ($error): ?>
                 <div class="alert alert-error">
+                    <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
                     <?php 
                     $errorMessages = [
                         'csrf' => 'Ошибка безопасности. Попробуйте еще раз.',
@@ -289,7 +445,7 @@ ob_end_clean();
                     $errors = explode(',', $error);
                     foreach ($errors as $err) {
                         if (isset($errorMessages[$err])) {
-                            echo $errorMessages[$err] . '<br>';
+                            echo '<div>' . $errorMessages[$err] . '</div>';
                         }
                     }
                     ?>
@@ -298,16 +454,23 @@ ob_end_clean();
             
             <div class="form-container">
                 <form method="POST" action="">
-                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                     
                     <div class="form-group">
                         <label for="title">Заголовок *</label>
-                        <input type="text" id="title" name="title" required>
+                        <input type="text" id="title" name="title" required 
+                               value="<?php echo isset($_POST['title']) ? htmlspecialchars($_POST['title']) : ''; ?>"
+                               placeholder="Введите заголовок iframe">
                     </div>
                     
                     <div class="form-group">
                         <label for="url">URL *</label>
-                        <input type="url" id="url" name="url" placeholder="https://example.com или полный iframe код для RuTube" required>
+                        <input type="text" id="url" name="url" 
+                               value="<?php echo isset($_POST['url']) ? htmlspecialchars($_POST['url']) : ''; ?>"
+                               placeholder="https://example.com или полный iframe код для RuTube" required>
+                        <small style="color: #666; font-size: 0.85rem; margin-top: 0.25rem; display: block;">
+                            Для RuTube можно вставить полный код iframe - он будет автоматически обработан
+                        </small>
                     </div>
                     
                     <div class="form-group">
@@ -315,18 +478,22 @@ ob_end_clean();
                         <select id="page" name="page" required>
                             <option value="">Выберите страницу...</option>
                             <?php foreach ($available_pages as $page_file => $page_name): ?>
-                                <option value="<?php echo $page_file; ?>"><?php echo $page_name; ?></option>
+                                <option value="<?php echo htmlspecialchars($page_file); ?>" 
+                                    <?php echo (isset($_POST['page']) && $_POST['page'] === $page_file) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($page_name); ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     
                     <div class="form-group">
                         <label for="description">Описание (необязательно)</label>
-                        <textarea id="description" name="description"></textarea>
+                        <textarea id="description" name="description" 
+                                  placeholder="Введите описание iframe (необязательно)"><?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : ''; ?></textarea>
                     </div>
                     
-                    <button type="submit" name="add_iframe" class="btn btn-primary">
-                        <i class="fas fa-plus" style="margin-right: 5px;"></i> Добавить iframe
+                    <button type="submit" name="add_iframe" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 1rem;">
+                        <i class="fas fa-plus" style="margin-right: 8px;"></i> Добавить iframe
                     </button>
                 </form>
             </div>
@@ -335,12 +502,19 @@ ob_end_clean();
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ru.js"></script>
     <script>
         $(document).ready(function() {
             $('#page').select2({
                 placeholder: "Выберите страницу...",
-                allowClear: true,
-                width: '100%'
+                allowClear: false,
+                width: '100%',
+                language: 'ru'
+            });
+            
+            // Сохраняем значения формы при ошибках
+            $('form').on('submit', function() {
+                // Select2 уже сохраняет значение
             });
         });
     </script>

@@ -165,24 +165,36 @@ echo getStyles();
             border-radius: 6px;
             padding: 15px;
             margin-bottom: 20px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
         }
 
         .iframe-item h4 {
             color: #fdfdfd;
             margin-bottom: 10px;
             font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+            border-bottom: 1px solid rgba(253, 253, 253, 0.3);
+            padding-bottom: 8px;
         }
 
         .embed-responsive {
             border-radius: 4px;
             overflow: hidden;
             border: 1px solid rgba(253, 253, 253, 0.2);
+            background: #ffffff; /* Белый фон для контейнера iframe */
+        }
+
+        .embed-responsive iframe {
+            background: transparent; /* Прозрачный фон для самого iframe */
         }
         
         .iframe-description {
             color: #fdfdfd;
             font-style: italic;
             margin-bottom: 10px;
+            background: rgba(0, 69, 113, 0.4);
+            padding: 8px 12px;
+            border-radius: 4px;
+            border-left: 3px solid rgba(96, 150, 184, 0.7);
         }
         
         /* Стили для навигации по благочиниям */
@@ -199,12 +211,29 @@ echo getStyles();
             margin: 5px;
             border-radius: 5px;
             transition: all 0.3s ease;
+            background: rgba(0, 69, 113, 0.4);
         }
         
         .blagochiniya-nav .nav-link:hover,
         .blagochiniya-nav .nav-link.active {
             background-color: rgba(96, 150, 184, 0.7);
             border-color: #fdfdfd;
+        }
+        
+        /* Стили для пустого состояния фреймов */
+        .no-iframes {
+            text-align: center;
+            padding: 40px 20px;
+            color: #fdfdfd;
+            background: rgba(0, 69, 113, 0.4);
+            border-radius: 8px;
+            border: 1px dashed rgba(253, 253, 253, 0.3);
+        }
+        
+        .no-iframes i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: rgba(253, 253, 253, 0.5);
         }
         
         /* Адаптация для мобильных устройств */
@@ -216,6 +245,14 @@ echo getStyles();
             
             .clergy-card {
                 text-align: center;
+            }
+            
+            .iframes-container {
+                padding: 15px;
+            }
+            
+            .iframe-item {
+                padding: 12px;
             }
         }
     </style>
@@ -514,4 +551,7 @@ include('template/footer2.php');
 </script>
 </body>
 </html>
-<?php ob_end_flush(); ?>
+<?php 
+$mysqli->close();
+ob_end_flush(); 
+?>

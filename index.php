@@ -578,6 +578,21 @@ echo getStyles();
             max-width: 100%;
             height: auto;
         }
+        
+        /* Стили для фотогалереи без рамок */
+        .gallery-section {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+        
+        .gallery-module {
+            background: rgba(0, 69, 113, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -720,65 +735,59 @@ include('template/allnavbar.php');
         </script>
         </div>
         <!-- Галерея -->
-        <div class="container mt-4">
-            <div class="rounded border border-grey bg-white alpha-90 clearfix">
-                <div class="clearfix">
-                    <div class="col-12 p-2">
-                        <div class="module-wrap">
-                            <h2 class="text-center">Фотогалерея</h2>
-                            
-                            <div id="gallerySlider" class="carousel slide gallery-container" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <?php
-                                    $galleryDir = 'gallery/';
-                                    $images = glob($galleryDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-                                    
-                                    if (!empty($images)) {
-                                        foreach ($images as $index => $image) {
-                                            $active = $index === 0 ? 'active' : '';
-                                            echo '
-                                            <div class="carousel-item '.$active.' gallery-slide">
-                                                <a href="'.$image.'" data-toggle="lightbox" data-gallery="gallery">
-                                                    <img src="'.$image.'" class="d-block w-100 rounded" alt="Слайд '.($index+1).'" loading="lazy">
-                                                </a>
-                                            </div>';
-                                        }
-                                    } else {
-                                        echo '<div class="carousel-item active gallery-slide">
-                                            <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                                                <p>В галерее пока нет фотографий</p>
-                                            </div>
-                                        </div>';
-                                    }
-                                    ?>
+        <div class="container mt-4 gallery-section">
+            <div class="gallery-module">
+                <h2 class="text-center">Фотогалерея</h2>
+                
+                <div id="gallerySlider" class="carousel slide gallery-container" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+                        $galleryDir = 'gallery/';
+                        $images = glob($galleryDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+                        
+                        if (!empty($images)) {
+                            foreach ($images as $index => $image) {
+                                $active = $index === 0 ? 'active' : '';
+                                echo '
+                                <div class="carousel-item '.$active.' gallery-slide">
+                                    <a href="'.$image.'" data-toggle="lightbox" data-gallery="gallery">
+                                        <img src="'.$image.'" class="d-block w-100 rounded" alt="Слайд '.($index+1).'" loading="lazy">
+                                    </a>
+                                </div>';
+                            }
+                        } else {
+                            echo '<div class="carousel-item active gallery-slide">
+                                <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                    <p>В галерее пока нет фотографий</p>
                                 </div>
-                                
-                                <a class="carousel-control-prev" href="#gallerySlider" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Назад</span>
-                                </a>
-                                <a class="carousel-control-next" href="#gallerySlider" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Вперед</span>
-                                </a>
-                                
-                                <ol class="carousel-indicators">
-                                    <?php
-                                    if (!empty($images)) {
-                                        foreach ($images as $index => $image) {
-                                            $active = $index === 0 ? 'active' : '';
-                                            echo '<li data-target="#gallerySlider" data-slide-to="'.$index.'" class="'.$active.'"></li>';
-                                        }
-                                    }
-                                    ?>
-                                </ol>
-                            </div>
-                            
-                            <div class="text-center mt-3">
-                                <a href="photogallery.php" class="btn btn-primary">Посмотреть все фото</a>
-                            </div>
-                        </div>
+                            </div>';
+                        }
+                        ?>
                     </div>
+                    
+                    <a class="carousel-control-prev" href="#gallerySlider" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Назад</span>
+                    </a>
+                    <a class="carousel-control-next" href="#gallerySlider" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Вперед</span>
+                    </a>
+                    
+                    <ol class="carousel-indicators">
+                        <?php
+                        if (!empty($images)) {
+                            foreach ($images as $index => $image) {
+                                $active = $index === 0 ? 'active' : '';
+                                echo '<li data-target="#gallerySlider" data-slide-to="'.$index.'" class="'.$active.'"></li>';
+                            }
+                        }
+                        ?>
+                    </ol>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <a href="photogallery.php" class="btn btn-primary">Посмотреть все фото</a>
                 </div>
             </div>
         </div>
