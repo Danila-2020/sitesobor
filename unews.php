@@ -127,38 +127,123 @@ echo getStyles();
             border-color: #dc3545;
         }
         
-        /* Стили для iframe контейнера */
+        /* Стили для iframe контейнера с горизонтальным скроллом */
         .iframes-container {
             background-color: rgba(0, 69, 113, 0.8);
             border-radius: 8px;
             padding: 20px;
             margin-top: 30px;
             border: 1px solid rgba(253, 253, 253, 0.2);
+            width: 100%;
+            max-width: 100%;
         }
 
-        .iframe-item {
+        /* Контейнер для горизонтального скролла */
+        .iframes-scroll-container {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(253, 253, 253, 0.3) rgba(0, 69, 113, 0.3);
+            padding-bottom: 15px;
+        }
+
+        /* Стили для скроллбара в Webkit браузерах */
+        .iframes-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .iframes-scroll-container::-webkit-scrollbar-track {
+            background: rgba(0, 69, 113, 0.3);
+            border-radius: 4px;
+        }
+
+        .iframes-scroll-container::-webkit-scrollbar-thumb {
+            background: rgba(253, 253, 253, 0.3);
+            border-radius: 4px;
+        }
+
+        .iframes-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(253, 253, 253, 0.5);
+        }
+
+        /* Внутренний контейнер для flex элементов */
+        .iframes-inner-container {
+            display: inline-flex;
+            gap: 20px;
+            min-width: min-content;
+            padding: 10px 5px;
+        }
+
+        /* Элементы iframe для горизонтального скролла */
+        .iframe-scroll-item {
+            min-width: 320px;
+            flex-shrink: 0;
             background-color: rgba(0, 69, 113, 0.6);
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 15px;
-            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
         }
 
-        .iframe-item h4 {
+        .iframe-scroll-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .iframe-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iframe-scroll-item h4 {
             color: #fdfdfd;
             margin-bottom: 10px;
             font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+            font-size: 1.1rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
         }
 
         .embed-responsive {
-            border-radius: 4px;
+            border-radius: 6px;
             overflow: hidden;
             border: 1px solid rgba(253, 253, 253, 0.2);
+            background: white;
+            flex-grow: 1;
+            min-height: 200px;
+            width: 100%;
+        }
+
+        .embed-responsive iframe {
+            background: white !important;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
         .iframe-description {
             color: #fdfdfd;
             font-style: italic;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            min-height: 2.5rem;
+        }
+        
+        /* Индикатор скролла */
+        .scroll-indicator {
+            color: rgba(253, 253, 253, 0.7);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .scroll-indicator i {
+            margin-right: 5px;
         }
         
         /* Стили для социальных иконок */
@@ -183,6 +268,20 @@ echo getStyles();
             transform: scale(1.2);
         }
         
+        /* Полная ширина для основного контента */
+        .full-width-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .news-main-content {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
             .gallery-item {
                 height: 300px;
@@ -191,6 +290,83 @@ echo getStyles();
             .iframes-container {
                 padding: 15px;
                 margin-top: 20px;
+                margin-left: -15px;
+                margin-right: -15px;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            
+            .iframe-scroll-item {
+                min-width: 280px;
+                padding: 12px;
+            }
+            
+            .iframes-inner-container {
+                gap: 15px;
+            }
+            
+            .embed-responsive {
+                min-height: 180px;
+            }
+            
+            .container {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .iframe-scroll-item {
+                min-width: 260px;
+                padding: 10px;
+            }
+            
+            .iframes-inner-container {
+                gap: 12px;
+            }
+            
+            .embed-responsive {
+                min-height: 160px;
+            }
+            
+            .iframe-scroll-item h4 {
+                font-size: 1rem;
+                min-height: 2.5rem;
+            }
+            
+            .iframes-container {
+                padding: 10px;
+            }
+        }
+        
+        /* На десктопе убираем горизонтальный скролл и показываем в колонку */
+        @media (min-width: 992px) {
+            .iframes-scroll-container {
+                overflow-x: visible;
+            }
+            
+            .iframes-inner-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 20px;
+                width: 100%;
+            }
+            
+            .iframe-scroll-item {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .scroll-indicator {
+                display: none !important;
+            }
+        }
+        
+        /* Для очень широких экранов */
+        @media (min-width: 1200px) {
+            .iframes-inner-container {
+                grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             }
         }
     </style>
@@ -206,84 +382,21 @@ echo getStyles();
     </script>
 </amp-analytics>
 
-<!-- Навбар -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #004571 !important;">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">
-            <amp-img src="img/mestologo.png" width="50" height="50" layout="fixed"></amp-img>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Главная</a>
-                </li>
-                
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        О Соборе
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="aboutDropdown" style="background-color: #004571 !important;">
-                        <a class="dropdown-item" href="clergy.php">Духовенство</a>
-                        <a class="dropdown-item" href="history.php">История</a>
-                        <a class="dropdown-item" href="feodosiy.php">Прп. Феодосий Кавказский</a>
-                        <a class="dropdown-item" href="tour.php">Виртуальный тур</a>
-                    </div>
-                </li>
-                
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="blagochiniyaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Благочиния
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown" style="background-color: #004571 !important;">
-                        <a class="dropdown-item" href="blagochiniya-info.php">Общие сведения</a>
-                        <a class="dropdown-item" href="blagochiniya-temples.php">Храмы</a>
-                        <a class="dropdown-item" href="blagochiniya-clergy.php">Духовенство</a>
-                    </div>
-                </li>
-                
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Деятельность
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="activityDropdown" style="background-color: #004571 !important;">
-                        <a class="dropdown-item" href="sunday-school.php">Воскресная школа</a>
-                        <a class="dropdown-item" href="youth-center.php">Молодёжный центр</a>
-                        <a class="dropdown-item" href="tea-room.php">Чайный дворик</a>
-                        <a class="dropdown-item" href="social-activity.php">Социальная деятельность</a>
-                    </div>
-                </li>
-                
-                <li class="nav-item active">
-                    <a class="nav-link" href="allunews.php">Новости</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="photogallery.php">Галерея</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.php">Контакты</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="btn btn-outline-primary ml-2" href="signin.php">Вход</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- Подключение навигации из шаблона -->
+<?php include('template/allnavbar.php'); ?>
 
-<div class="relative page-wrap">
-    <div class="content-wrap relative">
+<div class="relative page-wrap full-width-container">
+    <div class="content-wrap relative full-width-container">
         <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
             <div class="land-see-hero-main mx-auto"></div>
         </section>
         
-        <div class="container mt-4">
-            <div class="rounded border border-grey bg-white alpha-90-dep clearfix">
-                <div class="clearfix p1 text-center">
+        <div class="container mt-4 full-width-container">
+            <div class="rounded bg-white alpha-90-dep clearfix full-width-container">
+                <div class="container">
+                    <div class="clearfix p1 text-center">
                     <amp-img class="mx-auto" src="img/mestologo.png" width="1024" height="540" layout="responsive"></amp-img>
+                    </div>
                 </div>
                 
                 <div class="social text-center mb-4">
@@ -292,7 +405,7 @@ echo getStyles();
                     </div>
                 </div>
                 
-                <div class="clearfix">
+                <div class="clearfix news-main-content">
                     <div class="col-12 p-4">
                         <?php
                         // Получаем ID новости
@@ -430,13 +543,14 @@ echo getStyles();
                         }
                         ?>
                         
-                        <!-- Отображение iframe для этой страницы -->
+                        <!-- Отображение iframe для этой страницы с горизонтальным скроллом -->
                         <?php
                         // Подключаем функцию отображения iframe
                         require_once 'display_iframes.php';
                         
-                        // Отображаем iframe для этой страницы
-                        displayIframes('unews.php', $mysqli);
+                        // Отображаем iframe для этой страницы с учетом ID новости
+                        // Передаем существующее подключение к БД как третий параметр
+                        displayIframes('unews.php', $idunews, $mysqli);
                         ?>
                         
                         <div class="text-center mt-4">
@@ -470,6 +584,59 @@ include('template/footer2.php');
             }
         });
     });
+
+    // Добавляем индикацию скролла для мобильных устройств
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollContainer = document.querySelector('.iframes-scroll-container');
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        
+        if (scrollContainer && window.innerWidth < 992) {
+            let scrollTimeout;
+            
+            scrollContainer.addEventListener('scroll', function() {
+                const scrollLeft = this.scrollLeft;
+                const maxScroll = this.scrollWidth - this.clientWidth;
+                
+                // Показываем/скрываем индикатор в зависимости от позиции скролла
+                if (scrollIndicator) {
+                    if (scrollLeft > 10 || scrollLeft < maxScroll - 10) {
+                        scrollIndicator.style.opacity = '0.7';
+                    } else {
+                        scrollIndicator.style.opacity = '1';
+                    }
+                }
+                
+                // Сбрасываем таймер при скролле
+                clearTimeout(scrollTimeout);
+                
+                // Скрываем индикатор через 2 секунды после остановки скролла
+                scrollTimeout = setTimeout(function() {
+                    if (scrollIndicator) {
+                        scrollIndicator.style.opacity = '0.3';
+                    }
+                }, 2000);
+            });
+            
+            // Инициализация прозрачности индикатора
+            if (scrollIndicator) {
+                scrollIndicator.style.transition = 'opacity 0.3s ease';
+                scrollIndicator.style.opacity = '1';
+            }
+        }
+    });
+
+    // Автоматическое обновление высоты iframe для лучшего отображения
+    function resizeIframes() {
+        const iframes = document.querySelectorAll('.embed-responsive iframe');
+        iframes.forEach(iframe => {
+            iframe.style.height = '100%';
+            iframe.style.width = '100%';
+        });
+    }
+
+    // Вызываем функцию при загрузке и изменении размера окна
+    window.addEventListener('load', resizeIframes);
+    window.addEventListener('resize', resizeIframes);
 </script>
 </body>
 </html>

@@ -2,6 +2,9 @@
 require_once 'config.php';
 checkAuth();
 
+// Устанавливаем кодировку
+header('Content-Type: text/html; charset=utf-8');
+
 $table = isset($_GET['table']) ? $_GET['table'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
@@ -91,8 +94,9 @@ function getPrimaryKey($pdo, $table) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
     <title>Удалить запись - Админ-панель</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -156,7 +160,7 @@ function getPrimaryKey($pdo, $table) {
         </div>
         
         <?php if ($error): ?>
-            <div class="error"><?php echo $error; ?></div>
+            <div class="error"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
         
         <form method="POST">

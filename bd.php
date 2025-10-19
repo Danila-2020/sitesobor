@@ -16,7 +16,12 @@ ob_start();
 // session_start();
 
 // 2. Подключаемся к базе данных
-$mysqli = new mysqli("localhost","root","","sobor");
+$db_host = "localhost";
+$db_user = "root";
+$db_password = "";
+$db_name = "sobor";
+
+$mysqli = new mysqli($db_host, $db_user, $db_password, $db_name);
 
 // Проверяем соединение
 if ($mysqli->connect_error) {

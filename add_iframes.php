@@ -84,6 +84,22 @@ function processUrl($url) {
     return $url;
 }
 
+// Функция для получения списка новостей
+function getNewsList($pdo) {
+    try {
+        $sql = "SELECT id_unews, utitle, dateunews FROM unews ORDER BY dateunews DESC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Ошибка при получении списка новостей: " . $e->getMessage());
+        return [];
+    }
+}
+
+// Получаем список новостей для выпадающего списка
+$news_list = getNewsList($pdo);
+
 // Обработка отправки формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
     // Проверка CSRF-токена
@@ -96,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
     $url = isset($_POST['url']) ? trim($_POST['url']) : '';
     $description = isset($_POST['description']) ? trim($_POST['description']) : null;
     $page = isset($_POST['page']) ? trim($_POST['page']) : '';
+    $sub_id = isset($_POST['sub_id']) && !empty($_POST['sub_id']) ? intval($_POST['sub_id']) : null;
     
     // Обрабатываем URL перед валидацией
     $processedUrl = processUrl($url);
@@ -115,11 +132,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
         $errors[] = 'empty_page';
     }
     
+    // Если выбрана страница новостей, но не выбрана конкретная новость
+    if ($page === 'unews.php' && empty($sub_id)) {
+        $errors[] = 'empty_news';
+    }
+    
     // Если ошибок нет, сохраняем в базу
     if (empty($errors)) {
         try {
-            $sql = "INSERT INTO iframes (utitle, url, description, id_uprofile, page_iframes) 
-                    VALUES (:title, :url, :description, :user_id, :page)";
+            $sql = "INSERT INTO iframes (utitle, url, description, id_uprofile, page_iframes, sub_id) 
+                    VALUES (:title, :url, :description, :user_id, :page, :sub_id)";
             
             $stmt = $pdo->prepare($sql);
             $result = $stmt->execute([
@@ -127,7 +149,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
                 ':url' => $processedUrl,
                 ':description' => $description,
                 ':user_id' => $_SESSION['id'],
-                ':page' => $page
+                ':page' => $page,
+                ':sub_id' => $sub_id
             ]);
             
             if ($result) {
@@ -369,6 +392,11 @@ ob_end_clean();
             height: 44px;
         }
 
+        .news-select-container {
+            display: none;
+            margin-top: 0.5rem;
+        }
+
         /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
             .admin-container {
@@ -438,6 +466,7 @@ ob_end_clean();
                         'empty_title' => 'Пожалуйста, укажите заголовок.',
                         'invalid_url' => 'Пожалуйста, укажите корректный URL.',
                         'empty_page' => 'Пожалуйста, выберите страницу.',
+                        'empty_news' => 'Для страницы новостей необходимо выбрать конкретную новость.',
                         'save_failed' => 'Произошла ошибка при сохранении. Попробуйте еще раз.'
                     ];
                     
@@ -486,6 +515,22 @@ ob_end_clean();
                         </select>
                     </div>
                     
+                    <div class="form-group" id="newsSelectGroup" style="display: none;">
+                        <label for="sub_id">Выберите новость *</label>
+                        <select id="sub_id" name="sub_id" class="form-control">
+                            <option value="">Выберите новость...</option>
+                            <?php foreach ($news_list as $news): ?>
+                                <option value="<?php echo htmlspecialchars($news['id_unews']); ?>" 
+                                    <?php echo (isset($_POST['sub_id']) && $_POST['sub_id'] == $news['id_unews']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($news['utitle']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <small style="color: #666; font-size: 0.85rem; margin-top: 0.25rem; display: block;">
+                            Выберите конкретную новость для отображения iframe
+                        </small>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="description">Описание (необязательно)</label>
                         <textarea id="description" name="description" 
@@ -505,11 +550,41 @@ ob_end_clean();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ru.js"></script>
     <script>
         $(document).ready(function() {
+            // Инициализация Select2 для страницы
             $('#page').select2({
                 placeholder: "Выберите страницу...",
                 allowClear: false,
                 width: '100%',
                 language: 'ru'
+            });
+            
+            // Инициализация Select2 для выбора новости
+            $('#sub_id').select2({
+                placeholder: "Выберите новость...",
+                allowClear: false,
+                width: '100%',
+                language: 'ru'
+            });
+            
+            // Показ/скрытие выбора новости в зависимости от выбранной страницы
+            function toggleNewsSelect() {
+                var selectedPage = $('#page').val();
+                if (selectedPage === 'unews.php') {
+                    $('#newsSelectGroup').show();
+                    $('#sub_id').prop('required', true);
+                } else {
+                    $('#newsSelectGroup').hide();
+                    $('#sub_id').prop('required', false);
+                    $('#sub_id').val('');
+                }
+            }
+            
+            // Инициализация при загрузке
+            toggleNewsSelect();
+            
+            // Обработчик изменения выбора страницы
+            $('#page').on('change', function() {
+                toggleNewsSelect();
             });
             
             // Сохраняем значения формы при ошибках

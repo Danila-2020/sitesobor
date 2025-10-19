@@ -92,12 +92,12 @@ if (isset($_POST['logout'])) {
 // Получаем iframe текущего пользователя
 $iframes = [];
 try {
-    $stmt = $mysqli->prepare("SELECT * FROM iframes WHERE id_uprofile = ? ORDER BY created_at DESC");
-    $stmt->bind_param("i", $_SESSION['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $iframes = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
+    $user_id = $_SESSION['id'];
+    $query = "SELECT * FROM iframes WHERE id_uprofile = '$user_id' ORDER BY created_at DESC";
+    $result = $mysqli->query($query);
+    if ($result) {
+        $iframes = $result->fetch_all(MYSQLI_ASSOC);
+    }
 } catch (Exception $e) {
     $error = "Ошибка загрузки iframe: " . $e->getMessage();
 }
@@ -105,29 +105,38 @@ try {
 // Обработка удаления iframe
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
+    $user_id = $_SESSION['id'];
     
     // Проверяем, принадлежит ли iframe текущему пользователю
-    $stmt = $mysqli->prepare("SELECT id_iframes FROM iframes WHERE id_iframes = ? AND id_uprofile = ?");
-    $stmt->bind_param("ii", $id, $_SESSION['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $check_query = "SELECT id_iframes FROM iframes WHERE id_iframes = '$id' AND id_uprofile = '$user_id'";
+    $check_result = $mysqli->query($check_query);
     
-    if ($result->fetch_assoc()) {
+    if ($check_result && $check_result->fetch_assoc()) {
         try {
-            $stmt = $mysqli->prepare("DELETE FROM iframes WHERE id_iframes = ?");
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            $stmt->close();
-            header('Location: my_iframes.php?deleted=1');
-            exit;
+            $delete_query = "DELETE FROM iframes WHERE id_iframes = '$id'";
+            if ($mysqli->query($delete_query)) {
+                header('Location: my_iframes.php?deleted=1');
+                exit;
+            } else {
+                $error = "Ошибка удаления: " . $mysqli->error;
+            }
         } catch (Exception $e) {
             $error = "Ошибка удаления: " . $e->getMessage();
         }
     } else {
         $error = "У вас нет прав для удаления этого iframe";
     }
-    if (isset($stmt)) {
-        $stmt->close();
+}
+
+// Обработка редактирования iframe - сохраняем ID в сессию
+if (isset($_POST['edit_iframe'])) {
+    $iframe_id = (int)$_POST['iframe_id'];
+    if ($iframe_id > 0) {
+        $_SESSION['edit_iframe_id'] = $iframe_id;
+        header('Location: edit_iframe.php');
+        exit;
+    } else {
+        $error = "Неверный ID iframe для редактирования";
     }
 }
 
@@ -148,9 +157,9 @@ ob_end_clean();
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
-        
+
         .admin-container { display: flex; min-height: 100vh; }
-        
+
         .sidebar {
             width: 250px; background: #2c3e50; color: white; padding: 1rem;
         }
@@ -163,9 +172,9 @@ ob_end_clean();
         }
         .sidebar a:hover { background: #34495e; }
         .sidebar li.active a { background: #34495e; }
-        
+
         .main-content { flex: 1; padding: 2rem; background: white; }
-        
+
         .btn {
             display: inline-block; padding: 0.5rem 1rem; color: white; text-decoration: none;
             border-radius: 3px; border: none; cursor: pointer; margin: 0.2rem;
@@ -174,32 +183,33 @@ ob_end_clean();
         .btn-secondary { background: #7f8c8d; }
         .btn-danger { background: #e74c3c; }
         .btn-info { background: #3498db; }
-        
+        .btn-warning { background: #f39c12; }
+
         .logout-btn { 
             background: #e74c3c; margin-top: 2rem; display: block; text-align: center;
             width: 100%; padding: 0.75rem; font-size: 14px;
         }
         .logout-btn:hover { background: #c0392b; }
-        
+
         .iframe-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-        
+
         .iframe-card {
             border: 1px solid #ddd;
             border-radius: 5px;
             overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .iframe-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .iframe-preview {
             height: 200px;
             background-color: #f8f9fa;
@@ -208,31 +218,31 @@ ob_end_clean();
             justify-content: center;
             border-bottom: 1px solid #ddd;
         }
-        
+
         .iframe-preview iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
-        
+
         .iframe-info {
             padding: 1rem;
         }
-        
+
         .iframe-title {
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
             color: #2c3e50;
         }
-        
+
         .iframe-url {
             color: #666;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
             word-break: break-all;
         }
-        
+
         .iframe-page {
             display: inline-block;
             background: #e8f4fd;
@@ -243,13 +253,13 @@ ob_end_clean();
             margin-bottom: 0.5rem;
             border: 1px solid #bee5eb;
         }
-        
+
         .iframe-description {
             margin-bottom: 1rem;
             color: #444;
             line-height: 1.4;
         }
-        
+
         .iframe-meta {
             font-size: 0.8rem;
             color: #888;
@@ -257,38 +267,38 @@ ob_end_clean();
             padding-top: 0.5rem;
             border-top: 1px solid #eee;
         }
-        
+
         .iframe-actions {
             display: flex;
             justify-content: space-between;
             gap: 0.5rem;
         }
-        
+
         .iframe-actions .btn {
             flex: 1;
             text-align: center;
             font-size: 0.85rem;
             padding: 0.4rem 0.8rem;
         }
-        
+
         .alert {
             padding: 1rem;
             margin-bottom: 1.5rem;
             border-radius: 4px;
         }
-        
+
         .alert-success {
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-        
+
         .alert-error {
             background-color: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-        
+
         .admin-actions {
             margin-bottom: 1.5rem;
             padding: 1rem;
@@ -296,19 +306,19 @@ ob_end_clean();
             border-radius: 5px;
             border: 1px solid #ddd;
         }
-        
+
         .empty-state {
             text-align: center;
             padding: 3rem;
             color: #666;
         }
-        
+
         .empty-state i {
             font-size: 3rem;
             margin-bottom: 1rem;
             color: #ddd;
         }
-        
+
         .debug-info {
             background-color: #f8f9fa;
             padding: 1rem;
@@ -317,7 +327,7 @@ ob_end_clean();
             font-size: 0.9rem;
             color: #666;
         }
-        
+
         .page-badge {
             display: inline-flex;
             align-items: center;
@@ -330,23 +340,23 @@ ob_end_clean();
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .page-badge i {
             margin-right: 0.25rem;
         }
-        
+
         .card-header {
             display: flex;
             justify-content: between;
             align-items: flex-start;
             margin-bottom: 0.5rem;
         }
-        
+
         .card-header .iframe-title {
             flex: 1;
             margin-right: 0.5rem;
         }
-        
+
         .stats-info {
             background: #e8f4fd;
             border: 1px solid #bee5eb;
@@ -354,10 +364,21 @@ ob_end_clean();
             padding: 1rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .stats-info h4 {
             margin-bottom: 0.5rem;
             color: #2980b9;
+        }
+
+        .edit-form {
+            display: inline;
+            margin: 0;
+            padding: 0;
+        }
+
+        .edit-form .btn {
+            margin: 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -393,7 +414,14 @@ ob_end_clean();
             </div>
 
             <h2>Мои iframe</h2>
-            
+            <?php
+            // Отладочная информация
+            echo "<!-- Отладка: ID пользователя: " . $_SESSION['id'] . " -->";
+            echo "<!-- Отладка: Количество iframes: " . count($iframes) . " -->";
+            foreach ($iframes as $iframe) {
+                echo "<!-- Отладка: Iframe ID: " . $iframe['id_iframes'] . " -->";
+            }
+            ?>
             <!-- Статистика -->
             <?php if (!empty($iframes)): ?>
             <div class="stats-info">
@@ -471,6 +499,15 @@ ob_end_clean();
                                        target="_blank" class="btn btn-info">
                                         <i class="fas fa-external-link-alt"></i> Открыть
                                     </a>
+                                    
+                                    <!-- Форма для редактирования через сессию -->
+                                    <form method="POST" action="" class="edit-form">
+                                        <input type="hidden" name="iframe_id" value="<?php echo $iframe['id_iframes']; ?>">
+                                        <button type="submit" name="edit_iframe" class="btn btn-warning">
+                                            <i class="fas fa-pencil-alt"></i> Редактировать
+                                        </button>
+                                    </form>
+                                    
                                     <a href="my_iframes.php?delete=<?php echo $iframe['id_iframes']; ?>" 
                                        class="btn btn-danger"
                                        onclick="return confirm('Вы уверены, что хотите удалить этот iframe?')">
