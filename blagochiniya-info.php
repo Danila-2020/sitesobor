@@ -270,64 +270,6 @@ include('template/allnavbar.php');
                             <img src="img/blagochiniya-map.jpg" alt="Карта благочиний" class="img-fluid rounded">
                         </div>
                         
-                        <!-- Информация о благочиниях -->
-                        <div class="info-content">
-                            <p>Благочиние — это церковно-административная единица, объединяющая группу приходов и храмов в пределах определённой территории. В Русской Православной Церкви благочиния создаются по территориальному принципу и входят в состав епархии.</p>
-                            
-                            <p>На территории нашей епархии действует несколько благочиний, каждое из которых имеет свои особенности и историю. Благочинные назначаются правящим архиереем и несут ответственность за духовную жизнь на вверенной им территории.</p>
-                        </div>
-                        
-                        <!-- Список благочиний -->
-                        <div class="row mt-4">
-                            <!-- Благочиние 1 -->
-                            <div class="col-md-6">
-                                <div class="blagochiniya-card">
-                                    <h3 class="blagochiniya-title">Центральное благочиние</h3>
-                                    <p><strong>Благочинный:</strong> протоиерей Иоанн Иванов</p>
-                                    <p><strong>Территория:</strong> центральная часть города и прилегающие районы</p>
-                                    <p><strong>Храницы:</strong> от реки на севере до железной дороги на юге</p>
-                                    <p><strong>Количество храмов:</strong> 12</p>
-                                    <a href="blagochiniya-central.php" class="btn btn-primary mt-2">Подробнее</a>
-                                </div>
-                            </div>
-                            
-                            <!-- Благочиние 2 -->
-                            <div class="col-md-6">
-                                <div class="blagochiniya-card">
-                                    <h3 class="blagochiniya-title">Северное благочиние</h3>
-                                    <p><strong>Благочинный:</strong> протоиерей Петр Петров</p>
-                                    <p><strong>Территория:</strong> северные районы города и пригород</p>
-                                    <p><strong>Границы:</strong> от центра до городской черты на севере</p>
-                                    <p><strong>Количество храмов:</strong> 8</p>
-                                    <a href="blagochiniya-north.php" class="btn btn-primary mt-2">Подробнее</a>
-                                </div>
-                            </div>
-                            
-                            <!-- Благочиние 3 -->
-                            <div class="col-md-6">
-                                <div class="blagochiniya-card">
-                                    <h3 class="blagochiniya-title">Южное благочиние</h3>
-                                    <p><strong>Благочинный:</strong> иерей Сергий Сидоров</p>
-                                    <p><strong>Территория:</strong> южные районы города и пригород</p>
-                                    <p><strong>Границы:</strong> от центра до городской черты на юге</p>
-                                    <p><strong>Количество храмов:</strong> 6</p>
-                                    <a href="blagochiniya-south.php" class="btn btn-primary mt-2">Подробнее</a>
-                                </div>
-                            </div>
-                            
-                            <!-- Благочиние 4 -->
-                            <div class="col-md-6">
-                                <div class="blagochiniya-card">
-                                    <h3 class="blagochiniya-title">Восточное благочиние</h3>
-                                    <p><strong>Благочинный:</strong> иерей Василий Васильев</p>
-                                    <p><strong>Территория:</strong> восточные районы города и пригород</p>
-                                    <p><strong>Границы:</strong> от центра до городской черты на востоке</p>
-                                    <p><strong>Количество храмов:</strong> 5</p>
-                                    <a href="blagochiniya-east.php" class="btn btn-primary mt-2">Подробнее</a>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <!-- Дополнительная информация -->
                         <div class="info-content mt-4">
                             <h3 class="text-center mb-3">История создания благочиний</h3>
@@ -350,8 +292,8 @@ include('template/allnavbar.php');
                         // Подключаем функцию отображения iframe
                         require_once 'display_iframes.php';
                         
-                        // Отображаем iframe для этой страницы
-                        displayIframes('blagochiniya-info.php', $mysqli);
+                        // ИСПРАВЛЕНО: Правильный порядок параметров
+                        displayIframes('blagochiniya-info.php', null, $mysqli);
                         ?>
                     </div>
                 </div>

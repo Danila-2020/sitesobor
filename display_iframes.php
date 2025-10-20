@@ -23,7 +23,7 @@ function displayIframes($page_name, $sub_id = null, $mysqli_obj = null) {
     
     // Экранируем параметры для безопасности
     $page_name_escaped = $mysqli->real_escape_string($page_name);
-    $sub_id_escaped = $sub_id !== null ? $mysqli->real_escape_string($sub_id) : '';
+    $sub_id_escaped = $sub_id !== null ? $mysqli->real_escape_string($sub_id) : 'NULL';
     
     // Формируем SQL запрос в зависимости от наличия sub_id
     if ($sub_id !== null && $sub_id !== '') {
@@ -122,7 +122,7 @@ function getPageIframes($page_name, $sub_id = null, $mysqli_obj = null) {
     }
     
     $page_name_escaped = $mysqli->real_escape_string($page_name);
-    $sub_id_escaped = $sub_id !== null ? $mysqli->real_escape_string($sub_id) : '';
+    $sub_id_escaped = $sub_id !== null ? $mysqli->real_escape_string($sub_id) : 'NULL';
     
     if ($sub_id !== null && $sub_id !== '') {
         $sql = "SELECT utitle, url, description 

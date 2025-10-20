@@ -487,8 +487,8 @@ include('template/allnavbar.php');
                         // Подключаем функцию отображения iframe
                         require_once 'display_iframes.php';
                         
-                        // Отображаем iframe для этой страницы
-                        displayIframes('blagochiniya-clergy.php', $mysqli);
+                        // ИСПРАВЛЕНО: Правильный порядок параметров
+                        displayIframes('blagochiniya-clergy.php', null, $mysqli);
                         ?>
                     </div>
                 </div>
