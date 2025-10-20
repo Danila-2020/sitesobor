@@ -8,6 +8,24 @@ if (!$table) {
     exit;
 }
 
+// Получаем список новостей для выпадающего списка (если таблица uphotonews)
+$news_list = [];
+if ($table === 'uphotonews') {
+    try {
+        $news_query = "SELECT id_unews, utitle, dateunews FROM unews ORDER BY dateunews DESC";
+        $news_result = $pdo->query($news_query);
+        if ($news_result) {
+            while ($news = $news_result->fetch(PDO::FETCH_ASSOC)) {
+                $date = !empty($news['dateunews']) ? date('d.m.Y', strtotime($news['dateunews'])) : 'без даты';
+                $news_list[$news['id_unews']] = $news['utitle'] . ' (ID: ' . $news['id_unews'] . ', ' . $date . ')';
+            }
+        }
+    } catch (PDOException $e) {
+        // Если таблица news не существует, игнорируем ошибку
+        error_log("Ошибка при получении списка новостей: " . $e->getMessage());
+    }
+}
+
 // Получаем структуру таблицы
 $stmt = $pdo->query("DESCRIBE $table");
 $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -171,6 +189,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Добавить запись - Админ-панель</title>
+    <!-- Подключение Select2 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; }
@@ -230,7 +250,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .file-info { font-size: 12px; color: #666; margin-top: 5px; }
         
         .max-size-info { color: #e67e22; font-weight: bold; }
+        
+        .news-select-info { 
+            background: #f0e6ff; border: 1px solid #b366ff; border-radius: 4px; 
+            padding: 10px; margin-top: 5px; margin-bottom: 10px;
+        }
+        
+        /* Стили для Select2 */
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 42px;
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 42px;
+            padding-left: 12px;
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 40px;
+        }
+        
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #3498db;
+        }
+        
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 6px;
+        }
+        
+        .news-select-wrapper {
+            position: relative;
+        }
+        
+        .news-select-wrapper .select2 {
+            width: 100% !important;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/ru.js"></script>
     <script>
         function clearStatusField(fieldName) {
             document.getElementById(fieldName).value = '';
@@ -282,6 +344,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             return false; // Prevent default action
         }
+        
+        // Инициализация Select2
+        $(document).ready(function() {
+            $('.news-select').select2({
+                placeholder: "Выберите новость",
+                allowClear: true,
+                language: "ru",
+                width: '100%',
+                theme: 'default'
+            });
+        });
     </script>
 </head>
 <body>
@@ -335,6 +408,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!$skipField): 
                     $fieldType = strtolower($column['Type']);
                     $isBlobField = strpos($fieldType, 'blob') !== false;
+                    $isIdUnewsField = $column['Field'] === 'id_unews' && $table === 'uphotonews';
                 ?>
                     <div class="form-group">
                         <label for="<?php echo $column['Field']; ?>">
@@ -358,7 +432,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php endif; ?>
                         </div>
                         
-                        <?php if ($isBlobField): ?>
+                        <?php if ($isIdUnewsField && !empty($news_list)): ?>
+                            <!-- Специальная обработка для поля id_unews в таблице uphotonews -->
+                            <div class="news-select-info">
+                                <strong>Выберите новость для привязки фотографии</strong>
+                            </div>
+                            
+                            <div class="news-select-wrapper">
+                                <select id="<?php echo $column['Field']; ?>" 
+                                        name="<?php echo $column['Field']; ?>" 
+                                        class="form-control news-select"
+                                        <?php echo $isRequired ? 'required' : ''; ?>>
+                                    <option value="">-- Выберите новость --</option>
+                                    <?php foreach ($news_list as $id => $title): ?>
+                                        <option value="<?php echo htmlspecialchars($id); ?>">
+                                            <?php echo htmlspecialchars($title); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            
+                            <div class="field-info" style="margin-top: 5px;">
+                                Всего доступно новостей: <?php echo count($news_list); ?>
+                            </div>
+                        
+                        <?php elseif ($isBlobField): ?>
                             <!-- Обработка BLOB полей -->
                             <div class="blob-field-info">
                                 <strong>BLOB поле</strong> - загрузите файл

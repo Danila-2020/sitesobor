@@ -23,6 +23,8 @@ echo getStyles();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
     <!-- Подключение Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Подключение Swiper CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.css">
     <style>
         @font-face {
             font-family: 'Russian Land Cyrillic';
@@ -90,30 +92,241 @@ echo getStyles();
             display: none;
         }
         
-        /* Стили для галереи */
-        .gallery-slider {
-            position: relative;
-            margin: 20px 0;
+        /* Исправления для навигации */
+        .navbar-toggler {
+            border-color: #fdfdfd !important;
+            background-color: rgba(96, 150, 184, 0.7) !important;
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28253, 253, 253, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+        
+        .navbar-collapse {
+            background-color: rgba(0, 69, 113, 0.95) !important;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        .navbar-nav .nav-link {
+            color: #fdfdfd !important;
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(253, 253, 253, 0.1);
+        }
+        
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(96, 150, 184, 0.3);
+            border-radius: 3px;
+        }
+        
+        .navbar-nav .nav-link:last-child {
+            border-bottom: none;
+        }
+        
+        /* Стили для одиночного изображения */
+        .single-image-container {
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: rgba(0, 69, 113, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .single-image-container:hover {
+            transform: scale(1.02);
+        }
+        
+        .single-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-height: 100%;
+        }
+        
+        /* Стили для Swiper слайдера */
+        .swiper-container {
+            width: 100%;
+            height: 500px;
+            margin: 20px 0;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .gallery-item {
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 69, 113, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .swiper-slide:hover {
+            transform: scale(1.02);
+        }
+        
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-height: 100%;
+        }
+        
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #fdfdfd;
+            background: rgba(0, 69, 113, 0.7);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 10010 !important;
+        }
+        
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgba(0, 69, 113, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: #fdfdfd;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+        
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: #6096b8;
+            transform: scale(1.2);
+        }
+        
+        .swiper-pagination {
+            bottom: 10px !important;
+            z-index: 10010 !important;
+        }
+        
+        /* Стили для полноэкранного просмотра */
+        .fullscreen-swiper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: none;
+        }
+        
+        .fullscreen-swiper .swiper-container {
+            height: 100%;
+            margin: 0;
+            border-radius: 0;
+        }
+        
+        .fullscreen-swiper .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .fullscreen-swiper .swiper-slide img {
+            object-fit: contain;
+            max-width: 90%;
+            max-height: 90%;
+            transition: transform 0.3s ease;
+            cursor: grab;
+        }
+        
+        .fullscreen-swiper .swiper-slide img:active {
+            cursor: grabbing;
+        }
+        
+        .fullscreen-swiper .swiper-slide.swiper-slide-active img.zoomed {
+            cursor: grab;
+        }
+        
+        .fullscreen-swiper .swiper-slide.swiper-slide-active img.zoomed:active {
+            cursor: grabbing;
+        }
+        
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fdfdfd;
+            background: rgba(0, 69, 113, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            z-index: 10010;
             cursor: pointer;
             transition: all 0.3s ease;
-            height: 500px;
         }
         
-        .gallery-item img {
-            object-fit: cover;
-            height: 100%;
-            width: 100%;
+        .close-fullscreen:hover {
+            background: rgba(0, 69, 113, 1);
+            transform: scale(1.1);
         }
         
-        .gallery-item:hover {
-            opacity: 0.9;
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10010;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .zoom-btn {
+            color: #fdfdfd;
+            background: rgba(0, 69, 113, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .zoom-btn:hover {
+            background: rgba(0, 69, 113, 1);
+            transform: scale(1.1);
+        }
+        
+        .image-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fdfdfd;
+            background: rgba(0, 69, 113, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 10010;
         }
         
         .news-content {
@@ -283,8 +496,20 @@ echo getStyles();
         
         /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
-            .gallery-item {
+            .swiper-container,
+            .single-image-container {
                 height: 300px;
+            }
+            
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 16px;
             }
             
             .iframes-container {
@@ -314,9 +539,24 @@ echo getStyles();
                 padding-left: 0;
                 padding-right: 0;
             }
+            
+            /* Исправления для навигации на мобильных */
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
         }
         
         @media (max-width: 576px) {
+            .swiper-container,
+            .single-image-container {
+                height: 250px;
+            }
+            
             .iframe-scroll-item {
                 min-width: 260px;
                 padding: 10px;
@@ -430,15 +670,19 @@ echo getStyles();
                             // Вывод заголовка и описания в самом верху
                             echo('
                                 <div class="col col-12">
-                                    <h1 class="text-center mb-4">' . htmlspecialchars($newsRow['utitle']) . '</h1>
-                                    <p class="lead text-center mb-4">
+                                    <h class="text-center mb-4">' . htmlspecialchars($newsRow['utitle']) . '</h1>
+                                    <p class="lead text-center mb-4" style="font-family: Arial;">
                                         ' . htmlspecialchars($newsRow['udescription']) . '
                                     </p>
                                 </div>
                             ');
                             
-                            // Получаем фотографии
-                            $photosQuery = "SELECT `uphotonews` FROM `uphotonews` WHERE `id_unews` = $idunews";
+                            // Получаем фотографии с использованием указанного SQL запроса
+                            $photosQuery = "SELECT `uphotonews`.`id_uphotonews`, `uphotonews`.`uphotonews`, `uphotonews`.`id_unews` 
+                                          FROM `uphotonews` 
+                                          INNER JOIN `unews` ON `uphotonews`.`id_unews` = `unews`.`id_unews`
+                                          WHERE `uphotonews`.`id_unews` = $idunews
+                                          ORDER BY `uphotonews`.`id_uphotonews` ASC";
                             $photosResult = $mysqli->query($photosQuery);
                             
                             $photos = array();
@@ -461,61 +705,51 @@ echo getStyles();
                                         $finfo = new finfo(FILEINFO_MIME_TYPE);
                                         $mime_type = $finfo->buffer(base64_decode($show_img));
                                         
-                                        $photos[] = 'data:' . $mime_type . ';base64,' . $show_img;
+                                        $photos[] = [
+                                            'id' => $photoRow['id_uphotonews'],
+                                            'src' => 'data:' . $mime_type . ';base64,' . $show_img,
+                                            'title' => htmlspecialchars($newsRow['utitle'])
+                                        ];
                                     }
                                 }
                             }
 
-                            // Вывод галереи после заголовка и описания
+                            // Вывод изображений после заголовка и описания
                             if (!empty($photos)) {
-                                echo('
-                                <div class="gallery-slider">
-                                    <div id="newsGallery" class="carousel slide" data-ride="carousel" data-interval="false">
-                                        <div class="carousel-inner">
-                                ');
-                                
-                                foreach ($photos as $index => $photo) {
-                                    $active = $index === 0 ? 'active' : '';
+                                // Если фото одно - показываем одиночное изображение
+                                if (count($photos) === 1) {
                                     echo('
-                                        <div class="carousel-item '.$active.'">
-                                            <a href="'.$photo.'" data-toggle="lightbox" data-gallery="news-gallery" class="gallery-item">
-                                                <img src="'.$photo.'" class="d-block w-100" alt="Фото новости">
-                                            </a>
-                                        </div>
+                                    <div class="single-image-container" onclick="openFullscreen(0)">
+                                        <img src="' . $photos[0]['src'] . '" alt="' . $photos[0]['title'] . '" 
+                                             data-src="' . $photos[0]['src'] . '" data-title="' . $photos[0]['title'] . '">
+                                    </div>
                                     ');
-                                }
-                                
-                                echo('
-                                        </div>
-                                ');
-                                
-                                if (count($photos) > 1) {
+                                } else {
+                                    // Если фото несколько - показываем слайдер
                                     echo('
-                                        <a class="carousel-control-prev" href="#newsGallery" role="button" data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Предыдущее</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#newsGallery" role="button" data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Следующее</span>
-                                        </a>
-                                        <ol class="carousel-indicators">
+                                    <div class="news-gallery-container">
+                                        <div class="swiper-container news-swiper">
+                                            <div class="swiper-wrapper">
                                     ');
                                     
                                     foreach ($photos as $index => $photo) {
-                                        $active = $index === 0 ? 'active' : '';
-                                        echo('<li data-target="#newsGallery" data-slide-to="'.$index.'" class="'.$active.'"></li>');
+                                        echo('
+                                            <div class="swiper-slide" data-index="' . $index . '">
+                                                <img src="' . $photo['src'] . '" alt="' . $photo['title'] . ' - Фото ' . ($index + 1) . '" 
+                                                     data-src="' . $photo['src'] . '" data-title="' . $photo['title'] . '">
+                                            </div>
+                                        ');
                                     }
                                     
                                     echo('
-                                        </ol>
+                                            </div>
+                                            <div class="swiper-button-next"></div>
+                                            <div class="swiper-button-prev"></div>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                    </div>
                                     ');
                                 }
-                                
-                                echo('
-                                    </div>
-                                </div>
-                                ');
                             } else {
                                 echo('
                                     <div class="col col-12 mb-4">
@@ -527,7 +761,7 @@ echo getStyles();
                             // Текст новости выводится ПОСЛЕ изображений
                             echo('
                                 <div class="col col-12">
-                                    <div class="news-content">
+                                    <div class="news-content" style="font-family: Arial;">
                                         ' . nl2br(htmlspecialchars($newsRow['textunews'])) . '
                                     </div>
                                 </div>
@@ -563,6 +797,36 @@ echo getStyles();
     </div>
 </div>
 
+<!-- Полноэкранный слайдер -->
+<div class="fullscreen-swiper" id="fullscreenSwiper">
+    <button class="close-fullscreen" onclick="closeFullscreen()">×</button>
+    <div class="image-counter" id="imageCounter">1 / <?php echo count($photos); ?></div>
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomOut()">-</button>
+        <button class="zoom-btn" onclick="resetZoom()">⟲</button>
+        <button class="zoom-btn" onclick="zoomIn()">+</button>
+    </div>
+    <div class="swiper-container fullscreen-swiper-container">
+        <div class="swiper-wrapper">
+            <?php
+            if (!empty($photos)) {
+                foreach ($photos as $index => $photo) {
+                    echo('
+                    <div class="swiper-slide">
+                        <img src="' . $photo['src'] . '" alt="' . $photo['title'] . ' - Фото ' . ($index + 1) . '" 
+                             data-index="' . $index . '">
+                    </div>
+                    ');
+                }
+            }
+            ?>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
 <?php
 include('template/footer2.php');
 ?>
@@ -572,75 +836,284 @@ include('template/footer2.php');
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<!-- Подключение Swiper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
 
 <script>
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-        event.preventDefault();
-        $(this).ekkoLightbox({
-            wrapping: false,
-            onShown: function() {
-                $('.ekko-lightbox').css('background-color', 'rgba(0, 69, 113, 0.95)');
-                $('.ekko-lightbox-nav-overlay a').css('color', '#fdfdfd');
+    // Исправление для бургер-меню Bootstrap
+    $(document).ready(function() {
+        // Закрытие меню при клике на ссылку
+        $('.navbar-nav .nav-link').on('click', function() {
+            $('.navbar-collapse').collapse('hide');
+        });
+        
+        // Закрытие меню при клике вне его области
+        $(document).on('click', function(event) {
+            var $target = $(event.target);
+            if (!$target.closest('.navbar').length && 
+                $('.navbar-collapse').hasClass('show')) {
+                $('.navbar-collapse').collapse('hide');
             }
+        });
+        
+        // Предотвращаем закрытие при клике внутри меню
+        $('.navbar-collapse').on('click', function(event) {
+            event.stopPropagation();
         });
     });
 
-    // Добавляем индикацию скролла для мобильных устройств
-    document.addEventListener('DOMContentLoaded', function() {
-        const scrollContainer = document.querySelector('.iframes-scroll-container');
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-        
-        if (scrollContainer && window.innerWidth < 992) {
-            let scrollTimeout;
-            
-            scrollContainer.addEventListener('scroll', function() {
-                const scrollLeft = this.scrollLeft;
-                const maxScroll = this.scrollWidth - this.clientWidth;
-                
-                // Показываем/скрываем индикатор в зависимости от позиции скролла
-                if (scrollIndicator) {
-                    if (scrollLeft > 10 || scrollLeft < maxScroll - 10) {
-                        scrollIndicator.style.opacity = '0.7';
-                    } else {
-                        scrollIndicator.style.opacity = '1';
-                    }
-                }
-                
-                // Сбрасываем таймер при скролле
-                clearTimeout(scrollTimeout);
-                
-                // Скрываем индикатор через 2 секунды после остановки скролла
-                scrollTimeout = setTimeout(function() {
-                    if (scrollIndicator) {
-                        scrollIndicator.style.opacity = '0.3';
-                    }
-                }, 2000);
-            });
-            
-            // Инициализация прозрачности индикатора
-            if (scrollIndicator) {
-                scrollIndicator.style.transition = 'opacity 0.3s ease';
-                scrollIndicator.style.opacity = '1';
+    // Инициализация основного Swiper слайдера (только если есть несколько фото)
+    <?php if (!empty($photos) && count($photos) > 1): ?>
+    var newsSwiper = new Swiper('.news-swiper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        keyboard: {
+            enabled: true,
+        },
+        // Убрана автопрокрутка
+        effect: 'slide',
+        speed: 600,
+        preloadImages: false,
+        lazy: {
+            loadPrevNext: true,
+        },
+        breakpoints: {
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 15
+            },
+            1024: {
+                slidesPerView: 1,
+                spaceBetween: 20
             }
         }
     });
+    <?php endif; ?>
 
-    // Автоматическое обновление высоты iframe для лучшего отображения
-    function resizeIframes() {
-        const iframes = document.querySelectorAll('.embed-responsive iframe');
-        iframes.forEach(iframe => {
-            iframe.style.height = '100%';
-            iframe.style.width = '100%';
+    // Инициализация полноэкранного Swiper
+    var fullscreenSwiper;
+    var currentZoom = 1;
+    var isZoomed = false;
+    var currentTranslateX = 0;
+    var currentTranslateY = 0;
+    var isDragging = false;
+    var startX, startY;
+
+    function initFullscreenSwiper(initialSlide = 0) {
+        fullscreenSwiper = new Swiper('.fullscreen-swiper-container', {
+            initialSlide: initialSlide,
+            loop: false,
+            pagination: {
+                el: '.fullscreen-swiper .swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.fullscreen-swiper .swiper-button-next',
+                prevEl: '.fullscreen-swiper .swiper-button-prev',
+            },
+            keyboard: {
+                enabled: true,
+            },
+            on: {
+                slideChange: function() {
+                    updateImageCounter();
+                    resetZoom();
+                }
+            }
         });
+
+        // Добавляем обработчики для жестов масштабирования
+        const container = document.querySelector('.fullscreen-swiper-container');
+        container.addEventListener('wheel', handleWheelZoom, { passive: false });
+        
+        // Добавляем обработчики для перетаскивания увеличенного изображения
+        document.addEventListener('mousedown', startDrag);
+        document.addEventListener('touchstart', startDragTouch);
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchend', stopDrag);
     }
 
-    // Вызываем функцию при загрузке и изменении размера окна
-    window.addEventListener('load', resizeIframes);
-    window.addEventListener('resize', resizeIframes);
+    // Обработка колесика мыши для зума
+    function handleWheelZoom(e) {
+        if (!isZoomed) return;
+        
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.1 : 0.1;
+        currentZoom = Math.max(0.5, Math.min(3, currentZoom + delta));
+        applyZoom();
+    }
+
+    // Функции для управления масштабированием
+    function zoomIn() {
+        currentZoom = Math.min(currentZoom + 0.2, 3);
+        applyZoom();
+        isZoomed = currentZoom > 1;
+    }
+
+    function zoomOut() {
+        currentZoom = Math.max(currentZoom - 0.2, 0.5);
+        applyZoom();
+        isZoomed = currentZoom > 1;
+    }
+
+    function resetZoom() {
+        currentZoom = 1;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
+        applyZoom();
+        isZoomed = false;
+    }
+
+    function applyZoom() {
+        const activeSlide = fullscreenSwiper.slides[fullscreenSwiper.activeIndex];
+        const img = activeSlide.querySelector('img');
+        if (img) {
+            img.style.transform = `scale(${currentZoom}) translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+            img.style.transition = 'transform 0.2s ease';
+            
+            if (currentZoom > 1) {
+                img.classList.add('zoomed');
+            } else {
+                img.classList.remove('zoomed');
+            }
+        }
+    }
+
+    // Функции для перетаскивания увеличенного изображения
+    function startDrag(e) {
+        if (!isZoomed || e.target.tagName !== 'IMG') return;
+        
+        isDragging = true;
+        startX = e.clientX - currentTranslateX;
+        startY = e.clientY - currentTranslateY;
+        e.target.style.cursor = 'grabbing';
+        
+        document.addEventListener('mousemove', drag);
+    }
+
+    function startDragTouch(e) {
+        if (!isZoomed || e.target.tagName !== 'IMG') return;
+        
+        isDragging = true;
+        startX = e.touches[0].clientX - currentTranslateX;
+        startY = e.touches[0].clientY - currentTranslateY;
+        
+        document.addEventListener('touchmove', dragTouch);
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        currentTranslateX = e.clientX - startX;
+        currentTranslateY = e.clientY - startY;
+        
+        // Ограничиваем перемещение в зависимости от масштаба
+        const maxMove = 200 * (currentZoom - 1);
+        currentTranslateX = Math.max(-maxMove, Math.min(maxMove, currentTranslateX));
+        currentTranslateY = Math.max(-maxMove, Math.min(maxMove, currentTranslateY));
+        
+        applyZoom();
+    }
+
+    function dragTouch(e) {
+        if (!isDragging) return;
+        
+        currentTranslateX = e.touches[0].clientX - startX;
+        currentTranslateY = e.touches[0].clientY - startY;
+        
+        // Ограничиваем перемещение в зависимости от масштаба
+        const maxMove = 200 * (currentZoom - 1);
+        currentTranslateX = Math.max(-maxMove, Math.min(maxMove, currentTranslateX));
+        currentTranslateY = Math.max(-maxMove, Math.min(maxMove, currentTranslateY));
+        
+        applyZoom();
+    }
+
+    function stopDrag() {
+        isDragging = false;
+        const activeSlide = fullscreenSwiper.slides[fullscreenSwiper.activeIndex];
+        const img = activeSlide.querySelector('img');
+        if (img) {
+            img.style.cursor = isZoomed ? 'grab' : 'default';
+        }
+        
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('touchmove', dragTouch);
+    }
+
+    // Функции для открытия/закрытия полноэкранного режима
+    function openFullscreen(index) {
+        document.getElementById('fullscreenSwiper').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Инициализируем Swiper с указанным слайдом
+        if (typeof fullscreenSwiper !== 'undefined') {
+            fullscreenSwiper.destroy(true, true);
+        }
+        
+        initFullscreenSwiper(index);
+        updateImageCounter();
+    }
+
+    function closeFullscreen() {
+        document.getElementById('fullscreenSwiper').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        resetZoom();
+    }
+
+    function updateImageCounter() {
+        const current = fullscreenSwiper.activeIndex + 1;
+        const total = fullscreenSwiper.slides.length;
+        document.getElementById('imageCounter').textContent = current + ' / ' + total;
+    }
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && document.getElementById('fullscreenSwiper').style.display === 'block') {
+            closeFullscreen();
+        }
+    });
+
+    // Закрытие по клику на фон (но не на изображение)
+    document.getElementById('fullscreenSwiper').addEventListener('click', function(e) {
+        if (e.target === this || e.target.classList.contains('swiper-container')) {
+            closeFullscreen();
+        }
+    });
+
+    // Открытие полноэкранного режима при клике на изображение
+    document.addEventListener('DOMContentLoaded', function() {
+        // Для одиночного изображения
+        const singleImage = document.querySelector('.single-image-container');
+        if (singleImage) {
+            singleImage.addEventListener('click', function() {
+                openFullscreen(0);
+            });
+        }
+        
+        // Для слайдов в слайдере
+        const slides = document.querySelectorAll('.swiper-slide');
+        slides.forEach((slide, index) => {
+            slide.addEventListener('click', function() {
+                openFullscreen(index);
+            });
+        });
+    });
 </script>
 </body>
 </html>
-<?php 
-$mysqli->close();
-ob_end_flush(); 
+
+<?php
+ob_end_flush();
 ?>
