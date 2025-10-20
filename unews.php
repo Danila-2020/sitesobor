@@ -93,6 +93,22 @@ echo getStyles();
         }
         
         /* Исправления для навигации */
+        .navbar {
+            background-color: rgba(0, 69, 113, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #fdfdfd !important;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link:focus {
+            color: #6096b8 !important;
+            background-color: rgba(253, 253, 253, 0.1);
+        }
+        
         .navbar-toggler {
             border-color: #fdfdfd !important;
             background-color: rgba(96, 150, 184, 0.7) !important;
@@ -102,26 +118,58 @@ echo getStyles();
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28253, 253, 253, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
         }
         
-        .navbar-collapse {
+        /* Стили для выпадающих меню */
+        .dropdown-menu {
             background-color: rgba(0, 69, 113, 0.95) !important;
-            padding: 15px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
             border-radius: 5px;
-            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .navbar-nav .nav-link {
+        .dropdown-item {
             color: #fdfdfd !important;
-            padding: 10px 15px;
-            border-bottom: 1px solid rgba(253, 253, 253, 0.1);
+            padding: 8px 15px;
         }
         
-        .navbar-nav .nav-link:hover {
-            background-color: rgba(96, 150, 184, 0.3);
-            border-radius: 3px;
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background-color: rgba(96, 150, 184, 0.3) !important;
+            color: #fdfdfd !important;
         }
         
-        .navbar-nav .nav-link:last-child {
-            border-bottom: none;
+        .dropdown-divider {
+            border-top: 1px solid rgba(253, 253, 253, 0.2);
+        }
+        
+        /* Адаптивность для навигации */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background-color: rgba(0, 69, 113, 0.98) !important;
+                padding: 15px;
+                border-radius: 5px;
+                margin-top: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 10px 15px;
+                border-bottom: 1px solid rgba(253, 253, 253, 0.1);
+            }
+            
+            .navbar-nav .nav-link:last-child {
+                border-bottom: none;
+            }
+            
+            .dropdown-menu {
+                background-color: transparent !important;
+                border: none;
+                box-shadow: none;
+                padding-left: 20px;
+            }
+            
+            .dropdown-item {
+                padding: 8px 0;
+            }
         }
         
         /* Стили для одиночного изображения */
@@ -539,16 +587,6 @@ echo getStyles();
                 padding-left: 0;
                 padding-right: 0;
             }
-            
-            /* Исправления для навигации на мобильных */
-            .navbar-collapse {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                z-index: 1000;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            }
         }
         
         @media (max-width: 576px) {
@@ -840,8 +878,11 @@ include('template/footer2.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
 
 <script>
-    // Исправление для бургер-меню Bootstrap
+    // Исправление для бургер-меню Bootstrap и выпадающих меню
     $(document).ready(function() {
+        // Инициализация всех выпадающих меню
+        $('.dropdown-toggle').dropdown();
+        
         // Закрытие меню при клике на ссылку
         $('.navbar-nav .nav-link').on('click', function() {
             $('.navbar-collapse').collapse('hide');
@@ -859,6 +900,11 @@ include('template/footer2.php');
         // Предотвращаем закрытие при клике внутри меню
         $('.navbar-collapse').on('click', function(event) {
             event.stopPropagation();
+        });
+        
+        // Закрытие выпадающих меню при клике на пункт
+        $('.dropdown-item').on('click', function() {
+            $('.dropdown-menu').removeClass('show');
         });
     });
 
