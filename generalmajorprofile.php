@@ -301,19 +301,26 @@ function formatBytes($bytes, $precision = 2) {
         <div class="main-content">
             <!-- Панель быстрых действий -->
             <div class="admin-actions">
-                <h3>Быстрые действия</h3>
-                <div>
-                    <a href="add_iframes.php" class="btn btn-primary">
-                        <i class="fas fa-plus" style="margin-right: 5px;"></i> Добавить iframe
-                    </a>
-                    <a href="my_iframes.php" class="btn" style="background: #9b59b6;">
-                        <i class="fas fa-list" style="margin-right: 5px;"></i> Мои iframe
-                    </a>
-                    <a href="index.php" class="btn" style="background: #7f8c8d;">
-                        <i class="fas fa-home" style="margin-right: 5px;"></i> На главную
-                    </a>
-                </div>
+            <h3>Быстрые действия</h3>
+            <div>
+                <a href="add_iframes.php" class="btn btn-primary">
+                    <i class="fas fa-plus" style="margin-right: 5px;"></i> Добавить iframe
+                </a>
+                <a href="my_iframes.php" class="btn" style="background: #9b59b6;">
+                    <i class="fas fa-list" style="margin-right: 5px;"></i> Мои iframe
+                </a>
+                <!-- НОВЫЕ КНОПКИ ДЛЯ ГАЛЕРЕИ -->
+                <a href="add_gallery.php" class="btn" style="background: #3498db;">
+                    <i class="fas fa-image" style="margin-right: 5px;"></i> Добавить фото в галерею
+                </a>
+                <a href="view_gallery.php" class="btn" style="background: #e67e22;">
+                    <i class="fas fa-eye" style="margin-right: 5px;"></i> Просмотреть галерею
+                </a>
+                <a href="index.php" class="btn" style="background: #7f8c8d;">
+                    <i class="fas fa-home" style="margin-right: 5px;"></i> На главную
+                </a>
             </div>
+        </div>
 
             <?php if ($currentTable): ?>
                 <div class="table-header">
