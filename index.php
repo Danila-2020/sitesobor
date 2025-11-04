@@ -668,71 +668,6 @@ include('template/allnavbar.php');
                     не фантазировать, а видеть вокруг себя творение Божие и благодарить Того, Кто подарил нам жизнь.</p>
             </div>
         </div>
-        <script>
-        // Функция для автоматической регулировки высоты iframe
-        function adjustIframeHeight() {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                iframe.onload = function() {
-                    // Даем время на полную загрузку контента
-                    setTimeout(() => {
-                        try {
-                            const contentHeight = iframe.contentWindow.document.body.scrollHeight;
-                            iframe.style.height = contentHeight + 'px';
-                        } catch (e) {
-                            console.log('Не удалось изменить высоту iframe:', e);
-                        }
-                    }, 1000);
-                };
-            });
-        }
-
-        // Вызываем функцию после загрузки DOM
-        document.addEventListener('DOMContentLoaded', adjustIframeHeight);
-
-        // Также вызываем при изменении размера окна
-        window.addEventListener('resize', adjustIframeHeight);
-        
-        // Активация Lightbox
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-                wrapping: false,
-                onShown: function() {
-                    $('.ekko-lightbox').css('background-color', 'rgba(0, 69, 113, 0.95)');
-                }
-            });
-        });
-        
-        // Исправление для мобильного меню
-        $(document).ready(function() {
-            // Закрытие меню при клике на пункт меню (для мобильных устройств)
-            $('.navbar-nav .nav-link').on('click', function() {
-                if ($(window).width() < 992) {
-                    $('.navbar-collapse').collapse('hide');
-                }
-            });
-            
-            // Закрытие меню при клике на dropdown-item
-            $('.dropdown-item').on('click', function() {
-                if ($(window).width() < 992) {
-                    $('.navbar-collapse').collapse('hide');
-                }
-            });
-            
-            // Предотвращение закрытия при клике внутри dropdown-menu
-            $('.dropdown-menu').on('click', function(e) {
-                e.stopPropagation();
-            });
-            
-            // Автоматическое закрытие меню при изменении размера окна
-            $(window).on('resize', function() {
-                if ($(window).width() >= 992) {
-                    $('.navbar-collapse').removeClass('show');
-                }
-            });
-        });
-        </script>
         </div>
         <!-- Галерея -->
         <div class="container mt-4 gallery-section">
@@ -825,25 +760,41 @@ include('template/footer2.php');
         });
     });
     
-    // Исправление для мобильного меню
+    // Исправление для мобильного меню - предотвращение закрытия при клике на dropdown
     $(document).ready(function() {
-        // Закрытие меню при клике на пункт меню (для мобильных устройств)
-        $('.navbar-nav .nav-link').on('click', function() {
+        // Закрытие меню при клике на обычные ссылки (не dropdown)
+        $('.navbar-nav .nav-link:not(.dropdown-toggle)').on('click', function() {
             if ($(window).width() < 992) {
                 $('.navbar-collapse').collapse('hide');
             }
         });
         
-        // Закрытие меню при клике на dropdown-item
+        // Предотвращение закрытия меню при клике на dropdown-toggle
+        $('.dropdown-toggle').on('click', function(e) {
+            if ($(window).width() < 992) {
+                e.stopPropagation();
+                // Bootstrap сам обработает открытие/закрытие подменю
+            }
+        });
+        
+        // Закрытие меню при клике на пункты подменю (dropdown-item)
         $('.dropdown-item').on('click', function() {
             if ($(window).width() < 992) {
                 $('.navbar-collapse').collapse('hide');
             }
         });
         
-        // Предотвращение закрытия при клике внутри dropdown-menu
-        $('.dropdown-menu').on('click', function(e) {
-            e.stopPropagation();
+        // Закрытие меню при клике вне его области (только для мобильных)
+        $(document).on('click', function(event) {
+            if ($(window).width() < 992) {
+                var clickover = $(event.target);
+                var navbar = $(".navbar");
+                var _opened = $(".navbar-collapse").hasClass("show");
+                
+                if (_opened === true && !navbar.is(clickover) && navbar.has(clickover).length === 0) {
+                    $(".navbar-collapse").collapse('hide');
+                }
+            }
         });
         
         // Автоматическое закрытие меню при изменении размера окна
@@ -854,8 +805,29 @@ include('template/footer2.php');
         });
     });
     
+    // Функция для автоматической регулировки высоты iframe
+    function adjustIframeHeight() {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+            iframe.onload = function() {
+                // Даем время на полную загрузку контента
+                setTimeout(() => {
+                    try {
+                        const contentHeight = iframe.contentWindow.document.body.scrollHeight;
+                        iframe.style.height = contentHeight + 'px';
+                    } catch (e) {
+                        console.log('Не удалось изменить высоту iframe:', e);
+                    }
+                }, 1000);
+            };
+        });
+    }
+
     // Вызываем функцию после загрузки DOM
     document.addEventListener('DOMContentLoaded', adjustIframeHeight);
+
+    // Также вызываем при изменении размера окна
+    window.addEventListener('resize', adjustIframeHeight);
 </script>
 </body>
 </html>

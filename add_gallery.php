@@ -1,4 +1,8 @@
 <?php
+// Включение вывода ошибок для отладки
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once 'config.php';
 checkAuth();
 
@@ -19,10 +23,15 @@ if (isset($_POST['upload_gallery'])) {
         
         // Проверка типа файла
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        $fileType = mime_content_type($file['tmp_name']);
+        $fileType = $file['type'];
+        
+        // Альтернативная проверка MIME типа
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $fileType = finfo_file($finfo, $file['tmp_name']);
+        finfo_close($finfo);
         
         if (!in_array($fileType, $allowedTypes)) {
-            $uploadMessage = 'Ошибка: Допустимы только изображения в форматах JPG, PNG, GIF, WebP.';
+            $uploadMessage = 'Ошибка: Допустимы только изображения в форматах JPG, PNG, GIF, WebP. Получен: ' . $fileType;
         } 
         // Проверка размера файла (максимум 5MB)
         elseif ($file['size'] > 5 * 1024 * 1024) {
@@ -31,20 +40,27 @@ if (isset($_POST['upload_gallery'])) {
             // Создаем директорию gallery, если она не существует
             $galleryDir = 'gallery/';
             if (!is_dir($galleryDir)) {
-                mkdir($galleryDir, 0755, true);
+                if (!mkdir($galleryDir, 0755, true)) {
+                    $uploadMessage = 'Ошибка: Не удалось создать директорию для загрузки.';
+                }
             }
             
-            // Генерируем уникальное имя файла
-            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-            $fileName = uniqid() . '_' . time() . '.' . $fileExtension;
-            $filePath = $galleryDir . $fileName;
-            
-            // Пытаемся загрузить файл
-            if (move_uploaded_file($file['tmp_name'], $filePath)) {
-                $uploadSuccess = true;
-                $uploadMessage = 'Изображение успешно загружено в галерею!';
+            // Проверяем права на запись в директорию
+            if (!is_writable($galleryDir)) {
+                $uploadMessage = 'Ошибка: Нет прав на запись в директорию gallery/.';
             } else {
-                $uploadMessage = 'Ошибка: Не удалось загрузить файл на сервер.';
+                // Генерируем уникальное имя файла
+                $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                $fileName = uniqid() . '_' . time() . '.' . $fileExtension;
+                $filePath = $galleryDir . $fileName;
+                
+                // Пытаемся загрузить файл
+                if (move_uploaded_file($file['tmp_name'], $filePath)) {
+                    $uploadSuccess = true;
+                    $uploadMessage = 'Изображение успешно загружено в галерею!';
+                } else {
+                    $uploadMessage = 'Ошибка: Не удалось загрузить файл на сервер. Проверьте права доступа.';
+                }
             }
         }
     } else {
@@ -62,7 +78,13 @@ if (isset($_POST['upload_gallery'])) {
     }
 }
 
-$tables = getTableNames($pdo);
+// Безопасное получение списка таблиц
+try {
+    $tables = getTableNames($pdo);
+} catch (Exception $e) {
+    $tables = [];
+    error_log("Ошибка получения таблиц: " . $e->getMessage());
+}
 
 // Словарь для перевода названий таблиц на русский
 $tableNames = [
@@ -91,7 +113,7 @@ $tableNames = [
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <title>Добавить фото в галерею - Админ-панель Собора</title>
@@ -123,6 +145,7 @@ $tableNames = [
         .btn {
             display: inline-block; padding: 0.5rem 1rem; color: white; text-decoration: none;
             border-radius: 3px; border: none; cursor: pointer; margin: 0.2rem;
+            font-size: 14px;
         }
         .btn-primary { background: #27ae60; }
         .btn-secondary { background: #3498db; }
@@ -170,6 +193,7 @@ $tableNames = [
             border-radius: 4px;
             background: white;
             padding: 1rem;
+            width: 100%;
         }
         
         .form-control-file:focus {
@@ -232,6 +256,15 @@ $tableNames = [
             margin-top: 0.5rem;
             font-size: 14px;
         }
+        
+        .debug-info {
+            background: #fff3cd;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            font-size: 12px;
+            color: #856404;
+        }
     </style>
 </head>
 <body>
@@ -240,22 +273,26 @@ $tableNames = [
         <div class="sidebar">
             <h3>Таблицы базы данных</h3>
             <ul>
-                <?php foreach ($tables as $table): ?>
-                    <?php if (isset($tableNames[$table])): ?>
-                        <li>
-                            <a href="generalmajorprofile.php?table=<?php echo urlencode($table); ?>">
-                                <?php echo htmlspecialchars($tableNames[$table]); ?>
-                                <div class="table-name-en">(<?php echo htmlspecialchars($table); ?>)</div>
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li>
-                            <a href="generalmajorprofile.php?table=<?php echo urlencode($table); ?>">
-                                <?php echo htmlspecialchars($table); ?>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                <?php if (!empty($tables)): ?>
+                    <?php foreach ($tables as $table): ?>
+                        <?php if (isset($tableNames[$table])): ?>
+                            <li>
+                                <a href="generalmajorprofile.php?table=<?php echo urlencode($table); ?>">
+                                    <?php echo htmlspecialchars($tableNames[$table]); ?>
+                                    <div class="table-name-en">(<?php echo htmlspecialchars($table); ?>)</div>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <a href="generalmajorprofile.php?table=<?php echo urlencode($table); ?>">
+                                    <?php echo htmlspecialchars($table); ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li style="color: #bbb; font-style: italic;">Таблицы не найдены</li>
+                <?php endif; ?>
             </ul>
             
             <!-- Кнопка для добавления iframe -->
@@ -316,7 +353,7 @@ $tableNames = [
                     <div class="form-group">
                         <label for="gallery_image">Выберите изображение:</label>
                         <input type="file" class="form-control-file" id="gallery_image" name="gallery_image" 
-                               accept="image/jpeg,image/png,image/gif,image/webp" required
+                               accept=".jpg,.jpeg,.png,.gif,.webp" required
                                onchange="previewImage(this)">
                         <small class="form-text">
                             Допустимые форматы: JPG, PNG, GIF, WebP. Максимальный размер: 5MB.
@@ -342,6 +379,15 @@ $tableNames = [
                         <i class="fas fa-eye" style="margin-right: 5px;"></i> К галерее
                     </a>
                 </form>
+                
+                <!-- Отладочная информация -->
+                <div class="debug-info">
+                    <strong>Отладочная информация:</strong><br>
+                    PHP Version: <?php echo phpversion(); ?><br>
+                    Max Upload Size: <?php echo ini_get('upload_max_filesize'); ?><br>
+                    Gallery Directory: <?php echo is_dir('gallery/') ? 'Exists' : 'Not exists'; ?><br>
+                    Writable: <?php echo is_writable('gallery/') ? 'Yes' : 'No'; ?>
+                </div>
             </div>
 
             <div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 5px;">

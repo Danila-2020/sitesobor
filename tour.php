@@ -42,7 +42,7 @@ echo getStyles();
             background-attachment: fixed;
             color: #fdfdfd;
             min-height: 100vh;
-            padding-top: 56px;
+            padding-top: 76px; /* Увеличено для фиксированного навбара */
         }
         
         .tour-section {
@@ -125,6 +125,15 @@ echo getStyles();
                 padding: 15px;
                 margin-top: 20px;
             }
+            
+            body {
+                padding-top: 66px; /* Уменьшено для мобильных */
+            }
+        }
+        
+        .help-icon {
+            color: #d4a76a;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -139,91 +148,10 @@ echo getStyles();
     </script>
 </amp-analytics>
 
-<!-- Навбар без фиксированного положения -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">
-            <amp-img src="img/mestologo.png" width="50" height="50" layout="fixed"></amp-img>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Главная</a>
-                </li>
-                
-                <!-- Пункт "О Соборе" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        О Соборе
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="aboutDropdown">
-                        <a class="dropdown-item" href="clergy.php">Духовенство</a>
-                        <a class="dropdown-item" href="history.php">История</a>
-                        <a class="dropdown-item" href="feodosiy.php">Прп. Феодосий Кавказский</a>
-                        <a class="dropdown-item" href="tour.php">Виртуальный тур</a>
-                    </div>
-                </li>
-                
-                <!-- Пункт "Благочиние" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="blagochiniyaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Благочиние
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="blagochiniyaDropdown">
-                        <a class="dropdown-item" href="blagochiniya-info.php">Общие сведения</a>
-                        <a class="dropdown-item" href="blagochiniya-temples.php">Храмы</a>
-                        <a class="dropdown-item" href="blagochiniya-clergy.php">Духовенство</a>
-                    </div>
-                </li>
-                
-                <!-- Пункт "Деятельность" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Деятельность
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="activityDropdown">
-                        <a class="dropdown-item" href="sunday-school.php">Воскресная школа</a>
-                        <a class="dropdown-item" href="youth-center.php">Молодёжный центр</a>
-                        <a class="dropdown-item" href="tea-room.php">Чайный дворик</a>
-                        <a class="dropdown-item" href="social-activity.php">Социальная деятельность</a>
-                    </div>
-                </li>
-
-                <!-- Пункт "Таинства" с подменю -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Таинства
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="activityDropdown">
-                        <a class="dropdown-item" href="christening.php">Крещение</a>
-                        <a class="dropdown-item" href="wedding.php">Венчание</a>
-                        <a class="dropdown-item" href="confession.php">Исповедь</a>
-                        <a class="dropdown-item" href="eucharist.php">Причастие</a>
-                        <a class="dropdown-item" href="unction.php">Соборование</a>
-                    </div>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="allunews.php">Новости</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="photogallery.php">Галерея</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.php">Контакты</a>
-                </li>
-                
-                <!-- Кнопка "Вход" -->
-                <li class="nav-item">
-                    <a class="btn btn-outline-primary ml-2" href="signin.php">Вход</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php
+// Подключаем навбар
+include('template/allnavbar.php');
+?>
 
 <div class="relative page-wrap">
     <div class="content-wrap relative">
@@ -238,7 +166,7 @@ echo getStyles();
             <!-- Основной тур -->
             <div class="tour-section">
                 <h2 class="text-center mb-4">3D Тур по Собору</h2>
-                <iframe class="tour-iframe w-100" src="https://www.google.com/maps/embed?pb=!4v1747810284953!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzRrdk9EUVE.!2m2!1d44.20203034895457!2d43.12536741966107!3f96.85097907240393!4f-3.463901050392508!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe class="tour-iframe w-100" src="https://www.google.com/maps/embed?pb=!4v1747810284953!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzRrdk9EUVE.!2m2!1d44.20203034895457!2d43.12536751966107!3f96.85097907240393!4f-3.463901050392508!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 
                 <div class="text-center mt-3">
                     <p>Используйте мышь или пальцы для навигации по туру. Кликните на стрелки для перемещения между точками.</p>
@@ -312,25 +240,8 @@ echo getStyles();
             // Подключаем функцию отображения iframe
             require_once 'display_iframes.php';
             
-            // Определяем, какое подключение использовать
-            // Если в tour.php используется PDO, передаем $pdo
-            // Если используется mysqli, передаем $mysqli
-            // В данном случае, судя по ошибке, используется PDO
-            if (isset($pdo) && $pdo instanceof PDO) {
-                displayIframes('tour.php', $pdo);
-            } elseif (isset($mysqli) && $mysqli instanceof mysqli) {
-                displayIframes('tour.php', $mysqli);
-            } else {
-                // Если ни одно подключение не доступно, создаем новое
-                try {
-                    require_once 'config.php';
-                    if (isset($pdo)) {
-                        displayIframes('tour.php', $pdo);
-                    }
-                } catch (Exception $e) {
-                    echo '<!-- Ошибка подключения к БД: ' . htmlspecialchars($e->getMessage()) . ' -->';
-                }
-            }
+            // Исправленный вызов функции - передаем только имя страницы
+            displayIframes('tour.php');
             ?>
         </div>
     </div>
@@ -351,6 +262,44 @@ include('template/footer2.php');
         // Здесь должна быть реализация перемещения в 3D туре
         alert('В реальном приложении здесь будет переход к точке с координатами: ' + lat + ', ' + lng);
     }
+    
+    // Исправление для мобильного меню
+    $(document).ready(function() {
+        // Закрытие меню при клике на обычные ссылки (не dropdown)
+        $('.navbar-nav .nav-link:not(.dropdown-toggle)').on('click', function() {
+            if ($(window).width() < 992) {
+                $('.navbar-collapse').collapse('hide');
+            }
+        });
+        
+        // Предотвращение закрытия меню при клике на dropdown-toggle
+        $('.dropdown-toggle').on('click', function(e) {
+            if ($(window).width() < 992) {
+                e.stopPropagation();
+                // Bootstrap сам обработает открытие/закрытие подменю
+            }
+        });
+        
+        // Закрытие меню при клике на пункты подменю (dropdown-item)
+        $('.dropdown-item').on('click', function() {
+            if ($(window).width() < 992) {
+                $('.navbar-collapse').collapse('hide');
+            }
+        });
+        
+        // Закрытие меню при клике вне его области (только для мобильных)
+        $(document).on('click', function(event) {
+            if ($(window).width() < 992) {
+                var clickover = $(event.target);
+                var navbar = $(".navbar");
+                var _opened = $(".navbar-collapse").hasClass("show");
+                
+                if (_opened === true && !navbar.is(clickover) && navbar.has(clickover).length === 0) {
+                    $(".navbar-collapse").collapse('hide');
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>

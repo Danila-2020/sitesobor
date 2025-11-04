@@ -9,7 +9,7 @@ session_start();
 require_once('bd.php');
 
 // Подключаем шаблоны
-// include('template/clergyhead.php');
+include('template/clergyhead.php');
 include('template/scedulehead.php');
 include('template/barber.php');
 
@@ -83,25 +83,81 @@ if (!$result) {
             margin: 0 0.2rem;
             border-radius: 4px;
             transition: all 0.3s ease;
+            color: #fdfdfd !important;
         }
 
         .nav-link:hover {
             background-color: rgba(96, 150, 184, 0.5);
+            color: #fdfdfd !important;
         }
 
         .nav-item.active .nav-link {
             background-color: rgba(96, 150, 184, 0.7);
         }
 
+        /* Улучшенные стили для мобильного меню */
+        .navbar-toggler {
+            border: 1px solid rgba(253, 253, 253, 0.3);
+            padding: 0.25rem 0.5rem;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Стили для выпадающих меню */
+        .dropdown-menu {
+            background-color: rgba(0, 69, 113, 0.95);
+            border: 1px solid rgba(253, 253, 253, 0.2);
+        }
+
+        .dropdown-item {
+            color: #fdfdfd;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(96, 150, 184, 0.5);
+            color: #fdfdfd;
+        }
+
         @media (max-width: 992px) {
             .navbar-collapse {
-                background-color: rgba(0, 69, 113, 0.95);
+                background-color: rgba(0, 69, 113, 0.98);
                 padding: 1rem;
                 border-radius: 0 0 8px 8px;
+                margin-top: 8px;
+                border: 1px solid rgba(253, 253, 253, 0.2);
+                border-top: none;
             }
             
             .nav-link {
                 margin: 0.2rem 0;
+                text-align: center;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-item {
+                margin-bottom: 5px;
+            }
+
+            .nav-item:last-child {
+                margin-bottom: 0;
+            }
+
+            /* Исправление для корректного закрытия меню */
+            .navbar-nav {
+                width: 100%;
+            }
+
+            /* Выпадающие меню в мобильной версии */
+            .dropdown-menu {
+                background-color: transparent;
+                border: none;
+                text-align: center;
+            }
+
+            .dropdown-item {
+                padding: 0.5rem 1rem;
             }
         }
         
@@ -196,6 +252,7 @@ if (!$result) {
             margin-bottom: 10px;
         }
         
+        /* Улучшенная адаптивность для мобильных */
         @media (max-width: 768px) {
             body {
                 padding-top: 66px;
@@ -215,6 +272,44 @@ if (!$result) {
                 padding: 15px;
                 margin-top: 20px;
             }
+            
+            .card-img-top {
+                height: 200px;
+            }
+            
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            
+            .card-img-top {
+                height: 180px;
+            }
+            
+            h5.card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Исправление для кликабельных элементов меню */
+        .navbar-nav .nav-link {
+            cursor: pointer;
+        }
+
+        /* Отключение закрытия меню при клике на dropdown-toggle */
+        .dropdown-toggle {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -274,8 +369,8 @@ include('template/allnavbar.php');
         // Подключаем функцию отображения iframe
         require_once 'display_iframes.php';
         
-        // Отображаем iframe для этой страницы
-        displayIframes('clergy.php', $mysqli);
+        // Исправленный вызов функции - передаем только имя страницы
+        displayIframes('clergy.php');
         ?>
     </div>
     
@@ -291,9 +386,50 @@ include('template/footer2.php');
 ?>
 
 <!-- Подключение jQuery, Popper.js и Bootstrap JS -->
+<!-- Важно: jQuery должен быть подключен ДО Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+// Исправленный скрипт для работы мобильного меню
+$(document).ready(function() {
+    // Закрытие меню при клике на прямые ссылки (не dropdown)
+    $('.navbar-nav .nav-link:not(.dropdown-toggle)').on('click', function() {
+        // Проверяем, открыто ли меню на мобильном устройстве
+        if ($(window).width() < 992) {
+            $('.navbar-collapse').collapse('hide');
+        }
+    });
+    
+    // Предотвращаем закрытие меню при клике на dropdown-toggle
+    $('.dropdown-toggle').on('click', function(e) {
+        if ($(window).width() < 992) {
+            e.stopPropagation();
+            // Bootstrap сам обработает открытие/закрытие подменю
+        }
+    });
+
+    // Закрытие меню при клике вне его области (только для мобильных)
+    $(document).on('click', function(event) {
+        if ($(window).width() < 992) {
+            var clickover = $(event.target);
+            var navbar = $(".navbar");
+            var _opened = $(".navbar-collapse").hasClass("show");
+            
+            if (_opened === true && !navbar.is(clickover) && navbar.has(clickover).length === 0) {
+                $(".navbar-collapse").collapse('hide');
+            }
+        }
+    });
+
+    // Обработчик для кнопки бургер-меню
+    $('.navbar-toggler').on('click', function() {
+        var navbarCollapse = $('.navbar-collapse');
+        // Bootstrap автоматически переключит состояние
+    });
+});
+</script>
 
 <?php 
 // Закрываем соединение с базой данных
