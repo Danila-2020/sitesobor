@@ -173,10 +173,12 @@ echo getStyles();
                 background-color: rgba(0, 69, 113, 0.95);
                 padding: 1rem;
                 border-radius: 0 0 8px 8px;
+                margin-top: 10px;
             }
             
             .nav-link {
                 margin: 0.2rem 0;
+                padding: 0.75rem 1rem;
             }
             
             .iframe-wrapper {
@@ -187,14 +189,16 @@ echo getStyles();
             .dropdown-menu {
                 background-color: rgba(0, 69, 113, 0.8) !important;
                 border: 1px solid rgba(253, 253, 253, 0.2);
-                margin-left: 20px;
+                margin-left: 0;
                 padding: 0.5rem 0;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                box-shadow: none;
             }
             
             .dropdown-item {
-                padding: 0.5rem 1.5rem;
+                padding: 0.75rem 1.5rem;
                 color: #fdfdfd !important;
+                border-radius: 4px;
+                margin: 2px 0;
             }
             
             .dropdown-item:hover {
@@ -208,6 +212,21 @@ echo getStyles();
             
             .nav-item.dropdown.show .dropdown-menu {
                 display: block;
+            }
+            
+            /* Улучшенные стили для кнопки гамбургера */
+            .navbar-toggler {
+                border: 1px solid rgba(253, 253, 253, 0.3);
+                padding: 0.25rem 0.5rem;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28253, 253, 253, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            
+            .navbar-toggler:focus {
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(253, 253, 253, 0.5);
             }
         }
         
@@ -401,17 +420,17 @@ echo getStyles();
             .dropdown-menu {
                 background-color: rgba(0, 69, 113, 0.8);
                 border: 1px solid rgba(253, 253, 253, 0.2);
-                margin-left: 20px;
+                margin-left: 0;
                 padding: 0.5rem 0;
             }
             
             .dropdown-item {
-                padding: 0.5rem 1.5rem;
+                padding: 0.75rem 1.5rem;
             }
             
             .btn-outline-primary {
-                margin: 10px 15px;
-                width: calc(100% - 30px);
+                margin: 10px 0;
+                width: 100%;
                 text-align: center;
             }
             
@@ -423,6 +442,15 @@ echo getStyles();
             /* Показываем меню только когда есть класс show */
             .nav-item.dropdown.show .dropdown-menu {
                 display: block;
+            }
+            
+            /* Улучшенные стили для мобильного навбара */
+            .navbar-nav {
+                margin-top: 10px;
+            }
+            
+            .nav-item {
+                margin-bottom: 5px;
             }
         }
 
@@ -773,7 +801,9 @@ include('template/footer2.php');
         $('.dropdown-toggle').on('click', function(e) {
             if ($(window).width() < 992) {
                 e.stopPropagation();
-                // Bootstrap сам обработает открытие/закрытие подменю
+                var $parent = $(this).closest('.dropdown');
+                $parent.toggleClass('show');
+                $parent.find('.dropdown-menu').toggleClass('show');
             }
         });
         
@@ -793,6 +823,9 @@ include('template/footer2.php');
                 
                 if (_opened === true && !navbar.is(clickover) && navbar.has(clickover).length === 0) {
                     $(".navbar-collapse").collapse('hide');
+                    // Также закрываем все открытые dropdown-меню
+                    $('.dropdown').removeClass('show');
+                    $('.dropdown-menu').removeClass('show');
                 }
             }
         });
@@ -801,7 +834,15 @@ include('template/footer2.php');
         $(window).on('resize', function() {
             if ($(window).width() >= 992) {
                 $('.navbar-collapse').removeClass('show');
+                $('.dropdown').removeClass('show');
+                $('.dropdown-menu').removeClass('show');
             }
+        });
+        
+        // Инициализация карусели
+        $('.carousel').carousel({
+            interval: 5000,
+            pause: 'hover'
         });
     });
     
