@@ -18,6 +18,8 @@ echo getStyles();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <!-- Подключение Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Подключение Ekko Lightbox -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
     <style>
         @font-face {
             font-family: 'Russian Land Cyrillic';
@@ -529,6 +531,7 @@ echo getStyles();
             height: 100%;
             width: 100%;
             background-color: rgba(0, 69, 113, 0.3);
+            cursor: pointer;
         }
         
         .carousel-indicators {
@@ -621,6 +624,64 @@ echo getStyles();
             border-radius: 8px;
             margin-top: 20px;
         }
+        
+        /* Стили для Ekko Lightbox */
+        .ekko-lightbox .modal-content {
+            background-color: rgba(0, 69, 113, 0.95);
+            border: 1px solid rgba(253, 253, 253, 0.2);
+            border-radius: 8px;
+        }
+        
+        .ekko-lightbox .modal-header {
+            border-bottom: 1px solid rgba(253, 253, 253, 0.2);
+            padding: 10px 15px;
+        }
+        
+        .ekko-lightbox .modal-title {
+            color: #fdfdfd;
+            font-size: 16px;
+        }
+        
+        .ekko-lightbox .close {
+            color: #fdfdfd;
+            opacity: 0.8;
+            text-shadow: none;
+            font-size: 24px;
+            padding: 5px;
+        }
+        
+        .ekko-lightbox .close:hover {
+            color: #6096b8;
+            opacity: 1;
+        }
+        
+        .ekko-lightbox .modal-body {
+            padding: 15px;
+        }
+        
+        .ekko-lightbox .modal-body img {
+            max-width: 100%;
+            max-height: 70vh;
+            width: auto;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .ekko-lightbox-nav-overlay a {
+            color: #fdfdfd;
+            opacity: 0.7;
+            padding: 20px;
+        }
+        
+        .ekko-lightbox-nav-overlay a:hover {
+            opacity: 1;
+            color: #6096b8;
+        }
+        
+        .ekko-lightbox-nav-overlay a span {
+            font-size: 30px;
+        }
     </style>
 </head>
 <body>
@@ -702,7 +763,7 @@ include('template/allnavbar.php');
             <div class="gallery-module">
                 <h2 class="text-center">Фотогалерея</h2>
                 
-                <div id="gallerySlider" class="carousel slide gallery-container" data-ride="carousel">
+                <div id="gallerySlider" class="carousel slide gallery-container" data-ride="carousel" data-interval="5000">
                     <div class="carousel-inner">
                         <?php
                         $galleryDir = 'gallery/';
@@ -713,7 +774,7 @@ include('template/allnavbar.php');
                                 $active = $index === 0 ? 'active' : '';
                                 echo '
                                 <div class="carousel-item '.$active.' gallery-slide">
-                                    <a href="'.$image.'" data-toggle="lightbox" data-gallery="gallery">
+                                    <a href="'.$image.'" data-toggle="lightbox" data-gallery="gallery" data-type="image" data-footer="Изображение '.($index+1).' из '.count($images).'">
                                         <img src="'.$image.'" class="d-block w-100 rounded" alt="Слайд '.($index+1).'" loading="lazy">
                                     </a>
                                 </div>';
@@ -728,6 +789,7 @@ include('template/allnavbar.php');
                         ?>
                     </div>
                     
+                    <!-- Стрелки для перелистывания -->
                     <a class="carousel-control-prev" href="#gallerySlider" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Назад</span>
@@ -737,6 +799,7 @@ include('template/allnavbar.php');
                         <span class="sr-only">Вперед</span>
                     </a>
                     
+                    <!-- Индикаторы слайдов -->
                     <ol class="carousel-indicators">
                         <?php
                         if (!empty($images)) {
@@ -767,29 +830,74 @@ include('template/allnavbar.php');
 include('template/footer2.php');
 ?>
 
-<!-- Подключение Ekko Lightbox -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
-
-<!-- Подключение jQuery, Popper.js и Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Подключение jQuery (полная версия для совместимости) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Подключение Popper.js и Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
 
 <script>
-    // Активация Lightbox
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-        event.preventDefault();
-        $(this).ekkoLightbox({
-            wrapping: false,
-            onShown: function() {
-                $('.ekko-lightbox').css('background-color', 'rgba(0, 69, 113, 0.95)');
-            }
-        });
-    });
-    
-    // Исправление для мобильного меню - предотвращение закрытия при клике на dropdown
+    // Ждем полной загрузки DOM
     $(document).ready(function() {
+        console.log('DOM loaded, initializing scripts...');
+        
+        // Инициализация Lightbox с галереей
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            
+            // Настройки Lightbox
+            $(this).ekkoLightbox({
+                wrapping: true, // Включить циклическую навигацию
+                showArrows: true, // Показать стрелки навигации
+                alwaysShowClose: true, // Всегда показывать кнопку закрытия
+                galleryParentSelector: 'body',
+                onShown: function() {
+                    // Настройка стилей Lightbox
+                    $('.ekko-lightbox').css('background-color', 'rgba(0, 69, 113, 0.95)');
+                    $('.ekko-lightbox .modal-content').css('background-color', 'rgba(0, 69, 113, 0.95)');
+                    $('.ekko-lightbox .modal-header').css('border-bottom', '1px solid rgba(253, 253, 253, 0.2)');
+                    $('.ekko-lightbox .modal-title').css('color', '#fdfdfd');
+                    $('.ekko-lightbox .close').css({
+                        'color': '#fdfdfd',
+                        'opacity': '0.8',
+                        'text-shadow': 'none'
+                    });
+                    
+                    // Улучшаем стрелки навигации
+                    $('.ekko-lightbox-nav-overlay a').css({
+                        'color': '#fdfdfd',
+                        'opacity': '0.7'
+                    });
+                    
+                    // Добавляем обработчики клавиатуры
+                    $(document).off('keydown.lightbox').on('keydown.lightbox', function(e) {
+                        if ($('.ekko-lightbox').is(':visible')) {
+                            if (e.keyCode === 37) { // Стрелка влево
+                                $('.ekko-lightbox-nav-overlay a:first').click();
+                            } else if (e.keyCode === 39) { // Стрелка вправо
+                                $('.ekko-lightbox-nav-overlay a:last').click();
+                            } else if (e.keyCode === 27) { // ESC
+                                $('.ekko-lightbox .close').click();
+                            }
+                        }
+                    });
+                    
+                    console.log('Lightbox показан, галерея активна');
+                },
+                onNavigate: function(direction, itemIndex) {
+                    console.log('Навигация в Lightbox:', direction, 'текущий индекс:', itemIndex);
+                }
+            });
+        });
+        
+        // Простая инициализация бургер-меню Bootstrap
+        $('.navbar-toggler').on('click', function() {
+            console.log('Burger menu clicked');
+            var target = $(this).data('target');
+            $(target).collapse('toggle');
+        });
+        
         // Закрытие меню при клике на обычные ссылки (не dropdown)
         $('.navbar-nav .nav-link:not(.dropdown-toggle)').on('click', function() {
             if ($(window).width() < 992) {
@@ -797,9 +905,10 @@ include('template/footer2.php');
             }
         });
         
-        // Предотвращение закрытия меню при клике на dropdown-toggle
+        // Обработка dropdown меню для мобильных устройств
         $('.dropdown-toggle').on('click', function(e) {
             if ($(window).width() < 992) {
+                e.preventDefault();
                 e.stopPropagation();
                 var $parent = $(this).closest('.dropdown');
                 $parent.toggleClass('show');
@@ -811,6 +920,8 @@ include('template/footer2.php');
         $('.dropdown-item').on('click', function() {
             if ($(window).width() < 992) {
                 $('.navbar-collapse').collapse('hide');
+                $('.dropdown').removeClass('show');
+                $('.dropdown-menu').removeClass('show');
             }
         });
         
@@ -839,11 +950,26 @@ include('template/footer2.php');
             }
         });
         
-        // Инициализация карусели
-        $('.carousel').carousel({
+        // Инициализация карусели галереи
+        $('#gallerySlider').carousel({
             interval: 5000,
-            pause: 'hover'
+            pause: 'hover',
+            wrap: true,
+            keyboard: true
         });
+        
+        // Добавляем обработчики для стрелок галереи
+        $('.carousel-control-prev, .carousel-control-next').on('click', function() {
+            console.log('Carousel navigation clicked');
+        });
+        
+        // Добавляем обработку индикаторов галереи
+        $('.carousel-indicators li').on('click', function() {
+            var slideTo = $(this).data('slide-to');
+            $('#gallerySlider').carousel(slideTo);
+        });
+        
+        console.log('All scripts initialized successfully');
     });
     
     // Функция для автоматической регулировки высоты iframe
