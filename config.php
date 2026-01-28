@@ -22,7 +22,7 @@ try {
 // Проверка авторизации
 function checkAuth() {
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-        header('Location: login.php');
+        header('Location: signin.php');
         exit;
     }
 }
@@ -40,7 +40,7 @@ function getTableNames($pdo) {
 // Выход из системы
 if (isset($_GET['logout'])) {
     session_destroy();
-    header('Location: login.php');
+    header('Location: signin.php');
     exit;
 }
 ?>

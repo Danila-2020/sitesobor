@@ -174,6 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_iframe'])) {
 
 // Получаем список доступных страниц
 $available_pages = [
+    'index.php' => 'Главная страница',
     'unews.php' => 'Новости',
     'clergy.php' => 'Духовенство', 
     'tour.php' => 'Виртуальный тур',

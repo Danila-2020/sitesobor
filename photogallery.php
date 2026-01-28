@@ -45,7 +45,7 @@ echo getStyles();
         }
 
         .content-container {
-            max-width: 1200px;
+            max-width: 1400px; /* Увеличил ширину для 4 колонок */
             margin: 0 auto;
             padding: 20px;
         }
@@ -57,7 +57,7 @@ echo getStyles();
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr); /* Фиксированные 4 колонки */
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -78,13 +78,16 @@ echo getStyles();
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
 
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .gallery-item img.lazyloaded {
@@ -98,7 +101,7 @@ echo getStyles();
             z-index: 9999;
             left: 0; top: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             justify-content: center;
             align-items: center;
         }
@@ -107,23 +110,55 @@ echo getStyles();
             max-width: 90%;
             max-height: 90%;
             border: 4px solid white;
+            border-radius: 8px;
             user-select: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .modal-close, .modal-prev, .modal-next {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             font-size: 30px;
             color: white;
             cursor: pointer;
             user-select: none;
             z-index: 10000;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
         }
 
-        .modal-prev { left: 20px; }
-        .modal-next { right: 20px; }
-        .modal-close { top: 20px; right: 30px; font-size: 24px; }
+        .modal-close:hover, .modal-prev:hover, .modal-next:hover {
+            background-color: rgba(96, 150, 184, 0.8);
+            transform: scale(1.1);
+        }
+
+        .modal-prev { 
+            left: 20px; 
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .modal-next { 
+            right: 20px; 
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .modal-close { 
+            top: 20px; 
+            right: 20px; 
+            font-size: 24px; 
+            transform: none;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
 
         /* Стили пагинации */
         .pagination {
@@ -132,12 +167,12 @@ echo getStyles();
             flex-wrap: wrap;
             list-style: none;
             padding: 0;
-            margin: 30px 0;
+            margin: 40px 0 30px;
         }
 
         .page-link {
             display: inline-block;
-            padding: 8px 14px;
+            padding: 8px 16px;
             margin: 4px;
             font-size: 16px;
             color: #fff;
@@ -146,12 +181,15 @@ echo getStyles();
             border-radius: 6px;
             text-decoration: none;
             transition: all 0.3s ease;
+            min-width: 40px;
+            text-align: center;
         }
 
         .page-link:hover,
         .page-link:focus {
             background-color: rgba(96, 150, 184, 0.9);
             color: #fff;
+            transform: translateY(-2px);
         }
 
         .page-link.active {
@@ -159,6 +197,8 @@ echo getStyles();
             font-weight: bold;
             color: #fff;
             border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .page-info {
@@ -166,22 +206,30 @@ echo getStyles();
             color: #fff;
             font-size: 14px;
             margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(96, 150, 184, 0.2);
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px auto;
         }
 
         .btn-primary {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: rgba(96, 150, 184, 0.7);
             border: 1px solid #fdfdfd;
             color: #fdfdfd;
             border-radius: 5px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             margin-top: 30px;
+            font-size: 16px;
         }
 
         .btn-primary:hover {
             background-color: rgba(96, 150, 184, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* Прелоадер для изображений */
@@ -206,6 +254,158 @@ echo getStyles();
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .content-container {
+                max-width: 1100px;
+                padding: 15px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .content-container {
+                max-width: 900px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 колонки на планшетах */
+            }
+            
+            .modal-prev, .modal-next {
+                width: 45px;
+                height: 45px;
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-container {
+                max-width: 700px;
+                padding: 10px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 колонки на мобильных */
+                gap: 12px;
+            }
+            
+            .gallery-item:hover {
+                transform: translateY(-3px);
+            }
+            
+            .modal-prev, .modal-next {
+                width: 40px;
+                height: 40px;
+                font-size: 22px;
+                left: 10px;
+                right: 10px;
+            }
+            
+            .modal-close {
+                top: 15px;
+                right: 15px;
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+            
+            .modal img {
+                max-width: 95%;
+                max-height: 85%;
+            }
+            
+            .pagination {
+                margin: 30px 0 20px;
+            }
+            
+            .page-link {
+                padding: 6px 12px;
+                font-size: 14px;
+                min-width: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-container {
+                max-width: 100%;
+                padding: 8px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .gallery-header h1 {
+                font-size: 20px;
+            }
+            
+            .pagination {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .page-link {
+                margin: 3px;
+                width: 100%;
+                max-width: 150px;
+            }
+            
+            .btn-primary {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .gallery-grid {
+                grid-template-columns: 1fr; /* 1 колонка на очень маленьких экранах */
+            }
+            
+            .modal-prev, .modal-next {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+        }
+
+        /* Анимация появления изображений */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.8s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.9s; }
+        .gallery-item:nth-child(10) { animation-delay: 1.0s; }
+        .gallery-item:nth-child(11) { animation-delay: 1.1s; }
+        .gallery-item:nth-child(12) { animation-delay: 1.2s; }
+
+        /* Плавная прокрутка для модального окна */
+        .modal img {
+            transition: opacity 0.3s ease;
+        }
+
+        .modal img.fading {
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -216,11 +416,11 @@ echo getStyles();
 
         <?php
         // Настройки пагинации
-        $imagesPerPage = 12;
+        $imagesPerPage = 12; // Делится на 4 для ровных рядов
         $galleryDir = 'gallery/';
 
         // Получаем все изображения
-        $images = glob($galleryDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+        $images = glob($galleryDir . '*.{jpg,jpeg,png,gif,webp}', GLOB_BRACE);
 
         // Сортируем по дате изменения (новые сначала)
         if (!empty($images)) {
@@ -245,26 +445,32 @@ echo getStyles();
 
         // Выводим галерею
         if (empty($images)) {
-            echo '<p>В галерее пока нет фотографий.</p>';
+            echo '<p style="text-align: center; font-size: 18px; padding: 40px;">В галерее пока нет фотографий.</p>';
         } else {
             echo '<div class="gallery-grid" id="gallery">';
-            foreach ($currentImages as $image) {
+            foreach ($currentImages as $index => $image) {
                 $imageName = basename($image);
                 $thumbPath = 'gallery/thumbs/' . $imageName;
                 
                 // Создаем миниатюру, если ее нет
                 if (!file_exists($thumbPath)) {
-                    createThumbnail($image, $thumbPath, 300);
+                    createThumbnail($image, $thumbPath, 400); // Увеличил размер миниатюр для лучшего качества
                 }
                 
+                // Получаем размер файла
+                $fileSize = file_exists($image) ? filesize($image) : 0;
+                $sizeFormatted = $fileSize > 0 ? round($fileSize / 1024, 1) . ' KB' : '';
+                
                 echo '
-                <div class="gallery-item" onclick="openModal(this)">
+                <div class="gallery-item" onclick="openModal(this)" data-index="' . $index . '">
                     <img 
                         class="lazyload" 
                         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
                         data-src="'.$thumbPath.'" 
                         data-full="'.$image.'" 
-                        alt="'.$imageName.'" 
+                        alt="Фото ' . ($startIndex + $index + 1) . ' - ' . htmlspecialchars($imageName) . '" 
+                        title="' . htmlspecialchars($imageName) . ' (' . $sizeFormatted . ')"
+                        loading="lazy"
                     />
                 </div>';
             }
@@ -284,7 +490,7 @@ echo getStyles();
 
                 if ($startPage > 1) {
                     echo '<a href="?page=1" class="page-link">1</a>';
-                    if ($startPage > 2) echo '<span class="page-link">...</span>';
+                    if ($startPage > 2) echo '<span class="page-link" style="background: transparent; border: none;">...</span>';
                 }
 
                 for ($i = $startPage; $i <= $endPage; $i++) {
@@ -293,7 +499,7 @@ echo getStyles();
                 }
 
                 if ($endPage < $totalPages) {
-                    if ($endPage < $totalPages - 1) echo '<span class="page-link">...</span>';
+                    if ($endPage < $totalPages - 1) echo '<span class="page-link" style="background: transparent; border: none;">...</span>';
                     echo "<a href='?page=$totalPages' class='page-link'>$totalPages</a>";
                 }
 
@@ -305,8 +511,10 @@ echo getStyles();
                 echo '</nav>';
 
                 // Информация о страницах
-                echo '<div class="page-info">';
+                echo '<div style="text-align: center; margin: 15px 0;">';
+                echo '<span class="page-info">';
                 echo 'Страница '.$currentPage.' из '.$totalPages.' (всего '.count($images).' фото)';
+                echo '</span>';
                 echo '</div>';
             }
         }
@@ -331,6 +539,9 @@ echo getStyles();
                 case 'image/gif':
                     $image = imagecreatefromgif($source);
                     break;
+                case 'image/webp':
+                    $image = imagecreatefromwebp($source);
+                    break;
                 default:
                     return false;
             }
@@ -338,12 +549,13 @@ echo getStyles();
             $srcWidth = imagesx($image);
             $srcHeight = imagesy($image);
             
+            // Сохраняем пропорции
             $height = (int) (($width / $srcWidth) * $srcHeight);
             
             $thumb = imagecreatetruecolor($width, $height);
             
-            // Сохраняем прозрачность для PNG и GIF
-            if ($mime == 'image/png' || $mime == 'image/gif') {
+            // Сохраняем прозрачность для PNG, GIF и WebP
+            if ($mime == 'image/png' || $mime == 'image/gif' || $mime == 'image/webp') {
                 imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
                 imagealphablending($thumb, false);
                 imagesavealpha($thumb, true);
@@ -353,13 +565,16 @@ echo getStyles();
             
             switch ($mime) {
                 case 'image/jpeg':
-                    imagejpeg($thumb, $destination, 80);
+                    imagejpeg($thumb, $destination, 85); // Лучшее качество
                     break;
                 case 'image/png':
                     imagepng($thumb, $destination, 8);
                     break;
                 case 'image/gif':
                     imagegif($thumb, $destination);
+                    break;
+                case 'image/webp':
+                    imagewebp($thumb, $destination, 85);
                     break;
             }
             
@@ -370,16 +585,16 @@ echo getStyles();
         }
         ?>
         
-        <div style="text-align: center;">
+        <div style="text-align: center; margin-top: 30px;">
             <a href="index.php" class="btn-primary">Вернуться на главную</a>
         </div>
     </div>
 
     <!-- Модальное окно -->
-    <div class="modal" id="modal">
+    <div class="modal" id="modal" onclick="closeModal(event)">
         <div class="modal-close" onclick="closeModal()">&#10006;</div>
-        <div class="modal-prev" onclick="prevImage()">&#10094;</div>
-        <div class="modal-next" onclick="nextImage()">&#10095;</div>
+        <div class="modal-prev" onclick="prevImage(event)">&#10094;</div>
+        <div class="modal-next" onclick="nextImage(event)">&#10095;</div>
         <img id="modal-img" src="" />
     </div>
 
@@ -390,33 +605,62 @@ echo getStyles();
         function openModal(element) {
             const galleryItems = document.querySelectorAll('.gallery-item');
             modalImages = Array.from(galleryItems).map(item => item.querySelector('img').dataset.full);
-            currentIndex = modalImages.indexOf(element.querySelector('img').dataset.full);
+            
+            // Получаем индекс из атрибута data-index
+            const itemIndex = parseInt(element.getAttribute('data-index'));
+            currentIndex = itemIndex !== undefined ? itemIndex : 0;
             
             // Предзагрузка соседних изображений
             preloadAdjacentImages(currentIndex);
             
-            document.getElementById('modal-img').src = modalImages[currentIndex];
+            const modalImg = document.getElementById('modal-img');
+            modalImg.classList.remove('fading');
+            modalImg.src = modalImages[currentIndex];
+            
+            // Показываем информацию о текущем изображении в заголовке
+            document.title = 'Фото ' + (currentIndex + 1) + ' из ' + modalImages.length + ' - Фотогалерея';
+            
             document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Блокируем скролл страницы
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+        function closeModal(e) {
+            // Закрываем только если кликнули на фон или на кнопку закрытия
+            if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
+                document.getElementById('modal').style.display = 'none';
+                document.body.style.overflow = 'auto'; // Восстанавливаем скролл
+                document.title = 'Фотогалерея'; // Восстанавливаем заголовок
+            }
         }
 
-        function prevImage() {
+        function prevImage(e) {
+            e.stopPropagation(); // Предотвращаем закрытие модального окна
             currentIndex = (currentIndex - 1 + modalImages.length) % modalImages.length;
-            document.getElementById('modal-img').src = modalImages[currentIndex];
-            
-            // Предзагрузка соседних изображений при навигации
-            preloadAdjacentImages(currentIndex);
+            changeModalImage();
         }
 
-        function nextImage() {
+        function nextImage(e) {
+            e.stopPropagation(); // Предотвращаем закрытие модального окна
             currentIndex = (currentIndex + 1) % modalImages.length;
-            document.getElementById('modal-img').src = modalImages[currentIndex];
+            changeModalImage();
+        }
+
+        function changeModalImage() {
+            const modalImg = document.getElementById('modal-img');
             
-            // Предзагрузка соседних изображений при навигации
-            preloadAdjacentImages(currentIndex);
+            // Эффект перехода
+            modalImg.classList.add('fading');
+            
+            setTimeout(() => {
+                modalImg.src = modalImages[currentIndex];
+                modalImg.classList.remove('fading');
+                
+                // Обновляем информацию о текущем изображении в заголовке
+                document.title = 'Фото ' + (currentIndex + 1) + ' из ' + modalImages.length + ' - Фотогалерея';
+                
+                // Предзагрузка соседних изображений при навигации
+                preloadAdjacentImages(currentIndex);
+            }, 300);
         }
 
         // Функция предзагрузки соседних изображений
@@ -433,10 +677,11 @@ echo getStyles();
         }
 
         document.addEventListener('keydown', function(e) {
-            if (document.getElementById('modal').style.display === 'flex') {
+            const modal = document.getElementById('modal');
+            if (modal.style.display === 'flex') {
                 if (e.key === 'Escape') closeModal();
-                if (e.key === 'ArrowLeft') prevImage();
-                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage({ stopPropagation: () => {} });
+                if (e.key === 'ArrowRight') nextImage({ stopPropagation: () => {} });
             }
         });
 
@@ -463,6 +708,22 @@ echo getStyles();
                     imageObserver.observe(img);
                 });
             }
+            
+            // Добавляем задержку для анимации появления
+            setTimeout(() => {
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    item.style.opacity = '1';
+                });
+            }, 100);
+        });
+
+        // Предзагрузка изображений текущей страницы при загрузке страницы
+        window.addEventListener('load', function() {
+            const currentPageImages = document.querySelectorAll('.gallery-item img[data-src]');
+            currentPageImages.forEach(img => {
+                const preloadImg = new Image();
+                preloadImg.src = img.dataset.src;
+            });
         });
     </script>
 </body>

@@ -3,20 +3,32 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Проверка существования config.php перед подключением
+if (!file_exists('config.php')) {
+    die('Ошибка: Файл config.php не найден. Убедитесь, что он существует в той же директории.');
+}
+
 require_once 'config.php';
+
+// Проверка существования функции checkAuth перед вызовом
+if (!function_exists('checkAuth')) {
+    die('Ошибка: Функция checkAuth не определена. Проверьте файл config.php.');
+}
+
 checkAuth();
 
-// Обработка выхода
+// Обработка выхода - исправлено: используем login.php как в config.php
 if (isset($_POST['logout'])) {
     session_destroy();
-    header('Location: signin.php');
+    header('Location: login.php');
     exit;
 }
 
-// Обработка загрузки изображения
+// Инициализация переменных
 $uploadMessage = '';
 $uploadSuccess = false;
 
+// Обработка загрузки изображения
 if (isset($_POST['upload_gallery'])) {
     if (isset($_FILES['gallery_image']) && $_FILES['gallery_image']['error'] === UPLOAD_ERR_OK) {
         $file = $_FILES['gallery_image'];
@@ -25,13 +37,20 @@ if (isset($_POST['upload_gallery'])) {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         $fileType = $file['type'];
         
-        // Альтернативная проверка MIME типа
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $fileType = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
+        // Альтернативная проверка MIME типа с проверкой функции finfo_open
+        if (function_exists('finfo_open')) {
+            $finfo = @finfo_open(FILEINFO_MIME_TYPE);
+            if ($finfo) {
+                $mimeType = @finfo_file($finfo, $file['tmp_name']);
+                if ($mimeType) {
+                    $fileType = $mimeType;
+                }
+                @finfo_close($finfo);
+            }
+        }
         
         if (!in_array($fileType, $allowedTypes)) {
-            $uploadMessage = 'Ошибка: Допустимы только изображения в форматах JPG, PNG, GIF, WebP. Получен: ' . $fileType;
+            $uploadMessage = 'Ошибка: Допустимы только изображения в форматах JPG, PNG, GIF, WebP. Получен: ' . htmlspecialchars($fileType);
         } 
         // Проверка размера файла (максимум 5MB)
         elseif ($file['size'] > 5 * 1024 * 1024) {
@@ -40,26 +59,28 @@ if (isset($_POST['upload_gallery'])) {
             // Создаем директорию gallery, если она не существует
             $galleryDir = 'gallery/';
             if (!is_dir($galleryDir)) {
-                if (!mkdir($galleryDir, 0755, true)) {
-                    $uploadMessage = 'Ошибка: Не удалось создать директорию для загрузки.';
+                if (!@mkdir($galleryDir, 0755, true)) {
+                    $uploadMessage = 'Ошибка: Не удалось создать директорию для загрузки. Проверьте права доступа.';
                 }
             }
             
-            // Проверяем права на запись в директорию
-            if (!is_writable($galleryDir)) {
-                $uploadMessage = 'Ошибка: Нет прав на запись в директорию gallery/.';
-            } else {
-                // Генерируем уникальное имя файла
-                $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                $fileName = uniqid() . '_' . time() . '.' . $fileExtension;
-                $filePath = $galleryDir . $fileName;
-                
-                // Пытаемся загрузить файл
-                if (move_uploaded_file($file['tmp_name'], $filePath)) {
-                    $uploadSuccess = true;
-                    $uploadMessage = 'Изображение успешно загружено в галерею!';
+            if ($uploadMessage === '') {
+                // Проверяем права на запись в директорию
+                if (!is_writable($galleryDir)) {
+                    $uploadMessage = 'Ошибка: Нет прав на запись в директорию gallery/.';
                 } else {
-                    $uploadMessage = 'Ошибка: Не удалось загрузить файл на сервер. Проверьте права доступа.';
+                    // Генерируем уникальное имя файла
+                    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                    $fileName = uniqid() . '_' . time() . '.' . $fileExtension;
+                    $filePath = $galleryDir . $fileName;
+                    
+                    // Пытаемся загрузить файл
+                    if (@move_uploaded_file($file['tmp_name'], $filePath)) {
+                        $uploadSuccess = true;
+                        $uploadMessage = 'Изображение успешно загружено в галерею!';
+                    } else {
+                        $uploadMessage = 'Ошибка: Не удалось загрузить файл на сервер. Проверьте права доступа.';
+                    }
                 }
             }
         }
@@ -78,12 +99,26 @@ if (isset($_POST['upload_gallery'])) {
     }
 }
 
-// Безопасное получение списка таблиц
+// Получение списка таблиц с обработкой ошибок
 try {
-    $tables = getTableNames($pdo);
+    // Проверка существования функции getTableNames
+    if (!function_exists('getTableNames')) {
+        throw new Exception('Функция getTableNames не определена');
+    }
+    
+    // Проверка существования переменной $pdo
+    if (!isset($pdo) || !($pdo instanceof PDO)) {
+        throw new Exception('PDO подключение не инициализировано');
+    }
+    
+    $tables = @getTableNames($pdo);
+    if (!is_array($tables)) {
+        $tables = [];
+    }
 } catch (Exception $e) {
     $tables = [];
-    error_log("Ошибка получения таблиц: " . $e->getMessage());
+    // Только логирование, не выводим ошибку пользователю
+    error_log("Ошибка получения таблиц в add_gallery.php: " . $e->getMessage());
 }
 
 // Словарь для перевода названий таблиц на русский
@@ -134,7 +169,6 @@ $tableNames = [
             border-radius: 3px; transition: background 0.3s;
         }
         .sidebar a:hover { background: #34495e; }
-        .sidebar li.active a { background: #34495e; }
         
         .main-content { flex: 1; padding: 2rem; background: white; }
         .table-header {
@@ -149,9 +183,6 @@ $tableNames = [
         }
         .btn-primary { background: #27ae60; }
         .btn-secondary { background: #3498db; }
-        .btn-edit { background: #f39c12; padding: 0.3rem 0.6rem; }
-        .btn-delete { background: #e74c3c; padding: 0.3rem 0.6rem; }
-        .btn-add-iframe { background: #3498db; margin-left: 10px; }
         
         .logout-btn { 
             background: #e74c3c; margin-top: 2rem; display: block; text-align: center;
@@ -177,14 +208,6 @@ $tableNames = [
             margin-bottom: 0.5rem;
             font-weight: bold;
             color: #2c3e50;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
         }
         
         .form-control-file {
@@ -265,6 +288,15 @@ $tableNames = [
             font-size: 12px;
             color: #856404;
         }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
@@ -273,7 +305,7 @@ $tableNames = [
         <div class="sidebar">
             <h3>Таблицы базы данных</h3>
             <ul>
-                <?php if (!empty($tables)): ?>
+                <?php if (!empty($tables) && is_array($tables)): ?>
                     <?php foreach ($tables as $table): ?>
                         <?php if (isset($tableNames[$table])): ?>
                             <li>
@@ -297,7 +329,7 @@ $tableNames = [
             
             <!-- Кнопка для добавления iframe -->
             <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #34495e;">
-                <a href="add_iframes.php" class="btn btn-add-iframe" style="display: block; text-align: center;">
+                <a href="add_iframes.php" class="btn" style="background: #3498db; display: block; text-align: center;">
                     <i class="fas fa-plus" style="margin-right: 5px;"></i> Добавить iframe
                 </a>
             </div>
@@ -386,7 +418,9 @@ $tableNames = [
                     PHP Version: <?php echo phpversion(); ?><br>
                     Max Upload Size: <?php echo ini_get('upload_max_filesize'); ?><br>
                     Gallery Directory: <?php echo is_dir('gallery/') ? 'Exists' : 'Not exists'; ?><br>
-                    Writable: <?php echo is_writable('gallery/') ? 'Yes' : 'No'; ?>
+                    Writable: <?php echo is_writable('gallery/') ? 'Yes' : 'No'; ?><br>
+                    Memory Limit: <?php echo ini_get('memory_limit'); ?><br>
+                    Post Max Size: <?php echo ini_get('post_max_size'); ?>
                 </div>
             </div>
 

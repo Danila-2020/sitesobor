@@ -20,6 +20,8 @@ echo getStyles();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Подключение Ekko Lightbox -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+    <!-- Подключение Swiper CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.css">
     <style>
         @font-face {
             font-family: 'Russian Land Cyrillic';
@@ -682,6 +684,218 @@ echo getStyles();
         .ekko-lightbox-nav-overlay a span {
             font-size: 30px;
         }
+        
+        /* Стили для iframe контейнера с горизонтальным скроллом (как в unews.php) */
+        .iframes-container {
+            background-color: rgba(0, 69, 113, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Контейнер для горизонтального скролла */
+        .iframes-scroll-container {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(253, 253, 253, 0.3) rgba(0, 69, 113, 0.3);
+            padding-bottom: 15px;
+        }
+
+        /* Стили для скроллбара в Webkit браузерах */
+        .iframes-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .iframes-scroll-container::-webkit-scrollbar-track {
+            background: rgba(0, 69, 113, 0.3);
+            border-radius: 4px;
+        }
+
+        .iframes-scroll-container::-webkit-scrollbar-thumb {
+            background: rgba(253, 253, 253, 0.3);
+            border-radius: 4px;
+        }
+
+        .iframes-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(253, 253, 253, 0.5);
+        }
+
+        /* Внутренний контейнер для flex элементов */
+        .iframes-inner-container {
+            display: inline-flex;
+            gap: 20px;
+            min-width: min-content;
+            padding: 10px 5px;
+        }
+
+        /* Элементы iframe для горизонтального скролла */
+        .iframe-scroll-item {
+            min-width: 320px;
+            flex-shrink: 0;
+            background-color: rgba(0, 69, 113, 0.6);
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        .iframe-scroll-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .iframe-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iframe-scroll-item h4 {
+            color: #fdfdfd;
+            margin-bottom: 10px;
+            font-family: 'Russian Land Cyrillic', Arial, sans-serif;
+            font-size: 1.1rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .embed-responsive {
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(253, 253, 253, 0.2);
+            background: white;
+            flex-grow: 1;
+            min-height: 200px;
+            width: 100%;
+        }
+
+        .embed-responsive iframe {
+            background: white !important;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .iframe-description {
+            color: #fdfdfd;
+            font-style: italic;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            min-height: 2.5rem;
+        }
+        
+        /* Индикатор скролла */
+        .scroll-indicator {
+            color: rgba(253, 253, 253, 0.7);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .scroll-indicator i {
+            margin-right: 5px;
+        }
+        
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .iframes-container {
+                padding: 15px;
+                margin-top: 20px;
+                margin-left: -15px;
+                margin-right: -15px;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            
+            .iframe-scroll-item {
+                min-width: 280px;
+                padding: 12px;
+            }
+            
+            .iframes-inner-container {
+                gap: 15px;
+            }
+            
+            .embed-responsive {
+                min-height: 180px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .iframe-scroll-item {
+                min-width: 260px;
+                padding: 10px;
+            }
+            
+            .iframes-inner-container {
+                gap: 12px;
+            }
+            
+            .embed-responsive {
+                min-height: 160px;
+            }
+            
+            .iframe-scroll-item h4 {
+                font-size: 1rem;
+                min-height: 2.5rem;
+            }
+            
+            .iframes-container {
+                padding: 10px;
+            }
+        }
+        
+        /* На десктопе убираем горизонтальный скролл и показываем в колонку */
+        @media (min-width: 992px) {
+            .iframes-scroll-container {
+                overflow-x: visible;
+            }
+            
+            .iframes-inner-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 20px;
+                width: 100%;
+            }
+            
+            .iframe-scroll-item {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .scroll-indicator {
+                display: none !important;
+            }
+        }
+        
+        /* Для очень широких экранов */
+        @media (min-width: 1200px) {
+            .iframes-inner-container {
+                grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            }
+        }
+        
+        /* Полная ширина для основного контента */
+        .full-width-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .news-main-content {
+            width: 100%;
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -700,11 +914,12 @@ echo getStyles();
 include('template/allnavbar.php');
 ?>
 
-<div class="relative page-wrap">
-    <div class="content-wrap relative">
+<div class="relative page-wrap full-width-container">
+    <div class="content-wrap relative full-width-container">
         <section class="land-see-hero-container mx-auto mb3 relative overflow-hidden">
             <div class="land-see-hero-main mx-auto"></div>
         </section>
+        
         <!-- Блок с iframe вместо карточек новостей -->
         <div class="iframe-news-container">
             <h2 class="news-header">Новости Благочиния</h2>
@@ -731,33 +946,60 @@ include('template/allnavbar.php');
                 </a>
             </div>
         </div>
+        
         <?php
-                    include('template/social-icons.php');
-                ?>        
+        include('template/social-icons.php');
+        ?>
+        
         <div class="container">
             <div class="row"><h1>Пару минут о вечном</h1></div>
             <!-- Блок с iframe "Пару минут о вечном" -->
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4">
-                <amp-iframe src="https://rutube.ru/play/embed/a34b4a11eb0b7d17d4d726ca10d2d85a/" height="608" width="360" layout="responsive" sandbox="allow-scripts allow-same-origin" allowfullscreen="" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="responsive" frameborder="0" style="--loader-delay-offset: 1ms !important;"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 168.889%;"></i-amphtml-sizer><amp-img src="/files/global/iframe.png" width="400" height="273" layout="fill" placeholder="" class="i-amphtml-element i-amphtml-layout-fill i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout amp-hidden" i-amphtml-layout="fill"><img decoding="async" src="/files/global/iframe.png" class="i-amphtml-fill-content i-amphtml-replaced-content"></amp-img><i-amphtml-scroll-container class="amp-active"><iframe class="i-amphtml-fill-content" name="amp_iframe0" allowfullscreen="" frameborder="0" allow="" sandbox="allow-scripts allow-same-origin" src="https://rutube.ru/play/embed/a34b4a11eb0b7d17d4d726ca10d2d85a/#amp=1" style="z-index: 0;"></iframe></i-amphtml-scroll-container></amp-iframe>
-            </div>
-            <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8">
-                <p>Полезно рассуждать? Очень полезно! Но во всяком рассуждении есть свои правила. 
-                    Святитель Николай Сербский пишет об этих правилах. 
-                    И мне хотелось бы сегодня вместе с вами над ними поразмышлять. 
-                    О трёх вещах, пишет святитель Николай, не берись рассуждать: о Боге, пока не укрепишься в вере, 
-                    о чужих грехах, пока не вспомнишь о своих,  и о грядущем дне, пока не увидишь рассвет. 
-                    Правила рассуждения всегда кроются в осмыслении своей собственной жизни, осмыслении своей 
-                    духовной жизни, но ещё и в осмыслении Промысла Божия. Действительно, рассуждение о Боге может 
-                    быть полезно и для тебя самого, и для другого человека, когда твоя душа крепка в вере, когда ты 
-                    испытал минуты сомнений, и минуты радости, и благодарности, и имеешь очень твёрдую духовную жизнь,
-                    основу. Рассуждать о грехах чужих полезно только тогда, когда вспомнишь о своих. Тогда твое  
-                    рассуждение о других грехах будет состраданием с надеждой на исправление. 
-                    И уж тем более рассуждать о грядущем дне можно тогда, когда ты видишь рассвет. Не мечтать, 
-                    не фантазировать, а видеть вокруг себя творение Божие и благодарить Того, Кто подарил нам жизнь.</p>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4">
+                    <amp-iframe src="https://rutube.ru/play/embed/a34b4a11eb0b7d17d4d726ca10d2d85a/" height="608" width="360" layout="responsive" sandbox="allow-scripts allow-same-origin" allowfullscreen="" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="responsive" frameborder="0" style="--loader-delay-offset: 1ms !important;"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 168.889%;"></i-amphtml-sizer><amp-img src="/files/global/iframe.png" width="400" height="273" layout="fill" placeholder="" class="i-amphtml-element i-amphtml-layout-fill i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout amp-hidden" i-amphtml-layout="fill"><img decoding="async" src="/files/global/iframe.png" class="i-amphtml-fill-content i-amphtml-replaced-content"></amp-img><i-amphtml-scroll-container class="amp-active"><iframe class="i-amphtml-fill-content" name="amp_iframe0" allowfullscreen="" frameborder="0" allow="" sandbox="allow-scripts allow-same-origin" src="https://rutube.ru/play/embed/a34b4a11eb0b7d17d4d726ca10d2d85a/#amp=1" style="z-index: 0;"></iframe></i-amphtml-scroll-container></amp-iframe>
+                </div>
+                <div class="col-12 col-sm-12 col-md-8 col-xl-8 col-lg-8">
+                    <p>Полезно рассуждать? Очень полезно! Но во всяком рассуждении есть свои правила. 
+                        Святитель Николай Сербский пишет об этих правилах. 
+                        И мне хотелось бы сегодня вместе с вами над ними поразмышлять. 
+                        О трёх вещах, пишет святитель Николай, не берись рассуждать: о Боге, пока не укрепишься в вере, 
+                        о чужих грехах, пока не вспомнишь о своих,  и о грядущем дне, пока не увидишь рассвет. 
+                        Правила рассуждения всегда кроются в осмыслении своей собственной жизни, осмыслении своей 
+                        духовной жизни, но ещё и в осмыслении Промысла Божия. Действительно, рассуждение о Боге может 
+                        быть полезно и для тебя самого, и для другого человека, когда твоя душа крепка в вере, когда ты 
+                        испытал минуты сомнений, и минуты радости, и благодарности, и имеешь очень твёрдую духовную жизнь,
+                        основу. Рассуждать о грехах чужих полезно только тогда, когда вспомнишь о своих. Тогда твое  
+                        рассуждение о других грехах будет состраданием с надеждой на исправление. 
+                        И уж тем более рассуждать о грядущем дне можно тогда, когда ты видишь рассвет. Не мечтать, 
+                        не фантазировать, а видеть вокруг себя творение Божие и благодарить Того, Кто подарил нам жизнь.</p>
+                </div>
             </div>
         </div>
+        <?php
+        $query = "SELECT * FROM `iframes` WHERE `page_iframes = 'index.php'";
+        ?>
+        <!-- Блок с iframe для главной страницы (аналогично unews.php) -->
+        <div class="container mt-4 full-width-container">
+            <div class="rounded bg-white alpha-90-dep clearfix full-width-container">
+                <div class="iframes-scroll-container">
+                        <div class="iframes-inner-container">
+                            <?php
+                            // Подключаем функцию отображения iframe
+                            require_once 'display_iframes.php';
+                            
+                            // Отображаем iframe для главной страницы
+                            // На главной странице не передаем конкретный ID, поэтому используем null
+                            displayIframes('index.php', null, $mysqli);
+                            ?>
+                        </div>
+                    </div>
+                    
+                    <div class="scroll-indicator">
+                        <i class="fas fa-arrow-left"></i> Прокрутите для просмотра большего количества <i class="fas fa-arrow-right"></i>
+                    </div>
+            </div>
         </div>
+        
         <!-- Галерея -->
         <div class="container mt-4 gallery-section">
             <div class="gallery-module">
@@ -836,6 +1078,8 @@ include('template/footer2.php');
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<!-- Подключение Swiper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
 
 <script>
     // Ждем полной загрузки DOM
@@ -967,6 +1211,33 @@ include('template/footer2.php');
         $('.carousel-indicators li').on('click', function() {
             var slideTo = $(this).data('slide-to');
             $('#gallerySlider').carousel(slideTo);
+        });
+        
+        // Исправление для бургер-меню Bootstrap и выпадающих меню
+        $('.dropdown-toggle').dropdown();
+        
+        // Закрытие меню при клике на ссылку
+        $('.navbar-nav .nav-link').on('click', function() {
+            $('.navbar-collapse').collapse('hide');
+        });
+        
+        // Закрытие меню при клике вне его области
+        $(document).on('click', function(event) {
+            var $target = $(event.target);
+            if (!$target.closest('.navbar').length && 
+                $('.navbar-collapse').hasClass('show')) {
+                $('.navbar-collapse').collapse('hide');
+            }
+        });
+        
+        // Предотвращаем закрытие при клике внутри меню
+        $('.navbar-collapse').on('click', function(event) {
+            event.stopPropagation();
+        });
+        
+        // Закрытие выпадающих меню при клике на пункт
+        $('.dropdown-item').on('click', function() {
+            $('.dropdown-menu').removeClass('show');
         });
         
         console.log('All scripts initialized successfully');
